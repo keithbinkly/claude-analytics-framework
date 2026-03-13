@@ -23,7 +23,7 @@ These are high-confidence analytics-platform assets.
 - `~/.claude/AGENTS.md`
   - Reason: currently acts as a cross-repo source of truth for analytics agents and residency
   - Target in CAF: `.claude/manifests/`
-  - Disposition: move or mirror, then deprecate global-first usage for analytics
+  - Disposition: mirror into CAF first, then deprecate global-first usage for analytics only when CAF-owned sections are stable
 
 #### Global analytics agent manifests and commands
 - `~/.claude/commands/system-architect.md`
@@ -34,7 +34,7 @@ Reason:
 - these are analytics-platform operating assets and should become CAF-owned
 
 Disposition:
-- migrate into CAF
+- copy or mirror into CAF
 
 #### Global analytics agent memory
 - `~/.claude/agent-memory/system-architect/`
@@ -69,7 +69,7 @@ Target in CAF:
 - `.claude/commands/`
 
 Disposition:
-- migrate into CAF, then either remove or leave compatibility stubs in `~/.claude/commands/`
+- copy into CAF, then either leave compatibility stubs in `~/.claude/commands/` or later retire the global copy if desired
 
 ### Candidate For Selective Migration
 These need a case-by-case decision.
@@ -134,6 +134,10 @@ For each migrated asset:
 3. Update nested repo bootstraps to point to CAF
 4. Optionally leave a short compatibility stub in `~/.claude/` that points to CAF
 5. Stop treating the global copy as canonical for analytics work
+
+Ownership note:
+- default to mirror/copy semantics first
+- only re-home or retire the original after explicit confirmation
 
 ## Definition Of Done
 This migration is complete when:

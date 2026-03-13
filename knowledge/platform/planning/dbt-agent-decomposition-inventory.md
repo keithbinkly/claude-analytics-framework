@@ -1,9 +1,9 @@
 # dbt-agent Decomposition Inventory
 
-Purpose: classify `dbt-agent` assets before any serious absorption into CAF.
+Purpose: classify `dbt-agent` assets before any serious copy-promote migration into CAF.
 
 This is the prerequisite inventory called for by the System Architect evaluation. Without it,
-"progressive absorption" is too vague to execute safely.
+"incremental promotion by copy" is too vague to execute safely.
 
 ## Classification Scheme
 Use one of four classifications for each asset:
@@ -14,6 +14,19 @@ Use one of four classifications for each asset:
 | Keep in dbt-domain | Specific to dbt-enterprise operations or deep dbt domain work |
 | Archive | Stale, superseded, or historical only |
 | Already duplicated | Exists in both places and needs canonical resolution |
+
+## Migration Guardrail
+`dbt-agent` remains intact throughout migration. Promotion into CAF is by copy unless there is a later,
+explicit decision to re-home or retire a specific asset.
+
+## Ownership Metadata
+Every copied or mirrored asset should record one of:
+- `source_of_truth: dbt-agent`
+- `source_of_truth: caf`
+- `mirrored_from: dbt-agent`
+- `deprecated_copy: true`
+
+This prevents drift while both repos remain active.
 
 ## High-Level Inventory Areas
 
@@ -98,6 +111,13 @@ Initial direction:
 - shared state model -> Promote to CAF
 - active or historical project artifacts -> Keep local or archive
 
+## Prioritization Rule
+Promote highest first:
+1. Assets that improve CAF-root startup and routing
+2. Assets teammates can immediately use and contribute to
+3. Assets that do not disrupt active dbt pipeline delivery
+4. Assets with clear shared ownership
+
 ## Required Next Pass
 This document needs a file-by-file pass across:
 - `dbt-agent/.claude/commands/`
@@ -114,6 +134,8 @@ For each asset, record:
 - target location if promoted
 - owner after migration
 - cutover dependency if any
+- ownership label
+- whether the CAF copy should be read-only mirror or editable team-owned copy
 
 ## Cutover Guardrail
 Do not downgrade `dbt-agent` from active control plane status until CAF has equivalent replacement coverage for:

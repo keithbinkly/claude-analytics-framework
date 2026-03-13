@@ -26,6 +26,7 @@ adapters:
     environment_notes:
       - "Use as the default starting point for analytics agents."
       - "This repo should become the source of truth for analytics-specific shared assets."
+      - "Prefer copying high-leverage assets into CAF rather than removing them from source repos."
 
   dbt-enterprise:
     display_name: "dbt-enterprise"
@@ -85,13 +86,14 @@ adapters:
   dbt-agent:
     display_name: "dbt-agent"
     path: "/Users/kbinkly/git-repos/dbt-agent"
-    role: "current_control_plane_and_migration_source"
-    description: "Current dbt-centric control plane and transitional source of reusable analytics-agent content being absorbed into CAF."
+    role: "current_operational_reference_and_migration_source"
+    description: "Current dbt-centric operating reference and transitional source of reusable analytics-agent content being copied into CAF."
     safe_work_types:
       - "content extraction"
       - "migration planning"
       - "reference lookup"
       - "domain-specific dbt knowledge reuse"
+      - "continued dbt-agent-native workflow execution"
     primary_state:
       - ".claude/"
       - "shared/"
@@ -107,10 +109,11 @@ adapters:
       - "shared command patterns"
       - "cross-repo memory and control-plane docs"
       - "reusable dbt-domain knowledge"
+      - "high-leverage team-facing assets"
     environment_notes:
       - "Still functions as the practical control plane for dbt-agent-specific workflows today."
-      - "Should not remain a parallel control plane long term."
-      - "Prefer migrating canonical shared assets into CAF rather than extending duplicates here."
+      - "Must remain fully usable throughout incremental migration."
+      - "Prefer copying canonical shared assets into CAF rather than removing them from dbt-agent."
       - "Reduce authority only as CAF replaces concrete capabilities."
 
 routing_rules:

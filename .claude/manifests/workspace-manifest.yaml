@@ -10,9 +10,10 @@ principles:
   - "CAF becomes canonical by replacing capabilities, not by declaration alone."
   - "dbt-enterprise stays intact as a production dbt project."
   - "data-centered stays intact as a content and visualization project."
-  - "dbt-agent is progressively absorbed into CAF."
+  - "dbt-agent stays intact while selected high-leverage assets are promoted into CAF by copy."
   - "Analytics-specific commands, manifests, and selected skills should live in CAF."
   - "Global agent memory stays in ~/.claude/agent-memory/."
+  - "Workflow preservation for active dbt pipeline development is a non-negotiable migration constraint."
 
 precedence:
   - "If analytics-related guidance conflicts between CAF and ~/.claude, prefer CAF once the specific capability has been migrated and declared authoritative."
@@ -56,14 +57,14 @@ repo_categories:
   content_product:
     description: "Publishing, storytelling, and showcase project."
   migration_source:
-    description: "Legacy or transitional repo whose reusable contents are being absorbed into CAF."
+    description: "Transitional source repo whose reusable contents are being selectively copied into CAF while the source remains intact."
 
 active_repos:
   - id: "caf"
     display_name: "claude-analytics-framework"
     path: "."
     category: "platform"
-    state: "canonical"
+    state: "planned_canonical_team_entrypoint"
     ownership_model: "shared"
   - id: "dbt-enterprise"
     display_name: "dbt-enterprise"
@@ -81,7 +82,7 @@ active_repos:
     display_name: "dbt-agent"
     path: "/Users/kbinkly/git-repos/dbt-agent"
     category: "migration_source"
-    state: "current_control_plane_and_migration_source"
+    state: "current_operational_reference_and_migration_source"
     ownership_model: "transitional_linked_repo"
 
 live_state_locations:
@@ -103,16 +104,28 @@ migration_policy:
     - "analytics-specific global skills"
     - "shared manifests and bootstrap docs"
     - "cross-repo coordination logic"
-    - "dbt-agent platform capabilities once replaced"
+    - "dbt-agent high-leverage team-facing assets copied by promotion"
   keep_intact_in_nested_repos:
     - "dbt-enterprise model code and project structure"
     - "data-centered site/content structure"
     - "repo-local delivery artifacts"
     - "global agent memory"
+    - "full dbt-agent source repo and pre-migration reference state"
   phase_out_from_dbt_agent:
-    - "duplicate platform documentation"
-    - "shared command/control-plane logic"
-    - "shared agent residency rules"
+    - "nothing by default during incremental migration"
+
+promotion_rules:
+  - "Prefer copy-promote over move-delete."
+  - "Preserve dbt-agent workflow functionality during the entire migration."
+  - "Promote highest-leverage team-shared assets first."
+  - "Every promoted asset should record ownership or mirror status."
+
+ownership_labels:
+  allowed:
+    - "source_of_truth: dbt-agent"
+    - "source_of_truth: caf"
+    - "mirrored_from: dbt-agent"
+    - "deprecated_copy: true"
 
 cutover_requirements:
   dbt_agent_to_caf:
@@ -131,4 +144,6 @@ success_conditions:
   - "A new analytics agent can start at CAF and route correctly without guessing across roots."
   - "Shared analytics platform behavior is defined in CAF."
   - "Linked repos remain operationally intact."
-  - "dbt-agent no longer functions as a parallel control plane once CAF has replaced its core capabilities."
+  - "dbt-agent remains fully usable throughout migration."
+  - "CAF exposes the highest-leverage shared assets for team use and contribution."
+  - "Ownership of promoted assets is explicit."

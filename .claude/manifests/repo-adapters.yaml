@@ -1,0 +1,132 @@
+version: 1
+last_updated: "2026-03-11"
+purpose: "Per-repo operating adapters for agents working inside the CAF analytics workspace."
+
+adapters:
+  caf:
+    display_name: "claude-analytics-framework"
+    path: "."
+    role: "shared_platform"
+    description: "Canonical analytics operating system, control plane, and shared team repo."
+    safe_work_types:
+      - "agent architecture"
+      - "shared commands and skills"
+      - "platform planning"
+      - "cross-repo workflows"
+      - "notebook and analysis scaffolding"
+    primary_state:
+      - "workstreams/active"
+      - "knowledge/platform"
+      - ".claude/manifests"
+    preferred_assets:
+      - ".claude/commands"
+      - ".claude/skills"
+      - ".claude/agents"
+      - "knowledge/platform"
+    environment_notes:
+      - "Use as the default starting point for analytics agents."
+      - "This repo should become the source of truth for analytics-specific shared assets."
+
+  dbt-enterprise:
+    display_name: "dbt-enterprise"
+    path: "/Users/kbinkly/git-repos/dbt_projects/dbt-enterprise"
+    role: "production_dbt_project"
+    description: "Intact production dbt project linked into the CAF workspace."
+    safe_work_types:
+      - "dbt model development"
+      - "project-specific architecture"
+      - "dbt QA"
+      - "semantic layer work tied to the project"
+      - "project documentation"
+    primary_state:
+      - "docs/"
+      - "models/"
+      - "analyses/"
+      - "tests/"
+    local_authority:
+      - "local CLAUDE.md"
+      - "local README.md"
+      - "project-specific docs and runbooks"
+    shared_dependencies_from_caf:
+      - "shared platform commands and manifests"
+      - "shared analytics agents and skills"
+    environment_notes:
+      - "Treat as the operational dbt project."
+      - "Preserve internal structure."
+      - "Prefer local project rules for production dbt workflow safety."
+      - "Do not assume that platform-level convenience overrides project-level constraints."
+
+  data-centered:
+    display_name: "data-centered"
+    path: "/Users/kbinkly/git-repos/data-centered"
+    role: "content_and_visualization_project"
+    description: "Intact publishing, storytelling, and visualization project linked into the CAF workspace."
+    safe_work_types:
+      - "article and content development"
+      - "visualization and dashboard work"
+      - "design system work"
+      - "knowledge curation"
+      - "showcase development"
+    primary_state:
+      - "docs/"
+      - ".claude/"
+      - "content and site assets"
+    local_authority:
+      - "local README.md"
+      - "local project docs"
+      - "local agent memory relevant to publishing and content"
+    shared_dependencies_from_caf:
+      - "shared analytics platform assets"
+      - "shared design and cross-repo coordination assets"
+    environment_notes:
+      - "Preserve internal structure."
+      - "Do not flatten content conventions into CAF root-level patterns."
+
+  dbt-agent:
+    display_name: "dbt-agent"
+    path: "/Users/kbinkly/git-repos/dbt-agent"
+    role: "current_control_plane_and_migration_source"
+    description: "Current dbt-centric control plane and transitional source of reusable analytics-agent content being absorbed into CAF."
+    safe_work_types:
+      - "content extraction"
+      - "migration planning"
+      - "reference lookup"
+      - "domain-specific dbt knowledge reuse"
+    primary_state:
+      - ".claude/"
+      - "shared/"
+      - "docs/"
+      - "handoffs/"
+      - ".dots/"
+    local_authority:
+      - "current dbt-agent CLAUDE.md and operational depth"
+      - "historical and domain-specific dbt operating knowledge"
+    migration_targets:
+      - "shared agent manifests"
+      - "shared bootstrap docs"
+      - "shared command patterns"
+      - "cross-repo memory and control-plane docs"
+      - "reusable dbt-domain knowledge"
+    environment_notes:
+      - "Still functions as the practical control plane for dbt-agent-specific workflows today."
+      - "Should not remain a parallel control plane long term."
+      - "Prefer migrating canonical shared assets into CAF rather than extending duplicates here."
+      - "Reduce authority only as CAF replaces concrete capabilities."
+
+routing_rules:
+  - condition: "task concerns shared analytics platform, manifests, commands, workstreams, or multi-repo coordination"
+    use_adapter: "caf"
+  - condition: "task concerns production dbt code, QA, or dbt-enterprise-specific behavior"
+    use_adapter: "dbt-enterprise"
+  - condition: "task concerns content publishing, storytelling, or site/visualization product work"
+    use_adapter: "data-centered"
+  - condition: "task concerns extracting or migrating reusable patterns from legacy agent infrastructure"
+    use_adapter: "dbt-agent"
+
+global_layer_policy:
+  default_position: "analytics-specific commands, manifests, and selected skills should migrate from ~/.claude into CAF"
+  keep_global_only_if:
+    - "asset is truly universal across unrelated domains"
+    - "asset is personal rather than team/platform level"
+    - "asset is not part of the analytics operating system"
+    - "asset is canonical memory for a truly global agent"

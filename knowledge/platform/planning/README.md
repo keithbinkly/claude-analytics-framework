@@ -19,6 +19,7 @@ This folder contains documentation for the ADLC Plan phase workflows:
 ## Related Manifests
 - `.claude/manifests/workspace-manifest.yaml` - canonical workspace topology, precedence rules, and migration policy
 - `.claude/manifests/repo-adapters.yaml` - per-repo routing rules, operating constraints, and shared-vs-local asset guidance
+- `.claude/manifests/ccv3-dependencies.yaml` - explicit inventory of CCV3/global-layer dependencies that promoted CAF assets still rely on
 
 ## Documentation Coming Soon
 - Idea organization and clustering strategies

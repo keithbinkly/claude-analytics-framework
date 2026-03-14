@@ -1,0 +1,97 @@
+version: 1
+last_updated: "2026-03-14"
+purpose: "Inventory CCV3/global-layer dependencies used by CAF-promoted assets so they can be made explicit, classified, and migrated intentionally."
+
+dependency_classes:
+  hard_runtime:
+    description: "CAF workflow breaks without this dependency."
+  soft_runtime:
+    description: "Improves behavior, but CAF should still function without it."
+  authoring_only:
+    description: "Needed to maintain or evolve the asset, not to consume it."
+  replace_later:
+    description: "Currently external, but should eventually be copied, wrapped, or re-homed into CAF."
+
+dependency_types:
+  - "skill"
+  - "command"
+  - "tool"
+  - "mcp"
+  - "script"
+  - "memory"
+  - "manifest"
+  - "rule"
+  - "doc"
+  - "other"
+
+policies:
+  - "No promoted CAF asset should have an undocumented dependency on ~/.claude or other CCV3 layers."
+  - "Prefer copying analytics-specific skills and commands into CAF before promoting an asset to team-ready status."
+  - "Prefer leaving global tools and global memory external initially, but declare them explicitly."
+  - "Every promoted asset should either declare graceful degradation or hard runtime requirements."
+  - "No machine-specific absolute paths should be introduced to hide unresolved dependencies."
+
+permitted_locations:
+  global_layer:
+    - "~/.claude/commands"
+    - "~/.claude/skills"
+    - "~/.claude/agent-memory"
+    - "~/.claude/AGENTS.md"
+  workspace:
+    - ".claude/commands"
+    - ".claude/skills"
+    - ".claude/manifests"
+    - "knowledge/"
+    - "scripts/"
+
+fallback_expectations:
+  hard_runtime:
+    required: true
+    expected_behavior_if_missing: "Stop and explain what is missing and how to install, enable, or locate it."
+  soft_runtime:
+    required: false
+    expected_behavior_if_missing: "Continue with reduced capability and explain the limitation."
+  authoring_only:
+    required: false
+    expected_behavior_if_missing: "Consumption should continue; only maintenance workflows are affected."
+  replace_later:
+    required: false
+    expected_behavior_if_missing: "Continue if possible; log as migration debt."
+
+assets:
+  - asset_id: "caf.pipeline-workflow.first-slice"
+    asset_path: ".claude/commands/"
+    owner: "caf"
+    notes: "Placeholder umbrella entry for the first promoted command slice."
+    dependencies:
+      - type: "mcp"
+        id: "dbt@dbt-agent-marketplace"
+        location: ".claude/settings.json"
+        class: "hard_runtime"
+        migration_target: "stay_external_documented"
+        fallback: "Stop and explain MCP setup requirement."
+      - type: "manifest"
+        id: "workspace-manifest"
+        location: ".claude/manifests/workspace-manifest.yaml"
+        class: "hard_runtime"
+        migration_target: "caf"
+        fallback: "Stop and explain missing workspace topology metadata."
+      - type: "memory"
+        id: "global-agent-memory"
+        location: "~/.claude/agent-memory"
+        class: "soft_runtime"
+        migration_target: "stay_global"
+        fallback: "Continue with reduced historical context."
+
+classification_workflow:
+  steps:
+    - "List every CCV3/global dependency for the promoted asset."
+    - "Classify each as hard_runtime, soft_runtime, authoring_only, or replace_later."
+    - "Record whether the dependency stays global, gets copied into CAF, or is wrapped by CAF."
+    - "Define fallback behavior if the dependency is missing."
+    - "Do not mark an asset team-ready until its dependency row is complete."
+
+definition_of_done:
+  - "Every promoted CAF asset has an entry here or in a future machine-readable successor."
+  - "No promoted asset relies on undocumented ~/.claude behavior."
+  - "Dependencies that remain global are intentional and explained."

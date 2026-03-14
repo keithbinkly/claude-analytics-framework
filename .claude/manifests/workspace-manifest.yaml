@@ -47,6 +47,7 @@ bootstrap_read_order:
   - "CLAUDE.md"
   - ".claude/manifests/workspace-manifest.yaml"
   - ".claude/manifests/repo-adapters.yaml"
+  - ".claude/manifests/ccv3-dependencies.yaml"
   - "knowledge/platform/planning/shared-agent-platform-monorepo-plan.md"
 
 repo_categories:
@@ -119,6 +120,7 @@ promotion_rules:
   - "Preserve dbt-agent workflow functionality during the entire migration."
   - "Promote highest-leverage team-shared assets first."
   - "Every promoted asset should record ownership or mirror status."
+  - "Every promoted asset should declare CCV3/global-layer dependencies explicitly."
 
 ownership_labels:
   allowed:
@@ -147,3 +149,4 @@ success_conditions:
   - "dbt-agent remains fully usable throughout migration."
   - "CAF exposes the highest-leverage shared assets for team use and contribution."
   - "Ownership of promoted assets is explicit."
+  - "CCV3/global dependencies for promoted assets are explicit and classified."

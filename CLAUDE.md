@@ -114,6 +114,50 @@ Project-local delivery code does not belong in CAF. Keep:
 
 See `CONTRIBUTING.md` for the contribution model.
 
+## Skill Activation (Auto-Load on Keywords)
+
+| Keywords | Skill | Path |
+|----------|-------|------|
+| migrate, legacy, refactor, pipeline | Migration | `.claude/skills/dbt-migration/` |
+| optimize, slow, DISTKEY, SORTKEY, performance | Redshift Optimization | `.claude/skills/dbt-redshift-optimization/` |
+| QA, validate, test, verify, variance | QA | `.claude/skills/dbt-qa/` |
+| style, format, where should, folder, canonical | Standards | `.claude/skills/dbt-standards/` |
+| dependencies, lineage, upstream, downstream | Lineage | `.claude/skills/dbt-lineage/` |
+| semantic layer, MetricFlow, metrics | Semantic Layer | `.claude/skills/dbt-semantic-layer-developer/` |
+| start migration, new pipeline, workflow | Orchestrator | `.claude/skills/dbt-orchestrator/` |
+| business context, requirements, transcript | Business Context | `.claude/skills/dbt-business-context/` |
+| data discovery, profile, source profiling | Data Discovery | `.claude/skills/dbt-data-discovery/` |
+| tech spec, architecture design | Tech Spec Writer | `.claude/skills/dbt-tech-spec-writer/` |
+| preflight, cost estimate | Preflight | `.claude/skills/dbt-preflight/` |
+| jinja, macro, dbt-utils | Jinja SQL | `.claude/skills/dbt-jinja-sql-optimizer/` |
+| echarts, rich text, chart config, visual map | ECharts Reference | `.claude/skills/echarts/` |
+| interactive dashboard, keyboard dashboard, deep dive, data story | Interactive Dashboard | `.claude/skills/interactive-dashboard-builder/` |
+| dbt unit test, TDD, test-driven | dbt Native Unit Test Reference | `.claude/skills/dbt-native-unit-test-reference/` |
+| business question, what were, how many, total sales | NL Queries | `.claude/skills/dbt-nl-queries/` |
+| dbt docs, dbt documentation, look up dbt | dbt Docs Lookup | `.claude/skills/dbt-docs-lookup/` |
+| MCP server, configure MCP, MCP setup | MCP Setup | `.claude/skills/dbt-mcp-setup/` |
+| Fusion, migrate to Fusion, Fusion engine | Fusion Migration | `.claude/skills/dbt-fusion-migration/` |
+| CI/CD, slim CI, deploy, state:modified | CI/CD Patterns | `.claude/skills/dbt-fundamentals/` |
+| /analyze, ensemble, multi-analyst, compare perspectives | Analyst Ensemble | `.claude/skills/ai-analyst-ensemble/` |
+| data story, storytelling page, data narrative, tell the story of | Data Storytelling | `.claude/skills/data-storytelling/` |
+| decision trace, past QA, have we seen this before | Decision Trace | `.claude/skills/dbt-decision-trace/` |
+| dbt artifacts, execution metadata, run history | dbt Artifacts | `.claude/skills/dbt-artifacts/` |
+| SQL unit test, pytest, DuckDB mock | SQL Unit Testing | `.claude/skills/dbt-sql-unit-testing/` |
+| outlier detection, Benford, gaps islands, GROUPING SETS | SQL Hidden Gems | `.claude/skills/sql-hidden-gems/` |
+
+Full registry: `.claude/skills/SKILLS_REGISTRY.md`
+
+## Anti-Patterns (Auto-Blocked)
+
+| Pattern | Impact | Fix |
+|---------|--------|-----|
+| `NOT IN (subquery)` | 4.18x slower | `NOT EXISTS` |
+| `OR` in JOIN | 4.07x slower | `UNION ALL` |
+| Deep nesting 3+ | 3.06x slower | CTEs |
+| `SELECT *` | 2.08x slower | Explicit columns |
+
+Full list: `knowledge/domains/redshift/reference/anti-pattern-impact.yml`
+
 ## Current Status
 
-CAF is the planned team entrypoint, but not every capability has been re-homed yet. Use CAF first, then consult `dbt-agent` where the promoted replacement does not yet exist.
+CAF is the shared team entrypoint with 27 promoted skills, 24+ commands, 26 agent definitions, and 21 operating rules. Core pipeline workflows are fully supported from CAF root. Consult `dbt-agent` for capabilities not yet promoted.

@@ -1,0 +1,130 @@
+# Domain Contracts - Declarative Validation for AI Analyst Domain Packs
+# Purpose: Define what metrics/dimensions each domain MUST have available
+# Usage: Validated by test_domain_contracts.py
+
+version: "1.0"
+
+contracts:
+  operations:
+    description: "Operations domain requires metrics for volume, rates, and channel analysis"
+
+    # Core metrics that MUST exist in semantic layer
+    required_metrics:
+      # Volume metrics
+      - spend_total_auth_attempts
+      - spend_total_approvals
+      - spend_total_declines
+      - spend_total_auth_attempt_amount
+      - spend_total_approval_amount
+      - spend_total_decline_amount
+
+      # Rate metrics (core KPIs)
+      - spend_approval_rate_by_count
+      - spend_decline_rate_by_count
+      - spend_approval_rate_by_amount
+      - spend_decline_rate_by_amount
+
+      # Channel metrics
+      - spend_cp_approval_rate
+      - spend_cnp_approval_rate
+      - spend_contactless_approval_rate
+      - spend_chip_approval_rate
+      - spend_manual_entry_approval_rate
+
+      # Cardholder impact
+      - spend_pct_cardholders_affected_by_declines
+      - spend_declines_per_affected_cardholder
+      - spend_distinct_cardholders
+
+    # Dimensions that MUST be available for operations queries
+    required_dimensions:
+      - metric_time
+      - merchant_auth_event__product_stack
+      - merchant_auth_event__pos_entry_mode
+      - merchant_auth_event__card_present
+      - merchant_auth_event__responsecode
+      - merchant_auth_event__mcc_category
+
+    # Sample questions that the domain pack MUST be able to answer
+    # Each maps to specific metrics and dimensions
+    sample_questions:
+      - question: "What is our transaction volume by product?"
+        expected_metrics:
+          - spend_total_auth_attempts
+        expected_dimensions:
+          - merchant_auth_event__product_stack
+
+      - question: "What is our approval rate?"
+        expected_metrics:
+          - spend_approval_rate_by_count
+        expected_dimensions:
+          - metric_time
+
+      - question: "What are the top decline reasons?"
+        expected_metrics:
+          - spend_total_declines
+        expected_dimensions:
+          - merchant_auth_event__responsecode
+
+      - question: "How does card-present compare to card-not-present?"
+        expected_metrics:
+          - spend_cp_approval_rate
+          - spend_cnp_approval_rate
+        expected_dimensions: []
+
+      - question: "What percentage of cardholders experienced declines?"
+        expected_metrics:
+          - spend_pct_cardholders_affected_by_declines
+        expected_dimensions:
+          - metric_time
+
+    # Guardrail rules that must be enforceable
+    guardrail_rules:
+      - rule: "Approval rate expected range"
+        metric: spend_approval_rate_by_count
+        expected_range: [0, 100]
+        unit: "percent"
+
+      - rule: "CP approval rate benchmark"
+        metric: spend_cp_approval_rate
+        expected_range: [0, 100]
+        benchmark: [95, 98]
+
+      - rule: "CNP approval rate benchmark"
+        metric: spend_cnp_approval_rate
+        expected_range: [0, 100]
+        benchmark: [70, 85]
+
+  # Placeholder contracts for future domains
+  finance:
+    description: "Finance domain - placeholder"
+    status: "placeholder"
+    required_metrics: []
+    required_dimensions: []
+    sample_questions: []
+    guardrail_rules: []
+
+  growth:
+    description: "Growth domain - placeholder"
+    status: "placeholder"
+    required_metrics: []
+    required_dimensions: []
+    sample_questions: []
+    guardrail_rules: []
+
+# Routing contract - keywords must map to valid domains
+routing_contract:
+  # Every domain referenced in keywords.yaml must have a domain pack
+  required_domain_packs:
+    - operations
+    # finance and growth are placeholders - excluded from validation
+
+  # Keywords that should NOT appear in multiple active domains
+  # (prevents routing ambiguity)
+  exclusive_keywords:
+    operations:
+      - "approval rate"
+      - "decline rate"
+      - "transaction volume"
+      - "card present"
+      - "card not present"

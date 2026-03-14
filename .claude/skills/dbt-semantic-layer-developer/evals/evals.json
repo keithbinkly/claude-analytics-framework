@@ -1,0 +1,31 @@
+{
+  "skill_name": "dbt-semantic-layer-developer",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I need a month-to-date cumulative metric for completed disbursement amounts. The semantic model is sem_disbursements_unified and the measure is called completed_amount. Write the metric YAML.",
+      "expected_output": "Correct cumulative metric YAML using grain_to_date: month (not window: 1 month)",
+      "files": [],
+      "expectations": [
+        "Uses grain_to_date: month (not window: 1 month)",
+        "Metric type is cumulative",
+        "References the correct measure name completed_amount",
+        "Includes a descriptive name following domain prefix convention (e.g. disbursement_mtd_completed_amount)",
+        "Does not use window for a month-to-date metric"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Create a decline_rate ratio metric. I have two measures in my semantic model: decline_cnt (count of declined transactions) and attempt_cnt (count of all attempted transactions). Write the metric YAML for decline_rate as decline_cnt / attempt_cnt.",
+      "expected_output": "Correct ratio metric that references intermediate simple metrics (not raw measures), since MetricFlow ratio numerator/denominator must be metric names not measure names",
+      "files": [],
+      "expectations": [
+        "Creates intermediate simple metrics wrapping decline_cnt and attempt_cnt measures",
+        "Ratio metric numerator and denominator reference metric names, not measure names",
+        "Does not set create_metric: true on the measures AND also define explicit metrics (duplication error)",
+        "Metric type is ratio",
+        "Includes descriptive labels"
+      ]
+    }
+  ]
+}

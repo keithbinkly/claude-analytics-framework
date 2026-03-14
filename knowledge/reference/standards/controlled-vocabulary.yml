@@ -1,0 +1,64 @@
+# source_of_truth: caf
+# mirrored_from: dbt-agent/shared/reference/controlled-vocabulary.yml
+# CAF migration note: this is a curated CAF subset focused on dbt pipeline naming and analytics conventions.
+
+metadata:
+  purpose: "Curated naming guidance for common analytics terms used in CAF-promoted dbt workflows"
+  scope: "Subset of the broader dbt-agent controlled vocabulary"
+
+preferred_terms:
+  - canonical: product_stack
+    aliases:
+      - portfolio
+      - product
+    guidance: "Prefer business-facing `product_stack` in marts and QA outputs; preserve source-native names where required upstream."
+
+  - canonical: calendar_date
+    aliases:
+      - createdate
+      - event_date
+      - report_date
+    guidance: "Use `calendar_date` for the normalized daily date grain in reporting outputs."
+
+  - canonical: week_end_date
+    aliases:
+      - response_week
+      - week_date
+    guidance: "Use `week_end_date` when the output grain is weekly."
+
+  - canonical: merchant_cleaned
+    aliases:
+      - merchant_nm
+      - merchant_name
+    guidance: "Prefer `merchant_cleaned` for reporting and QA; keep raw merchant fields only when needed for lineage or joins."
+
+  - canonical: acct_uid
+    aliases:
+      - accountkey
+      - sor_acct_id
+      - accountidentifier
+    guidance: "Prefer the most stable account identifier available for the chosen domain and document the mapping explicitly."
+
+  - canonical: sor_uid
+    aliases:
+      - paymentidentifier
+      - accountidentifier
+    guidance: "For GBOS-heavy joins, `sor_uid` is often the preferred stable join key when available."
+
+  - canonical: approve_count
+    aliases:
+      - approved_count
+      - success_count
+    guidance: "Use consistent metric naming in marts and QA summaries."
+
+  - canonical: decline_count
+    aliases:
+      - declined_count
+      - failed_count
+    guidance: "Separate declined and failed semantics if the business logic requires it; do not collapse categories casually."
+
+naming_rules:
+  - "Prefer business-facing canonical names in marts, semantic outputs, and QA comparisons."
+  - "Preserve source-native names in staging when that improves traceability."
+  - "When renaming across layers, document the mapping in model comments or handoff artifacts."
+  - "Avoid introducing multiple synonyms for the same business concept in a single downstream layer."

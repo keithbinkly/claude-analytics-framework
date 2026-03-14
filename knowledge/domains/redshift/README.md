@@ -13,3 +13,7 @@ Amazon Redshift-specific optimization patterns, performance heuristics, anti-pat
 - query optimization patterns
 - anti-pattern references
 - Redshift-specific operational knowledge promoted from `dbt-agent`
+
+## Promoted References
+
+- `reference/anti-pattern-impact.yml`

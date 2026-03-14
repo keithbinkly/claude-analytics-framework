@@ -40,8 +40,9 @@ For a fresh session, read these in order:
 4. `.claude/manifests/workspace-manifest.yaml`
 5. `.claude/manifests/repo-adapters.yaml`
 6. `.claude/manifests/workflow-contracts.yaml`
-7. `.claude/manifests/ccv3-dependencies.yaml`
-8. `knowledge/platform/planning/shared-agent-platform-monorepo-plan.md`
+7. `.claude/manifests/pipeline-state-schema.yaml`
+8. `.claude/manifests/ccv3-dependencies.yaml`
+9. `knowledge/platform/planning/shared-agent-platform-monorepo-plan.md`
 
 If you want local convenience links for the linked repos, run:
 
@@ -88,10 +89,17 @@ Look in these places for active state:
   - `.claude/manifests/`
 
 - `dbt-agent` state:
-  - `.dots/`
   - `handoffs/`
+  - `.dots/` if a pipeline-specific dot exists
   - `.claude/`
   - `shared/`
+
+For pipeline lifecycle state during migration, prefer:
+
+- `dbt-agent/handoffs/PIPELINE_REGISTRY.yaml`
+- `dbt-agent/handoffs/[pipeline]/PLAN.md`
+
+Treat `dbt-agent/.dots/pipeline-[name].md` as optional auxiliary state, not guaranteed state.
 
 - `dbt-enterprise` state:
   - local project docs
@@ -107,12 +115,27 @@ Use `.claude/manifests/workflow-contracts.yaml` for the machine-readable version
 
 ### Build or resume a dbt pipeline
 - read CAF manifests and planning docs
+- consult CAF dbt references under:
+  - `knowledge/domains/dbt-pipelines/reference/`
+  - `knowledge/reference/standards/`
+  - `knowledge/reference/tools/`
+  - `.claude/skills/dbt-tech-spec-writer/`
+  - `.claude/skills/dbt-preflight/`
+  - `.claude/skills/dbt-migration/`
+  - `.claude/skills/dbt-fundamentals/`
+  - `.claude/skills/dbt-lineage/`
+  - `.claude/skills/dbt-sql-unit-testing/`
+  - `.claude/skills/sql-hidden-gems/`
 - consult promoted CAF assets if available
 - consult `dbt-agent` if the capability is not yet promoted
 - run dbt CLI from `dbt-enterprise`
 
 ### Run QA on a dbt model
-- locate QA workflow guidance in CAF or `dbt-agent`
+- locate QA workflow guidance in CAF under `knowledge/domains/dbt-pipelines/reference/qa-validation-checklist.md`
+- use CAF troubleshooting and reusable-rule guidance under:
+  - `knowledge/domains/dbt-pipelines/reference/troubleshooting.md`
+  - `knowledge/domains/dbt-pipelines/decision-traces/rules.json`
+- use `knowledge/reference/tools/dbt-mcp-tools-reference.md` for tool routing
 - inspect the target model in `dbt-enterprise`
 - apply project-local dbt constraints from `dbt-enterprise`
 

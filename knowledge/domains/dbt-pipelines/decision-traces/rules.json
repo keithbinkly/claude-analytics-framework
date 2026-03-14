@@ -1,0 +1,226 @@
+{
+  "version": "1.0",
+  "last_synthesis": "2025-12-31T00:00:00Z",
+  "synthesis_config": {
+    "min_traces": 2,
+    "similarity_threshold": 0.7
+  },
+  "rules": [
+    {
+      "pattern_id": "rule_incremental_merge_tuple_collision",
+      "version": 1,
+      "source_traces": [
+        "qa_2025-12-16_001"
+      ],
+      "created": "2025-12-31T00:00:00Z",
+      "last_updated": "2025-12-31T00:00:00Z",
+      "confidence": "medium",
+      "pattern": {
+        "generalized_symptom": "Redshift incremental merge fails with 'Found multiple matches to update the same tuple'",
+        "error_types": [
+          "duplicate_rows",
+          "other"
+        ],
+        "contexts": [
+          "incremental_testing",
+          "refactoring"
+        ],
+        "detection_signals": [
+          "Found multiple matches",
+          "update the same tuple",
+          "incremental",
+          "merge",
+          "duplicate"
+        ]
+      },
+      "recommended_action": {
+        "first_try": "Change incremental_strategy from 'merge' to 'delete+insert'",
+        "rationale": "Merge requires strict uniqueness on unique_key. If source query produces duplicates, merge fails. delete+insert handles this by removing old rows first.",
+        "implementation": {
+          "file_pattern": "*.sql",
+          "change": "{{ config(materialized='incremental', incremental_strategy='delete+insert', unique_key='your_key') }}"
+        },
+        "alternatives": [
+          "Add DISTINCT to source query",
+          "Fix upstream join causing duplicates",
+          "Use different unique_key"
+        ]
+      },
+      "applicability": {
+        "when_applicable": [
+          "Redshift incremental models",
+          "Source query may produce duplicate unique_keys",
+          "Error contains 'multiple matches' or 'tuple'"
+        ],
+        "when_not_applicable": [
+          "unique_key is guaranteed unique by source",
+          "Performance-critical model where merge speed is essential",
+          "Not using incremental materialization"
+        ]
+      },
+      "metrics": {
+        "times_applied": 1,
+        "success_rate": 1.0,
+        "avg_resolution_minutes": 20,
+        "last_applied": "2025-12-16T14:30:00Z"
+      },
+      "temporal": {
+        "valid_from": "2025-12-31T00:00:00Z",
+        "valid_to": null,
+        "supersedes": null,
+        "superseded_by": null
+      }
+    },
+    {
+      "pattern_id": "rule_program_filter_shared_infrastructure",
+      "version": 1,
+      "source_traces": [
+        "qa_2025-12-30_001"
+      ],
+      "created": "2025-12-31T00:00:00Z",
+      "last_updated": "2025-12-31T00:00:00Z",
+      "confidence": "medium",
+      "pattern": {
+        "generalized_symptom": "Unexpected program data leaking into a program-specific model despite a JOIN to a program-specific table",
+        "error_types": [
+          "other"
+        ],
+        "contexts": [
+          "refactoring",
+          "migration"
+        ],
+        "detection_signals": [
+          "accepted_values",
+          "ProgramCode",
+          "Dayforce",
+          "TPG",
+          "unexpected values",
+          "filter leak"
+        ]
+      },
+      "recommended_action": {
+        "first_try": "Add an explicit WHERE clause for ProgramCode instead of relying on JOIN behavior for filtering",
+        "rationale": "Programs can share infrastructure tables, so JOINs alone do not guarantee filtering when records exist in the shared tables.",
+        "implementation": {
+          "file_pattern": "*.sql",
+          "change": "WHERE ProgramCode = 'dayforce'"
+        },
+        "alternatives": [
+          "Add program filter to upstream model",
+          "Create program-specific staging models"
+        ]
+      },
+      "applicability": {
+        "when_applicable": [
+          "RTP, Dayforce, or TPG transaction models",
+          "Models joining to shared infrastructure tables",
+          "Test failures on accepted_values for program codes"
+        ],
+        "when_not_applicable": [
+          "Programs with completely separate infrastructure",
+          "Models that intentionally include all programs"
+        ]
+      },
+      "metrics": {
+        "times_applied": 1,
+        "success_rate": 1.0,
+        "avg_resolution_minutes": 10,
+        "last_applied": "2025-12-30T10:00:00Z"
+      },
+      "temporal": {
+        "valid_from": "2025-12-31T00:00:00Z",
+        "valid_to": null,
+        "supersedes": null,
+        "superseded_by": null
+      }
+    },
+    {
+      "pattern_id": "rule_daily_grain_retention_policy",
+      "version": 1,
+      "source_traces": [
+        "qa_2025-12-30_002"
+      ],
+      "created": "2025-12-31T00:00:00Z",
+      "last_updated": "2025-12-31T00:00:00Z",
+      "confidence": "medium",
+      "pattern": {
+        "generalized_symptom": "0 rows returned for Daily grain validation on historical data older than the retention window",
+        "error_types": [
+          "missing_rows"
+        ],
+        "contexts": [
+          "migration",
+          "incremental_testing"
+        ],
+        "detection_signals": [
+          "0 rows",
+          "Daily",
+          "grain",
+          "historical",
+          "retention",
+          "missing data"
+        ]
+      },
+      "recommended_action": {
+        "first_try": "Switch validation to Monthly grain when Daily data is outside the retention window",
+        "rationale": "Some marts intentionally retain Daily grain data for a shorter period than Monthly grain.",
+        "implementation": {
+          "file_pattern": "*.sql",
+          "change": "WHERE time_period = 'Monthly' -- Daily only kept 21 days"
+        },
+        "alternatives": [
+          "Validate with recent dates",
+          "Check the mart retention policy",
+          "Confirm the retention expectation with stakeholders"
+        ]
+      },
+      "applicability": {
+        "when_applicable": [
+          "Validating marts with a time_period column",
+          "Historical data validation older than the Daily retention window",
+          "0 rows on Daily but Monthly has data"
+        ],
+        "when_not_applicable": [
+          "Recent data",
+          "Models without retention policies",
+          "Missing data across all grains"
+        ]
+      },
+      "metrics": {
+        "times_applied": 1,
+        "success_rate": 1.0,
+        "avg_resolution_minutes": 15,
+        "last_applied": "2025-12-30T14:30:00Z"
+      },
+      "temporal": {
+        "valid_from": "2025-12-31T00:00:00Z",
+        "valid_to": null,
+        "supersedes": null,
+        "superseded_by": null
+      }
+    }
+  ],
+  "emerging_patterns": [
+    {
+      "trace_id": "qa_2025-12-28_001",
+      "symptom": "Redshift error 'Relation already exists' for temp table during incremental run",
+      "fix_category": "logic_error",
+      "potential_rule": "rule_redshift_temp_table_stuck",
+      "awaiting_confirmation": 1
+    },
+    {
+      "trace_id": "qa_2025-12-22_001",
+      "symptom": "Compilation error for missing column in source",
+      "fix_category": "data_quality",
+      "potential_rule": "rule_missing_source_column",
+      "awaiting_confirmation": 1
+    },
+    {
+      "trace_id": "qa_2025-12-30_001b",
+      "symptom": "dbt parse failed with unexpected YAML keys",
+      "fix_category": "data_quality",
+      "potential_rule": "rule_dbt_fusion_yaml_strict",
+      "awaiting_confirmation": 1
+    }
+  ]
+}

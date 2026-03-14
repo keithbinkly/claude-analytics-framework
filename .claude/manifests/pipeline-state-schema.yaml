@@ -1,0 +1,131 @@
+version: 1
+last_updated: "2026-03-14"
+purpose: "Machine-readable contract for pipeline lifecycle state during the CAF -> dbt-agent migration period."
+
+authority:
+  control_plane_repo: "caf"
+  live_state_repo_during_migration: "dbt-agent"
+  execution_target_repo: "dbt-enterprise"
+
+storage_locations:
+  required:
+    pipeline_registry: "dbt-agent/handoffs/PIPELINE_REGISTRY.yaml"
+    pipeline_plan: "dbt-agent/handoffs/[pipeline]/PLAN.md"
+  optional:
+    pipeline_dot: "dbt-agent/.dots/pipeline-[name].md"
+
+storage_rules:
+  - "Treat PIPELINE_REGISTRY.yaml and PLAN.md as the primary live state during migration."
+  - "Treat .dots pipeline files as optional legacy or auxiliary state, not guaranteed state."
+  - "Do not fail a workflow only because the optional .dots file is absent."
+  - "When fields disagree, prefer PLAN.md for detailed per-pipeline context and PIPELINE_REGISTRY.yaml for listing/status."
+
+canonical_phase_values:
+  - "requirements"
+  - "discovery"
+  - "architecture"
+  - "implementation"
+  - "qa"
+  - "deploy"
+  - "done"
+
+normalized_state_values:
+  - "requirements_gathering"
+  - "data_discovery"
+  - "architecture_design"
+  - "implementation"
+  - "review_deploy"
+
+phase_normalization:
+  requirements_gathering: "requirements"
+  requirements: "requirements"
+  data_discovery: "discovery"
+  discovery: "discovery"
+  architecture_design: "architecture"
+  architecture: "architecture"
+  implementation: "implementation"
+  qa: "qa"
+  deploy: "deploy"
+  review_deploy: "deploy"
+  done: "done"
+
+registry_schema:
+  root_key: "pipelines"
+  required_fields:
+    - "plan"
+    - "phase"
+    - "status"
+    - "blockers"
+    - "last_updated"
+  optional_fields:
+    - "branch"
+    - "worktree"
+    - "completed"
+  notes:
+    - "Registry entries provide compact discovery/status metadata."
+    - "Path values should remain repo-relative where practical."
+
+plan_frontmatter_schema:
+  required_fields:
+    - "pipeline"
+    - "phase"
+    - "last_action"
+    - "next_action"
+    - "blockers"
+    - "created"
+    - "last_updated"
+  optional_fields:
+    - "priority"
+    - "legacy_script"
+    - "estimated_complexity"
+    - "canonical_reuse_target"
+    - "branch"
+    - "worktree"
+    - "models_complete"
+    - "models_remaining"
+  recommended_sections:
+    - "Overview"
+    - "Phase History"
+    - "Model Inventory"
+    - "Decision Log"
+    - "Gate Status"
+    - "Blockers"
+    - "Artifacts"
+
+dot_file_schema:
+  optional: true
+  purpose: "Auxiliary local workflow tracker when a pipeline-specific dot exists."
+  notes:
+    - "Commands may read it when present."
+    - "Commands should not require it for normal operation."
+
+gate_model:
+  canonical_primary_gates:
+    - id: "gate_1"
+      name: "requirements"
+      advances_to: "discovery"
+    - id: "gate_2"
+      name: "discovery"
+      advances_to: "architecture"
+    - id: "gate_3"
+      name: "architecture"
+      advances_to: "implementation"
+    - id: "gate_4"
+      name: "deploy"
+      advances_to: "done"
+  notes:
+    - "Legacy plans may record additional checkpoints such as a separate QA-to-deploy gate."
+    - "Preserve existing gate numbering in historical artifacts, but normalize command routing to the four primary CAF gates unless a workflow explicitly documents more."
+
+creation_minimum:
+  required_files:
+    - "handoffs/[pipeline]/PLAN.md"
+    - "handoffs/PIPELINE_REGISTRY.yaml"
+  optional_files:
+    - ".dots/pipeline-[name].md"
+    - "handoffs/[pipeline]/business-context.md"
+    - "handoffs/[pipeline]/data-discovery-report.md"
+  notes:
+    - "New pipeline creation should always produce PLAN.md and a registry entry."
+    - "Create a .dots file only when the active workflow actually uses one or the user requests it."
+    - "CAF-owned starter templates live under .claude/skills/dbt-orchestrator/resources/plan-template.md, .claude/skills/dbt-business-context/resources/business-context-template.md, and .claude/skills/dbt-data-discovery/resources/data-discovery-template.md."

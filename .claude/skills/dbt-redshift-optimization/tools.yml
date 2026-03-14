@@ -1,0 +1,26 @@
+# Tools configuration for dbt-redshift-optimization skill
+# Declares MCP tools, references, and guardrails this skill uses
+
+mcp_tools:
+  required:
+    - show          # Run EXPLAIN, profile queries
+    - execute_sql   # Direct warehouse queries
+    - compile       # Check SQL before analysis
+  optional:
+    - get_model_details
+
+references:
+  mandatory:
+    - shared/reference/anti-pattern-impact.yml
+    - shared/reference/baas-join-registry.yml
+  on_demand:
+    - resources/table-design.md
+    - resources/query-patterns.md
+    - resources/incremental-strategies.md
+    - resources/advanced-patterns.md
+
+guardrails:
+  required:
+    - check_anti_patterns_first
+  definitions:
+    - Anti-pattern detection inline in skill

@@ -1,0 +1,147 @@
+{
+  "version": "1.0",
+  "source": "Curated subset from dbt-agent/shared/decision-traces/traces.json",
+  "selection_rationale": "High-value reusable QA and implementation incidents spanning environment issues, logic errors, contract drift, null-safe QA, join-cardinality failures, and incremental performance regressions.",
+  "traces": [
+    {
+      "id": "qa_2026-03-12_001",
+      "timestamp": "2026-03-12T23:40:00Z",
+      "model": "samsung_decline_granularity_qa",
+      "problem": {
+        "symptom": "QA runbook blocked by deferred schema resolution, Redshift view materialization instability, and missing MetricFlow CLI",
+        "error_type": "operational_incident",
+        "severity": "blocking",
+        "context": "qa_runbook_execution"
+      },
+      "resolution": {
+        "fix": "Use no-defer strict compile/build, apply bind=false to the affected view, and validate MetricFlow through a compatible Python tool environment",
+        "root_cause": "Mixed execution-context and runtime-tooling issues rather than business-logic failure",
+        "fix_category": "environment_configuration"
+      },
+      "reuse_guidance": {
+        "when_applicable": "New columns exist in dev but deferred refs lag, view materialization fails intermittently, or MetricFlow tooling is unavailable in the repo runtime",
+        "when_not_applicable": "Stable single-environment runs with native MetricFlow support"
+      }
+    },
+    {
+      "id": "qa_2026-02-27_002",
+      "timestamp": "2026-02-27T19:05:00Z",
+      "model": "mrt_geo__population_penetration",
+      "problem": {
+        "symptom": "Downstream model referenced non-existent upstream summary columns",
+        "error_type": "logic_error",
+        "severity": "degraded",
+        "context": "pr_review_followup"
+      },
+      "resolution": {
+        "fix": "Derive the needed fields downstream from existing canonical inputs instead of adding placeholder upstream columns",
+        "root_cause": "Downstream model implied ownership of non-canonical derived fields that did not belong in the upstream summary",
+        "fix_category": "logic_error"
+      },
+      "reuse_guidance": {
+        "when_applicable": "PR review flags missing upstream columns that can be derived locally",
+        "when_not_applicable": "The upstream field is truly canonical and shared broadly"
+      }
+    },
+    {
+      "id": "qa_2026-02-27_001",
+      "timestamp": "2026-02-27T18:00:00Z",
+      "model": "mart_demo__account_demographics_base",
+      "problem": {
+        "symptom": "Contract-enforced mart failed due to schema-type drift and a quality threshold regression",
+        "error_type": "type_mismatch",
+        "severity": "blocking",
+        "context": "qa_revalidation"
+      },
+      "resolution": {
+        "fix": "Align contract types with compiled output and widen the decrypt window used for QA revalidation",
+        "root_cause": "Schema-contract drift combined with an overly narrow runtime window",
+        "fix_category": "logic_error"
+      },
+      "reuse_guidance": {
+        "when_applicable": "Contract marts fail after upstream type changes or runtime window changes affect quality gates",
+        "when_not_applicable": "Business intent requires preserving the declared contract regardless of compiled output"
+      }
+    },
+    {
+      "id": "qa_2026-02-19_001",
+      "timestamp": "2026-02-19T18:20:00Z",
+      "model": "mrt_gbos_registration_cohort_progress",
+      "problem": {
+        "symptom": "QA mismatch rate was driven by NULL comparison semantics rather than data drift",
+        "error_type": "logic_error",
+        "severity": "degraded",
+        "context": "qa_validation"
+      },
+      "resolution": {
+        "fix": "Use NULL-safe equality with coalesce in sparse cohort comparison queries",
+        "root_cause": "Legacy QA query compared NULL-heavy measures with direct equality",
+        "fix_category": "logic_error"
+      },
+      "reuse_guidance": {
+        "when_applicable": "Sparse metric comparisons where both sides may be NULL",
+        "when_not_applicable": "NULL and zero have materially different business meanings"
+      }
+    },
+    {
+      "id": "qa_2026-02-01_001",
+      "timestamp": "2026-02-01T12:00:00Z",
+      "model": "int_interchange__account_product_enriched",
+      "problem": {
+        "symptom": "Massive duplicate-row failures in downstream tests due to enrichment join fanout",
+        "error_type": "duplicate_rows",
+        "severity": "blocking",
+        "context": "spike_investigation"
+      },
+      "resolution": {
+        "fix": "Deduplicate enrichment sources with row_number() before joining",
+        "root_cause": "ODS enrichment sources returned multiple rows where a 1:1 assumption was being made",
+        "fix_category": "join_cardinality"
+      },
+      "reuse_guidance": {
+        "when_applicable": "Enrichment joins assume 1:1 cardinality against operational sources",
+        "when_not_applicable": "History preservation is required and duplicates are expected"
+      }
+    },
+    {
+      "id": "qa_2026-01-30_001",
+      "timestamp": "2026-01-30T17:15:32.596728Z",
+      "model": "int_gbos_registration_metrics_daily",
+      "problem": {
+        "symptom": "Valid failures were dropped because a nullable field was used as a restrictive filter",
+        "error_type": "missing_rows",
+        "severity": "degraded",
+        "context": "refactoring"
+      },
+      "resolution": {
+        "fix": "Remove the restrictive null filter and coalesce the nullable field explicitly",
+        "root_cause": "Implicitly treating NULL as invalid when NULL still represented valid business cases",
+        "fix_category": "filter_missing"
+      },
+      "reuse_guidance": {
+        "when_applicable": "Counting statuses or failures where the descriptive field may be NULL for valid records",
+        "when_not_applicable": "NULL truly indicates corrupt or unusable data"
+      }
+    },
+    {
+      "id": "qa_2026-01-21_001",
+      "timestamp": "2026-01-21T18:00:00Z",
+      "model": "int_transactions__auth_all",
+      "problem": {
+        "symptom": "Incremental runtime degraded severely after backfill due to missing predicate pushdown",
+        "error_type": "performance",
+        "severity": "degraded",
+        "context": "incremental_testing"
+      },
+      "resolution": {
+        "fix": "Push date filters into referenced CTEs used by incremental joins",
+        "root_cause": "Incremental runs still forced full scans of large referenced CTEs",
+        "fix_category": "performance"
+      },
+      "reuse_guidance": {
+        "when_applicable": "Incremental models slow down after backfills or late-arrival logic expansions",
+        "when_not_applicable": "Relevant upstream CTEs are already tightly predicate-limited"
+      }
+    }
+  ]
+}

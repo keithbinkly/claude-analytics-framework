@@ -1,0 +1,233 @@
+# Failure Library: Critic-Identified Error Patterns
+#
+# Auto-populated by /analyze Step 8.5. Each entry is a critic-flagged issue
+# that recurred or was particularly instructive. Loaded into the critic's
+# prompt as few-shot examples of what to watch for.
+#
+# Source: Table-Critic (ACL 2025) — Curator agent distills critique patterns
+# into a reusable template tree that guides future error detection.
+#
+# Format: Each entry has type, category, example, fix, and frequency (how often seen).
+# Entries with frequency >= 3 are HIGH PRIORITY and injected first.
+#
+# Max 50 entries. When full, drop lowest-frequency entries.
+#
+# CATEGORIES (P22 Experience Pool taxonomy):
+#   Access  — Permission/connection/authentication/MCP tool availability failures
+#   Data    — Data quality, availability, completeness, granularity issues
+#   Method  — Analytical methodology errors (causal language, ecological fallacy,
+#             scope extension, denominator mismatch, confirmation bias)
+#   Perf    — Performance/efficiency issues (slow queries, timeouts, token waste)
+#   Process — Workflow/process failures (missed steps, wrong routing, writeback errors)
+
+entries:
+  - type: ecological_fallacy
+    category: Method
+    analyst: exploratory
+    example: "Claimed inverse correlation between eWallet share and approval rates using overall MCC approval rate (confounded by CNP mix and partner mix)"
+    fix: "Overall approval rate ≠ eWallet approval rate. Must use eWallet-specific approval or caveat that metric is confounded."
+    severity: block
+    frequency: 1
+    first_seen: 2026-02-19
+    last_seen: 2026-02-19
+
+  - type: ecological_fallacy
+    category: Method
+    analyst: business
+    example: "Presented eWallet share vs overall MCC approval rate correlation as evidence for wallet performance without caveating CNP mix confound"
+    fix: "Separate eWallet-specific approval from overall approval. Overall rate includes CNP which dominates the gap."
+    severity: block
+    frequency: 1
+    first_seen: 2026-02-19
+    last_seen: 2026-02-19
+
+  - type: causal_language
+    category: Method
+    analyst: business
+    example: "Claimed Stockpile traditional card experience is 'broken, masked by eWallet' from observational data. Also (2026-02-23): 'Driven by sole proprietor/SMB density in FL' — causal framing + unverified external premise on observational registration data. (2026-02-24): FL SMB dominance framed as caused by sole-proprietor density without IRS/Census data."
+    fix: "Reword to: 'Stockpile shows high eWallet adoption alongside low CP approval rate — divergence may warrant investigation'. For external context: add INFERRED label and source citation."
+    severity: warn
+    frequency: 3
+    first_seen: 2026-02-19
+    last_seen: 2026-02-24
+
+  - type: causal_language
+    category: Method
+    analyst: business
+    example: "Claimed Gas eWallet share 'reflects pump NFC adoption, not cardholder preference' — unsupported mechanism from query data"
+    fix: "Reword to: 'Low Gas eWallet share is consistent with NFC availability constraints at pumps, though this mechanism is not confirmed by query data'"
+    severity: warn
+    frequency: 1
+    first_seen: 2026-02-19
+    last_seen: 2026-02-19
+
+  - type: scope_extension
+    category: Method
+    analyst: exploratory
+    example: "Included Sep-Oct 2025 approval rate collapse data when question scoped to Nov 2025-Jan 2026"
+    fix: "Exclude or isolate out-of-scope time periods. If cited for context, label explicitly as outside query window."
+    severity: warn
+    frequency: 1
+    first_seen: 2026-02-19
+    last_seen: 2026-02-19
+
+  - type: causal_language
+    category: Method
+    analyst: forensic
+    example: "Called CNP channel 'the primary structural driver of high decline rates in Retail' from observational decline data. (2026-02-24): Used 'drives' for metro-level PI patterns — 'logistics infrastructure drives Gig PI' from cross-sectional geographic data."
+    fix: "Replace 'structural driver' / 'drives' with 'strongly associated with' / 'is associated with'. Observational data cannot establish causality."
+    severity: warn
+    frequency: 2
+    first_seen: 2026-02-19
+    last_seen: 2026-02-24
+
+  - type: causal_language
+    category: Method
+    analyst: business
+    example: "Claimed QuickBooks fraud rules are 'miscalibrated' and product limits are 'too low' from decline code distribution data"
+    fix: "Reword to: 'fraud rules may be over-tuned for this B2B use case, and product limits may not accommodate business-level transaction sizes' — these are hypotheses, not confirmed root causes."
+    severity: warn
+    frequency: 1
+    first_seen: 2026-02-19
+    last_seen: 2026-02-19
+
+  - type: denominator_mismatch
+    category: Data
+    analyst: forensic
+    example: "Cited ISF as 78.8% of declines (Jan-only denominator) while other analysts cited 69-71% (multi-month or top-20 denominator) without specifying scope"
+    fix: "Always state the denominator explicitly: 'X% of [month/period] [total/top-N] declines'. Pick one reference period and disclose it."
+    severity: warn
+    frequency: 1
+    first_seen: 2026-02-19
+    last_seen: 2026-02-19
+
+  - type: fabricated_dimension_value
+    category: Method
+    analyst: forensic
+    example: "Claimed 'tabapay became primary processor (99.4%)' and 'credit_transfer → push_to_card migration' and 'MasterCard → Visa network flip' — none of these dimension values exist in the data. Actual processor is MasterCardSend (94%), transfer types are A2AOut/DisbursementExternal, card_association_type is DEBIT/PREPAID."
+    fix: "Always run SELECT DISTINCT on dimension before citing specific values. Result-Checker (Step 5.3) now catches this independently."
+    severity: block
+    frequency: 1
+    first_seen: 2026-02-21
+    last_seen: 2026-02-21
+
+  - type: fabricated_number
+    category: Method
+    analyst: forensic
+    example: "Claimed $56.2M completed volume for Dayforce July 2025. Actual: $66.1M total or $28.5M DisbursementExternal-only. $56M matches no real aggregation."
+    fix: "Verify dollar amounts against warehouse within 5% tolerance. Result-Checker Step 5.3 catches magnitude errors."
+    severity: block
+    frequency: 1
+    first_seen: 2026-02-21
+    last_seen: 2026-02-21
+
+  - type: false_mechanism
+    category: Method
+    analyst: forensic
+    example: "Correctly identified Dayforce success rate improvement (+14pp) but fabricated causal mechanism (processor migration, network flip) using non-existent dimension values. Direction was right; explanation was invented."
+    fix: "Separate observation (rates improved) from mechanism (why). Mechanisms require evidence. If dimensions aren't queried, label mechanism as SPECULATIVE."
+    severity: block
+    frequency: 1
+    first_seen: 2026-02-21
+    last_seen: 2026-02-21
+
+  - type: zero_success_routing
+    category: Data
+    analyst: consensus
+    example: "N/A processor shows 0.00% success across 640K+ transactions over 6 months ($28-51M/mo declined). Accounts for 68-83% of all system declined dollars. Zero success across this volume rules out transient issues — systematic routing failure or misconfiguration."
+    fix: "Flag any processor/network with 0% success and >1K monthly transactions as CRITICAL routing failure. Add validation to prevent transactions entering N/A state. Cross-tab program_code × processor to identify which programs feed the failing route."
+    severity: block
+    frequency: 1
+    first_seen: 2026-02-22
+    last_seen: 2026-02-22
+
+  - type: volume_scaling_degradation
+    category: Data
+    analyst: statistical
+    example: "VisaDirect processor success fell 73.40%→59.54% (-13.86pp, z=-18.28σ) while volume nearly doubled (256K→509K). Degradation co-occurs with new program (uberonetime) onboarding that likely routes through the same processor."
+    fix: "When processor success drops >5pp coinciding with >30% volume increase, investigate whether new traffic mix (lower-quality transactions from new programs) is dragging aggregate rate. Separate incumbent vs new program success rates before diagnosing processor capacity."
+    severity: warn
+    frequency: 1
+    first_seen: 2026-02-22
+    last_seen: 2026-02-22
+
+  - type: system_contamination
+    category: Data
+    analyst: statistical
+    example: "UberOneTime at 29.29% success (209K txns) suppresses system-wide success rate by 4.61pp (system would be 93.63% without it vs 89.02% observed). Volume scaled 1K→209K in 3 months with volatile success (23→55→29%) indicating immature integration."
+    fix: "Calculate system success rate with and without each program to measure contamination effect. Programs below 50% success at >100K transactions should be volume-gated until root cause is identified. Never report system-level metrics without disclosing program-level outlier effects."
+    severity: warn
+    frequency: 1
+    first_seen: 2026-02-22
+    last_seen: 2026-02-22
+
+  - type: transfer_type_pollution
+    category: Data
+    analyst: forensic
+    example: "SingleCommitDisbursementExternal crashed from 99.45% to 90.91% (-8.54pp, z=-32.38σ) in a single month. Volume surged +283K txns. The Most extreme statistical deviation in the dataset. If uberonetime uses this transfer type, its 29% success rate at 209K volume would drag the type-level average from ~99% to ~91%."
+    fix: "When a transfer type shows sudden degradation coinciding with volume increase, decompose by program_code to identify which program's traffic is depressing the aggregate. Do not attribute the degradation to the transfer type infrastructure without this decomposition."
+    severity: warn
+    frequency: 1
+    first_seen: 2026-02-22
+    last_seen: 2026-02-22
+
+  - type: artifact_conflation
+    category: Method
+    analyst: exploratory
+    example: "Combined Crypto-NY ZIP mapping artifact (~15,200 accounts) with genuine NY under-penetration (~9,500 accounts) into a single '24,490-account growth opportunity.' The artifact is a data quality issue requiring ZIP fix; the organic gap is an addressable market opportunity. Presenting both as one number misleads the decision frame."
+    fix: "When a known data artifact inflates a gap metric, always split into two components: (a) artifact remediation opportunity (data quality fix) vs (b) genuine market gap (addressable through strategy). Never combine them into a single 'opportunity' figure."
+    severity: block
+    frequency: 1
+    first_seen: 2026-02-23
+    last_seen: 2026-02-23
+
+  - type: ecological_fallacy
+    category: Method
+    analyst: exploratory
+    example: "At metro grain, speculated Tax partner's demographic composition reflects specific racial/ethnic communities based solely on geographic concentration data. No demographic data available — pure ecological fallacy projection."
+    fix: "Geographic concentration at metro level cannot be attributed to demographic composition without demographic data. State 'mechanism unknown' rather than speculating about community characteristics."
+    severity: block
+    frequency: 1
+    first_seen: 2026-02-24
+    last_seen: 2026-02-24
+
+  - type: scope_contamination
+    category: Method
+    analyst: business
+    example: "Imported fraud rule recommendations from a prior decline-rate analysis into a geographic footprint analysis. The current question was about metro-level geographic patterns — fraud rules are out of scope."
+    fix: "Each /analyze run has a defined scope (the user's question). Do not import recommendations or findings from prior analyses unless they directly answer the current question. Mark imported context as [FROM PRIOR ANALYSIS] if referenced."
+    severity: block
+    frequency: 1
+    first_seen: 2026-02-24
+    last_seen: 2026-02-24
+
+  - type: small_sample_unreliability
+    category: Data
+    analyst: statistical
+    example: "Tax partner metro-level PIs computed from n=8,881 total accounts spread across 380 CBSAs. Most metros have <60 accounts. At n=60, PI confidence intervals span from negative to 1.55 — completely unreliable. Only Chicago (n≈445) exceeds minimum detectable effect threshold."
+    fix: "Before computing metro-level PIs, verify minimum sample size per metro. At n<100, PI estimates are noise. Report only metros exceeding MDE threshold. Include power analysis section when N/CBSA_count < 50."
+    severity: warn
+    frequency: 1
+    first_seen: 2026-02-24
+    last_seen: 2026-02-24
+
+  - type: unstandardized_baseline
+    category: Method
+    analyst: cross-analyst
+    example: "Wealthfront DC PI reported as 3.97 (Critic), 4.09 (Business/Exploratory), and 4.17 (Statistical) — three different values for the same metric. All stem from using different Census population vintages for DC (2020 vs 2023 vs 2025 estimates). Similarly MN PI varied 1.56–1.64 across analysts."
+    fix: "Before analyst dispatch, specify a single population baseline in the data-puller output (e.g., '2025 ACS 1-year estimates'). Include state population shares in the shared dataset so all analysts compute from the same denominator. Cross-analyst PI agreement should be within ±2%."
+    severity: warn
+    frequency: 1
+    first_seen: 2026-02-23
+    last_seen: 2026-02-23
+
+# Example entry format:
+# - type: causal_language
+#   category: Method
+#   analyst: forensic
+#   example: "Claimed 'gig economy growth drives decline rates' from correlational data"
+#   fix: "Reworded to 'gig economy growth coincides with higher decline rates'"
+#   severity: warn
+#   frequency: 1
+#   first_seen: 2026-02-19
+#   last_seen: 2026-02-19

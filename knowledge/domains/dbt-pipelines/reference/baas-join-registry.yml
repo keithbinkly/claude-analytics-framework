@@ -1,0 +1,86 @@
+# source_of_truth: caf
+# mirrored_from: dbt-agent/shared/reference/baas-join-registry.yml
+# CAF migration note: this is a curated CAF subset of commonly reused join guidance.
+
+metadata:
+  purpose: "Curated join patterns for common BaaS pipeline work"
+  scope: "Subset of the broader dbt-agent join registry"
+
+recommended_joins:
+  gbos.account:
+    frequency: 1199
+    preferred_keys:
+      - sor_uid
+      - accountidentifier
+      - accountkey
+    notes: "Central account table. Prefer `sor_uid` for GBOS joins when present."
+    common_targets:
+      - target: gbos.product
+        key: productkey = productkey
+        join_types:
+          LEFT: 70
+          INNER: 68
+        orphan_risk: true
+      - target: gbos.accountholder
+        key: accountkey = accountkey
+        join_types:
+          INNER: 68
+        orphan_risk: false
+
+  gbos.posttransaction:
+    common_targets:
+      - target: gbos.paymentidentifier
+        key: sor_uid = sor_uid
+        join_types:
+          INNER: 137
+        orphan_risk: false
+      - target: gbos.paymentidentifier
+        key: paymentidentifier = paymentidentifier
+        join_types:
+          INNER: 137
+        orphan_risk: false
+      - target: gbos.account
+        key: sor_uid = sor_uid
+        join_types:
+          INNER: 137
+        orphan_risk: false
+
+  gbos.postinternaltransaction:
+    common_targets:
+      - target: gbos.paymentidentifier
+        key: sor_uid = sor_uid
+        join_types:
+          INNER: 137
+        orphan_risk: false
+      - target: gbos.paymentidentifier
+        key: paymentidentifier = paymentidentifier
+        join_types:
+          INNER: 137
+        orphan_risk: false
+      - target: gbos.account
+        key: accountidentifier = accountidentifier
+        join_types:
+          INNER: 137
+        orphan_risk: false
+
+  ods.product_xref:
+    common_targets:
+      - target: edw.dim_product
+        key: product_uid = product_uid
+        join_types:
+          LEFT: 136
+        orphan_risk: true
+
+  edw.dim_date:
+    common_targets:
+      - target: mstr.week_of_year_sun_to_sat
+        key: calendar_date = calendar_date
+        join_types:
+          LEFT: 136
+        orphan_risk: true
+
+rules:
+  - "Prefer documented high-frequency join keys before inventing new joins."
+  - "Treat orphan-risk joins as validation points and measure match rate explicitly."
+  - "For GBOS entity joins, check whether `sor_uid` is available before falling back to alternate identifiers."
+  - "If the needed join pattern is missing from this CAF subset, consult the fuller dbt-agent registry."

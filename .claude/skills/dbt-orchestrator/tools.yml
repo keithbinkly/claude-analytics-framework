@@ -1,0 +1,36 @@
+# source_of_truth: caf
+# mirrored_from: dbt-agent/.claude/skills/dbt-orchestrator/tools.yml
+
+mcp_tools:
+  optional:
+    - get_related_models
+    - get_model_health
+    - get_model_details
+    - get_source_details
+    - get_column_lineage
+    - execute_sql
+    - compile
+    - run
+    - test
+    - show
+
+references:
+  mandatory:
+    - knowledge/domains/dbt-pipelines/reference/migration-quick-reference.md
+    - knowledge/domains/dbt-pipelines/reference/canonical-models-registry.md
+    - knowledge/reference/standards/folder-structure-and-naming.md
+    - knowledge/domains/dbt-pipelines/reference/qa-validation-checklist.md
+    - knowledge/reference/tools/dbt-mcp-tools-reference.md
+
+skills_to_route:
+  phase_1: dbt-business-context
+  phase_2: dbt-data-discovery
+  phase_3: dbt-tech-spec-writer
+  phase_4: dbt-migration
+
+guardrails:
+  required:
+    - enforce_gate_sequence
+    - require_human_approval
+    - keep_control_plane_in_caf
+    - keep_dbt_execution_in_dbt_enterprise

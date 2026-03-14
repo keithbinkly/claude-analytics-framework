@@ -33,3 +33,5 @@ Each domain can grow into:
 - `decisions/`
 
 During early migration, the top-level README in each domain is enough to establish ownership and contribution intent.
+
+Use `knowledge/reference/` for shared tool and standards material that is broader than a single domain.

@@ -1,0 +1,110 @@
+# Deterministic keyword-based routing for AI Analyst domain packs
+# Purpose: Route business questions to the appropriate domain pack based on keyword matching
+routing_version: "1.0"
+
+domains:
+  operations:
+    description: "Processing volumes, approval/decline rates, and operational performance"
+    domain_pack: "domain_packs/operations.yaml"
+    priority: 1  # Higher = checked first
+    keywords:
+      # Volume keywords
+      - "transaction volume"
+      - "processing volume"
+      - "total transactions"
+      - "how many transactions"
+
+      # Rate keywords
+      - "approval rate"
+      - "decline rate"
+      - "success rate"
+      - "error rate"
+      - "failure rate"
+
+      # Performance keywords
+      - "SLA"
+      - "throughput"
+      - "operational"
+      - "performance"
+      - "processing time"
+
+      # Channel keywords
+      - "card present"
+      - "card not present"
+      - "CP rate"
+      - "CNP rate"
+      - "contactless"
+      - "chip"
+      - "tap to pay"
+      - "EMV"
+      - "pos entry"
+      - "entry mode"
+
+      # Decline analysis
+      - "decline reason"
+      - "response code"
+      - "insufficient funds"
+      - "authorization"
+      - "auth attempt"
+
+      # Cardholder impact
+      - "cardholder impact"
+      - "affected cardholders"
+      - "customer impact"
+
+      # Merchant/MCC
+      - "merchant category"
+      - "mcc"
+      - "top merchants"
+
+  # Placeholder for future domains
+  finance:
+    description: "Revenue, costs, margins, and financial performance"
+    domain_pack: "domain_packs/finance.yaml"
+    priority: 2
+    keywords:
+      - "revenue"
+      - "cost"
+      - "margin"
+      - "profit"
+      - "expense"
+      - "interchange"
+      - "fee"
+      - "billing"
+      - "financial"
+      - "P&L"
+      - "budget"
+    status: "placeholder"  # Not yet implemented
+
+  growth:
+    description: "Customer acquisition, activation, retention, and lifecycle metrics"
+    domain_pack: "domain_packs/growth.yaml"
+    priority: 3
+    keywords:
+      - "registration"
+      - "activation"
+      - "retention"
+      - "churn"
+      - "cohort"
+      - "funnel"
+      - "conversion"
+      - "new customers"
+      - "acquisition"
+      - "DAU"
+      - "MAU"
+      - "active users"
+    status: "placeholder"  # Not yet implemented
+
+# Routing behavior when no domain matches
+default_domain: null  # No default - require explicit match or ask user
+
+# Matching configuration
+matching:
+  case_sensitive: false
+  match_mode: "substring"  # "exact" | "substring" | "word_boundary"
+  min_confidence: 1  # Minimum keyword matches required to select domain
+
+# Conflict resolution when multiple domains match
+conflict_resolution:
+  strategy: "priority"  # Use domain priority to break ties
+  fallback: "ask_user"  # If still ambiguous, ask user to clarify

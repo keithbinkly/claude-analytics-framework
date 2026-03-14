@@ -1,0 +1,366 @@
+# Operations Domain Pack for AI Analyst Agent
+# Purpose: Processing volumes, approval rates, and operational performance
+# Semantic Layer: Maps to actual dbt metrics available in Green Dot BaaS environment
+
+domain: operations
+description: "Processing volumes, approval/decline rates, and operational performance for card authorization analytics"
+version: "1.0"
+
+semantic_layer:
+  metrics:
+    # Volume Metrics
+    - name: spend_total_auth_attempts
+      description: "Total count of authorization attempts (approved + declined)"
+      common_filters: ["product_stack", "pos_entry_mode", "card_present"]
+
+    - name: spend_total_approvals
+      description: "Total count of approved transactions"
+      common_filters: ["product_stack", "pos_entry_mode", "mcc_category"]
+
+    - name: spend_total_declines
+      description: "Total count of declined transactions"
+      common_filters: ["product_stack", "responsecode", "mcc_category"]
+
+    - name: spend_total_auth_attempt_amount
+      description: "Total dollar value of authorization attempts"
+      common_filters: ["product_stack", "card_present"]
+
+    - name: spend_total_approval_amount
+      description: "Total dollar value of approved transactions"
+      common_filters: ["product_stack", "mcc_category"]
+
+    - name: spend_total_decline_amount
+      description: "Total dollar value of declined transactions"
+      common_filters: ["product_stack", "responsecode"]
+
+    # Rate Metrics (Core Operational KPIs)
+    - name: spend_approval_rate_by_count
+      description: "Percentage of authorization attempts that were approved"
+      common_filters: ["product_stack", "pos_entry_mode", "card_present"]
+      benchmark: "95-98% for card-present, 70-85% for card-not-present"
+
+    - name: spend_decline_rate_by_count
+      description: "Percentage of authorization attempts that were declined"
+      common_filters: ["product_stack", "responsecode", "mcc_category"]
+
+    - name: spend_approval_rate_by_amount
+      description: "Percentage of authorization dollar volume that was approved"
+      common_filters: ["product_stack", "card_present"]
+
+    - name: spend_decline_rate_by_amount
+      description: "Percentage of authorization dollar volume that was declined"
+      common_filters: ["product_stack", "responsecode"]
+
+    # Channel-Specific Metrics
+    - name: spend_cp_approval_rate
+      description: "Card-present approval rate (in-person transactions)"
+      common_filters: ["product_stack", "pos_entry_mode"]
+      benchmark: "95-98%"
+
+    - name: spend_cnp_approval_rate
+      description: "Card-not-present approval rate (online/remote transactions)"
+      common_filters: ["product_stack"]
+      benchmark: "70-85%"
+
+    - name: spend_contactless_approval_rate
+      description: "Contactless (NFC/tap) approval rate"
+      common_filters: ["product_stack"]
+      benchmark: "95-99%"
+
+    - name: spend_chip_approval_rate
+      description: "Chip (EMV) approval rate"
+      common_filters: ["product_stack"]
+      benchmark: "93-97%"
+
+    - name: spend_manual_entry_approval_rate
+      description: "Manual entry (keyed) approval rate"
+      common_filters: ["product_stack"]
+      benchmark: "70-85%"
+
+    - name: spend_approval_rate_gap_cp_vs_cnp
+      description: "Difference between card-present and card-not-present approval rates (percentage points)"
+      common_filters: ["product_stack"]
+      interpretation: |
+        10-25pp: Typical gap
+        >25pp: CNP optimization opportunity
+        <10pp: Strong CNP performance or weak CP
+
+    # Cardholder Impact Metrics
+    - name: spend_pct_cardholders_affected_by_declines
+      description: "Percentage of cardholders who experienced at least one decline"
+      common_filters: ["product_stack", "mcc_category"]
+      interpretation: |
+        >50%: Widespread issue (systemic problem)
+        20-50%: Significant but not universal
+        <20%: Concentrated among specific cardholders
+
+    - name: spend_declines_per_affected_cardholder
+      description: "Average number of declines per cardholder who experienced declines"
+      common_filters: ["product_stack", "responsecode"]
+      interpretation: |
+        >10: Concentrated among repeat users
+        3-10: Moderate repeat decline behavior
+        1-3: Declines distributed (healthier pattern)
+
+    - name: spend_distinct_cardholders
+      description: "Count of unique cardholders who attempted transactions"
+      common_filters: ["product_stack"]
+
+    # Transaction Size Metrics
+    - name: spend_avg_attempt_transaction_size
+      description: "Average dollar amount of all authorization attempts"
+      common_filters: ["product_stack", "mcc_category"]
+
+    - name: spend_avg_approval_transaction_size
+      description: "Average dollar amount of approved transactions"
+      common_filters: ["product_stack", "mcc_category"]
+
+    - name: spend_avg_decline_transaction_size
+      description: "Average dollar amount of declined transactions"
+      common_filters: ["product_stack", "responsecode"]
+
+  dimensions:
+    - name: metric_time
+      type: time
+      description: "Event time for metrics - supports DAY, WEEK, MONTH, QUARTER, YEAR grains"
+      granularities: ["DAY", "WEEK", "MONTH", "QUARTER", "YEAR"]
+      note: "The Semantic Layer uses ISO standard (Monday-Sunday weeks). Weekly results show Monday date."
+
+    - name: merchant_auth_event__product_stack
+      type: categorical
+      description: "Product portfolio (e.g., 'Uber', 'Brex', 'Ceridian', 'Apple Cash')"
+      alias: product_stack
+
+    - name: merchant_auth_event__pos_entry_mode
+      type: categorical
+      description: "Point-of-sale entry method"
+      alias: pos_entry_mode
+      sample_values: ["Chip", "Contactless", "Manual Entry", "Magnetic Stripe"]
+
+    - name: merchant_auth_event__card_present
+      type: categorical
+      description: "Whether card was physically present for transaction"
+      alias: card_present
+      sample_values: ["true", "false"]
+
+    - name: merchant_auth_event__responsecode
+      type: categorical
+      description: "Authorization response code description"
+      alias: responsecode
+      sample_values: ["APPROVED", "Insufficient Funds", "Card Declined"]
+
+    - name: merchant_auth_event__mcc_category
+      type: categorical
+      description: "High-level merchant category classification"
+      alias: mcc_category
+
+    - name: merchant_auth_event__mcc_desc
+      type: categorical
+      description: "Granular merchant category code description"
+      alias: mcc_desc
+      sample_values: ["Eating places and restaurants", "Fast food restaurants", "Service stations"]
+
+    - name: merchant_auth_event__merchant
+      type: categorical
+      description: "Normalized merchant name (use --limit parameter to control result set)"
+      alias: merchant
+
+question_templates:
+  # Volume Questions
+  - pattern: "What is our {volume_metric} by {dimension}?"
+    example: "What is our total transaction volume by product_stack?"
+    metrics: ["spend_total_auth_attempts", "spend_total_approvals", "spend_total_declines"]
+    dimensions: ["product_stack", "pos_entry_mode", "mcc_category"]
+
+  - pattern: "How many transactions did we process {time_period}?"
+    example: "How many transactions did we process last week?"
+    metrics: ["spend_total_auth_attempts"]
+    requires_time_dimension: true
+
+  # Rate Questions (Core Operations)
+  - pattern: "What is our {rate_metric}?"
+    example: "What is our approval rate?"
+    metrics: ["spend_approval_rate_by_count", "spend_decline_rate_by_count"]
+    default_grouping: ["metric_time"]
+
+  - pattern: "What is our {rate_metric} by {dimension}?"
+    example: "What is our approval rate by product_stack?"
+    metrics: ["spend_approval_rate_by_count", "spend_decline_rate_by_count"]
+    dimensions: ["product_stack", "pos_entry_mode", "mcc_category"]
+
+  - pattern: "Which {dimension} has the highest {rate_metric}?"
+    example: "Which product has the highest decline rate?"
+    metrics: ["spend_decline_rate_by_count", "spend_approval_rate_by_count"]
+    dimensions: ["product_stack", "pos_entry_mode", "responsecode", "mcc_category"]
+    requires_order_by: true
+    requires_limit: true
+
+  - pattern: "Which {dimension} has the lowest {rate_metric}?"
+    example: "Which merchant category has the lowest approval rate?"
+    metrics: ["spend_approval_rate_by_count", "spend_decline_rate_by_count"]
+    dimensions: ["product_stack", "mcc_category", "merchant"]
+    requires_order_by: true
+    requires_limit: true
+
+  # Channel Comparison Questions
+  - pattern: "How does card-present compare to card-not-present on {metric}?"
+    example: "How does card-present compare to card-not-present on approval rate?"
+    metrics: ["spend_cp_approval_rate", "spend_cnp_approval_rate"]
+
+  - pattern: "What is the approval rate gap between CP and CNP?"
+    example: "What is the approval rate gap between CP and CNP?"
+    metrics: ["spend_approval_rate_gap_cp_vs_cnp"]
+    interpretation: "10-25pp is typical; >25pp indicates CNP optimization opportunity"
+
+  # Trend Questions
+  - pattern: "What is the trend in {metric} over {time_period}?"
+    example: "What is the trend in decline rate over the last 30 days?"
+    metrics: ["spend_decline_rate_by_count", "spend_approval_rate_by_count", "spend_total_auth_attempts"]
+    requires_time_dimension: true
+    default_grain: "DAY"
+
+  - pattern: "How has {metric} changed week-over-week?"
+    example: "How has approval rate changed week-over-week?"
+    metrics: ["spend_approval_rate_by_count", "spend_total_auth_attempts"]
+    requires_time_dimension: true
+    grain: "WEEK"
+
+  # Cardholder Impact Questions
+  - pattern: "What percentage of cardholders are affected by declines?"
+    example: "What percentage of cardholders are affected by declines?"
+    metrics: ["spend_pct_cardholders_affected_by_declines"]
+
+  - pattern: "How many declines per affected cardholder?"
+    example: "How many declines per affected cardholder?"
+    metrics: ["spend_declines_per_affected_cardholder"]
+    interpretation: "High value (>10) indicates concentrated issues among repeat users"
+
+  # Decline Analysis Questions
+  - pattern: "What are the top decline reasons?"
+    example: "What are the top decline reasons?"
+    metrics: ["spend_total_declines"]
+    dimensions: ["responsecode"]
+    requires_order_by: true
+    requires_limit: true
+
+  - pattern: "What is the decline rate by response code?"
+    example: "What is the decline rate by response code?"
+    metrics: ["spend_decline_rate_by_count"]
+    dimensions: ["responsecode"]
+
+guardrails:
+  contracts:
+    required_time_zone: "UTC"
+    required_time_dimensions:
+      - metric_time
+    metric_expectations:
+      spend_approval_rate_by_count:
+        expected_range: [0, 100]
+        unit: "percent"
+        warning_threshold:
+          below: 70
+          message: "Approval rate below 70% may indicate systemic issues"
+      spend_decline_rate_by_count:
+        expected_range: [0, 100]
+        unit: "percent"
+        warning_threshold:
+          above: 30
+          message: "Decline rate above 30% warrants investigation"
+      spend_cp_approval_rate:
+        expected_range: [0, 100]
+        unit: "percent"
+        benchmark: [95, 98]
+        warning_threshold:
+          below: 95
+          message: "CP approval rate below 95% is below benchmark"
+      spend_cnp_approval_rate:
+        expected_range: [0, 100]
+        unit: "percent"
+        benchmark: [70, 85]
+        warning_threshold:
+          below: 70
+          message: "CNP approval rate below 70% is below benchmark"
+
+  assumptions:
+    - "Default time grain is daily unless specified"
+    - "Percentages are expressed as 0-100, not 0-1"
+    - "For lookback queries, use order_by with descending=true and limit"
+    - "Weekly aggregations use ISO standard (Monday-Sunday)"
+    - "When comparing rates, normalize by volume if one segment is significantly larger"
+
+  rules:
+    - "Always use UTC for operational timestamps"
+    - "When analyzing declines, always include responsecode dimension for root cause"
+    - "When comparing channels (CP vs CNP), note the typical benchmark difference (15-25pp)"
+    - "For cardholder impact metrics, clarify whether looking at breadth (% affected) or depth (declines per cardholder)"
+    - "Large result sets require explicit limit parameter - start with limit=5-10 to verify results"
+    - "Use two-step querying: small limit first to verify, then full dataset"
+
+  anti_patterns:
+    - pattern: "Comparing raw decline counts across products without volume normalization"
+      correction: "Use decline_rate_by_count instead of total_declines for cross-product comparison"
+    - pattern: "Analyzing trends without time dimension"
+      correction: "Add metric_time with appropriate grain to group_by"
+    - pattern: "Expecting CNP rates to match CP benchmarks"
+      correction: "CNP benchmark is 70-85%, CP benchmark is 95-98% - different risk profiles"
+
+routing:
+  keywords:
+    # Volume keywords
+    - "transaction"
+    - "volume"
+    - "count"
+    - "how many"
+    - "total"
+
+    # Rate keywords
+    - "approval rate"
+    - "decline rate"
+    - "success rate"
+    - "performance"
+
+    # Channel keywords
+    - "card present"
+    - "card not present"
+    - "CP"
+    - "CNP"
+    - "contactless"
+    - "chip"
+    - "tap"
+    - "online"
+    - "in-person"
+
+    # Entry mode keywords
+    - "pos entry"
+    - "entry mode"
+    - "manual entry"
+    - "swipe"
+    - "EMV"
+
+    # Decline analysis keywords
+    - "decline"
+    - "rejected"
+    - "failed"
+    - "insufficient funds"
+    - "response code"
+
+    # Cardholder impact keywords
+    - "cardholder"
+    - "customer impact"
+    - "affected"
+
+    # Operational keywords
+    - "operational"
+    - "processing"
+    - "authorization"
+    - "auth"
+    - "merchant"
+
+  negative_keywords:
+    # These indicate other domains
+    - "registration"
+    - "cohort"
+    - "activation"
+    - "marketing"
+    - "revenue"
+    - "forecast"

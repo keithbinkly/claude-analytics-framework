@@ -1,0 +1,64 @@
+{
+  "name": "jinja-sql-optimizer",
+  "description": "Jinja templating and SQL optimization for dbt models. Covers macros, filters, control flow, utility packages (dbt-utils, codegen), and SQL generation patterns for cleaner, more maintainable dbt code.",
+  "base_url": "https://docs.getdbt.com",
+  "start_urls": [
+    "https://docs.getdbt.com/docs/build/jinja-macros",
+    "https://docs.getdbt.com/reference/dbt-jinja-functions",
+    "https://docs.getdbt.com/docs/build/custom-generic-tests",
+    "https://docs.getdbt.com/reference/dbt-jinja-functions/adapter",
+    "https://docs.getdbt.com/reference/dbt-jinja-functions/builtins",
+    "https://docs.getdbt.com/reference/dbt-jinja-functions/context-variables",
+    "https://docs.getdbt.com/reference/dbt-jinja-functions/cross-database-macros",
+    "https://docs.getdbt.com/reference/dbt-jinja-functions/debug-method",
+    "https://docs.getdbt.com/reference/dbt-jinja-functions/flags",
+    "https://docs.getdbt.com/reference/dbt-jinja-functions/fromjson",
+    "https://docs.getdbt.com/reference/dbt-jinja-functions/graph",
+    "https://docs.getdbt.com/reference/dbt-jinja-functions/log",
+    "https://docs.getdbt.com/reference/dbt-jinja-functions/modules",
+    "https://docs.getdbt.com/reference/dbt-jinja-functions/project",
+    "https://docs.getdbt.com/reference/dbt-jinja-functions/ref",
+    "https://docs.getdbt.com/reference/dbt-jinja-functions/return",
+    "https://docs.getdbt.com/reference/dbt-jinja-functions/run_query",
+    "https://docs.getdbt.com/reference/dbt-jinja-functions/run_results",
+    "https://docs.getdbt.com/reference/dbt-jinja-functions/schema",
+    "https://docs.getdbt.com/reference/dbt-jinja-functions/selected_resources",
+    "https://docs.getdbt.com/reference/dbt-jinja-functions/set",
+    "https://docs.getdbt.com/reference/dbt-jinja-functions/source",
+    "https://docs.getdbt.com/reference/dbt-jinja-functions/statement-blocks",
+    "https://docs.getdbt.com/reference/dbt-jinja-functions/target",
+    "https://docs.getdbt.com/reference/dbt-jinja-functions/this",
+    "https://docs.getdbt.com/reference/dbt-jinja-functions/tojson",
+    "https://docs.getdbt.com/reference/dbt-jinja-functions/var",
+    "https://hub.getdbt.com/dbt-labs/dbt_utils/latest/",
+    "https://hub.getdbt.com/dbt-labs/codegen/latest/"
+  ],
+  "selectors": {
+    "main_content": "article, main, div.markdown-body",
+    "title": "h1",
+    "code_blocks": "pre code"
+  },
+  "url_patterns": {
+    "include": [
+      "/docs/build/jinja",
+      "/reference/dbt-jinja-functions",
+      "/docs/build/custom-generic-tests",
+      "/docs/build/custom-singular-tests",
+      "/reference/dbt-jinja-functions/",
+      "/hub/dbt-labs/dbt_utils",
+      "/hub/dbt-labs/codegen"
+    ],
+    "exclude": ["/blog", "/community", "/guides/migration", "/cloud"]
+  },
+  "rate_limit": 1,
+  "max_pages": 150,
+  "categories": {
+    "jinja_basics": ["jinja", "macro", "template", "control flow", "filters"],
+    "dbt_functions": ["ref", "source", "config", "var", "target", "this"],
+    "advanced_jinja": ["statement blocks", "run_query", "adapter", "dispatch"],
+    "utility_packages": ["dbt_utils", "codegen", "generate_source", "star", "pivot"],
+    "sql_generation": ["sql generator", "date_spine", "union_relations", "surrogate_key"],
+    "testing": ["generic test", "singular test", "test macro", "validation"],
+    "examples": ["example", "tutorial", "pattern", "best practice"]
+  }
+}

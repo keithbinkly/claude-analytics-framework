@@ -1,0 +1,275 @@
+# source_of_truth: caf
+# mirrored_from: dbt-agent/shared/reference/anti-pattern-impact.yml
+# CAF migration note: promoted copy from dbt-agent; prefer this CAF path first.
+metadata:
+  generated: '2025-12-27T02:40:36.757022'
+  source: Redshift query logs
+  query_count: 474144
+  queries_with_execution_time: 307610
+baseline:
+  clean_query_count: 253521
+  clean_avg_sec: 16.89
+  clean_median_sec: 1
+impact_by_pattern:
+- pattern: NOT IN subquery
+  frequency: 16867
+  avg_execution_sec: 70.67
+  median_execution_sec: 14.0
+  p95_execution_sec: 389
+  baseline_avg_sec: 16.89
+  impact_multiplier: 4.18x
+  priority: P0
+- pattern: OR in JOIN
+  frequency: 16160
+  avg_execution_sec: 68.77
+  median_execution_sec: 15
+  p95_execution_sec: 310
+  baseline_avg_sec: 16.89
+  impact_multiplier: 4.07x
+  priority: P0
+- pattern: Deep nesting (3+ levels)
+  frequency: 30052
+  avg_execution_sec: 51.7
+  median_execution_sec: 11
+  p95_execution_sec: 217
+  baseline_avg_sec: 16.89
+  impact_multiplier: 3.06x
+  priority: P0
+- pattern: SELECT *
+  frequency: 26327
+  avg_execution_sec: 35.09
+  median_execution_sec: 5
+  p95_execution_sec: 138
+  baseline_avg_sec: 16.89
+  impact_multiplier: 2.08x
+  priority: P0
+- pattern: DISTINCT in aggregation
+  frequency: 492
+  avg_execution_sec: 22.49
+  median_execution_sec: 2
+  p95_execution_sec: 95
+  baseline_avg_sec: 16.89
+  impact_multiplier: 1.33x
+  priority: P3
+- pattern: CROSS JOIN
+  frequency: 1450
+  avg_execution_sec: 21.58
+  median_execution_sec: 1
+  p95_execution_sec: 153
+  baseline_avg_sec: 16.89
+  impact_multiplier: 1.28x
+  priority: P3
+
+# Recommended substitutions for each anti-pattern
+substitutions:
+  - pattern: NOT IN subquery
+    impact: 4.18x
+    why_slow: "NOT IN has NULL handling issues and prevents optimizer from using anti-join"
+    alternatives:
+      - name: NOT EXISTS
+        preferred: true
+        example: |
+          -- ❌ Anti-pattern
+          SELECT * FROM orders
+          WHERE customer_id NOT IN (SELECT customer_id FROM churned_customers)
+
+          -- ✅ NOT EXISTS (usually fastest)
+          SELECT * FROM orders o
+          WHERE NOT EXISTS (
+              SELECT 1 FROM churned_customers c
+              WHERE c.customer_id = o.customer_id
+          )
+      - name: LEFT JOIN IS NULL
+        preferred: false
+        example: |
+          SELECT o.* FROM orders o
+          LEFT JOIN churned_customers c ON o.customer_id = c.customer_id
+          WHERE c.customer_id IS NULL
+
+  - pattern: OR in JOIN
+    impact: 4.07x
+    why_slow: "OR prevents hash/merge joins, forcing nested loop scans"
+    alternatives:
+      - name: UNION ALL
+        preferred: true
+        example: |
+          -- ❌ Anti-pattern
+          SELECT * FROM transactions t
+          JOIN accounts a ON t.from_account = a.id OR t.to_account = a.id
+
+          -- ✅ UNION ALL with separate joins
+          SELECT t.*, a.* FROM transactions t
+          JOIN accounts a ON t.from_account = a.id
+          UNION ALL
+          SELECT t.*, a.* FROM transactions t
+          JOIN accounts a ON t.to_account = a.id
+          WHERE t.from_account != t.to_account  -- avoid duplicates if needed
+
+  - pattern: Deep nesting (3+ levels)
+    impact: 3.06x
+    why_slow: "Deep subqueries are harder for optimizer to flatten and parallelize"
+    alternatives:
+      - name: CTEs
+        preferred: true
+        example: |
+          -- ❌ Anti-pattern
+          SELECT * FROM (
+              SELECT * FROM (
+                  SELECT * FROM (
+                      SELECT * FROM orders WHERE status = 'active'
+                  ) x WHERE amount > 100
+              ) y WHERE region = 'US'
+          ) z WHERE customer_type = 'premium'
+
+          -- ✅ CTEs (flat structure)
+          WITH active_orders AS (
+              SELECT * FROM orders WHERE status = 'active'
+          ),
+          high_value AS (
+              SELECT * FROM active_orders WHERE amount > 100
+          ),
+          us_region AS (
+              SELECT * FROM high_value WHERE region = 'US'
+          )
+          SELECT * FROM us_region WHERE customer_type = 'premium'
+
+  - pattern: SELECT *
+    impact: 2.08x
+    why_slow: "Redshift is columnar; fewer columns = less I/O. Also prevents schema drift bugs"
+    alternatives:
+      - name: Explicit columns
+        preferred: true
+        example: |
+          -- ❌ Anti-pattern
+          SELECT * FROM large_table
+
+          -- ✅ Explicit column list
+          SELECT id, customer_id, amount, created_at FROM large_table
+
+  - pattern: DISTINCT in aggregation
+    impact: 1.33x
+    why_slow: "COUNT(DISTINCT) requires sorting/hashing entire dataset, limiting parallelism"
+    alternatives:
+      - name: Pre-GROUP BY
+        preferred: true
+        example: |
+          -- ❌ Anti-pattern
+          SELECT COUNT(DISTINCT customer_id) FROM orders
+
+          -- ✅ Pre-aggregate with GROUP BY
+          WITH distinct_customers AS (
+              SELECT customer_id FROM orders GROUP BY customer_id
+          )
+          SELECT COUNT(*) FROM distinct_customers
+      - name: APPROXIMATE
+        preferred: false
+        note: "Use when exact count not required"
+        example: |
+          SELECT APPROXIMATE COUNT(DISTINCT customer_id) FROM orders
+
+  - pattern: CROSS JOIN
+    impact: 1.28x
+    why_slow: "Cross joins produce M×N rows; often indicates missing join condition"
+    alternatives:
+      - name: Explicit JOIN with condition
+        preferred: true
+        example: |
+          -- ❌ Anti-pattern (often accidental)
+          SELECT * FROM table_a, table_b
+
+          -- ✅ Explicit JOIN
+          SELECT * FROM table_a
+          INNER JOIN table_b ON table_a.key = table_b.key
+
+combinations:
+- patterns:
+  - Deep nesting (3+ levels)
+  - OR in JOIN
+  frequency: 4041
+  avg_execution_sec: 92.85
+  compounding_factor: 0.9x
+- patterns:
+  - Deep nesting (3+ levels)
+  - SELECT *
+  frequency: 3952
+  avg_execution_sec: 60.36
+  compounding_factor: 0.86x
+- patterns:
+  - Deep nesting (3+ levels)
+  - NOT IN subquery
+  frequency: 2571
+  avg_execution_sec: 70.68
+  compounding_factor: 0.67x
+- patterns:
+  - NOT IN subquery
+  - SELECT *
+  frequency: 1815
+  avg_execution_sec: 33.55
+  compounding_factor: 0.38x
+- patterns:
+  - Deep nesting (3+ levels)
+  - OR in JOIN
+  - SELECT *
+  frequency: 1507
+  avg_execution_sec: 32.03
+  compounding_factor: 0.26x
+- patterns:
+  - Deep nesting (3+ levels)
+  - NOT IN subquery
+  - OR in JOIN
+  frequency: 1309
+  avg_execution_sec: 74.06
+  compounding_factor: 0.47x
+- patterns:
+  - NOT IN subquery
+  - OR in JOIN
+  frequency: 955
+  avg_execution_sec: 89.0
+  compounding_factor: 0.73x
+- patterns:
+  - Deep nesting (3+ levels)
+  - NOT IN subquery
+  - SELECT *
+  frequency: 568
+  avg_execution_sec: 66.09
+  compounding_factor: 0.53x
+- patterns:
+  - OR in JOIN
+  - SELECT *
+  frequency: 565
+  avg_execution_sec: 233.53
+  compounding_factor: 2.69x
+- patterns:
+  - Deep nesting (3+ levels)
+  - NOT IN subquery
+  - OR in JOIN
+  - SELECT *
+  frequency: 341
+  avg_execution_sec: 60.03
+  compounding_factor: 0.34x
+- patterns:
+  - CROSS JOIN
+  - Deep nesting (3+ levels)
+  frequency: 180
+  avg_execution_sec: 16.12
+  compounding_factor: 0.29x
+- patterns:
+  - CROSS JOIN
+  - Deep nesting (3+ levels)
+  - OR in JOIN
+  frequency: 36
+  avg_execution_sec: 141.22
+  compounding_factor: 1.3x
+- patterns:
+  - DISTINCT in aggregation
+  - SELECT *
+  frequency: 21
+  avg_execution_sec: 7.43
+  compounding_factor: 0.18x
+- patterns:
+  - CROSS JOIN
+  - Deep nesting (3+ levels)
+  - SELECT *
+  frequency: 20
+  avg_execution_sec: 14.95
+  compounding_factor: 0.2x

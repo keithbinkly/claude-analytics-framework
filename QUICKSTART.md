@@ -1,149 +1,247 @@
-# Quick Start
+# Quick Start — AI Team Workspace
 
-**Just want to try this without reading the full README?** Start here.
+**Time to useful:** 5 minutes.
 
-**A heads-up:** this repo is a starting place, not a finished product. The agents and skills here were generated as a scaffold -- your team will need to refine them for your specific tools and patterns. Think of this as a reference architecture for how a data team can share and coordinate their use of Claude across the tools that deliver data products to the business.
+---
 
-## Minimum Viable Setup
+## What This Is
 
-### 1. Prerequisites Check (30 seconds)
+This is the analytics team's shared AI workspace. It has skills, knowledge, and workflows that make Claude (or any AI coding agent) better at our analytics work — dbt pipelines, data science, QA, visualization, and more.
 
-```bash
-# Do you have these?
-claude --version  # Required - Install: https://docs.claude.com/en/docs/claude-code/installation
-git --version     # Required - You already have this
-gh --version      # Optional - Only needed for /idea command
-```
+**It is NOT where dbt code lives.** dbt code stays in `dbt-enterprise`. This workspace is the brain that helps you work on it.
 
-**Don't have Claude Code?** Install it first, then come back.
+---
 
-### 2. Clone and Run Setup (2 minutes)
+## Setup (2 minutes)
+
+### 1. Clone and link repos
 
 ```bash
-git clone https://github.com/dylpickledev/claude-analytics-framework.git
+git clone <this-repo-url>
 cd claude-analytics-framework
-./setup.sh
+bash scripts/bootstrap-linked-repos.sh
 ```
 
-**What setup.sh does:**
-- Asks 4 questions about your data stack
-- Copies relevant agent files to `.claude/agents/`
-- Updates `.claude/config/tech-stack.json`
-- **That's it.** No system changes, no breaking anything.
+This creates symlinks to the sibling repos (dbt-enterprise, dbt-agent, data-centered) so you can search across them.
 
-**Can I undo it?** Yes. Just delete this directory.
-
-### 3. Start Your First Project (2 minutes)
+### 2. Verify MCP
 
 ```bash
-# Create a project
-claude /start "test project to see how this works"
-
-# You now have:
-# - projects/active/feature-test-project/ folder
-# - Git branch: feature/test-project
-# - README, spec.md, context.md templates ready
+cp .env.example .env
+# Edit .env with your dbt Cloud API token and account ID
+# Get token: https://cloud.getdbt.com/settings/tokens
+bash scripts/validate-mcp.sh
 ```
 
-### 4. Try the AI Agents
+### 3. Start Claude Code
 
 ```bash
-# Just ask Claude questions - it uses the right agents automatically
-claude "What agents are available?"
-claude "Help me design a dbt staging model for customer data"
-claude "Show me what a project looks like when complete"
+cd claude-analytics-framework
+claude
 ```
 
-**That's the scaffold set up.** Now the real work begins -- adapting the agents and patterns to how your team actually works.
+That's it. Claude now has access to 27 skills, 24 commands, 21 operating rules, and the team's shared knowledge base.
 
 ---
 
-## What You Can Ignore (For Now)
+## Your First Session
 
-You do NOT need to:
-- ❌ Understand the agent architecture
-- ❌ Configure MCP servers (this is optional advanced stuff)
-- ❌ Learn all 5 commands
-- ❌ Read specialist agent definitions
-- ❌ Set up GitHub issues (works without them)
+Try any of these:
 
-**Start simple. Expand later when you need more.**
+```
+"What skills are available for dbt pipeline work?"
+"I need to QA a model — what's the methodology?"
+"Help me design an intermediate model for customer transactions"
+"/pipeline-status"
+"/analyze What's driving the decline in approval rates?"
+```
 
----
-
-## The 5 Commands (Learn As You Go)
-
-**Essential:**
-- `/start "project"` - Create project structure + git branch
-
-**Helpful:**
-- `/idea "description"` - Create GitHub issue (requires `gh` CLI)
-- `/complete project-name` - Archive project when done
-- `/switch` - Switch between projects without losing context
-
-**Advanced:**
-- `/research topic` - Deep exploration before starting
+Claude will auto-load the right skill based on keywords. See the full keyword→skill table in `CLAUDE.md`.
 
 ---
 
-## Common Questions
+## How It Works
 
-**"What if my stack isn't dbt/Snowflake/Tableau?"**
-→ Setup asks about YOUR stack. If it's not listed, choose "Other" and the framework learns from your work.
+### Three repos, one workspace
 
-**"Will this break my existing Claude Code setup?"**
-→ No. This is just a directory with `.claude/` configuration. Your other projects are unaffected.
+| Repo | What | You do here |
+|------|------|------------|
+| **AI Team Workspace** (this) | Shared brain — skills, knowledge, commands | Read skills, add domain knowledge, use commands |
+| **dbt-enterprise** | Production dbt code | Write models, run dbt compile/run/test |
+| **dbt-agent** | Legacy reference (migration source) | Read reference material if not yet in workspace |
 
-**"Do I need to use GitHub issues?"**
-→ No. `/idea` and `/start` commands work with or without GitHub. Issues are just convenient for tracking.
+### When Claude needs to run dbt
 
-**"What's MCP and do I need it?"**
-→ MCP = Model Context Protocol. It connects Claude to live systems (dbt Cloud API, Snowflake, etc.). **You don't need it to start.** Skip that part of setup.
+Claude knows to `cd` to dbt-enterprise for dbt CLI commands. You don't need to do anything — the routing rules in `.claude/manifests/repo-adapters.yaml` handle it.
 
-**"Can I customize the branch naming / project structure?"**
-→ Yes. Edit `scripts/start.sh` for branch naming, `scripts/work-init.sh` for project structure.
+### What the skills do
 
-**"Is this overkill for my simple projects?"**
-→ Probably! This framework adds value when your team delivers data products that span multiple tools (dbt + warehouse + BI) and you want a shared approach to leveraging Claude. For one-off tasks, just use Claude Code directly.
+Skills are loaded automatically by keyword. When you say "optimize this query," Claude loads the Redshift Optimization skill. When you say "QA this model," it loads the QA skill with the 4-template methodology.
 
-**"Can I clone this and immediately be productive?"**
-→ Honestly, probably not. Our internal version took months of iterating. This is a starting place -- a scaffold to adapt, not a turnkey solution. The real value comes from your team refining the agents and patterns for your specific stack.
+You don't invoke skills manually — just describe what you need.
 
 ---
 
-## Next Steps
+## Adding Your Domain Knowledge
 
-**After your first test project:**
-1. Check out `examples/sample-project/` to see what a real project looks like
-2. Read `README.md` section "The 5 Commands" for full workflow
-3. Explore `.claude/agents/` to see what agents do
-4. Consider setting up MCP for live system access (optional)
+This is the most valuable thing you can do for the team.
 
-**Got questions?**
-- Check the main `README.md`
-- Read `CONTRIBUTING.md` if you want to extend this
-- Open an issue on GitHub
+### Example: Kyuhyun setting up Feature Store knowledge
+
+```bash
+cd claude-analytics-framework/knowledge/domains/feature-store
+```
+
+The folder already exists with a README. Add your files:
+
+```
+knowledge/domains/feature-store/
+  README.md                          ← already exists
+  patterns/
+    feature-freshness-checks.md      ← "Here's how we validate feature freshness"
+    naming-conventions.md            ← "Feature names follow this pattern"
+    feature-pipeline-template.md     ← "Standard pipeline structure"
+  reference/
+    feature-store-architecture.md    ← "How our feature store is set up"
+    common-transforms.md             ← "Reusable transformation patterns"
+  decisions/
+    why-we-use-X.md                  ← "We chose X over Y because..."
+```
+
+**What happens:** Next time anyone asks Claude about feature store patterns, it can read these files and give answers grounded in *our team's* actual practices — not generic LLM knowledge.
+
+### The pattern works for any domain
+
+```
+knowledge/domains/tpg-pipelines/     ← TPG team adds their patterns here
+knowledge/domains/semantic-layer/    ← Semantic layer patterns
+knowledge/domains/redshift/          ← Redshift optimization learnings
+knowledge/domains/data-storytelling/ ← Visualization patterns
+```
+
+### Commit and push
+
+```bash
+git add knowledge/domains/feature-store/
+git commit -m "docs: add feature store engineering patterns"
+git push
+```
+
+Everyone on the team benefits on next pull.
+
+---
+
+## Creating a Domain Expert Agent (Optional)
+
+Want Claude to have a dedicated "Feature Store Expert" persona? Create an agent definition:
+
+### 1. Create the agent file
+
+```bash
+# .claude/agents/feature-store-expert.md
+```
+
+```markdown
+---
+name: feature-store-expert
+description: Feature engineering and feature store specialist
+model: sonnet
+---
+
+# Feature Store Expert
+
+You are a feature store specialist for our analytics team.
+
+## Your knowledge base
+
+Before answering any question about feature engineering, read these files:
+- knowledge/domains/feature-store/README.md
+- knowledge/domains/feature-store/patterns/*.md
+- knowledge/domains/feature-store/reference/*.md
+
+## What you do
+
+- Help design features for ML models
+- Review feature freshness and quality
+- Suggest naming conventions per our team standards
+- Help with feature pipeline architecture
+
+## What you don't do
+
+- You don't run dbt commands (route to dbt-enterprise for that)
+- You don't modify production code without explicit approval
+- You don't guess when you could read the knowledge base
+```
+
+### 2. Create a slash command (optional)
+
+```bash
+# .claude/commands/feature-store-expert.md
+```
+
+```markdown
+Read and load the feature store expert agent from `.claude/agents/feature-store-expert.md`.
+Then read all files in `knowledge/domains/feature-store/` to build context.
+Greet the user and ask what feature engineering task they need help with.
+```
+
+### 3. Use it
+
+```
+/feature-store-expert
+"Help me design features for the churn prediction model"
+```
+
+Or just ask about feature store topics — if you add it to the skill activation table in `CLAUDE.md`, it'll load automatically.
+
+---
+
+## Key Commands
+
+| Command | What it does |
+|---------|-------------|
+| `/pipeline-new [name]` | Start a new dbt pipeline |
+| `/pipeline-resume [name]` | Resume pipeline work |
+| `/pipeline-status` | Check all pipeline status |
+| `/analyze [question]` | Multi-analyst ensemble (3 AI analysts answer your question) |
+| `/explore-data` | Systematic data exploration |
+| `/save` | Save workstream progress |
+| `/load [name]` | Resume from saved state |
+| `/qa` | Load QA agent |
+| `/builder` | Load Builder agent |
+
+---
+
+## What NOT to Put Here
+
+- **dbt model code** → goes in dbt-enterprise
+- **Personal notes** → your local `~/.claude/agent-memory/` (auto-managed by Claude)
+- **Sensitive data** → never committed to git. Use gitignored `session-logs/`
+- **One-off analysis scripts** → keep in dbt-enterprise `analyses/` or local
 
 ---
 
 ## Troubleshooting
 
-**"Permission denied on scripts"**
-```bash
-chmod +x scripts/*.sh
-```
+**"Claude doesn't seem to know about my domain knowledge"**
+→ Make sure your files are committed and pushed. Claude reads from the filesystem, not from memory.
 
-**"Claude command not found"**
-You need to install Claude Code first: https://docs.claude.com/en/docs/claude-code/installation
+**"dbt commands fail from workspace root"**
+→ Expected. dbt commands run from dbt-enterprise, not here. Claude handles the `cd` automatically.
 
-**"Setup failed with error"**
-- Make sure you're in the `claude-analytics-framework` directory
-- Check that git is installed
-- Try re-running `./setup.sh`
+**"MCP not working"**
+→ Run `bash scripts/validate-mcp.sh`. If it fails, check `.env` credentials and restart Claude Code.
 
-**"I don't want to answer setup questions"**
-Skip setup entirely. Just copy one of the agent files from `.claude/agents/specialists/` and ask Claude to use it. The framework is just organized prompts - nothing magical.
+**"I don't see the symlinks in repos/"**
+→ Run `bash scripts/bootstrap-linked-repos.sh`. Symlinks are local-only (gitignored).
 
 ---
 
-**Ready to dive deeper?** Read the full [README.md](README.md)
+## Learn More
+
+| Doc | What it covers |
+|-----|---------------|
+| `CLAUDE.md` | Full skill activation table, routing rules, anti-patterns |
+| `AGENT_ENTRYPOINT.md` | Agent-neutral bootstrap (for non-Claude AI tools) |
+| `CONTRIBUTING.md` | How to contribute shared assets |
+| `knowledge/platform/planning/ai-team-workspace-spec.md` | Full architecture specification |

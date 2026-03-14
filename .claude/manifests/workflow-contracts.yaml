@@ -1,0 +1,109 @@
+version: 1
+last_updated: "2026-03-14"
+purpose: "Agent-neutral workflow contracts for common analytics tasks in the CAF workspace."
+
+conventions:
+  - "These workflows are tool-agnostic and should not assume Claude slash commands."
+  - "Claude-specific commands and skills may implement these workflows, but do not define them."
+  - "Use repo adapters and dependency manifests to resolve local authority and external dependencies."
+
+workflows:
+  - id: "build_dbt_pipeline"
+    name: "Build dbt pipeline"
+    goal: "Design, implement, validate, and document a dbt pipeline change."
+    primary_repo: "dbt-enterprise"
+    control_plane_repo: "caf"
+    fallback_reference_repo: "dbt-agent"
+    steps:
+      - "Read AGENT_ENTRYPOINT.md and workspace manifests from CAF."
+      - "Check repo adapters to confirm routing and local authority."
+      - "Use CAF-promoted workflow assets if the needed capability exists there."
+      - "If capability is not yet promoted, consult dbt-agent reference material."
+      - "Switch execution context to dbt-enterprise for dbt CLI work."
+      - "Follow project-local dbt safety and environment rules from dbt-enterprise."
+    required_inputs:
+      - "task description"
+      - "target project or model scope"
+    key_files:
+      - "AGENT_ENTRYPOINT.md"
+      - ".claude/manifests/workspace-manifest.yaml"
+      - ".claude/manifests/repo-adapters.yaml"
+      - ".claude/manifests/ccv3-dependencies.yaml"
+    success_criteria:
+      - "Correct repo routing"
+      - "dbt execution happens from dbt-enterprise"
+      - "No dependence on undocumented Claude-only behavior"
+
+  - id: "resume_pipeline_work"
+    name: "Resume pipeline work"
+    goal: "Recover current context and continue a previously active analytics workflow."
+    primary_repo: "caf"
+    fallback_reference_repo: "dbt-agent"
+    steps:
+      - "Read CAF entrypoint and manifests."
+      - "Check shared state in CAF."
+      - "Check dbt-agent state if the active workflow still lives there."
+      - "Determine whether the execution target is dbt-enterprise."
+    key_files:
+      - "AGENT_ENTRYPOINT.md"
+      - "workstreams/active"
+      - ".claude/manifests/repo-adapters.yaml"
+      - "/Users/kbinkly/git-repos/dbt-agent/.dots"
+      - "/Users/kbinkly/git-repos/dbt-agent/handoffs"
+    success_criteria:
+      - "Current task state is identified"
+      - "Correct repo and execution target are identified"
+
+  - id: "run_dbt_qa"
+    name: "Run dbt QA"
+    goal: "Validate a dbt model or pipeline change using the approved QA workflow."
+    primary_repo: "dbt-enterprise"
+    control_plane_repo: "caf"
+    fallback_reference_repo: "dbt-agent"
+    steps:
+      - "Locate QA methodology in CAF or fallback to dbt-agent."
+      - "Inspect the relevant model and project constraints in dbt-enterprise."
+      - "Run validation from the execution target repo."
+      - "Record findings in the appropriate state location."
+    key_files:
+      - "knowledge/domains/"
+      - ".claude/manifests/repo-adapters.yaml"
+      - "/Users/kbinkly/git-repos/dbt-agent/shared/reference/qa-validation-checklist.md"
+    success_criteria:
+      - "QA follows approved methodology"
+      - "dbt-enterprise remains source of execution truth"
+
+  - id: "contribute_shared_knowledge"
+    name: "Contribute shared knowledge"
+    goal: "Add reusable team knowledge without mixing shared docs into delivery repos unnecessarily."
+    primary_repo: "caf"
+    steps:
+      - "Confirm the content is shared/team-facing rather than project-local."
+      - "Place content in CAF under the appropriate shared domain."
+      - "Declare provenance or ownership if copied from another repo."
+      - "Update manifests or planning docs if the new content affects routing."
+    key_files:
+      - "knowledge/domains/"
+      - ".claude/manifests/workspace-manifest.yaml"
+      - ".claude/manifests/ccv3-dependencies.yaml"
+    success_criteria:
+      - "Shared knowledge lives in CAF"
+      - "Ownership and provenance are explicit"
+
+  - id: "investigate_cross_repo_behavior"
+    name: "Investigate cross-repo behavior"
+    goal: "Understand a workflow, dependency, or state issue that spans multiple repos."
+    primary_repo: "caf"
+    steps:
+      - "Start with AGENT_ENTRYPOINT.md and the workspace manifests."
+      - "Use repo adapters to determine which repos participate."
+      - "Check ccv3-dependencies.yaml for hidden global-layer dependencies."
+      - "Inspect the participating repo-local docs and state."
+    key_files:
+      - "AGENT_ENTRYPOINT.md"
+      - ".claude/manifests/workspace-manifest.yaml"
+      - ".claude/manifests/repo-adapters.yaml"
+      - ".claude/manifests/ccv3-dependencies.yaml"
+    success_criteria:
+      - "Cross-repo routing is explicit"
+      - "Global dependencies are identified rather than inferred"

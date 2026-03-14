@@ -43,10 +43,12 @@ topology:
     - "~/.claude/agent-memory"
 
 bootstrap_read_order:
+  - "AGENT_ENTRYPOINT.md"
   - "README.md"
   - "CLAUDE.md"
   - ".claude/manifests/workspace-manifest.yaml"
   - ".claude/manifests/repo-adapters.yaml"
+  - ".claude/manifests/workflow-contracts.yaml"
   - ".claude/manifests/ccv3-dependencies.yaml"
   - "knowledge/platform/planning/shared-agent-platform-monorepo-plan.md"
 
@@ -121,6 +123,7 @@ promotion_rules:
   - "Promote highest-leverage team-shared assets first."
   - "Every promoted asset should record ownership or mirror status."
   - "Every promoted asset should declare CCV3/global-layer dependencies explicitly."
+  - "Core workflow navigation should be expressible without Claude-only runtime features."
 
 ownership_labels:
   allowed:
@@ -143,6 +146,7 @@ cutover_requirements:
     - "Workstream state management"
 
 success_conditions:
+  - "A non-Claude coding agent can bootstrap from CAF and route core workflows correctly."
   - "A new analytics agent can start at CAF and route correctly without guessing across roots."
   - "Shared analytics platform behavior is defined in CAF."
   - "Linked repos remain operationally intact."

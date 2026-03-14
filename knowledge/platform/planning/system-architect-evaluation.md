@@ -1,184 +1,186 @@
 # System Architect Evaluation: CAF Monorepo Plan
 
 **Author:** System Architect (domain agent)
-**Date:** 2026-03-12
+**Date:** 2026-03-13 (pass 3 — with Builder and QA agent review)
+**Status:** Approved for Phase 1 execution. All major risks resolved.
+
 **Input documents reviewed:**
-- `shared-agent-platform-monorepo-plan.md`
-- `global-to-caf-migration-inventory.md`
-- `.claude/manifests/workspace-manifest.yaml`
-- `.claude/manifests/repo-adapters.yaml`
+- `shared-agent-platform-monorepo-plan.md` (revised 2026-03-13)
+- `global-to-caf-migration-inventory.md` (revised 2026-03-13)
+- `dbt-agent-decomposition-inventory.md` (new 2026-03-13)
+- `.claude/manifests/workspace-manifest.yaml` (revised 2026-03-13)
+- `.claude/manifests/repo-adapters.yaml` (revised 2026-03-13)
+- `README.md` (revised 2026-03-13)
 - Actual CAF repo state (file tree, existing commands, CLAUDE.md)
+- Builder agent memory (MEMORY.md, napkin.md) — operational impact review
+- QA agent memory (MEMORY.md, napkin.md) — operational impact review
 
 ---
 
 ## Verdict Summary
 
-| Dimension | Assessment |
-|-----------|-----------|
-| Target architecture coherent? | Mostly yes — one structural contradiction around repo nesting |
-| Migration phases realistic? | Phases 1-4 yes, Phase 5 high risk / low value, Phase 7 underscoped |
-| Risks | Two-control-plane ambiguity, agent memory split, dbt-agent identity crisis |
-| CAF as canonical root? | Right concept, not yet earned — needs content before authority |
+| Dimension | Pass 1 (2026-03-12) | Pass 3 (2026-03-13) |
+|-----------|---------------------|---------------------|
+| Target architecture coherent? | Mostly — repo nesting contradiction | **Yes** — repos are external/linked, execution model proven |
+| Migration phases realistic? | Phases 1-4 yes, Phase 5 risky, Phase 7 underscoped | **Yes** — Phase 5 eliminated, Phase 7 scoped correctly |
+| Risks | Two-control-plane ambiguity, memory split, identity crisis | **All addressed** — including Builder/QA operational concerns |
+| CAF as canonical root? | Right concept, not yet earned | **Confirmed** — earns authority by capability replacement |
+| Pipeline safety | Not explicitly addressed | **Proven safe** — execution model already decoupled today |
+| dbt CLI execution | Not assessed | **Non-issue** — already decoupled (see critical finding below) |
+
+**Overall: Safe to proceed through Phase 3.** The execution model is already proven in production.
 
 ---
 
-## 1. Architecture Coherence
+## CRITICAL FINDING: dbt Execution Decoupling Is Already Solved
 
-The three-layer model is sound: CAF as control plane, `dbt-enterprise` and `data-centered` as intact nested projects, `dbt-agent` as absorption source. The repo-adapters pattern is well-designed — explicit routing rules prevent the ambiguity that caused the original pain.
+**This section is essential context for Builder, QA, and any agent involved in pipeline work.**
 
-### Structural contradiction: repo nesting mechanism undefined
+### The concern that was raised
 
-The plan says `dbt-enterprise` and `data-centered` should live under `repos/` inside CAF (Phase 5), but both are separate git repos with their own histories. The plan hand-waves this: "preserve git history/boundaries" without specifying the mechanism.
+When evaluating whether agents could work from a CAF root directory, Builder and QA initially flagged that `dbt compile`, `dbt run`, `dbt test`, and `dbt show` all require `dbt_project.yml` in the working directory. If agents start sessions in CAF, how do they run dbt commands?
 
-| Mechanism | Preserves history | Agent sees unified tree | Operational friction |
-|-----------|------------------|------------------------|---------------------|
-| Submodules | Yes | Yes (after init) | High (checkout, push, sync) |
-| Symlinks | Yes (separate repos) | Yes | Low, but fragile |
-| Actual copy | No | Yes | None after copy |
-| Worktree mounts | No | Partial | Medium |
+### Why this is a non-issue
 
-The existing CAF repo has `scripts/convert-to-submodules.sh` and `scripts/setup-submodules.sh` — so submodules were the original intent. But submodules are the #1 source of git friction for solo/small teams. This needs a definitive decision before Phase 5.
+**This pattern is already how every pipeline session works today.** The control plane (dbt-agent) and the execution target (dbt-enterprise) are already separate repos. Every Builder and QA session already:
 
----
+1. Loads context from dbt-agent's `.claude/` (skills, commands, rules, knowledge bases)
+2. Runs dbt CLI commands by `cd`-ing to dbt-enterprise
+3. Uses `execute_sql` via MCP API (path-independent — works from any directory)
 
-## 2. Migration Phase Realism
+CAF does not change this relationship. It just moves the control plane up one level:
 
-### Phases 1-4: Realistic and well-ordered
+| Component | Today | CAF end state | Change? |
+|-----------|-------|---------------|---------|
+| **Control plane** (`.claude/`, skills, commands, rules) | dbt-agent | CAF | Yes — promotes up |
+| **dbt execution target** (`dbt compile/run/test`) | dbt-enterprise (via `cd`) | dbt-enterprise (via `cd`) | **No change** |
+| **MCP API** (`execute_sql`) | Path-independent | Path-independent | **No change** |
+| **Knowledge base** (decision traces, QA templates) | dbt-agent/shared/ | CAF/repos/dbt-agent/shared/ (symlink) | Path changes, content doesn't |
+| **Agent memory** | ~/.claude/agent-memory/ | ~/.claude/agent-memory/ | **No change** |
 
-Phase 1 (control plane) is already partially done — manifests exist, planning docs exist. Phases 2-4 are content moves with low blast radius.
+### What this means for agents
 
-### Phase 5 (relocate repos): High risk, questionable value
+**Builder agent:** Your compile-before-run workflow, VPN gating, pre-flight checks, PLAN.md state machine, canonical registry lookups — none of these change mechanically. You already `cd` to dbt-enterprise for dbt commands. You will continue to do so. The only difference is that skills and commands load from CAF's `.claude/` instead of dbt-agent's `.claude/` once they're promoted.
 
-Moving `dbt-enterprise` under CAF's tree is the riskiest phase and delivers the least value. Right now, agents work across repos by reading CLAUDE.md at each root. Moving the folders doesn't change agent behavior — only the manifests and adapters change behavior. The plan could achieve 90% of its goals without ever physically nesting the repos.
+**QA agent:** Your dual-mode execution (Claude QA via `execute_sql`, Copilot QA via Redshift) is already path-independent for the API path and `cd`-dependent for the CLI path. This doesn't change. Decision trace lookups will resolve through symlinks to the same files. The 4-template workflow, hypothesis-driven investigation, and trace logging all work identically.
 
-### Phase 7 (dbt-agent absorption): Unrealistically scoped
+**Both agents:** The hard architectural problem — separating "where I think" from "where I run dbt" — was already solved by necessity when dbt-agent and dbt-enterprise became separate repos. CAF inherits this proven pattern. There is no new decoupling to design.
 
-`dbt-agent` has ~45 skills, 8 domain agent memory directories, 23 slash commands, extensive knowledge bases, 40+ dots, workstream files, decision traces, and the entire learning loop infrastructure (`tools/chatops/`). "Progressively absorbed" is aspirational without a per-asset inventory with keep/move/archive decisions. The migration inventory covers `~/.claude` thoroughly but barely touches `dbt-agent` internals.
+### The only real migration work for agents
 
----
-
-## 3. Risks and Contradictions
-
-### Risk 1: Two control planes during transition (HIGH)
-
-The plan creates CAF as the new control plane but doesn't specify when `dbt-agent`'s CLAUDE.md stops being authoritative. During the transition, agents loading from `dbt-agent` will still see 10 rules, 45 skills, and a full CLAUDE.md. Adding a second authoritative CLAUDE.md in CAF creates the exact ambiguity the plan is trying to solve — but now with two sources instead of one.
-
-**Mitigation needed:** Define the cutover trigger — "dbt-agent's CLAUDE.md is authoritative until CAF has equivalent coverage for: [list of N capabilities]." Without this, you get a slow drift where both are half-authoritative.
-
-### Risk 2: Agent memory split (MEDIUM)
-
-The plan moves `system-architect` and `designer` memory from `~/.claude/agent-memory/` to CAF. But the existing architecture (decisions.md, 2026-02-20) placed global agents in `~/.claude/agent-memory/` specifically because they're invoked from multiple repos. Moving them to CAF means they're only visible when CAF is the working directory — unless path resolution logic is added. This reverses an architectural decision that was working.
-
-**Recommendation:** Keep `~/.claude/agent-memory/` as the agent memory location. CAF can reference it via manifests without owning the files. The current residency rule (global = `~/.claude`, project = repo-local) is clean. Moving memory into CAF creates a coupling between agent identity and working directory.
-
-### Risk 3: dbt-agent identity crisis (MEDIUM)
-
-Today, `dbt-agent` is where all the work happens. It's where sessions start, where Claude loads context, where dots and workstreams live. The plan says it becomes a "migration source" with `safe_work_types: content extraction, migration planning, reference lookup`. But the existing CLAUDE.md in dbt-agent is a 300-line operating manual with MCP tool routing, VPN split architecture, preflight rules, QA standards — none of which CAF replaces. If you change dbt-agent's role to "migration source" before CAF has equivalent depth, you lose operational capability.
-
-**Mitigation:** dbt-agent keeps its current role until CAF demonstrably replaces each capability. The adapter should reflect current reality, not aspirational end state.
-
-### Risk 4: Plan-reality gap in existing CAF scaffolding (LOW but notable)
-
-The existing CAF repo has generic scaffolding (setup wizard, devcontainer, sample project, generic commands like `/start`, `/switch`, `/pause`). The planning docs describe a specialized analytics control plane. These are different products. The existing commands don't map to the target architecture at all — they'll need to be replaced, not extended.
+The remaining work is **path resolution in promoted skill and command files** — updating relative paths like `shared/knowledge-base/canonical-models-registry.md` to resolve correctly from CAF root (either via symlinks or absolute paths). This is Phase 3 mechanical work, not architectural risk.
 
 ---
 
-## 4. What Should Change Before Implementation
+## How Original Concerns Were Resolved
 
-### A. Don't physically nest repos — defer Phase 5 indefinitely
-
-Use manifests + path resolution instead. CAF can be the canonical root without containing the other repos as subdirectories. This eliminates the git complexity risk entirely. Agents already navigate across repos — the manifests just need to tell them where to look.
-
-Replace `repos/dbt-enterprise/` and `repos/data-centered/` in the topology with path references to their actual locations on disk. The workspace manifest already has the infrastructure for this.
-
-### B. Define cutover triggers, not just direction
-
-Specify concrete conditions: "dbt-agent's CLAUDE.md is authoritative until CAF has equivalent coverage for these capabilities:
-
-1. MCP tool routing (VPN split)
-2. Preflight rules
-3. QA standards and templates
-4. Skill activation table
-5. Pipeline orchestration commands
-6. Agent loading specs
-7. Anti-pattern enforcement
-8. Decision trace lookup
-9. Learning loop infrastructure
-10. Workstream state management"
-
-Each capability migrates independently. dbt-agent's authority shrinks as CAF's grows.
-
-### C. Reconsider moving global agent memory
-
-Keep `~/.claude/agent-memory/` as the canonical location for global agent memory. CAF manifests can reference these paths. The current residency rule is sound:
-
-- Global (invoked from 2+ repos): `~/.claude/agent-memory/`
-- Project (single repo): `<repo>/.claude/agent-memory/`
-
-Moving memory into CAF couples agent identity to working directory. An agent invoked from `data-centered` shouldn't need CAF checked out to find its own memory.
-
-### D. Create the dbt-agent decomposition inventory (prerequisite to Phase 2)
-
-The migration inventory covers `~/.claude` well but `dbt-agent` barely. Before Phase 2, create a file-by-file inventory of `dbt-agent/.claude/` classifying each asset:
-
-| Classification | Meaning |
-|---------------|---------|
-| Promote to CAF | Reusable across analytics projects |
-| Keep in dbt-domain | Specific to dbt-enterprise operations |
-| Archive | Superseded or stale |
-| Already duplicated | Exists in both places — resolve |
-
-This is the actual hard work of the migration.
-
-### E. Reconcile existing CAF scaffolding with target architecture
-
-The current commands (`/start`, `/switch`, `/build`, `/pause`, `/complete`, `/pr`) are generic project management. The target is an analytics operating system. Either:
-
-- Evolve these commands to serve the analytics platform, or
-- Replace them with the analytics-specific commands from the plan
-
-Don't leave two command philosophies coexisting.
-
----
-
-## 5. Is CAF the Right Canonical Root?
-
-**Yes, but not yet.**
-
-The concept is right: a shared control plane above the delivery repos. The current state of `dbt-agent` as both "knowledge base" and "control plane" is unsustainable — it was the right choice when there was one repo, but with three repos and growing, it creates the navigation ambiguity the plan correctly identifies.
-
-However, CAF earns canonical status by **having the content**, not by **declaring itself canonical**. Current state:
-
-| What CAF has | What dbt-agent has |
+| Original concern | Resolution |
 |---|---|
-| Manifests, planning docs, generic scaffolding | 45 skills, 8 agent memories, 23 commands |
-| — | Decision traces, learning loop infra |
-| — | QA standards, preflight rules |
-| — | All operational depth |
-
-The honest current state is: CAF is a *planned* canonical root. It becomes the *actual* canonical root when an agent starting a fresh session in CAF can orient itself as well as one starting in dbt-agent. That's the real milestone.
-
----
-
-## 6. Recommended Execution Order
-
-| Step | Phase | Notes |
-|------|-------|-------|
-| 1 | Phase 1 (done) | Manifests exist, keep iterating |
-| 2 | New: dbt-agent decomposition | Full inventory — prerequisite to Phase 2 |
-| 3 | Phase 2 | Extract reusable patterns, but leave dbt-agent authoritative until CAF has equivalent |
-| 4 | Phase 3 | Adapters — already drafted, looks solid |
-| 5 | Phase 4 (modified) | Selective global migration: manifests + commands yes, agent memory no |
-| 6 | **Skip Phase 5** | Don't physically nest repos — use path references |
-| 7 | Phase 6 | Unified workstream state — high value, doesn't depend on repo nesting |
-| 8 | Phase 7 | Only after CAF demonstrably works as primary root |
+| Repo nesting mechanism undefined | Eliminated — repos are external, linked by absolute path in manifests |
+| Two control planes during transition | Explicit 10-item capability cutover checklist in plan + manifests |
+| Agent memory split | Global memory stays in `~/.claude/agent-memory/` — clean residency preserved |
+| dbt-agent identity crisis | dbt-agent stays intact, adapter includes "continued native workflow execution" |
+| Phase 5 high risk | Phase 5 removed — no physical nesting |
+| Phase 7 underscoped | Phase 7 is now "decide what remains mirrored vs re-owned" — not absorb everything |
+| Missing decomposition inventory | New file created with classification scheme + ownership labels |
+| Ownership drift | Explicit labels: `source_of_truth`, `mirrored_from`, `deprecated_copy` |
+| Open Q3: absolute vs relative paths | Resolved — manifests now use absolute paths |
+| Builder: dbt CLI needs project dir | **Non-issue** — already decoupled today (see critical finding above) |
+| Builder: PLAN.md and .dots/ paths | Resolved via symlinks — same files, accessible from CAF root |
+| Builder: knowledge base relative paths | Phase 3 mechanical work — update paths in promoted skills |
+| QA: decision trace paths | Resolved via symlinks — same files, accessible from CAF root |
+| QA: dual-mode execution needs dbt-enterprise | **Non-issue** — already works via `cd` today |
+| Both: .claude/settings.json hooks | Hooks promote to CAF's .claude/ as part of Phase 3 |
 
 ---
 
-## 7. Open Questions for the Next Session
+## Pipeline Preservation Assessment
 
-1. Should CAF's existing generic commands be archived or evolved?
-2. What's the minimum set of dbt-agent capabilities CAF needs before it can claim canonical status?
-3. Should the workspace manifest use absolute paths to sibling repos instead of relative `repos/` paths?
-4. Is the learning loop infrastructure (`tools/chatops/`) a CAF asset or a dbt-agent asset?
-5. How do `dbt-enterprise` worktrees (4 active) interact with the CAF model?
+The primary concern — maintaining the ability to build dbt pipelines during migration — is now structurally guaranteed through four reinforcing mechanisms:
+
+1. **Adapter-level**: `repo-adapters.yaml` lists "continued dbt-agent-native workflow execution" as a safe work type for dbt-agent
+2. **Policy-level**: `workspace-manifest.yaml` says `phase_out_from_dbt_agent: "nothing by default during incremental migration"`
+3. **Plan-level**: "promotion into CAF is by copy unless there is a later, explicit decision to re-home"
+4. **Architectural**: The control-plane / execution-target split is already proven in production — CAF inherits an existing working pattern, not inventing a new one
+
+---
+
+## Three Remaining Refinements
+
+### 1. Decomposition inventory is scaffolding, not yet content
+
+The `dbt-agent-decomposition-inventory.md` correctly identifies 8 areas and the classification scheme, but the "Required Next Pass" section says it needs file-by-file classification across 6 path groups. Until that pass happens, Phase 3 (copy highest-leverage content) doesn't have a concrete input list.
+
+**This is the right prerequisite to call out.** The document is scaffolding for the inventory work, not the work itself. Phase 3 needs the completed inventory as input.
+
+**Severity:** Expected — the document acknowledges this explicitly.
+
+### 2. Routing rules have a gap for pipeline-building workflows
+
+The four routing rules in `repo-adapters.yaml` cover:
+- Platform work → `caf`
+- Production dbt code → `dbt-enterprise`
+- Content work → `data-centered`
+- Migration extraction → `dbt-agent`
+
+But the most common daily task — "build a new dbt pipeline using dbt-agent's skills, commands, and knowledge base against dbt-enterprise" — matches both `dbt-enterprise` (production dbt code) and `dbt-agent` (operational reference). The routing rules need either:
+
+- A compound condition: "pipeline building uses dbt-enterprise adapter with dbt-agent as reference source"
+- Or a note that multi-adapter tasks are expected and the agent should consult both
+
+**Severity:** Low — agents will figure this out, but making it explicit prevents future confusion.
+
+**Suggested addition to `repo-adapters.yaml` routing_rules:**
+```yaml
+- condition: "task concerns building dbt pipelines (requires both production project and operational reference)"
+  use_adapter: "dbt-enterprise"
+  also_consult: "dbt-agent"
+  note: "Pipeline building uses dbt-enterprise as the execution target and dbt-agent as the skill/knowledge reference. This is the existing proven pattern."
+```
+
+### 3. The `promoted/dbt-agent/` directory creates a shadow structure
+
+The topology shows `promoted/dbt-agent/` as the landing zone for copied assets. This creates a parallel shadow of dbt-agent inside CAF. Over time, agents will need to decide: "do I look in `promoted/dbt-agent/` or in the real dbt-agent?"
+
+**Better approach:** Promote assets into their natural CAF-native locations (`knowledge/domains/dbt/`, `.claude/skills/`, `.claude/commands/`) and use the ownership labels to track provenance. The `promoted/` directory makes the migration visible but makes the end state messier.
+
+**Severity:** Low-medium — worth changing before Phase 3 execution, but not before Phase 1 rollout.
+
+**Suggested change to topology:**
+```text
+# Instead of:
+promoted/
+  dbt-agent/               # shadow copy
+
+# Use:
+knowledge/domains/dbt/     # for dbt domain knowledge
+.claude/skills/            # for promoted skills
+.claude/commands/          # for promoted commands
+# Each file carries ownership metadata (source_of_truth, mirrored_from)
+```
+
+---
+
+## Remaining Open Questions
+
+| Question | Status |
+|---|---|
+| ~~Should CAF's existing generic commands be archived or evolved?~~ | Still open — the README.md references ADLC-style `/idea`, `/roadmap` commands that don't match the analytics platform target |
+| ~~What's the minimum set of dbt-agent capabilities CAF needs?~~ | Resolved — the 10-item cutover checklist in the plan |
+| ~~Should workspace manifest use absolute paths?~~ | Resolved — now uses absolute paths |
+| ~~Builder: can dbt CLI work from CAF root?~~ | Resolved — already decoupled, `cd` to dbt-enterprise is the proven pattern |
+| ~~QA: will decision traces be accessible?~~ | Resolved — symlinks make them accessible from CAF root |
+| Is the learning loop infrastructure (`tools/chatops/`) a CAF asset or a dbt-agent asset? | Still open — this is the single largest infrastructure component and needs a classification decision |
+| How do `dbt-enterprise` worktrees (4 active) interact with the CAF model? | Still open — worktrees use separate paths that aren't in the manifest |
+
+---
+
+## Recommended Next Steps
+
+1. **Phase 1 rollout doc** — plan is approved, proceed
+2. **Add symlinks** to CAF `repos/` as Phase 1 infrastructure (cross-repo search + path resolution)
+3. **Add the compound routing rule** for pipeline-building workflows
+4. **Decide on `promoted/` vs native placement** before Phase 3 execution
+5. **Complete the decomposition inventory** (file-by-file pass) as input to Phase 3 asset selection
+6. **Classify `tools/chatops/`** — this is the hardest classification call and should be made early
+7. **Test one full pipeline cycle from CAF root** before declaring CAF ready as default working directory

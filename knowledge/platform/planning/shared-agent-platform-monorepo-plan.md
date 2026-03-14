@@ -1,207 +1,87 @@
-# Shared Agent Platform Monorepo Plan
+# AI Team Workspace Plan
 
-**Authors:** Keith + Claude  
-**Date:** 2026-03-11  
-**Status:** Draft  
+**Authors:** Keith + Claude (System Architect)
+**Date:** 2026-03-13 (revised from 2026-03-11 draft)
+**Status:** Approved for Phase 1 execution. System Architect evaluation complete (3 passes + team fitness assessment).
+
+**Related documents:**
+- `system-architect-evaluation.md` — 3-pass architectural review with Builder/QA impact analysis
+- `caf-team-fitness-assessment.md` — team readiness evaluation and scorecard
+- `ai-team-workspace-spec.md` — full specification for teammates
+- `dbt-agent-decomposition-inventory.md` — prerequisite inventory for Phase 3
+- `global-to-caf-migration-inventory.md` — classification of `~/.claude/` assets
+
+---
 
 ## Summary
-`claude-analytics-framework` should become the top-level shared agent platform for the workspace. It is the right long-term canonical root, but it has not earned that status yet.
+
+`claude-analytics-framework` becomes the **AI Team Workspace** — the shared control plane for the analytics team's AI-assisted work. It is where agents, skills, knowledge, and workflows live so everyone on the team benefits from them.
 
 The intended model is:
-- `dbt-enterprise` stays intact as its own repo/project and may later live inside CAF, but physical nesting is not required for the control-plane migration
-- `data-centered` stays intact as its own repo/project and may later live inside CAF, but physical nesting is not required for the control-plane migration
-- `dbt-agent` stays intact and fully usable throughout migration, while reusable contents are copied into CAF over time
-- analytics-specific global commands, manifests, and selected skills are brought down into CAF
-- truly global agent memory remains in `~/.claude/agent-memory/`
+- **AI Team Workspace** (this repo) is the shared brain — agents, skills, commands, team knowledge
+- **dbt-enterprise** stays intact as the production dbt project — where dbt commands run
+- **data-centered** stays intact as the content/visualization project
+- **dbt-agent** stays intact as the operational reference — proven skills and knowledge are copied from here into the workspace over time
+- Global agent memory remains in `~/.claude/agent-memory/`
 
-The core move is to centralize the agentic control plane here: agents, skills, commands, workstream state, team memory patterns, and platform docs. This gives agents one canonical home while preserving current delivery workflows for the production dbt project and the content/site project.
-
-This design matters because it:
+### Why this matters
 - Reduces agent confusion across multiple roots, manifests, and memory locations
-- Makes shared team workflows portable across dbt, notebooks, analysis projects, and content work
-- Preserves domain depth and operational continuity from `dbt-agent` while moving the highest-leverage reusable platform assets up a level
-- Avoids high-risk git/process changes in production repos until the platform layer is stable
+- Makes shared team workflows portable across dbt, notebooks, analysis, and content work
+- Gives teammates (data science, TPG) a place to contribute domain knowledge
+- Preserves domain depth and operational continuity from dbt-agent
 
-## Scope
-### In Scope
-- Define `claude-analytics-framework` as the canonical agent platform root
-- Define the target folder and ownership model
-- Identify what should be copied from `dbt-agent` first
-- Define how `dbt-enterprise` and `data-centered` participate in the CAF workspace while remaining intact
-- Define what should migrate from `~/.claude/` into CAF
-- Provide a phased migration and cutover plan
+---
 
-### Out of Scope
-- Extracting `dbt-enterprise` contents out of its existing project structure
-- Extracting `data-centered` contents out of its existing project structure
-- Moving truly universal non-analytics personal tooling into CAF
-- Rewriting all existing commands or agents in one pass
-- Production dbt workflow changes inside dbt Cloud IDE
-- Immediate deprecation of existing repos
+## Critical Finding: dbt Execution Decoupling Is Already Solved
 
-## Design Overview
-### Recommendation
-Adopt a **CAF-centered shared control plane** model:
+The control-plane / execution-target split is **already production-proven**. Every pipeline session today:
+1. Loads context from dbt-agent's `.claude/` (skills, commands, rules)
+2. Runs dbt CLI commands by `cd`-ing to dbt-enterprise
+3. Uses `execute_sql` via MCP API (path-independent)
 
-- One platform monorepo: `claude-analytics-framework`
-- `dbt-enterprise` remains an intact production project, referenced through CAF manifests and adapters
-- `data-centered` remains an intact content/product project, referenced through CAF manifests and adapters
-- `dbt-agent` remains intact as a full reference and operating repo while selected assets are promoted into CAF by copy
-- analytics-specific commands, manifests, and selected skills currently living in `~/.claude/` are progressively relocated into CAF
-- truly global memory remains in `~/.claude/agent-memory/`
-- Shared control plane lives in CAF
+The AI Team Workspace does not change this relationship. It just moves the control plane up one level. Builder and QA workflows don't change mechanically — they already `cd` to dbt-enterprise for dbt CLI.
 
-### Why this shape
-Today the workspace already behaves like a monorepo from the agent's perspective, but without monorepo clarity. Agents must infer:
-- which manifest is canonical
-- where global vs local memory lives
-- which commands are shared
-- where workstream state belongs
-- whether analytics behavior lives in CAF, `dbt-agent`, `data-centered`, or `~/.claude`
+| Component | Today | End state | Change? |
+|-----------|-------|-----------|---------|
+| **Control plane** (skills, commands, rules) | dbt-agent | AI Team Workspace | Yes — promotes up |
+| **dbt execution** (`compile/run/test`) | dbt-enterprise (via `cd`) | dbt-enterprise (via `cd`) | **No change** |
+| **MCP API** (`execute_sql`) | Path-independent | Path-independent | **No change** |
+| **Agent memory** | `~/.claude/agent-memory/` | `~/.claude/agent-memory/` | **No change** |
 
-The fix is not "put every file together immediately." The fix is "make one repo the canonical operating system."
+---
 
-## Target Topology
-```text
-claude-analytics-framework/
-  .claude/
-    agents/                  # shared/global agents
-    skills/                  # shared/platform skills
-    commands/                # shared slash commands
-    rules/                   # always-on operating rules
-    manifests/               # agent, skill, repo, workspace manifests
-  knowledge/
-    platform/                # operating model, planning, ops, training
-    domains/
-      dbt/                   # reusable dbt/domain guidance promoted from dbt-agent
-      analytics/             # notebooks, analysis patterns, experiments
-      storytelling/          # presentation, dashboard, article patterns
-  workstreams/
-    active/
-    archive/
-  telemetry/
-    chatops/
-    learning/
-  promoted/
-    dbt-agent/               # CAF-owned copies of selected dbt-agent assets
-  projects/
-    notebooks/
-    analyses/
-    prototypes/
-  templates/
-  scripts/
+## Design Decisions
 
-External but workspace-linked repos:
-  /Users/kbinkly/git-repos/dbt_projects/dbt-enterprise
-  /Users/kbinkly/git-repos/data-centered
-  /Users/kbinkly/git-repos/dbt-agent
+### Decision 1: Three repos, not one
 
-Global layer retained:
-  ~/.claude/agent-memory/    # canonical memory for truly global agents
-```
+dbt skills stay in the workspace (promoted from dbt-agent), **not** in dbt-enterprise. The separation between "where agents think" and "where dbt runs" is proven and working. Mixing `.claude/` config into dbt-enterprise PRs adds noise to model review.
 
-## Repository Roles After Migration
-### `claude-analytics-framework`
-Becomes the shared team repo and canonical control plane:
-- agent manifests
-- shared commands
-- shared skills
-- analytics-domain commands and manifests that currently live in `~/.claude/`
-- workstream state
-- team documentation
-- cross-repo coordination
-- reusable analytics/dbt/notebook patterns
+| Repo | Role | Why separate |
+|------|------|-------------|
+| AI Team Workspace | Shared brain | Changes here improve everyone's workflow |
+| dbt-enterprise | Production dbt code | Strict CI/CD, branch protection, team review |
+| dbt-agent | Migration source | Battle-tested reference, stays intact |
 
-### `dbt-agent`
-Remains intact as the primary reference repo during migration:
-- reusable agentic content is promoted into CAF by copy, not by removal
-- dbt-specific domain knowledge may be selectively mirrored into CAF when it has team-wide value
-- current workflows remain usable while CAF matures
-- the repo remains the pre-migration source of truth unless and until specific assets are explicitly re-owned by CAF
+### Decision 2: Two-tier agent model
 
-### `data-centered`
-Remains intact as its own project:
-- site, articles, visualizations, showcase work
-- consumes the shared platform, but does not define it
-- keeps its own project structure and delivery concerns
+Our agent model is **two-tier**: domain agents (Opus, persistent memory, judgment) and task agents (Sonnet, stateless, execution).
 
-### `dbt-enterprise`
-Remains intact as the production delivery project:
-- dbt models, YAML, tests, seeds, project configs
-- accessed through dbt Cloud and controlled workflows
-- is not unpacked or absorbed into CAF content-wise
-- remains the operational dbt project while CAF becomes the control-plane root
+This replaces the original CAF architecture (9 roles + 15 specialists with confidence-based delegation, built for Snowflake/AWS by Graniterock). The original agent files will be archived.
 
-### `~/.claude`
-Retains the truly global layer:
-- global agent memory for agents invoked from 2+ repos
-- universal non-analytics helpers
-- editor/runtime preferences
-- generic experimentation not owned by the analytics platform
+Domain agents: System Architect, Builder, QA, Analyst, Designer, Context Builder
+Task agents: Orchestrator, SQL Builder, Data Discoverer, QA Analyst, Learner, Architect
 
-CAF should absorb analytics-specific operating assets, but not break the clean residency rule for global memory.
+### Decision 3: Copy-promote migration from dbt-agent
 
-## Key Design Decisions
-### Decision 1: Shared root, selective copy-promote migration
-**Recommendation:** Make CAF the shared control plane, copy selected `dbt-agent` content into CAF over time, and pull analytics-specific global commands/manifests into CAF.
+Assets are **copied** from dbt-agent into the workspace. dbt-agent stays fully intact — nothing is deleted from it. Every copied asset carries ownership metadata:
+- `source_of_truth: dbt-agent` or `source_of_truth: caf`
+- `mirrored_from: dbt-agent`
+- `deprecated_copy: true`
 
-Why:
-- fastest relief for current agent-navigation pain
-- lowest operational risk
-- preserves dbt Cloud workflow expectations
-- preserves `data-centered` and `dbt-enterprise` as intact projects
-- preserves the full pre-migration `dbt-agent` state for reference and rollback safety
-- focuses migration effort on the highest-leverage assets first
-- removes ambiguity between "global analytics platform" and "repo-local analytics platform"
+### Decision 4: Capability replacement, not declaration
 
-### Decision 2: Move reusable agentic content up, keep delivery projects intact
-**Promote to framework now:**
-- shared manifests and bootstrap docs
-- shared slash-command patterns
-- workstream load/save model
-- cross-repo memory/residency rules
-- learning-loop and telemetry patterns
-- notebook and analysis project scaffolds
-- generic dbt skills that are team-reusable
-- analytics-related global commands from `~/.claude/commands/`
-- analytics-related global manifest logic from `~/.claude/AGENTS.md`
-- analytics-related global skills from `~/.claude/skills/`
+The workspace is authoritative only for capabilities it actually provides. dbt-agent stays authoritative until all 10 capabilities are replaced:
 
-Prioritize first:
-- assets other teammates can immediately use and improve
-- assets that improve CAF-root bootstrapping
-- assets that do not risk disrupting active dbt pipeline delivery
-
-**Keep in intact project folders:**
-- `dbt-enterprise` delivery code and dbt configs
-- `data-centered` site/content files
-- project-specific handoffs and active artifacts where local ownership matters
-- warehouse/domain-specific troubleshooting tied tightly to one production environment
-
-### Decision 3: Repo boundaries must still be explicit inside CAF
-Even once these projects live under CAF, agents still need a manifest that says:
-- this path is a production dbt project
-- this path is a content/site project
-- this path is shared platform infrastructure
-- this path is legacy material still being migrated
-- this path used to be global but is now CAF-owned analytics infrastructure
-
-Do not rely on folder names alone.
-
-### Decision 4: Keep global agent memory global
-**Recommendation:** Keep `~/.claude/agent-memory/` as the canonical location for global agent memory.
-
-Why:
-- it preserves the clean residency rule
-- it avoids coupling agent identity to CAF checkout location
-- it matches the current architecture decision already encoded in the global manifest
-
-CAF should reference global memory explicitly through manifests and commands rather than relocating it.
-
-### Decision 5: CAF becomes canonical by capability replacement, not declaration
-**Recommendation:** CAF is a planned canonical root until it can replace dbt-agent's operational depth.
-
-`dbt-agent` remains authoritative for dbt-agent-specific operations until CAF has equivalent coverage for:
 1. MCP tool routing
 2. Preflight rules
 3. QA standards and templates
@@ -213,145 +93,210 @@ CAF should reference global memory explicitly through manifests and commands rat
 9. Learning loop infrastructure
 10. Workstream state management
 
-### Decision 6: Every promoted asset needs explicit ownership metadata
-When content is copied from `dbt-agent` into CAF, label it with one of:
-- `source_of_truth: dbt-agent`
-- `source_of_truth: caf`
-- `mirrored_from: dbt-agent`
-- `deprecated_copy: true`
+### Decision 5: Global agent memory stays global
 
-This avoids silent drift while the same concepts exist in both places.
+`~/.claude/agent-memory/` remains canonical for global agents (System Architect, Designer). Agent identity shouldn't depend on checkout location.
 
-Move into CAF when the asset is:
-- analytics-team specific
-- used across the CAF/dbt/data-centered workspace
-- part of the shared operating model
-- something another analytics teammate would need
+### Decision 6: Native placement, not shadow structure
 
-Leave in `~/.claude` when the asset is:
-- personal rather than team/platform level
-- broadly generic across unrelated domains
-- not meaningfully part of the analytics operating system
+Promoted assets go into their natural locations (`knowledge/domains/dbt/`, `.claude/skills/`, `.claude/commands/`), **not** into a `promoted/dbt-agent/` shadow directory. Ownership metadata tracks provenance.
+
+### Decision 7: Cross-repo search via symlinks
+
+`repos/` directory contains symlinks to sibling repos, enabling Glob/Grep across the entire workspace from one root. Already has `.gitignore` excluding `repos/*` (except README.md).
+
+### Decision 8: Compound routing for pipeline work
+
+Pipeline building is the most common daily task and requires both repos:
+- **dbt-enterprise** as execution target (where dbt commands run)
+- **dbt-agent** (later: workspace) as skill/knowledge reference
+
+This is the existing proven pattern, made explicit in routing rules.
+
+---
+
+## Target Topology
+
+```text
+AI Team Workspace (claude-analytics-framework)/
+  .claude/
+    agents/                  # two-tier agent definitions (replaces Graniterock roles/specialists)
+    skills/                  # promoted from dbt-agent + team-contributed
+    commands/                # pipeline lifecycle + analysis + coordination
+    rules/                   # always-on operating rules
+    manifests/               # workspace, repo adapters, agent inventory
+  knowledge/
+    platform/
+      planning/              # migration plans, evaluations (this folder)
+      operations/            # team operating model, runbooks
+      training/              # onboarding, how-tos
+    domains/
+      dbt-pipelines/         # canonical models, migration patterns, QA methodology
+      feature-store/         # [team-contributed] feature engineering, ML pipelines
+      tpg-pipelines/         # [team-contributed] TPG-specific patterns
+      semantic-layer/        # MetricFlow, metrics, saved queries
+      redshift/              # optimization patterns, table design
+      data-storytelling/     # visualization patterns, dashboard templates
+    reference/
+      tools/                 # MCP setup, dbt CLI, external tool guides
+      standards/             # SQL style, naming conventions, folder structure
+  repos/                     # symlinks to sibling repos (gitignored)
+    dbt-enterprise/          # → /Users/kbinkly/git-repos/dbt_projects/dbt-enterprise
+    data-centered/           # → /Users/kbinkly/git-repos/data-centered
+    dbt-agent/               # → /Users/kbinkly/git-repos/dbt-agent
+  workstreams/
+    active/
+    archive/
+  telemetry/
+    chatops/
+    learning/
+  scripts/
+  templates/
+
+External but workspace-linked repos:
+  /Users/kbinkly/git-repos/dbt_projects/dbt-enterprise
+  /Users/kbinkly/git-repos/data-centered
+  /Users/kbinkly/git-repos/dbt-agent
+
+Global layer retained:
+  ~/.claude/agent-memory/    # canonical memory for truly global agents
+```
+
+---
+
+## Repository Roles
+
+### AI Team Workspace (this repo)
+Shared control plane and team knowledge hub:
+- Agent definitions (two-tier model)
+- Shared skills (promoted from dbt-agent + team-contributed)
+- Pipeline lifecycle and analysis commands
+- Team domain knowledge (dbt, feature store, TPG, semantic layer)
+- Cross-repo coordination and workstream state
+- Learning loop and telemetry patterns
+
+### dbt-agent
+Stays intact as operational reference and migration source:
+- Battle-tested skills and knowledge base (source for copy-promote)
+- Enterprise-specific dbt operating knowledge
+- Current workflows remain usable throughout migration
+- Authority shrinks only as workspace replaces specific capabilities
+
+### dbt-enterprise
+Stays intact as production dbt project:
+- dbt models, YAML, tests, seeds, project configs
+- Accessed via dbt Cloud and `cd` from workspace
+- No `.claude/` config mixed into production code
+
+### data-centered
+Stays intact as content/visualization project:
+- Site, articles, visualizations, showcase
+- Consumes the shared platform but does not define it
+
+### ~/.claude
+Retains the truly global layer:
+- Global agent memory for agents invoked from 2+ repos
+- Universal non-analytics helpers
+- Editor/runtime preferences
+
+---
+
+## CAF Fitness: What We Keep vs Replace
+
+The original CAF repo was built by Dylan Morrish at Graniterock for a Snowflake/AWS stack. Our environment is Redshift/dbt Cloud.
+
+| Component | Action | Notes |
+|-----------|--------|-------|
+| Directory structure | **Keep** | `knowledge/` hierarchy well-designed |
+| `repos/` symlink infrastructure | **Keep** | Ready for cross-repo search |
+| MCP configuration | **Keep** | dbt Cloud MCP already correct |
+| Detection/analysis libraries | **Keep** | Generic, warehouse-agnostic |
+| Agent architecture (9 roles + 15 specialists) | **Archive** | Replace with two-tier model |
+| ADLC commands (`/idea`, `/research`, `/build`) | **Archive** | Replace with pipeline lifecycle |
+| Snowflake-specific skills | **Archive** | Replace with Redshift-native skills |
+| CLAUDE.md | **Rewrite** | Team analytics bootstrap, not Snowflake setup |
+
+---
 
 ## Migration Phases
-### Phase 1: Establish the control plane
-Move or recreate in `claude-analytics-framework`:
-- canonical bootstrap docs
-- global agent manifest
-- workspace/repo manifest
-- shared workstream model
-- shared command inventory
-- inventory of analytics-related assets currently living in `~/.claude/`
-- capability cutover checklist against `dbt-agent`
-- CAF-root bootstrap guidance for working across all linked repos
 
-Output:
-- one obvious starting place for any agent
+### Phase 1: Establish the workspace (current)
+- Create symlinks in `repos/` for cross-repo search
+- Archive Graniterock agent/command/skill files
+- Create `knowledge/domains/` skeleton with README templates
+- Update manifests and bootstrap docs
+- Write contribution guide for teammates
 
-### Phase 2: Create the `dbt-agent` decomposition inventory
-Create a file-by-file inventory of `dbt-agent/.claude/`, `docs/`, `shared/`, and related control-plane assets.
+**Output:** One obvious starting place. Teammates can browse and contribute knowledge.
 
-Classify each asset as:
-- Promote to CAF
-- Keep in dbt-domain
-- Archive
-- Already duplicated
+### Phase 2: Inventory dbt-agent assets
+- File-by-file classification of `dbt-agent/.claude/`, `shared/`, `tools/`
+- Classify each as: Promote / Keep in dbt-domain / Archive / Already duplicated
+- Determine target location and ownership for each promoted asset
 
-Output:
-- realistic scope for the actual migration
+**Output:** Concrete input list for Phase 3.
 
-### Phase 3: Copy the highest-leverage content from `dbt-agent`
-Promote by copy:
-- cross-repo agent memory standards
-- general planning and learning-loop patterns
-- reusable dbt scaffolding and workflow skills
-- agent residency and coordination docs
+### Phase 3: Promote highest-leverage content
+- Copy skills, commands, knowledge into native workspace locations
+- Each copied asset carries ownership metadata
+- Prioritize: assets teammates can immediately use, assets that improve workspace bootstrapping
 
-Keep in `dbt-agent`:
-- enterprise-specific dbt operating knowledge
-- Redshift-specific troubleshooting and QA depth
-- the full pre-migration repo structure and reference state
-
-Output:
-- CAF gains useful team-facing capabilities without breaking the source repo
-- `dbt-agent` remains operational while CAF grows capability by capability
+**Output:** Workspace has useful capabilities without breaking dbt-agent.
 
 ### Phase 4: Add project adapters
-Create per-project integration metadata for:
-- `dbt-enterprise`
-- `data-centered`
-- notebooks / analysis repos
-- migrated former-global analytics agents/commands/skills
+- Per-repo routing rules and integration metadata
+- Add compound routing rule for pipeline building (dbt-enterprise + dbt-agent reference)
+- Define safe commands, environment constraints, local vs shared assets per repo
 
-Each adapter should define:
-- repo role
-- safe commands
-- environment constraints
-- where local memory/state lives
-- when to use shared vs local skills
+**Output:** Agents route correctly across repos.
 
-Output:
-- agents can work across repos without guessing
+### Phase 5: Migrate analytics globals from ~/.claude
+- Analytics-specific commands (system-architect, designer, load/save, visual-explainer)
+- Analytics-specific skills
+- Keep global agent memory global
 
-### Phase 5: Migrate analytics assets from `~/.claude`
-Move into CAF:
-- analytics-specific global agents such as `system-architect` and `designer` if they are part of the shared analytics platform
-- analytics-specific commands such as cross-repo load/save, design-for-analytics commands, and platform recap commands
-- analytics-specific supporting docs
-- analytics-specific reusable skills
-
-Classify each current global asset as one of:
-- move to CAF
-- duplicate temporarily and deprecate global copy
-- keep global because it is truly universal
-
-Keep global:
-- canonical memory for global agents
-
-Output:
-- analytics platform command and manifest logic lives in CAF without breaking global memory residency
+**Output:** Analytics platform logic in workspace, not scattered in home directory.
 
 ### Phase 6: Unify live state
-Move toward one shared workstream system in `claude-analytics-framework`:
-- active workstreams
-- project links
-- session continuity
-- cross-repo tasks
+- Shared workstream system in workspace
+- Local repos keep local artifacts, indexed centrally
+- Cross-repo session continuity
 
-Allow local repos to keep local artifacts, but index them centrally.
+**Output:** Cross-repo work stops feeling like context teleportation.
 
-Output:
-- cross-repo work stops feeling like context teleportation
+### Phase 7: Stabilize ownership
+- Decide what remains mirrored vs re-owned
+- Shrink dbt-agent authority only where workspace has full replacement
+- Keep historical/reference value available in dbt-agent
 
-### Phase 7: Decide what remains mirrored vs re-owned
-After the platform is stable:
-- keep `dbt-agent` intact unless there is a deliberate reason to retire duplicates
-- optionally reassign source of truth for selected assets to CAF
-- keep historical/reference value available in `dbt-agent`
-- shrink `dbt-agent` authority only as CAF replaces specific capabilities and the team agrees on ownership
+---
 
-## Proposed Cutover Order
-1. Declare `claude-analytics-framework` the canonical platform root
-2. Create workspace and repo manifests there
-3. Inventory analytics-specific assets in `~/.claude/`
-4. Create the `dbt-agent` decomposition inventory
-5. Copy the highest-leverage reusable docs and platform assets from `dbt-agent`
-6. Move analytics-specific global commands, manifests, and selected skills into CAF
-7. Update repo bootstraps to point back to framework-first docs
-8. Introduce central workstream state
-9. Continue incremental copy-promote migration only as CAF replaces concrete capabilities
+## Environment
+
+| Component | Technology | Notes |
+|-----------|-----------|-------|
+| Data warehouse | Amazon Redshift | VPN for CLI, MCP API works without |
+| dbt | dbt Cloud + Fusion 2.0 locally | CLI runs in dbt-enterprise |
+| Semantic layer | MetricFlow (Core 1.10 `.venv`) | `mf query/validate` only |
+| AI models | Opus (domain agents), Sonnet (task agents) | Never Haiku |
+| MCP server | `dbt@dbt-agent-marketplace` | Already configured |
+
+---
 
 ## Success Criteria
-- A new agent can bootstrap from CAF without hunting across multiple workspace roots
-- Shared commands and skills have one canonical source
-- Cross-repo tasks use one workstream/state model
-- `dbt-agent` remains fully usable throughout migration
-- CAF exposes the highest-leverage shared assets for team contribution
-- ownership of copied assets is explicit, so dual-location content does not drift silently
-- `dbt-enterprise` remains productive and low-risk during the transition
-- `data-centered` remains intact while benefiting from the shared platform
-- analytics-specific command and manifest logic no longer depends on `~/.claude` as a primary source of truth
-- global memory residency remains clean and consistent
+
+- [ ] A new teammate can start in this workspace and find relevant domain knowledge
+- [ ] Pipeline building works end-to-end from workspace root
+- [ ] Cross-repo search finds files in dbt-enterprise and data-centered
+- [ ] At least 2 team-contributed domain folders exist (feature store, TPG)
+- [ ] Shared skills are accessible without reading dbt-agent directly
+- [ ] No degradation in pipeline delivery speed during migration
+- [ ] Ownership of promoted assets is explicit (no silent drift)
+- [ ] dbt-agent remains fully usable throughout
+- [ ] Global memory residency stays clean
+
+---
 
 ## Bottom Line
-Yes, a CAF-centered platform model better suits agents here, but the safest path is non-destructive. `dbt-enterprise` and `data-centered` can remain intact as linked workspace repos, `dbt-agent` can stay fully intact as the reference and operational source, and CAF can grow into the team-facing control plane by copying in the highest-leverage shared assets over time while truly global agent memory stays in `~/.claude`.
+
+The AI Team Workspace is the shared brain for the analytics team. dbt-enterprise is the hands. dbt-agent is the proven reference we copy from. The separation between thinking and executing is already production-proven — this plan just moves the thinking layer up one level so the whole team can share it.

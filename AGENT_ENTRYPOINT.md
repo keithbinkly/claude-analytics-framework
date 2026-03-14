@@ -43,6 +43,12 @@ For a fresh session, read these in order:
 7. `.claude/manifests/ccv3-dependencies.yaml`
 8. `knowledge/platform/planning/shared-agent-platform-monorepo-plan.md`
 
+If you want local convenience links for the linked repos, run:
+
+```bash
+./scripts/bootstrap-linked-repos.sh
+```
+
 ## Canonical Routing
 
 Use these rules unless a more specific local repo rule overrides them:
@@ -92,6 +98,8 @@ Look in these places for active state:
   - `models/`
   - `tests/`
   - `analyses/`
+
+If local convenience symlinks exist, they will appear under `repos/`.
 
 ## How To Perform Common Workflows
 

@@ -1,100 +1,57 @@
-# 📚 Claude ADLC Framework Platform Documentation
+# Platform Documentation
 
-Welcome to the platform documentation for the Claude ADLC Framework - an AI-powered Analytics Development Lifecycle platform for data and analytics teams.
+This directory contains CAF platform documentation for the shared analytics control plane. During the migration, the most important material lives in planning docs and manifests rather than the older ADLC-oriented structure.
 
-## 🔄 Three-Layer ADLC Architecture
+## Start Here
 
-The Claude ADLC Framework implements the complete [dbt Analytics Development Lifecycle](https://www.getdbt.com/resources/the-analytics-development-lifecycle) through three integrated AI-powered layers:
+Read these first:
 
-### 💡 [Layer 1: Planning](planning/)
-**ADLC Plan Phase** - Idea Management & Strategic Planning
-- Business case validation and idea capture via GitHub issues
-- Strategic planning and prioritization frameworks
-- Stakeholder feedback integration
-- Impact analysis and roadmap creation
+1. `../../AGENT_ENTRYPOINT.md`
+2. `../../CLAUDE.md`
+3. `../../.claude/manifests/workspace-manifest.yaml`
+4. `../../.claude/manifests/repo-adapters.yaml`
+5. `../../.claude/manifests/workflow-contracts.yaml`
+6. `../../.claude/manifests/ccv3-dependencies.yaml`
+7. `planning/shared-agent-platform-monorepo-plan.md`
 
-### 🔧 [Layer 2: Development](development/)
-**ADLC Develop/Test/Deploy Phases** - Local Development & Project Management
-- **[Agent Development](development/agent-development.md)**: Creating custom specialist agents
-- **[Claude Interactions](development/claude-interactions.md)**: Command reference and best practices
-- **[Context Switching](development/context-switching-workflows.md)**: Zero-loss context management
-- **[Context Optimization](development/context-optimization.md)**: Token efficiency strategies
+## Current Planning Docs
 
-### 🤖 [Layer 3: Operations](operations/)
-**ADLC Operate/Observe/Discover/Analyze Phases** - Automated Operations
-- **[Cross-Repository Architecture](operations/cross-repository-issue-architecture.md)**: Multi-repo coordination
-- **[Troubleshooting Guide](operations/troubleshooting.md)**: Common problems and solutions
-- **[Dashboard Troubleshooting](operations/troubleshooting-blank-dashboards.md)**: Systematic BI debugging
+- `planning/shared-agent-platform-monorepo-plan.md`
+- `planning/ai-team-workspace-spec.md`
+- `planning/system-architect-evaluation.md`
+- `planning/caf-team-fitness-assessment.md`
+- `planning/dbt-agent-decomposition-inventory.md`
+- `planning/global-to-caf-migration-inventory.md`
+- `planning/README.md`
 
-## 📖 Additional Documentation
+## Related Manifests
 
-### 🏗️ [Architecture](architecture/)
-**System Design & Agent Architecture**
-- **[Agent Capability Summary](architecture/agent-capability-summary.md)**: Complete overview of agents and MCP integrations
-- **[Confidence Routing](architecture/confidence-routing.md)**: How agents decide when to delegate to specialists
+- `../../.claude/manifests/workspace-manifest.yaml`
+- `../../.claude/manifests/repo-adapters.yaml`
+- `../../.claude/manifests/workflow-contracts.yaml`
+- `../../.claude/manifests/ccv3-dependencies.yaml`
 
-### 🔌 [MCP Servers](mcp-servers/)
-**Model Context Protocol Integrations**
-- **[AWS Documentation MCP](mcp-servers/aws-docs-mcp-integration-guide.md)**: AWS service documentation access
-- **[Slack MCP](mcp-servers/slack-mcp-capabilities.md)**: Slack workspace integration
-- **[Filesystem MCP](development/filesystem-mcp-server-capabilities.md)**: Advanced file operations
-- **[Sequential Thinking MCP](development/sequential-thinking-mcp-capabilities.md)**: Complex reasoning support
+## What This Section Is For
 
-### 📊 [Training](training/)
-**Agent Learning & Improvement**
-- Chat analysis for continuous agent improvement
-- Conversation effectiveness metrics
-- Learning extraction from completed projects
+Use `knowledge/platform/` for:
 
-## 🚀 Quick Navigation
+- migration planning
+- workspace operating model
+- shared control-plane documentation
+- team-facing runbooks that apply across repos
 
-### For New Users
-1. Read the [main project README](../../README.md) for system overview
-2. Review [Claude Interaction Guide](development/claude-interactions.md) for slash commands
-3. Explore [Agent Development](development/agent-development.md) to create custom specialists
+Do not use this folder for:
 
-### For Daily Operations
-1. Use [Claude Interaction Guide](development/claude-interactions.md) for workflow commands
-2. Reference [Troubleshooting Guide](operations/troubleshooting.md) for common issues
-3. Check [Dashboard Troubleshooting](operations/troubleshooting-blank-dashboards.md) for BI debugging
+- project-local dbt delivery docs that belong in `dbt-enterprise`
+- content/product docs that belong in `data-centered`
+- historical reference content that still belongs only in `dbt-agent`
 
-### For Administrators
-1. Study [Agent Capability Summary](architecture/agent-capability-summary.md) for system design
-2. Review [Context Optimization](development/context-optimization.md) for efficiency
-3. Implement patterns from [Cross-Repository Architecture](operations/cross-repository-issue-architecture.md)
+## Migration Note
 
-## 🎯 Documentation Goals
+This repo is being repurposed from an older CAF/Graniterock framing into the AI Team Workspace model.
 
-This documentation suite provides:
+That means:
 
-- **Complete Coverage**: Every feature and capability documented
-- **Practical Examples**: Real-world usage scenarios and patterns
-- **Progressive Complexity**: From basic usage to advanced configuration
-- **Troubleshooting Focus**: Systematic problem-solving resources
-- **Team Ready**: Professional deployment and collaboration guidance
-
-## 💡 Getting Started Recommendations
-
-### If You're New to AI-Powered Development
-Start with the [main project README](../../README.md) to understand the system's value proposition and ADLC workflow.
-
-### If You're Ready to Use It
-Review [Claude Interaction Guide](development/claude-interactions.md) for slash commands, then start with `/idea` to manage ideas.
-
-### If You're Experiencing Issues
-Go directly to [Troubleshooting Guide](operations/troubleshooting.md) or [Dashboard Troubleshooting](operations/troubleshooting-blank-dashboards.md) for specific problems.
-
-### If You Want to Extend the System
-Study [Agent Development](development/agent-development.md) and [Agent Capability Summary](architecture/agent-capability-summary.md) to create custom specialists.
-
-## 🔄 Documentation Maintenance
-
-This documentation is maintained through:
-- Project completion knowledge extraction (`/complete` command)
-- Agent chat analysis and learning
-- Real-world troubleshooting discoveries
-- Best practice refinements from production use
-
----
-
-**Built for data teams who want AI-powered infrastructure with comprehensive, accessible documentation.**
+- planning docs and manifests are currently the most trustworthy layer
+- some older docs in sibling sections may still reflect the legacy architecture
+- legacy content should be archived only after replacement assets exist and are verified

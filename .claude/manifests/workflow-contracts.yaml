@@ -48,8 +48,8 @@ workflows:
       - "AGENT_ENTRYPOINT.md"
       - "workstreams/active"
       - ".claude/manifests/repo-adapters.yaml"
-      - "/Users/kbinkly/git-repos/dbt-agent/.dots"
-      - "/Users/kbinkly/git-repos/dbt-agent/handoffs"
+      - "dbt-agent:.dots (resolve via repo-adapters.yaml)"
+      - "dbt-agent:handoffs/ (resolve via repo-adapters.yaml)"
     success_criteria:
       - "Current task state is identified"
       - "Correct repo and execution target are identified"
@@ -68,7 +68,7 @@ workflows:
     key_files:
       - "knowledge/domains/"
       - ".claude/manifests/repo-adapters.yaml"
-      - "/Users/kbinkly/git-repos/dbt-agent/shared/reference/qa-validation-checklist.md"
+      - "dbt-agent:shared/reference/qa-validation-checklist.md (resolve via repo-adapters.yaml)"
     success_criteria:
       - "QA follows approved methodology"
       - "dbt-enterprise remains source of execution truth"

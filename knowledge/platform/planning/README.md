@@ -15,6 +15,7 @@ This folder contains documentation for the ADLC Plan phase workflows:
 - `shared-agent-platform-monorepo-plan.md` - target architecture and phased migration plan for making CAF the shared control plane, while linked repos remain intact and `dbt-agent` stays fully usable as assets are promoted by copy
 - `global-to-caf-migration-inventory.md` - classification of analytics-related assets currently living in `~/.claude/`, including the rule that global agent memory stays global
 - `dbt-agent-decomposition-inventory.md` - prerequisite inventory framework for classifying what from `dbt-agent` should be promoted, retained, archived, or deduplicated, with explicit ownership labels for copied assets
+- `caf-legacy-asset-inventory.md` - CAF-side keep/replace/archive map so legacy assets are only retired after replacement exists
 
 ## Related Manifests
 - `.claude/manifests/workspace-manifest.yaml` - canonical workspace topology, precedence rules, and migration policy

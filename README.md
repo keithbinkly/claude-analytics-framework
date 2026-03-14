@@ -1,331 +1,181 @@
 # Claude Analytics Framework
 
-> What if Claude was one *with* us?
+CAF is being adapted into the analytics team workspace: a shared control plane for workflows, manifests, shared commands and skills, and team knowledge across linked repositories.
 
-*The previous README was entirely AI-generated. This README is also AI-generated -- but based on a talk I actually gave. So enjoy the AI-isms mixed with the Dylan-isms.*
+It is not the production dbt project itself. For dbt execution, the target repo remains `dbt-enterprise`.
 
----
+## Start Here
 
-## The Story Behind This
+For a fresh session, read these in order:
 
-I'm Dylan. I work at [Graniterock](https://www.graniterock.com) -- a 125-year-old construction materials company in Central California. We've got a quarry, big trucks, and a data stack that's been through every era of technology you can imagine.
+1. `AGENT_ENTRYPOINT.md`
+2. `CLAUDE.md`
+3. `.claude/manifests/workspace-manifest.yaml`
+4. `.claude/manifests/repo-adapters.yaml`
+5. `.claude/manifests/workflow-contracts.yaml`
+6. `.claude/manifests/ccv3-dependencies.yaml`
+7. `knowledge/platform/planning/shared-agent-platform-monorepo-plan.md`
 
-On any given day I'm wrangling 20 data marts, 400+ Tableau reports, and way too many Crystal Reports. SAP Business Objects is the ghost in my life. Our sources range from on-prem SQL Server to Oracle to various APIs, all flowing through dlthub/Airbyte, Snowflake, dbt Cloud, Orchestra, and Tableau.
+## What CAF Is
 
-I'm a self-proclaimed chaos wrangler -- whether that's data or my two kids under three.
+CAF is the shared analytics control plane. It is where the team should increasingly find:
 
-I downloaded Claude Code back in July 2025 and started asking a question that stuck with me: **What if Claude could do the things we do?** Not replace us -- but help automate the tedium that comes with our jobs. That question, plus a book I read called *The Tech-Wise Family* by Andy Crouch, shaped how I think about this whole thing.
+- shared workflow docs
+- machine-readable manifests
+- shared commands and skills as they are promoted into CAF
+- cross-repo coordination guidance
+- team-contributed domain knowledge
 
----
+CAF is also the planned team entrypoint for non-Claude coding agents. That is why the workspace now includes:
 
-## Put Technology in Its Proper Place
+- `AGENT_ENTRYPOINT.md`
+- `.claude/manifests/workflow-contracts.yaml`
+- `.claude/manifests/ccv3-dependencies.yaml`
 
-Crouch has this concept I keep coming back to: **the Innovation Bargain**.
+## Linked Repos
 
-Every technology comes with a **Promise** and a **Contract**:
+CAF coordinates work across these linked repos:
 
-| | The Promise | The Contract |
-|---|---|---|
-| **General** | Now you can... | You'll no longer be able to... |
-| | You'll no longer have to... | Now you'll have to... |
-| **LLMs** | Write essays, whole websites, or dbt models | Think, have original ideas |
-| | No more hand-writing code or getting YAML *juuust* right | Clean up the mess LLMs can make |
+1. `claude-analytics-framework`
+   Shared control plane and team-facing root.
 
-The README for this repo used to be all Promise. But if I'm honest, Claude probably makes two more problems for every one it fixes. It's fast at producing *and* fixing those problems, so the net is pretty good. But it is not replacing us by any means.
+2. `dbt-enterprise`
+   Production dbt project. Run dbt CLI here, not from CAF root.
 
-To use this stuff well, you need to understand two things about LLMs:
+3. `dbt-agent`
+   Current operational reference and migration source. It remains intact while useful assets are copied into CAF over time.
 
-**1. They're stateless.** If you've seen *Severance* -- it's exactly that. Every conversation, Claude wakes up in a conference room not knowing who it is. It doesn't remember your database schema, your naming conventions, or that thing you told it five messages ago (well, it does within a conversation, but only because the whole chat history gets re-sent each time). This means: the more relevant context you give it upfront, the faster you get to a useful answer.
+4. `data-centered`
+   Content and visualization project.
 
-**2. They're probabilistic.** All it's doing is predicting the next best word. It turns out this technology is pretty darn good at writing and code, but it's still just predicting. It's not thinking. Understanding this keeps expectations honest.
+## Current Migration Model
 
-**The quickest path to success with LLMs:** give it the most relevant context, or give it access to retrieve the most relevant context automatically.
+The migration is non-destructive:
 
-That second part is where this repo comes in.
+- `dbt-agent` stays fully usable
+- CAF grows by copy-promoting the highest-leverage shared assets
+- legacy CAF assets should only be archived after replacements exist
+- promoted assets should declare ownership metadata
+- promoted assets should declare CCV3/global dependencies explicitly
 
----
+CAF is the planned team entrypoint, but not every capability has been re-homed yet.
 
-## A Starting Place, Not a Finished Product
+## Local Setup
 
-**Let me be upfront:** you probably can't clone this repo and immediately be effective with agentic AI. That hasn't been our experience, and I'd be surprised if it's anyone's.
+### 1. Create local convenience links
 
-What you *can* do is squint at this and see how a data team might move from individuals using ChatGPT in isolation to a shared, team-level way of leveraging Claude across your whole data stack. This repo is a reference architecture -- a starting place for that conversation.
-
-Our internal version took months of massaging, learning, and iterating. The agents and skills in this public repo were generated by Claude based on our internal templates. They're a starting point, not a finished product. Your team will need to refine them for your own tools, patterns, and ways of working.
-
-**The real value isn't the files -- it's the approach:**
-- Moving from individual AI chats to shared team patterns
-- Bringing your whole data stack together so Claude can help you deliver data products (not just run a pipeline or write a model, but coordinate across the tools that produce the thing your business actually uses)
-- Building institutional knowledge that sticks around when people switch projects or leave the team
-
----
-
-## How We Got Here: From ChatGPT Chats to Agentic Workflows
-
-The journey from "paste code into ChatGPT" to "Claude works alongside me" comes down to three concepts:
-
-- **Agents** -- Text files. That's it. Instructions that shift Claude's average response to be "extraordinary" (in quotes, because it's still probabilistic). You tell it "you're an analytics engineer with deep dbt knowledge" and suddenly the output gets meaningfully better. All an agent is is text.
-
-- **Skills** -- SOPs that the LLM can pull into memory at the right time. Like having a reference manual on your desk that Claude knows to check when it's working on a specific kind of task. dbt actually publishes official skills you can install.
-
-- **MCPs** -- The hands you give the brain. Model Context Protocol servers let Claude interact with your actual applications -- dbt Cloud, Snowflake, GitHub. Instead of you copying code into ChatGPT and pasting it back, Claude goes and looks at your real dbt project, reads the actual SQL, and works with what's there.
-
-The combination of these is where you move from a brain that gives you an answer to a brain with hands that can actually make progress on its own.
-
-**This repo organizes those pieces into a meta-repository that sits alongside your existing work.** It doesn't replace your dbt repo, your pipeline code, or your dashboards. It's a shared home for the agents, skills, and workflows that help Claude operate across the tools you use to deliver data products to your business.
-
-```
-claude-analytics-framework/          <-- This repo (the control center)
-├── .claude/                    <-- Agents + commands + config
-│   ├── agents/                 <-- Text files that make Claude smarter
-│   ├── skills/                 <-- SOPs and reference knowledge
-│   └── config/                 <-- Your tech stack configuration
-├── projects/                   <-- Active/completed project folders
-├── repos/                      <-- Your actual data repos (gitignored)
-└── scripts/                    <-- Workflow automation
-```
-
----
-
-## See It in Action: Tired Dad vs. Claude
-
-I used this repo in a live demo at a data@AMA session -- not a project built for the demo, just how I actually work. I raced Claude through three real-world tasks from our dbt project. Three rounds, two contestants: Claude (with agents, skills, and the dbt MCP) versus me (brain fueled by caffeine, ChatGPT, and dbt Catalog).
-
-| Round | Task | Who Won | What Happened |
-|---|---|---|---|
-| 1 | "Why is this field blank for every recent sale?" | Claude | Both found the answer (union of two source systems, one doesn't have that field). Claude got there faster by reading the SQL directly. |
-| 2 | "Add `ticket_net_tons` to the data mart" | Claude | I hit a compile error from an unrelated config issue. Claude skipped straight to the text change -- faster, but also skipped `dbt parse` validation (a real gap). |
-| 3 | "Build a semantic layer" | Claude | This one's genuinely hard. I was fumbling with ChatGPT output and YAML placement. Claude had the dbt MCP + skills to scaffold it properly. |
-
-**The honest takeaway:** Claude was faster on all three, but it also cut corners (skipping validation in Round 2). The proper place for it is as a pair programmer -- augmenting you, not replacing you. You still need to know what "right" looks like.
-
-**[See the full demo prompts and details](docs/demo-claude-vs-you.md)**
-
----
-
-## Getting Started
-
-There are two ways to approach this repo:
-
-### 1. Explore and learn (recommended first step)
-
-Browse the `.claude/agents/` folder. Read a few agent files. Look at the skills. Get a feel for how text files can shape Claude's behavior. Take ideas back to your own setup.
-
-### 2. Clone and adapt for your team
-
-If you want to actually use the framework as a starting point:
-
-**Prerequisites**: [Claude Code](https://docs.claude.com/en/docs/claude-code) installed + Git.
+If you want linked repos visible from CAF root:
 
 ```bash
-# 1. Clone
-git clone https://github.com/dylpickledev/claude-analytics-framework.git
-cd claude-analytics-framework
-
-# 2. Run setup (asks 4 questions about your stack, creates agent files)
-./setup.sh
-
-# 3. Start a project
-claude /start "your first idea"
+./scripts/bootstrap-linked-repos.sh
 ```
 
-Setup asks what tools you use, creates specialist agents for your stack, and optionally connects to live systems via MCP. It doesn't modify your system settings or touch your existing repos. Don't like it? Delete the folder.
+This creates local `repos/` symlinks for the currently expected linked repos.
 
-**Fair warning:** the agents and skills here are a starting point. Expect to spend real time refining them for your specific tools and patterns. The setup script gets you a scaffold -- the value comes from your team iterating on it.
+### 2. Check workspace readiness
 
-**[Detailed quickstart](QUICKSTART.md)**
-
----
-
-## The 5 Commands
-
-The whole workflow boils down to:
-
-```
-/idea "thing"     -->  Creates a GitHub issue
-/research 123     -->  Deep exploration before building (optional)
-/start 123        -->  Creates project folder + git branch + agents ready
-/switch            -->  Context switch without losing progress
-/complete          -->  Archive, extract learnings, close issue
-```
-
-That's it. Capture an idea, optionally research it, build it, and finish it. The framework handles the project structure, git workflow, and AI context management.
-
----
-
-## The Agents
-
-Setup creates agents based on your answers. Here's the general idea:
-
-**Role agents** handle 80% of work independently:
-- **Analytics Engineer** -- dbt models, SQL, data modeling, semantic layer
-- **Data Engineer** -- Pipelines, orchestration, source integration
-- **Data Architect** -- System design, technology selection, cross-system planning
-
-**Specialists** get consulted for the other 20%:
-- **dbt expert** -- Deep dbt patterns (connects to dbt Cloud API via MCP if configured)
-- **Snowflake expert** -- Warehouse optimization, cost analysis (connects via MCP if configured)
-- **Tableau expert** -- Dashboard performance and design
-- Plus templates for creating your own for whatever tools you use
-
-Remember: these are just text files. You can read them, edit them, or create new ones from the templates. There's nothing magical here -- it's context that makes Claude's probabilistic output land closer to what you actually need.
-
----
-
-## MCP Integration (Optional but Worth It)
-
-This is the "hands" part. MCPs connect Claude to your live systems:
-
-- **dbt MCP** -- Claude reads your actual dbt project, model code, test results
-- **Snowflake MCP** -- Claude queries your actual warehouse
-- **GitHub MCP** -- Claude searches code, analyzes issues and PRs
-
-Without MCP, you get generic AI advice. With it, Claude sees YOUR data and makes informed recommendations. Setup guides you through the credentials -- you can skip it and add later.
-
----
-
-## How It Gets Smarter Over Time
-
-When you `/complete` a project, the system extracts patterns from what worked. After a few projects, the agents start knowing your incremental strategies, naming conventions, and testing standards. One person's solution becomes the whole team's knowledge.
-
-This isn't magic -- it's just accumulating context. The more relevant context Claude has about how your team delivers data products, the better its probabilistic output gets. Same principle as the beginning: give it good context, get better answers.
-
----
-
-## Why a Shared Framework Instead of Individual AI Chats?
-
-Most data teams today have individuals using ChatGPT or Claude on their own -- pasting code, getting answers, moving on. That works fine for one-off tasks. But it falls apart when:
-
-- You're delivering a **data product** that spans dbt + Snowflake + Tableau (not just one model or one dashboard -- the whole thing)
-- A teammate solves the same problem you solved last month, but differently
-- Someone leaves the team and their Claude tricks leave with them
-- Your CEO asks "how is the team using AI?" and the answer is "differently, and we're not sure"
-
-This framework is one way to go from individual to team-level. Shared agents mean shared standards. Shared skills mean shared SOPs. Shared project structure means visibility into how work gets done.
-
-| Individual AI usage | Team-level framework |
-|---|---|
-| Ad-hoc conversations | Organized projects with tracking |
-| Generic AI knowledge | Agents configured for YOUR tools |
-| Work scattered across repos | Coordinated delivery of data products |
-| Patterns stuck in one person's head | Knowledge captured and shared |
-| Everyone uses AI differently | Shared approach the team refines together |
-
----
-
-## When This Makes Sense (and When It Doesn't)
-
-**This is worth exploring if:**
-- Your team delivers data products that span multiple tools (dbt + warehouse + orchestration + BI)
-- You want a shared way for the team to leverage AI, not just individuals doing their own thing
-- You're building similar things repeatedly and losing patterns between projects
-- You want Claude to understand YOUR stack, not give generic advice
-
-**Just use Claude Code directly if:**
-- It's a one-off quick fix or a simple script
-- You're only touching one tool or one file
-- It's ad-hoc data exploration
-- The work is under an hour
-
----
-
-## The Innovation Bargain for This Framework
-
-In the spirit of honesty:
-
-**The Promise:**
-- A shared approach for your team to leverage AI across your data stack
-- Claude that knows your tools and patterns, not generic advice
-- Knowledge that accumulates as your team delivers data products
-
-**The Contract:**
-- You can't just clone this and go -- it takes real effort to adapt to your team
-- Another repo to maintain (though it's low-maintenance once set up)
-- Learning curve for the commands and agent architecture
-- You'll still need to validate Claude's work -- it will skip steps, hallucinate column names, and occasionally produce something confidently wrong
-- More of your job becomes "reviewer" and less "writer" -- which is a real shift to sit with
-
----
-
-## Supported Tools
-
-Setup recognizes common data stack tools and creates appropriate agents:
-
-**Has dedicated specialist agents:** dbt Cloud, dbt Core, Snowflake, Tableau, GitHub
-
-**Works with Claude's general knowledge:** BigQuery, PostgreSQL, Databricks, Redshift, Power BI, Looker, Streamlit, Metabase, Prefect, Airflow, Dagster
-
-**Anything else:** Create a custom agent from the template. After a few projects, it'll know your tool's patterns.
-
-The framework is designed to support any tool -- you just start with a blank slate and build expertise through use.
-
----
-
-## Customization
-
-Everything is editable:
-
-- **Branch naming** -- Edit `scripts/start.sh`
-- **Project structure** -- Edit `scripts/work-init.sh`
-- **Add an agent** -- Copy `.claude/agents/specialists/specialist-template.md` and fill in your tool's knowledge
-- **Git workflow** -- Edit `.claude/rules/git-workflow-patterns.md`
-- **Tech stack** -- Re-run `./setup.sh` or edit `.claude/config/tech-stack.json`
-
----
-
-## Project Structure
-
-When you `/start` a project:
-```
-projects/active/feature-project-name/
-├── README.md      # Navigation hub
-├── spec.md        # Requirements
-├── context.md     # Dynamic state tracking
-└── tasks/         # Agent coordination and findings
-```
-
-When you `/complete`, it archives to `projects/completed/YYYY-MM/`.
-
----
-
-## Troubleshooting
-
-**"Permission denied" on scripts:** `chmod +x scripts/*.sh`
-
-**"Command not found: claude":** You need [Claude Code](https://docs.claude.com/en/docs/claude-code/installation) installed first.
-
-**"gh: command not found":** Install [GitHub CLI](https://github.com/cli/cli#installation) (only needed for `/idea`).
-
-**Setup fails or MCP not working:**
 ```bash
-claude --version    # Check Claude Code
-node --version      # Check Node.js (only for MCP)
-./setup.sh          # Re-run setup
+./scripts/check-workspace-readiness.sh
 ```
 
----
+This verifies the key bootstrap docs, manifests, linked repo visibility, and MCP setup hints.
 
-## Learn More
+### 3. Validate MCP
 
-- **This repo** -- Poke around. The agents are just text files in `.claude/agents/`.
-- **[dbt Slack - Agentic Analytics Channel](https://getdbt.slack.com)** -- Chat with other data folks exploring this space
-- **[medium.com/@dylanmorrish](https://medium.com/@dylanmorrish)** -- I'm told I should write about this stuff. Working on it.
-- **[LinkedIn](https://www.linkedin.com/in/dylanmorrish/)** -- Connect with me
+If you use the dbt Cloud MCP layer:
 
----
+```bash
+cp .env.example .env
+./scripts/validate-mcp.sh
+```
 
-## Credits
+After changing MCP configuration, restart Claude Code if you expect MCP server discovery to refresh.
 
-Built at Graniterock by someone who spends more time wrangling Crystal Reports than he'd like to admit.
+## How To Work From CAF Root
 
-Inspired by:
-- [Andy Crouch, *The Tech-Wise Family*](https://www.andycrouch.com/the-tech-wise-family/) -- "Put technology in its proper place"
-- [dbt Labs](https://www.getdbt.com/) and the dbt community
-- [Anthropic's Claude Code](https://docs.claude.com/en/docs/claude-code)
-- [Model Context Protocol (MCP)](https://modelcontextprotocol.io/)
+### Build or resume a dbt pipeline
 
----
+- start in CAF for manifests, planning docs, and promoted shared assets
+- route into `dbt-enterprise` for dbt CLI execution
+- consult `dbt-agent` if the needed capability has not yet been promoted
+
+### Run QA
+
+- use CAF workflow docs or promoted QA assets if available
+- inspect the model and project-local constraints in `dbt-enterprise`
+- fall back to `dbt-agent` reference material where needed
+
+### Contribute shared knowledge
+
+Add reusable team knowledge in CAF, especially under:
+
+- `knowledge/domains/`
+- `knowledge/platform/`
+- `.claude/manifests/`
+
+Do not put shared reference material in `dbt-enterprise` unless it truly belongs with production dbt code.
+
+## Repository Layout
+
+```text
+claude-analytics-framework/
+├── AGENT_ENTRYPOINT.md
+├── .claude/
+│   ├── manifests/
+│   ├── commands/
+│   ├── skills/
+│   └── agents/
+├── knowledge/
+│   ├── platform/
+│   └── domains/
+├── repos/
+├── scripts/
+└── templates/
+```
+
+## Where Things Belong
+
+### CAF
+
+- shared commands and skills
+- workflow contracts and manifests
+- migration planning
+- cross-repo coordination
+- team-shared domain knowledge
+
+### `dbt-enterprise`
+
+- dbt models
+- schema YAML
+- tests
+- seeds
+- project-local dbt docs
+
+### `dbt-agent`
+
+- intact migration-source/reference material
+- not-yet-promoted agent logic
+- historical shared workflow content
+
+### `data-centered`
+
+- site/content code
+- storytelling and visualization product work
+
+## Current Priorities
+
+1. Make CAF usable as the shared workspace root.
+2. Support non-Claude agents as first-class readers.
+3. Promote the first high-leverage slice from `dbt-agent`.
+4. Archive outdated CAF content only after replacement exists.
+
+## More Detail
+
+- `AGENT_ENTRYPOINT.md` — tool-agnostic bootstrap
+- `CLAUDE.md` — CAF workspace operating contract
+- `CONTRIBUTING.md` — where to contribute what
+- `knowledge/platform/planning/README.md` — planning index
 
 ## License
 
-MIT License - See LICENSE file
+MIT License - See `LICENSE`.

@@ -102,6 +102,7 @@ workspace/*
 
 
 .claude/settings.local.json
+.claude/cache/
 
 # User-specific MCP server configuration (contains credentials)
 .claude/mcp.json

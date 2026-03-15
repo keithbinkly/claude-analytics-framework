@@ -8,7 +8,7 @@ This document satisfies the CAF-side prerequisite from the migration plan: do no
 
 | Classification | Meaning |
 |---|---|
-| Keep | Already aligned with the AI Team Workspace direction |
+| Keep | Already aligned with the Analytics & Insights Team Workspace direction |
 | Keep temporarily | Useful during migration, but may be superseded later |
 | Replace after equivalent exists | Legacy asset should be replaced, but only after the new asset is live |
 | Archive after replacement exists | Historical/legacy asset that should move out of the active path once replacement is proven |

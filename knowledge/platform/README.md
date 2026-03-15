@@ -48,7 +48,7 @@ Do not use this folder for:
 
 ## Migration Note
 
-This repo is being repurposed from an older CAF/Graniterock framing into the AI Team Workspace model.
+This repo is being repurposed from an older CAF/Graniterock framing into the Analytics & Insights Team Workspace model.
 
 That means:
 

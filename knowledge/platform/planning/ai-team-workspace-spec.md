@@ -1,4 +1,4 @@
-# AI Team Workspace — Specification
+# Analytics & Insights Team Workspace — Specification
 
 **Authors:** Keith + Claude (System Architect)
 **Date:** 2026-03-13
@@ -8,7 +8,7 @@
 
 ## What This Is
 
-The **AI Team Workspace** is our customized version of the `claude-analytics-framework` repo. It serves as the shared control plane for the analytics team's AI-assisted work — the one place where agents, skills, knowledge, and workflows live so that everyone on the team can benefit from them.
+The **Analytics & Insights Team Workspace** is our customized version of the `claude-analytics-framework` repo. It serves as the shared control plane for the analytics team's AI-assisted work — the one place where agents, skills, knowledge, and workflows live so that everyone on the team can benefit from them.
 
 It is **not** where dbt code lives. It is **not** where data stories or articles live. It is the brain that coordinates work across all of those projects.
 
@@ -18,7 +18,7 @@ It is **not** where dbt code lives. It is **not** where data stories or articles
 
 ```
 ┌─────────────────────────────────────────────────────────┐
-│  AI Team Workspace (this repo)                          │
+│  Analytics & Insights Team Workspace (this repo)                          │
 │  ─────────────────────────────                          │
 │  The shared brain. Agents, skills, knowledge,           │
 │  commands, and team coordination.                       │
@@ -38,7 +38,7 @@ It is **not** where dbt code lives. It is **not** where data stories or articles
 
 | Repo | What it does | Why it's separate |
 |------|-------------|-------------------|
-| **AI Team Workspace** | Shared control plane — agents, skills, knowledge | Shared across the team; changes here improve everyone's workflow |
+| **Analytics & Insights Team Workspace** | Shared control plane — agents, skills, knowledge | Shared across the team; changes here improve everyone's workflow |
 | **dbt-enterprise** | Production dbt models, tests, seeds, configs | Production code with strict CI/CD, branch protection, and team review. Mixing `.claude/` config noise into PRs slows down model review |
 | **dbt-agent** | Current operational reference | Battle-tested skills and knowledge base. Stays intact as migration source — we copy from it, never delete from it |
 
@@ -178,7 +178,7 @@ repos/
 ### Pipeline building (most common daily task)
 
 ```
-1. Start in AI Team Workspace
+1. Start in Analytics & Insights Team Workspace
 2. /pipeline-new merchant-spend
    → Creates PLAN.md, dot, registry entry
    → Loads: Migration skill, Business Context skill, Canonical Models registry
@@ -242,7 +242,7 @@ repos/
 
 ## Migration From dbt-agent
 
-The AI Team Workspace grows by **copying** proven assets from dbt-agent. dbt-agent stays fully intact throughout — nothing is deleted from it.
+The Analytics & Insights Team Workspace grows by **copying** proven assets from dbt-agent. dbt-agent stays fully intact throughout — nothing is deleted from it.
 
 ### Migration principles
 1. **Copy-promote, never move-delete** — dbt-agent is the rollback safety net

@@ -1,8 +1,8 @@
 don't look at the full .env file. Only search for the var names up to the equals sign.
 
-# Claude Analytics Framework
+# Analytics & Insights Team Workspace
 
-CAF is the shared analytics control plane and planned team entrypoint. It coordinates shared workflow docs, manifests, commands, skills, and team knowledge across linked repos while preserving `dbt-enterprise` as the execution target and `dbt-agent` as the intact migration source/reference.
+This is the shared analytics control plane and team entrypoint. It coordinates shared workflow docs, manifests, commands, skills, and team knowledge across linked repos while preserving `dbt-enterprise` as the execution target and `dbt-agent` as the intact migration source/reference.
 
 ## Read First
 

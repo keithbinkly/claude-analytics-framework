@@ -1,6 +1,6 @@
 # Agent Entrypoint
 
-Tool-agnostic bootstrap for coding agents working in `claude-analytics-framework`.
+Tool-agnostic bootstrap for coding agents working in the Analytics & Insights Team Workspace (`claude-analytics-framework`).
 
 This file is for agents that do not use Claude-specific slash commands, skills, or memory conventions as their primary interface. Read this first if you are starting from the CAF root and need to understand how to navigate the workspace safely.
 

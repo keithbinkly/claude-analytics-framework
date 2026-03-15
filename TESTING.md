@@ -1,6 +1,6 @@
 # Migration Testing Guide
 
-Test prompts to verify the AI Team Workspace works correctly. Run these from a **fresh Claude session** in the workspace root.
+Test prompts to verify the Analytics & Insights Team Workspace works correctly. Run these from a **fresh Claude session** in the workspace root.
 
 ---
 

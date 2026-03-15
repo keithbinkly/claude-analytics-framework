@@ -1,4 +1,4 @@
-# AI Team Workspace Plan
+# Analytics & Insights Team Workspace Plan
 
 **Authors:** Keith + Claude (System Architect)
 **Date:** 2026-03-13 (revised from 2026-03-11 draft)
@@ -15,10 +15,10 @@
 
 ## Summary
 
-`claude-analytics-framework` becomes the **AI Team Workspace** — the shared control plane for the analytics team's AI-assisted work. It is where agents, skills, knowledge, and workflows live so everyone on the team benefits from them.
+`claude-analytics-framework` becomes the **Analytics & Insights Team Workspace** — the shared control plane for the analytics team's AI-assisted work. It is where agents, skills, knowledge, and workflows live so everyone on the team benefits from them.
 
 The intended model is:
-- **AI Team Workspace** (this repo) is the shared brain — agents, skills, commands, team knowledge
+- **Analytics & Insights Team Workspace** (this repo) is the shared brain — agents, skills, commands, team knowledge
 - **dbt-enterprise** stays intact as the production dbt project — where dbt commands run
 - **data-centered** stays intact as the content/visualization project
 - **dbt-agent** stays intact as the operational reference — proven skills and knowledge are copied from here into the workspace over time
@@ -39,11 +39,11 @@ The control-plane / execution-target split is **already production-proven**. Eve
 2. Runs dbt CLI commands by `cd`-ing to dbt-enterprise
 3. Uses `execute_sql` via MCP API (path-independent)
 
-The AI Team Workspace does not change this relationship. It just moves the control plane up one level. Builder and QA workflows don't change mechanically — they already `cd` to dbt-enterprise for dbt CLI.
+The Analytics & Insights Team Workspace does not change this relationship. It just moves the control plane up one level. Builder and QA workflows don't change mechanically — they already `cd` to dbt-enterprise for dbt CLI.
 
 | Component | Today | End state | Change? |
 |-----------|-------|-----------|---------|
-| **Control plane** (skills, commands, rules) | dbt-agent | AI Team Workspace | Yes — promotes up |
+| **Control plane** (skills, commands, rules) | dbt-agent | Analytics & Insights Team Workspace | Yes — promotes up |
 | **dbt execution** (`compile/run/test`) | dbt-enterprise (via `cd`) | dbt-enterprise (via `cd`) | **No change** |
 | **MCP API** (`execute_sql`) | Path-independent | Path-independent | **No change** |
 | **Agent memory** | `~/.claude/agent-memory/` | `~/.claude/agent-memory/` | **No change** |
@@ -58,7 +58,7 @@ dbt skills stay in the workspace (promoted from dbt-agent), **not** in dbt-enter
 
 | Repo | Role | Why separate |
 |------|------|-------------|
-| AI Team Workspace | Shared brain | Changes here improve everyone's workflow |
+| Analytics & Insights Team Workspace | Shared brain | Changes here improve everyone's workflow |
 | dbt-enterprise | Production dbt code | Strict CI/CD, branch protection, team review |
 | dbt-agent | Migration source | Battle-tested reference, stays intact |
 
@@ -118,7 +118,7 @@ This is the existing proven pattern, made explicit in routing rules.
 ## Target Topology
 
 ```text
-AI Team Workspace (claude-analytics-framework)/
+Analytics & Insights Team Workspace (claude-analytics-framework)/
   .claude/
     agents/                  # two-tier agent definitions (replaces Graniterock roles/specialists)
     skills/                  # promoted from dbt-agent + team-contributed
@@ -166,7 +166,7 @@ Global layer retained:
 
 ## Repository Roles
 
-### AI Team Workspace (this repo)
+### Analytics & Insights Team Workspace (this repo)
 Shared control plane and team knowledge hub:
 - Agent definitions (two-tier model)
 - Shared skills (promoted from dbt-agent + team-contributed)
@@ -299,4 +299,4 @@ The original CAF repo was built by Dylan Morrish at Graniterock for a Snowflake/
 
 ## Bottom Line
 
-The AI Team Workspace is the shared brain for the analytics team. dbt-enterprise is the hands. dbt-agent is the proven reference we copy from. The separation between thinking and executing is already production-proven — this plan just moves the thinking layer up one level so the whole team can share it.
+The Analytics & Insights Team Workspace is the shared brain for the analytics team. dbt-enterprise is the hands. dbt-agent is the proven reference we copy from. The separation between thinking and executing is already production-proven — this plan just moves the thinking layer up one level so the whole team can share it.

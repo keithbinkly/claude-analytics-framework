@@ -1,4 +1,4 @@
-# Quick Start — AI Team Workspace
+# Quick Start — Analytics & Insights Team Workspace
 
 **Time to useful:** 5 minutes.
 
@@ -6,7 +6,7 @@
 
 ## What This Is
 
-This is the analytics team's shared AI workspace. It has skills, knowledge, and workflows that make Claude (or any AI coding agent) better at our analytics work — dbt pipelines, data science, QA, visualization, and more.
+This is the Analytics & Insights team's shared AI workspace. It has skills, knowledge, and workflows that make Claude (or any AI coding agent) better at our analytics work — dbt pipelines, data science, QA, visualization, and more.
 
 **It is NOT where dbt code lives.** dbt code stays in `dbt-enterprise`. This workspace is the brain that helps you work on it.
 

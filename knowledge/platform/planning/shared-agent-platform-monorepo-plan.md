@@ -101,9 +101,11 @@ The workspace is authoritative only for capabilities it actually provides. dbt-a
 
 Promoted assets go into their natural locations (`knowledge/domains/dbt/`, `.claude/skills/`, `.claude/commands/`), **not** into a `promoted/dbt-agent/` shadow directory. Ownership metadata tracks provenance.
 
-### Decision 7: Cross-repo search via symlinks
+### Decision 7: Gitignored nested repos (supersedes symlinks)
 
-`repos/` directory contains symlinks to sibling repos, enabling Glob/Grep across the entire workspace from one root. Already has `.gitignore` excluding `repos/*` (except README.md).
+Team repos are cloned directly inside the workspace directory and gitignored. Each repo keeps its own `.git/`, branches, remotes, and CI/CD — the workspace git never sees them. This gives every teammate identical relative paths with zero configuration. No symlinks, no bootstrap script, no hardcoded personal paths.
+
+Full plan: `nested-repos-restructure.md`
 
 ### Decision 8: Compound routing for pipeline work
 
@@ -140,10 +142,9 @@ Analytics & Insights Team Workspace (claude-analytics-framework)/
     reference/
       tools/                 # MCP setup, dbt CLI, external tool guides
       standards/             # SQL style, naming conventions, folder structure
-  repos/                     # symlinks to sibling repos (gitignored)
-    dbt-enterprise/          # → /Users/kbinkly/git-repos/dbt_projects/dbt-enterprise
-    data-centered/           # → /Users/kbinkly/git-repos/data-centered
-    dbt-agent/               # → /Users/kbinkly/git-repos/dbt-agent
+  dbt-enterprise/              # full repo clone (gitignored, own .git/)
+  dbt-agent/                   # full repo clone (gitignored, own .git/)
+  data-centered/               # full repo clone (gitignored, own .git/)
   workstreams/
     active/
     archive/
@@ -152,11 +153,6 @@ Analytics & Insights Team Workspace (claude-analytics-framework)/
     learning/
   scripts/
   templates/
-
-External but workspace-linked repos:
-  /Users/kbinkly/git-repos/dbt_projects/dbt-enterprise
-  /Users/kbinkly/git-repos/data-centered
-  /Users/kbinkly/git-repos/dbt-agent
 
 Global layer retained:
   ~/.claude/agent-memory/    # canonical memory for truly global agents

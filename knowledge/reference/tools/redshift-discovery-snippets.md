@@ -1,27 +1,30 @@
-<!--
-source_of_truth: caf
-mirrored_from: dbt-agent/shared/knowledge-base/redshift-discovery-snippets.md
--->
+# Redshift Discovery Snippets (Datashare Compatible)
 
-> CAF migration note: this is a curated CAF copy of the discovery snippets most useful for pipeline work. Use this first, then fall back to the fuller `dbt-agent` version if needed.
+These queries are optimized for Redshift environments using Datashares. They use `SVV_ALL_*` system views to ensure visibility across both local and shared databases.
 
-# Redshift Discovery Snippets
+## 📚 AWS Documentation References
+- [SVV_ALL_COLUMNS](https://docs.aws.amazon.com/redshift/latest/dg/r_SVV_ALL_COLUMNS.html)
+- [SVV_ALL_TABLES](https://docs.aws.amazon.com/redshift/latest/dg/r_SVV_ALL_TABLES.html)
+- [SVV_ALL_SCHEMAS](https://docs.aws.amazon.com/redshift/latest/dg/r_SVV_ALL_SCHEMAS.html)
+- [SVV System Views Overview](https://docs.aws.amazon.com/redshift/latest/dg/svv_views.html)
+- [Redshift Datashares](https://docs.aws.amazon.com/redshift/latest/dg/datashare-overview.html)
 
-Queries and patterns for Redshift discovery work, especially in environments that use datashares.
+## 🔑 Key Concept: SVV_ALL_* vs SVV_*
 
-## Datashare Rule
+| View Type | Scope | Use Case |
+|-----------|-------|----------|
+| `SVV_TABLES` / `SVV_COLUMNS` | **Local Database Only** | Checking tables physically created in your current DB. |
+| `SVV_ALL_TABLES` / `SVV_ALL_COLUMNS` | **Local + Datashares** | **Discovery.** Finding tables in `gbos`, `ods`, or other shared schemas. |
 
-Prefer `SVV_ALL_*` views during discovery because they see local and shared objects.
+---
 
-| View family | Scope | Best use |
-|-------------|-------|----------|
-| `SVV_TABLES`, `SVV_COLUMNS` | Local DB only | Local physical tables |
-| `SVV_ALL_TABLES`, `SVV_ALL_COLUMNS` | Local + shared | Discovery and search |
+## 🔍 1. Find a Table by Name (Fuzzy Search)
+Search for a table across all connected databases and schemas.
 
-## Find Table By Name
+**Reference:** [SVV_ALL_TABLES](https://docs.aws.amazon.com/redshift/latest/dg/r_SVV_ALL_TABLES.html)
 
 ```sql
-SELECT
+SELECT 
     database_name,
     schema_name,
     table_name,
@@ -31,10 +34,13 @@ WHERE table_name ILIKE '%partial_table_name%'
 ORDER BY database_name, schema_name, table_name;
 ```
 
-## Find Column By Name
+## 🔎 2. Find a Column by Name
+Find every table that contains a specific column. Useful for tracing lineage or finding join keys.
+
+**Reference:** [SVV_ALL_COLUMNS](https://docs.aws.amazon.com/redshift/latest/dg/r_SVV_ALL_COLUMNS.html)
 
 ```sql
-SELECT
+SELECT 
     database_name,
     schema_name,
     table_name,
@@ -46,10 +52,11 @@ WHERE column_name ILIKE '%column_name%'
 ORDER BY database_name, schema_name, table_name;
 ```
 
-## Get Full Table Definition
+## 📋 3. Get Full Table Definition
+List all columns, data types, and order for a specific table.
 
 ```sql
-SELECT
+SELECT 
     database_name,
     schema_name,
     table_name,
@@ -63,24 +70,28 @@ WHERE schema_name = 'your_schema'
 ORDER BY database_name, ordinal_position;
 ```
 
-## Find Join-Candidate Tables
+## 🔗 4. Find Tables Containing Multiple Columns (Join Candidates)
+Find tables that contain *both* Column A and Column B. Great for finding link tables or verifying schema assumptions.
 
 ```sql
-SELECT
+SELECT 
     database_name,
     schema_name,
     table_name
 FROM svv_all_columns
 WHERE column_name IN ('column_a', 'column_b')
 GROUP BY 1, 2, 3
-HAVING COUNT(DISTINCT column_name) = 2
+HAVING COUNT(DISTINCT column_name) = 2 -- Must match number of columns in list
 ORDER BY 1, 2, 3;
 ```
 
-## List Schemas In A Database
+## 📂 5. List All Schemas in a Database
+See what schemas are available in a specific database (e.g., `gbos_db`).
+
+**Reference:** [SVV_ALL_SCHEMAS](https://docs.aws.amazon.com/redshift/latest/dg/r_SVV_ALL_SCHEMAS.html)
 
 ```sql
-SELECT
+SELECT 
     database_name,
     schema_name,
     schema_owner,
@@ -90,24 +101,29 @@ WHERE database_name ILIKE '%db_name%'
 ORDER BY schema_name;
 ```
 
-## Local Table Size And Row Counts
+## 📊 6. Table Stats & Row Counts (Local Only)
+*Note: `svv_table_info` only works for local tables. For datashares, you must query the table directly.*
+
+**Reference:** [SVV_TABLE_INFO](https://docs.aws.amazon.com/redshift/latest/dg/r_SVV_TABLE_INFO.html)
 
 ```sql
-SELECT
-    schema as schema_name,
-    table as table_name,
-    tbl_rows as row_count,
-    size as size_mb
+-- Only works for local tables
+SELECT 
+    schema as schema_name, 
+    table as table_name, 
+    tbl_rows as row_count, 
+    size as size_mb 
 FROM svv_table_info
 ORDER BY size DESC;
 ```
 
-Use this only for local tables. For datashared objects, query the table directly.
+## 🤝 7. List Available Datashares
+See what external data is available to you via Datashares.
 
-## Check Datashares
+**Reference:** [SVV_DATASHARES](https://docs.aws.amazon.com/redshift/latest/dg/r_SVV_DATASHARES.html)
 
 ```sql
-SELECT
+SELECT 
     share_name,
     share_owner,
     source_database,
@@ -116,36 +132,45 @@ FROM pg_catalog.svv_datashares
 ORDER BY share_name;
 ```
 
-## List Datashare Objects
+## 📦 8. List Objects in a Datashare
+See exactly what tables and schemas are inside a specific datashare.
+
+**Reference:** [SVV_DATASHARE_OBJECTS](https://docs.aws.amazon.com/redshift/latest/dg/r_SVV_DATASHARE_OBJECTS.html)
 
 ```sql
-SELECT
+SELECT 
     share_name,
     object_type,
     object_name
 FROM pg_catalog.svv_datashare_objects
-WHERE share_name = 'your_share_name'
+WHERE share_name = 'your_share_name' -- Optional filter
 ORDER BY share_name, object_type, object_name;
 ```
 
-## Check Table Permissions
+## 🔐 9. Check Table Permissions (Who can do what?)
+See exactly which users or roles have SELECT, INSERT, etc. privileges on a table. Works for both local and shared tables.
+
+**Reference:** [SVV_RELATION_PRIVILEGES](https://docs.aws.amazon.com/redshift/latest/dg/r_SVV_RELATION_PRIVILEGES.html)
 
 ```sql
-SELECT
+SELECT 
     namespace_name as schema_name,
     relation_name as table_name,
     privilege_type,
     identity_name as grantee,
-    identity_type
+    identity_type -- 'user' or 'role'
 FROM pg_catalog.svv_relation_privileges
 WHERE relation_name = 'your_table_name'
 ORDER BY schema_name, table_name;
 ```
 
-## Check User Roles
+## 👤 10. Check User Roles & Grants
+See which roles a user belongs to. Useful for debugging "why can't I see this table?" (often due to missing role).
+
+**Reference:** [SVV_USER_GRANTS](https://docs.aws.amazon.com/redshift/latest/dg/r_SVV_USER_GRANTS.html)
 
 ```sql
-SELECT
+SELECT 
     user_name,
     role_name,
     admin_option
@@ -154,23 +179,29 @@ WHERE user_name ILIKE '%your_username%'
 ORDER BY user_name, role_name;
 ```
 
-## Ownership Checks
+## 👑 11. Check Database & Table Ownership
+*   **Databases:** See all connected databases (local & shared) and their owners.
+*   **Local Tables:** See owners of tables in the current database.
+
+**References:** [SVV_REDSHIFT_DATABASES](https://docs.aws.amazon.com/redshift/latest/dg/r_SVV_REDSHIFT_DATABASES.html) | [PG_TABLES](https://docs.aws.amazon.com/redshift/latest/dg/r_PG_TABLES.html)
 
 ```sql
-SELECT
+-- 1. List all databases (Local + Shared)
+SELECT 
     database_name,
     database_owner,
-    database_type
+    database_type -- 'local' or 'shared'
 FROM pg_catalog.svv_redshift_databases
 ORDER BY database_name;
-```
 
-```sql
-SELECT
-    schemaname,
-    tablename,
-    tableowner
-FROM pg_catalog.pg_tables
+-- 2. List Local Table Owners (Does not show Datashare tables)
+SELECT 
+    schemaname, 
+    tablename, 
+    tableowner 
+FROM pg_catalog.pg_tables 
 WHERE schemaname NOT IN ('pg_catalog', 'information_schema')
 ORDER BY schemaname, tablename;
 ```
+
+

@@ -1,58 +1,196 @@
-<!--
-source_of_truth: caf
-mirrored_from: dbt-agent/shared/reference/MANDATORY_COMPILE_RULE.md
--->
+# 🚨 MANDATORY RULE: Compile After Every Script Change
 
-> CAF migration note: this is the portable CAF version of the compile-first rule. It applies whenever dbt execution work is routed from CAF into `dbt-enterprise`.
+**Status**: ZERO TOLERANCE - No Exceptions  
+**Applies To**: ALL dbt model changes (SQL, config, Jinja)  
+**Last Updated**: 2025-11-06
 
-# Mandatory Compile Rule
+---
 
-## Rule
+## The Rule
 
-Always run `dbt compile` before `dbt run`.
+### ✅ DO THIS (Every Time)
+```bash
+# 1. Make changes to model file(s)
+vim models/.../model.sql
 
-No exceptions for dbt model changes, config changes, or Jinja changes.
+# 2. COMPILE FIRST (MANDATORY!)
+dbt compile --select model_name
 
-## Required Sequence
+# 3. ONLY if compile succeeds → run
+dbt run --select model_name
+```
 
+### ❌ NEVER DO THIS
+```bash
+# ❌ WRONG: Running without compiling
+vim models/.../model.sql
+dbt run --select model_name  # DON'T DO THIS!
+```
+
+---
+
+## Why This is Mandatory
+
+### Cost & Time Savings
+- ✅ Compile: **5-10 seconds, FREE**
+- ❌ Failed warehouse run: **2-5 minutes, COSTS MONEY**
+- 💰 ROI: 12-30x time savings per error
+
+### What Compile Catches
+1. **Syntax Errors**: Invalid SQL, missing commas, typos
+2. **Column Mismatches**: `column 'x' does not exist`, type casting issues
+3. **JOIN Errors**: Table aliases, ambiguous columns, missing ON clauses
+4. **GROUP BY Errors**: Aggregate columns in GROUP BY, wrong position counts
+5. **SORTKEY/DISTKEY Errors**: Column name mismatches (Fusion specific)
+6. **Macro Errors**: Undefined macros, wrong arguments, Jinja syntax
+7. **Reference Errors**: `ref()` to non-existent models
+
+### What Compile Doesn't Catch (Warehouse Only)
+1. **Data Quality**: NULL values, type conversion failures at runtime
+2. **Performance**: Slow queries, missing indexes
+3. **Schema Evolution**: `on_schema_change` column additions
+4. **Incremental Logic**: Date filter edge cases
+
+---
+
+## Command Patterns
+
+### Single Model
 ```bash
 dbt compile --select model_name
 dbt run --select model_name
 ```
 
-Never skip straight to `dbt run`.
+### Multiple Models
+```bash
+dbt compile --select model1 model2 model3
+dbt run --select model1 model2 model3
+```
 
-## Why
+### Full Dependency Tree
+```bash
+dbt compile --select +model_name  # All upstream
+dbt run --select +model_name --full-refresh
+```
 
-Compile is fast and cheap. Failed warehouse runs are slower and costlier.
+### Tagged Models
+```bash
+dbt compile --select tag:interchange
+dbt run --select tag:interchange
+```
 
-Compile catches:
+### Directory
+```bash
+dbt compile --select models/intermediate/transactions/*
+dbt run --select models/intermediate/transactions/*
+```
 
-- SQL syntax errors
-- missing columns
-- bad aliases and join references
-- `GROUP BY` mistakes
-- macro and Jinja errors
-- bad `ref()` calls
+---
 
-Compile does not fully catch:
+## Integration with Workflow
 
-- data-quality problems at runtime
-- performance issues
-- some incremental edge cases
+### Standard Development Loop
+```mermaid
+graph TD
+    A[Edit Model SQL] --> B{Compile}
+    B -->|Success| C[Run Model]
+    B -->|Fail| D[Fix Errors]
+    D --> A
+    C --> E{Tests Pass?}
+    E -->|Yes| F[Commit]
+    E -->|No| D
+```
 
-## Workflow Integration
+### QA Validation Workflow
+```bash
+# 1. Pre-flight: Compile all models
+dbt compile --select +mart_name
 
-Before every dbt execution:
+# 2. Build dependencies
+dbt run --select +mart_name --exclude mart_name
 
-1. make the changes
-2. compile the exact scope
-3. review errors or warnings
-4. only then run
+# 3. Compile target (verify dependencies worked)
+dbt compile --select mart_name
+
+# 4. Build target
+dbt run --select mart_name
+
+# 5. Run QA queries
+```
+
+---
 
 ## Enforcement Checklist
 
-- modified files identified
-- `dbt compile --select <scope>` ran
-- compile succeeded
-- only then proceed to `dbt run`
+Before EVERY `dbt run`, verify:
+- [ ] All modified files saved
+- [ ] `dbt compile --select <models>` executed
+- [ ] Compile output reviewed (no errors/unexpected warnings)
+- [ ] Compile succeeded (green checkmark)
+- [ ] ONLY THEN proceed to `dbt run`
+
+---
+
+## Session Learning Example (2025-11-06)
+
+### ❌ Violation
+- Made 6 file modifications (SORTKEY fix, GROUP BY fixes, JOIN addition)
+- Ran `dbt run` immediately after each change
+- Hit 3 warehouse errors:
+  1. SORTKEY column name mismatch
+  2. GROUP BY counting aggregate columns
+  3. Missing JOIN for sor_group
+
+**Impact**: 
+- 3 failed warehouse runs (~5 minutes wasted)
+- 3 compile cycles could have caught all errors (~30 seconds)
+- **ROI**: 10x time savings if compiled first
+
+### ✅ Correct Approach (Applied After Learning)
+```bash
+# After all fixes applied
+dbt compile --select int_transactions__posted_all \
+    int_interchange__revenue_details \
+    int_interchange__revenue_aggregated \
+    int_interchange__posted_aggregated \
+    mart_interchange__monthly_dossier
+
+# Result: All 5 models compiled successfully in 8 seconds
+# Then: Successful warehouse runs
+```
+
+---
+
+## Exception Handling
+
+**Q: Are there any exceptions to this rule?**  
+**A: NO.**
+
+**Q: What if it's a tiny change like a comment?**  
+**A: Still compile. Takes 5 seconds, builds good habits.**
+
+**Q: What if I'm in a hurry?**  
+**A: Compiling is FASTER than fixing warehouse errors.**
+
+**Q: What if compile is slow (30+ seconds)?**  
+**A: Still faster than failed warehouse run (2-5 minutes).**
+
+**Q: What about dbt Cloud CI/CD?**  
+**A: CI will compile, but YOU should too before committing.**
+
+---
+
+## Related Documentation
+
+- Session Log: `session-logs/2025-11-06_interchange_qa_learnings.md`
+- QA Workflow: `shared/reference/qa-validation-checklist.md`
+- Troubleshooting: `shared/knowledge-base/troubleshooting.md`
+
+---
+
+**Remember**: 
+- 🚀 Compile = 5-10 seconds
+- 💰 Failed run = 2-5 minutes + cost
+- ✅ Always compile first = Faster + Cheaper + Better
+
+**Zero tolerance. No exceptions.**

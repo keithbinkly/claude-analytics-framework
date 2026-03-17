@@ -1,9 +1,9 @@
 <!--
-source_of_truth: caf
+source_of_truth: analytics-workspace
 mirrored_from: dbt-agent/shared/knowledge-base/folder-structure-and-naming.md
 -->
 
-> CAF migration note: this is a promoted copy from `dbt-agent`. Prefer this CAF path first. If a referenced companion doc has not been promoted yet, fall back to `dbt-agent`.
+> analytics-workspace migration note: this is a promoted copy from `dbt-agent`. Prefer this analytics-workspace path first. If a referenced companion doc has not been promoted yet, fall back to `dbt-agent`.
 
 # 📁 Folder Structure and Naming Conventions
 

@@ -42,9 +42,9 @@ Semantic Layer: dbt-semantic-layer-developer, dbt-nl-queries
 
 ## Knowledge Bases
 
-- `repos/dbt-agent/shared/reference/anti-pattern-impact.yml`
-- `repos/dbt-agent/shared/reference/join-registry.yml`
-- `repos/dbt-agent/shared/knowledge-base/human-feedback-journal.md`
+- `dbt-agent/shared/reference/anti-pattern-impact.yml`
+- `dbt-agent/shared/reference/join-registry.yml`
+- `dbt-agent/shared/knowledge-base/human-feedback-journal.md`
 - `shared/decision-traces/` (traces.json, index.json)
 
 ## Principles

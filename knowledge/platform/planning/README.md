@@ -12,16 +12,16 @@ This folder contains documentation for the ADLC Plan phase workflows:
 - **Long-term maintenance** planning
 
 ## Current Planning Docs
-- `shared-agent-platform-monorepo-plan.md` - target architecture and phased migration plan for making CAF the shared control plane, while linked repos remain intact and `dbt-agent` stays fully usable as assets are promoted by copy
+- `shared-agent-platform-monorepo-plan.md` - target architecture and phased migration plan for making analytics-workspace the shared control plane, while linked repos remain intact and `dbt-agent` stays fully usable as assets are promoted by copy
 - `global-to-caf-migration-inventory.md` - classification of analytics-related assets currently living in `~/.claude/`, including the rule that global agent memory stays global
 - `dbt-agent-decomposition-inventory.md` - prerequisite inventory framework for classifying what from `dbt-agent` should be promoted, retained, archived, or deduplicated, with explicit ownership labels for copied assets
-- `caf-legacy-asset-inventory.md` - CAF-side keep/replace/archive map so legacy assets are only retired after replacement exists
+- `caf-legacy-asset-inventory.md` - analytics-workspace-side keep/replace/archive map so legacy assets are only retired after replacement exists
 
 ## Related Manifests
 - `.claude/manifests/workspace-manifest.yaml` - canonical workspace topology, precedence rules, and migration policy
 - `.claude/manifests/repo-adapters.yaml` - per-repo routing rules, operating constraints, and shared-vs-local asset guidance
 - `.claude/manifests/workflow-contracts.yaml` - agent-neutral workflow definitions for core tasks like building pipelines, resuming work, and running QA
-- `.claude/manifests/ccv3-dependencies.yaml` - explicit inventory of CCV3/global-layer dependencies that promoted CAF assets still rely on
+- `.claude/manifests/ccv3-dependencies.yaml` - explicit inventory of CCV3/global-layer dependencies that promoted workspace assets still rely on
 
 ## Documentation Coming Soon
 - Idea organization and clustering strategies

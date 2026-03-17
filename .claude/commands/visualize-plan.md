@@ -34,7 +34,7 @@ These skills provide: HTML structure patterns, SVG diagram generation via `tools
 ### Step 1: Identify the Source Plan
 
 Ask the user if not obvious:
-- File path (e.g., `repos/dbt-agent/.dots/some-plan.md`, `repos/dbt-agent/handoffs/pipeline/PLAN.md`)
+- File path (e.g., `dbt-agent/.dots/some-plan.md`, `dbt-agent/handoffs/pipeline/PLAN.md`)
 - Pasted text in conversation
 - "The plan we just discussed"
 

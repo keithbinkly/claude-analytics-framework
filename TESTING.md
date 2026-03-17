@@ -204,7 +204,7 @@ git diff --stat .claude/ shared/                        # Only pre-existing chan
 
 Run the quick script version:
 ```bash
-cd /Users/kbinkly/git-repos/claude-analytics-framework
+cd /Users/kbinkly/git-repos/analytics-workspace
 bash scripts/check-workspace-readiness.sh
 ```
 

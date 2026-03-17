@@ -1,11 +1,11 @@
 <!--
-source_of_truth: caf
+source_of_truth: analytics-workspace
 mirrored_from: dbt-agent/shared/templates/data-discovery-template.md
 -->
 
 # Data Discovery Template
 
-CAF-owned template for `handoffs/[pipeline]/data-discovery-report.md`.
+Workspace-owned template for `handoffs/[pipeline]/data-discovery-report.md`.
 
 ```markdown
 # Data Discovery Report: [Pipeline Name]

@@ -3,7 +3,7 @@ source_of_truth: caf
 mirrored_from: dbt-agent/shared/knowledge-base/troubleshooting.md
 -->
 
-> CAF migration note: this is a curated CAF troubleshooting reference covering the highest-frequency dbt pipeline issues. Use this first, then fall back to the fuller `dbt-agent` troubleshooting guide for niche cases.
+> analytics-workspace migration note: this is a curated analytics-workspace troubleshooting reference covering the highest-frequency dbt pipeline issues. Use this first, then fall back to the fuller `dbt-agent` troubleshooting guide for niche cases.
 
 # Troubleshooting
 

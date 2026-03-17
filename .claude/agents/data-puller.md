@@ -139,8 +139,8 @@ This contains entity prefix rules, query patterns, canvas optimization by datase
 
 When the orchestrator provides a partner name, load the partner's knowledge files:
 
-1. `repos/dbt-agent/shared/knowledge-base/partner-briefs/{partner}/brief.md` — narrative context
-2. `repos/dbt-agent/shared/knowledge-base/partner-briefs/{partner}/quirks.md` — dataset-specific gotchas and traps
+1. `dbt-agent/shared/knowledge-base/partner-briefs/{partner}/brief.md` — narrative context
+2. `dbt-agent/shared/knowledge-base/partner-briefs/{partner}/quirks.md` — dataset-specific gotchas and traps
 
 Load brief.md for general context. Load quirks.md ALWAYS — it contains specific data traps
 (wrong column semantics, test data to exclude, known null patterns) that prevent query errors.

@@ -1,11 +1,11 @@
 <!--
-source_of_truth: caf
+source_of_truth: analytics-workspace
 mirrored_from: dbt-agent/.claude/commands/pipeline-new.md
 -->
 
 # Create New Pipeline
 
-Start a new pipeline workflow from CAF root while keeping pipeline state in `dbt-agent` during migration.
+Start a new pipeline workflow from workspace root while keeping pipeline state in `dbt-agent` during migration.
 
 **Usage:** `/pipeline-new [pipeline-name]`
 
@@ -54,7 +54,7 @@ Ask the user which workflow type applies:
 
 ### 4. Create Pipeline State In The Current Source Of Truth
 
-Until CAF owns pipeline state directly, create the pipeline infrastructure in `dbt-agent`:
+Until analytics-workspace owns pipeline state directly, create the pipeline infrastructure in `dbt-agent`:
 
 - `DBT_AGENT_ROOT/handoffs/[name]/`
 - `DBT_AGENT_ROOT/handoffs/[name]/PLAN.md`
@@ -67,14 +67,14 @@ Treat these as required minimum state:
 
 Treat `.dots/pipeline-[name].md` as optional auxiliary state only.
 
-Use CAF-promoted state guidance first:
+Use analytics-workspace-promoted state guidance first:
 
 - `.claude/manifests/pipeline-state-schema.yaml`
 - `.claude/skills/dbt-orchestrator/resources/plan-template.md`
 - `.claude/skills/dbt-business-context/resources/business-context-template.md`
 - `.claude/skills/dbt-data-discovery/resources/data-discovery-template.md`
 
-Prefer CAF-promoted orchestration references first:
+Prefer analytics-workspace-promoted orchestration references first:
 
 - `.claude/skills/dbt-orchestrator/SKILL.md`
 - `.claude/skills/dbt-orchestrator/resources/agent-loading-specs.md`
@@ -89,16 +89,16 @@ Show:
 - state location in `dbt-agent`
 - next action
 
-### 6. Continue From CAF Root
+### 6. Continue From Workspace Root
 
 After creation:
 
-- keep the user anchored in CAF as the control-plane entrypoint
-- consult CAF-promoted assets first
+- keep the user anchored in analytics-workspace as the control-plane entrypoint
+- consult analytics-workspace-promoted assets first
 - use `dbt-agent` as fallback reference until the relevant capability is promoted
 - route dbt CLI execution into `dbt-enterprise` when implementation begins
 
 ## Notes
 
 - This command intentionally keeps workflow state in `dbt-agent` for now.
-- It exists in CAF so users can start from the shared team root without losing access to the existing pipeline system.
+- It exists in analytics-workspace so users can start from the shared team root without losing access to the existing pipeline system.

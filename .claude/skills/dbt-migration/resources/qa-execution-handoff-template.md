@@ -1,11 +1,11 @@
 <!--
-source_of_truth: caf
+source_of_truth: analytics-workspace
 mirrored_from: dbt-agent/shared/templates/handoff-package-template.md
 -->
 
 # QA / Execution Handoff Template
 
-CAF-owned handoff template for transferring a pipeline from the builder agent to the QA or execution agent.
+Workspace-owned handoff template for transferring a pipeline from the builder agent to the QA or execution agent.
 
 Use this when implementation is ready for deeper validation and you want the next agent to inherit context instead of rediscovering it.
 

@@ -1,7 +1,7 @@
 ---
 name: dbt-lineage
 description: |
-  CAF-root lineage and dependency-analysis guidance for dbt pipeline work. Use when tracing
+  analytics-workspace-root lineage and dependency-analysis guidance for dbt pipeline work. Use when tracing
   upstream or downstream impact, understanding migration order, checking what depends on a
   model or source, or inspecting manifest-driven lineage.
 ---
@@ -11,9 +11,9 @@ source_of_truth: caf
 mirrored_from: dbt-agent/.claude/skills/dbt-lineage/SKILL.md
 -->
 
-# CAF dbt Lineage
+# analytics-workspace dbt Lineage
 
-Dependency and impact-analysis guidance for CAF-routed dbt workflows.
+Dependency and impact-analysis guidance for analytics-workspace-routed dbt workflows.
 
 ## Use This Skill To
 

@@ -25,7 +25,7 @@ link_repo() {
   echo "Linked ${link_name} -> ${source_path}"
 }
 
-echo "Creating CAF linked-repo convenience symlinks..."
+echo "Creating analytics-workspace linked-repo convenience symlinks..."
 
 link_repo "${DBT_ENTERPRISE_SRC}" "dbt-enterprise"
 link_repo "${DBT_AGENT_SRC}" "dbt-agent"

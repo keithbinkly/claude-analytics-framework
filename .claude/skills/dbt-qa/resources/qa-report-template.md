@@ -1,11 +1,11 @@
 <!--
-source_of_truth: caf
+source_of_truth: analytics-workspace
 mirrored_from: dbt-agent/.claude/skills/dbt-qa/resources/report-template.md
 -->
 
 # QA Report Template
 
-CAF-owned template for `handoffs/[pipeline]/qa-report.md`.
+Workspace-owned template for `handoffs/[pipeline]/qa-report.md`.
 
 ```markdown
 # QA Validation Report: [Model or Pipeline Name]
@@ -56,6 +56,6 @@ CAF-owned template for `handoffs/[pipeline]/qa-report.md`.
 
 ## Fallback Usage
 
-- CAF-only guidance sufficient: [YES/NO]
+- analytics-workspace-only guidance sufficient: [YES/NO]
 - If no, list any `dbt-agent` fallback references used
 ```

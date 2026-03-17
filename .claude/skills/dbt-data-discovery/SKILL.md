@@ -2,7 +2,7 @@
 name: dbt-data-discovery
 description: |
   Profiles source data, validates schemas, and documents discovery findings for dbt pipeline
-  work from CAF root. Use when investigating source tables, validating column assumptions,
+  work from analytics-workspace root. Use when investigating source tables, validating column assumptions,
   checking join readiness, or creating a data-discovery report.
 ---
 
@@ -11,7 +11,7 @@ source_of_truth: caf
 mirrored_from: dbt-agent/.claude/skills/dbt-data-discovery/SKILL.md
 -->
 
-# CAF dbt Data Discovery
+# analytics-workspace dbt Data Discovery
 
 Pre-build data profiling and discovery guidance for pipeline work.
 

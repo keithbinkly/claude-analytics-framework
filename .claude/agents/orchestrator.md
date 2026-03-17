@@ -182,6 +182,6 @@ Provide in Task tool prompt:
   Portfolio index:   handoffs/PIPELINE_REGISTRY.yaml
                      → Cross-pipeline status (for Control Panel)
 
-  Gate criteria:     repos/dbt-agent/shared/reference/architecture-validation-checklist.md
-                     repos/dbt-agent/shared/reference/qa-validation-checklist.md
+  Gate criteria:     dbt-agent/shared/reference/architecture-validation-checklist.md
+                     dbt-agent/shared/reference/qa-validation-checklist.md
 -->

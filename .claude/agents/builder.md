@@ -45,10 +45,10 @@ Documentation: dbt-docs-lookup, dbt-tech-spec-writer
 
 ## Knowledge Bases
 
-- `repos/dbt-agent/shared/knowledge-base/canonical-models-registry.md`
-- `repos/dbt-agent/shared/reference/copilot-decision-framework.md`
-- `repos/dbt-agent/shared/reference/anti-pattern-impact.yml`
-- `repos/dbt-agent/shared/reference/join-registry.yml`
+- `dbt-agent/shared/knowledge-base/canonical-models-registry.md`
+- `dbt-agent/shared/reference/copilot-decision-framework.md`
+- `dbt-agent/shared/reference/anti-pattern-impact.yml`
+- `dbt-agent/shared/reference/join-registry.yml`
 
 ## Principles
 

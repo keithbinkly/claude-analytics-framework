@@ -154,7 +154,7 @@ Historical/meta documentation:
 - Agent Skills Standard: https://agentskills.io
 
 **Related:**
-- This migration: `/Users/dylanmorrish/github_personal/claude-analytics-framework/.claude/MIGRATION-2026-01-28.md`
+- This migration: `/Users/dylanmorrish/github_personal/analytics-workspace/.claude/MIGRATION-2026-01-28.md`
 - Archived files: `.claude/archive/memory-migration/`
 
 ---

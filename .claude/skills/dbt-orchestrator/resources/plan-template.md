@@ -5,7 +5,7 @@ mirrored_from: dbt-agent/handoffs/_templates/PLAN-TEMPLATE.md
 
 # Pipeline Plan Template
 
-CAF-owned template for `handoffs/[pipeline]/PLAN.md` during the migration period.
+analytics-workspace-owned template for `handoffs/[pipeline]/PLAN.md` during the migration period.
 
 Use this when creating a new pipeline plan in the live state repo.
 
@@ -127,4 +127,4 @@ _None currently._
 ## Notes
 
 - Normalize the phase values using `.claude/manifests/pipeline-state-schema.yaml`.
-- Prefer the four CAF primary gates even if older historical plans used an extra deploy checkpoint.
+- Prefer the four analytics-workspace primary gates even if older historical plans used an extra deploy checkpoint.

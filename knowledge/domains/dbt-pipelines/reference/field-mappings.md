@@ -3,7 +3,7 @@ source_of_truth: caf
 mirrored_from: dbt-agent/shared/knowledge-base/field-mappings.md
 -->
 
-> CAF migration note: this is a curated CAF copy of the field mappings that repeatedly matter in dbt pipeline work. Use this first, then fall back to the fuller `dbt-agent` version if needed.
+> analytics-workspace migration note: this is a curated analytics-workspace copy of the field mappings that repeatedly matter in dbt pipeline work. Use this first, then fall back to the fuller `dbt-agent` version if needed.
 
 # Field Mappings
 

@@ -1,7 +1,7 @@
 ---
 name: sql-hidden-gems
 description: |
-  CAF-root guidance for advanced SQL patterns that are useful when standard modeling
+  analytics-workspace-root guidance for advanced SQL patterns that are useful when standard modeling
   approaches are not enough. Use for deeper analytical patterns, fanout avoidance,
   reconciliation tactics, advanced aggregations, and Redshift-aware SQL design ideas.
 ---
@@ -11,7 +11,7 @@ source_of_truth: caf
 mirrored_from: dbt-agent/.claude/skills/sql-hidden-gems/SKILL.md
 -->
 
-# CAF SQL Hidden Gems
+# analytics-workspace SQL Hidden Gems
 
 Advanced SQL reference for migration, debugging, and analytical edge cases.
 

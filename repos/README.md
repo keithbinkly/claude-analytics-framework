@@ -2,7 +2,7 @@
 
 `repos/` is the local visibility layer for linked analytics repos.
 
-These repos are not CAF-owned content. They are separate repositories that CAF needs to coordinate with:
+These repos are not analytics-workspace-owned content. They are separate repositories that analytics-workspace needs to coordinate with:
 
 - `dbt-enterprise`
 - `dbt-agent`
@@ -10,18 +10,18 @@ These repos are not CAF-owned content. They are separate repositories that CAF n
 
 ## Purpose
 
-This directory exists to make CAF-root work easier for humans and coding agents by giving them one place to look for linked repositories.
+This directory exists to make workspace-root work easier for humans and coding agents by giving them one place to look for linked repositories.
 
 Use it for:
 
 - local symlinks or other local visibility helpers
 - bootstrap notes for teammates
-- explaining how CAF-root sessions should discover the linked repos
+- explaining how workspace-root sessions should discover the linked repos
 
 ## Important
 
 - Do not assume every teammate will have the same local paths.
-- Do not rewrite promoted CAF assets to depend on machine-specific absolute paths.
+- Do not rewrite promoted analytics-workspace assets to depend on machine-specific absolute paths.
 - If local symlinks are used, they should be treated as convenience infrastructure, not hidden required behavior.
 
 ## Canonical Sources Of Truth
@@ -43,14 +43,14 @@ The current intended linked repos are:
 
 Those paths may later be replaced by a more team-safe bootstrap mechanism, but the workflow model stays the same:
 
-- CAF is the shared control plane
+- analytics-workspace is the shared control plane
 - `dbt-enterprise` is the dbt execution target
 - `dbt-agent` is the intact migration source and fallback reference
 - `data-centered` is the content and visualization project
 
 ## Bootstrap
 
-If you want local convenience links from CAF root, use:
+If you want local convenience links from workspace root, use:
 
 ```bash
 ./scripts/bootstrap-linked-repos.sh

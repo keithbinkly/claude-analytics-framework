@@ -1,9 +1,9 @@
 ---
 name: dbt-migration
 description: |
-  CAF-root implementation guidance for building dbt models from approved specs. Use when
+  analytics-workspace-root implementation guidance for building dbt models from approved specs. Use when
   translating legacy SQL or report logic into dbt models, implementing an approved tech spec,
-  or planning the Phase 4 build sequence from CAF while keeping dbt execution in
+  or planning the Phase 4 build sequence from analytics-workspace while keeping dbt execution in
   `dbt-enterprise`.
 ---
 
@@ -12,9 +12,9 @@ source_of_truth: caf
 mirrored_from: dbt-agent/.claude/skills/dbt-migration/SKILL.md
 -->
 
-# CAF dbt Migration
+# analytics-workspace dbt Migration
 
-Implementation guidance for Phase 4 pipeline work from CAF root.
+Implementation guidance for Phase 4 pipeline work from analytics-workspace root.
 
 ## Use This Skill To
 
@@ -64,7 +64,7 @@ Before execution:
 
 1. run preflight
 2. compile before run
-3. execute dbt CLI from `dbt-enterprise`, never CAF root
+3. execute dbt CLI from `dbt-enterprise`, never analytics-workspace root
 
 ## Output Expectations
 
@@ -75,4 +75,4 @@ A migration/build plan should make these explicit:
 - join and anti-pattern checks applied
 - compile-before-run sequence
 - whether a builder-to-QA handoff package should be created
-- unresolved dependencies still outside CAF
+- unresolved dependencies still outside analytics-workspace

@@ -27,14 +27,14 @@ Generate communication-ready documentation from pipeline artifacts. Turns raw ha
 
 Pipeline name from argument: `$ARGUMENTS` (first word)
 
-If no pipeline specified, list completed or active pipelines from `repos/dbt-agent/handoffs/PIPELINE_REGISTRY.yaml`.
+If no pipeline specified, list completed or active pipelines from `dbt-agent/handoffs/PIPELINE_REGISTRY.yaml`.
 
 ### 2. Load Pipeline Artifacts
 
 Read ALL existing artifacts for the pipeline (these are the source material):
 
 ```bash
-ls /Users/kbinkly/git-repos/dbt-agent/handoffs/$PIPELINE_NAME/
+ls /Users/kbinkly/git-dbt-agent/handoffs/$PIPELINE_NAME/
 ```
 
 Expected sources:
@@ -44,7 +44,7 @@ Expected sources:
 - `qa-report.md` — variance results, test results, performance
 
 Also check for:
-- Pipeline dot (`repos/dbt-agent/.dots/pipeline-$PIPELINE_NAME.md`) — status, gate history
+- Pipeline dot (`dbt-agent/.dots/pipeline-$PIPELINE_NAME.md`) — status, gate history
 - Any models created (search for the pipeline's model files in dbt-enterprise)
 
 ### 3. Route to Requested Document Type
@@ -87,7 +87,7 @@ The diagram should include:
 - **Model inventory** — from tech-spec.md (all models with layers, dependencies)
 - **Quality metrics** — from qa-report.md (variance, test pass rate)
 
-Output to: `repos/dbt-agent/handoffs/$PIPELINE_NAME/docs/architecture-diagram.html`
+Output to: `dbt-agent/handoffs/$PIPELINE_NAME/docs/architecture-diagram.html`
 
 ---
 
@@ -104,7 +104,7 @@ The design doc should follow the skill's format:
 - Trade-offs and decisions (from tech-spec.md architecture decisions)
 - Testing strategy (from qa-report.md)
 
-Output to: `repos/dbt-agent/handoffs/$PIPELINE_NAME/docs/design-document.md`
+Output to: `dbt-agent/handoffs/$PIPELINE_NAME/docs/design-document.md`
 
 ---
 
@@ -121,7 +121,7 @@ The blog post should:
 - Be in Keith's voice (problem-first, specific metrics, honest about limitations)
 - Target: data-centered.com
 
-Output to: `repos/dbt-agent/handoffs/$PIPELINE_NAME/docs/blog-post.md`
+Output to: `dbt-agent/handoffs/$PIPELINE_NAME/docs/blog-post.md`
 
 ---
 
@@ -139,7 +139,7 @@ Suggested slide structure:
 5. Results (from qa-report.md — variance, tests, performance)
 6. Learnings / Next Steps
 
-Output to: `repos/dbt-agent/handoffs/$PIPELINE_NAME/docs/pipeline-overview.pptx`
+Output to: `dbt-agent/handoffs/$PIPELINE_NAME/docs/pipeline-overview.pptx`
 
 ---
 
@@ -156,7 +156,7 @@ Generate YAML definition with:
 - SLA targets (from performance metrics)
 - Priority classification (P1-P4)
 
-Output to: `repos/dbt-agent/handoffs/$PIPELINE_NAME/docs/data-product.yml`
+Output to: `dbt-agent/handoffs/$PIPELINE_NAME/docs/data-product.yml`
 
 ---
 
@@ -167,11 +167,11 @@ Output to: `repos/dbt-agent/handoffs/$PIPELINE_NAME/docs/data-product.yml`
 
 | Document | Path | Status |
 |----------|------|--------|
-| Architecture Diagram | repos/dbt-agent/handoffs/[name]/docs/architecture-diagram.html | Created |
-| Design Document | repos/dbt-agent/handoffs/[name]/docs/design-document.md | Created |
-| Blog Post | repos/dbt-agent/handoffs/[name]/docs/blog-post.md | Created |
-| Presentation | repos/dbt-agent/handoffs/[name]/docs/pipeline-overview.pptx | Created |
-| Data Product | repos/dbt-agent/handoffs/[name]/docs/data-product.yml | Created |
+| Architecture Diagram | dbt-agent/handoffs/[name]/docs/architecture-diagram.html | Created |
+| Design Document | dbt-agent/handoffs/[name]/docs/design-document.md | Created |
+| Blog Post | dbt-agent/handoffs/[name]/docs/blog-post.md | Created |
+| Presentation | dbt-agent/handoffs/[name]/docs/pipeline-overview.pptx | Created |
+| Data Product | dbt-agent/handoffs/[name]/docs/data-product.yml | Created |
 
 ### Next Actions
 - Review and edit blog post for data-centered.com

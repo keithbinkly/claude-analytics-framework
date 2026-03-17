@@ -23,7 +23,7 @@ Scan both workstream files and pipeline PLANs:
 
 ```bash
 ls thoughts/shared/workstreams/*.yaml 2>/dev/null
-ls repos/dbt-agent/handoffs/*/PLAN.md 2>/dev/null
+ls dbt-agent/handoffs/*/PLAN.md 2>/dev/null
 ```
 
 For each file found, read the YAML frontmatter to extract:
@@ -73,7 +73,7 @@ Based on the selection:
 **Last saved:** [last_updated] by session [last_saved_by prefix]
 ```
 
-**If pipeline** (`repos/dbt-agent/handoffs/[name]/PLAN.md`):
+**If pipeline** (`dbt-agent/handoffs/[name]/PLAN.md`):
 - Read the PLAN.md
 - Display similar resume summary from its frontmatter
 
@@ -114,7 +114,7 @@ Check if the workstream YAML has an `agent:` field.
 
 After displaying the summary, proactively read the most important context files:
 
-a) Read any **active dots** listed in the workstream (`repos/dbt-agent/.dots/*.md`)
+a) Read any **active dots** listed in the workstream (`dbt-agent/.dots/*.md`)
 b) If the workstream has a `key_files` list, mention them (don't read all — ask first if there are >3)
 c) Check for recent handoff YAMLs that reference this workstream
 

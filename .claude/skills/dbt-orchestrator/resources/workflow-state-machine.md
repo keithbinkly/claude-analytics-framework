@@ -5,7 +5,7 @@ mirrored_from: dbt-agent/.claude/skills/dbt-orchestrator/resources/workflow-stat
 
 # Workflow State Machine
 
-CAF-owned state model for the dbt pipeline lifecycle.
+analytics-workspace-owned state model for the dbt pipeline lifecycle.
 
 Use `.claude/manifests/pipeline-state-schema.yaml` for the concrete storage contract and normalization rules.
 
@@ -45,7 +45,7 @@ Optional auxiliary state:
 
 - `.dots/pipeline-[name].md`
 
-CAF owns the meaning of the states. `dbt-agent` still owns much of the live state storage.
+analytics-workspace owns the meaning of the states. `dbt-agent` still owns much of the live state storage.
 
 ## Blocked State
 

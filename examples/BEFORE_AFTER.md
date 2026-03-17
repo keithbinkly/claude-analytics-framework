@@ -1,6 +1,6 @@
 # Before & After Comparison
 
-Real scenarios showing what changes when you use the Claude Analytics Framework.
+Real scenarios showing what changes when you use the analytics-workspace.
 
 ---
 

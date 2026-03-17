@@ -15,7 +15,7 @@
 ## End of Session
 
 1. Call `complete_task()` to log learnings to the experience store
-2. If a QA issue was resolved, log a decision trace to `repos/dbt-agent/shared/decision-traces/traces.json`
+2. If a QA issue was resolved, log a decision trace to `dbt-agent/shared/decision-traces/traces.json`
 3. Scan modified SQL for anti-patterns (see `dbt-qa-standards` rule)
 
 Logging is required, not optional. Without traces, future agents re-investigate already-solved problems.

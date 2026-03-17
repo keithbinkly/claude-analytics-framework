@@ -1,7 +1,7 @@
 ---
 name: dbt-standards
 description: |
-  Shared CAF-root standards for dbt model placement, naming, and canonical reuse. Use when
+  Shared analytics-workspace-root standards for dbt model placement, naming, and canonical reuse. Use when
   deciding where a model belongs, what naming convention to follow, or which existing
   canonical models should be reused.
 ---
@@ -11,7 +11,7 @@ source_of_truth: caf
 mirrored_from: dbt-agent/.claude/skills/dbt-standards/SKILL.md
 -->
 
-# CAF dbt Standards
+# analytics-workspace dbt Standards
 
 Placement, naming, and reuse guidance for dbt workflow design.
 
@@ -51,4 +51,4 @@ Any recommendation should make these explicit:
 - proposed path
 - naming rationale
 - canonical reuse candidates
-- unresolved dependencies still outside CAF
+- unresolved dependencies still outside analytics-workspace

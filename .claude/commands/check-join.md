@@ -16,7 +16,7 @@ Look up how to join tables using the BaaS join registry.
 
 ## Action
 
-1. Load `repos/dbt-agent/shared/reference/baas-join-registry.yml`
+1. Load `dbt-agent/shared/reference/baas-join-registry.yml`
 2. Search for join pattern between specified tables
 3. Return:
    - Join key columns
@@ -40,5 +40,5 @@ Check: joins_by_target in case relationship is reversed.
 ```
 
 ## Registry Location
-- BaaS: `repos/dbt-agent/shared/reference/baas-join-registry.yml`
-- Universal: `repos/dbt-agent/shared/reference/join-registry.yml`
+- BaaS: `dbt-agent/shared/reference/baas-join-registry.yml`
+- Universal: `dbt-agent/shared/reference/join-registry.yml`

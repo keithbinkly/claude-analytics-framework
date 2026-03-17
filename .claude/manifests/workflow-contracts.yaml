@@ -1,6 +1,6 @@
 version: 1
 last_updated: "2026-03-14"
-purpose: "Agent-neutral workflow contracts for common analytics tasks in the CAF workspace."
+purpose: "Agent-neutral workflow contracts for common analytics tasks in the analytics-workspace."
 
 conventions:
   - "These workflows are tool-agnostic and should not assume Claude slash commands."
@@ -12,12 +12,12 @@ workflows:
     name: "Build dbt pipeline"
     goal: "Design, implement, validate, and document a dbt pipeline change."
     primary_repo: "dbt-enterprise"
-    control_plane_repo: "caf"
+    control_plane_repo: "analytics-workspace"
     fallback_reference_repo: "dbt-agent"
     steps:
-      - "Read AGENT_ENTRYPOINT.md and workspace manifests from CAF."
+      - "Read AGENT_ENTRYPOINT.md and workspace manifests from analytics-workspace."
       - "Check repo adapters to confirm routing and local authority."
-      - "Use CAF-promoted workflow assets if the needed capability exists there."
+      - "Use analytics-workspace-promoted workflow assets if the needed capability exists there."
       - "If capability is not yet promoted, consult dbt-agent reference material."
       - "Switch execution context to dbt-enterprise for dbt CLI work."
       - "Follow project-local dbt safety and environment rules from dbt-enterprise."
@@ -64,11 +64,11 @@ workflows:
   - id: "resume_pipeline_work"
     name: "Resume pipeline work"
     goal: "Recover current context and continue a previously active analytics workflow."
-    primary_repo: "caf"
+    primary_repo: "analytics-workspace"
     fallback_reference_repo: "dbt-agent"
     steps:
-      - "Read CAF entrypoint and manifests."
-      - "Check shared state in CAF."
+      - "Read analytics-workspace entrypoint and manifests."
+      - "Check shared state in analytics-workspace."
       - "Check dbt-agent state if the active workflow still lives there."
       - "Determine whether the execution target is dbt-enterprise."
     key_files:
@@ -84,16 +84,16 @@ workflows:
 
   - id: "approve_pipeline_gate"
     name: "Approve pipeline gate"
-    goal: "Validate a pipeline checkpoint and advance the workflow without losing the CAF-root control-plane model."
-    primary_repo: "caf"
+    goal: "Validate a pipeline checkpoint and advance the workflow without losing the workspace-root control-plane model."
+    primary_repo: "analytics-workspace"
     fallback_reference_repo: "dbt-agent"
     steps:
-      - "Read CAF entrypoint and manifests."
+      - "Read analytics-workspace entrypoint and manifests."
       - "Resolve the active pipeline from shared context or dbt-agent state."
       - "Read the relevant pipeline state and phase artifact from dbt-agent."
-      - "Use CAF-promoted guidance if available; otherwise consult dbt-agent gate rules."
+      - "Use analytics-workspace-promoted guidance if available; otherwise consult dbt-agent gate rules."
       - "Update gate and phase state only in the current source-of-truth location."
-      - "Route any resulting execution work to dbt-enterprise rather than CAF."
+      - "Route any resulting execution work to dbt-enterprise rather than workspace root."
     key_files:
       - "AGENT_ENTRYPOINT.md"
       - ".claude/manifests/repo-adapters.yaml"
@@ -103,7 +103,7 @@ workflows:
       - ".claude/skills/dbt-orchestrator/resources/agent-loading-specs.md"
       - "dbt-agent:handoffs/ (resolve via repo-adapters.yaml)"
       - "dbt-agent:.dots (resolve via repo-adapters.yaml if present)"
-      - "dbt-agent:.claude/skills/dbt-orchestrator/resources/gate-enforcement-rules.md (resolve via repo-adapters.yaml if CAF copy is insufficient)"
+      - "dbt-agent:.claude/skills/dbt-orchestrator/resources/gate-enforcement-rules.md (resolve via repo-adapters.yaml if analytics-workspace copy is insufficient)"
     success_criteria:
       - "Gate readiness is validated against explicit rules"
       - "Pipeline state is updated only in its current source-of-truth repo"
@@ -112,10 +112,10 @@ workflows:
   - id: "close_pipeline_work"
     name: "Close pipeline work"
     goal: "Finish a pipeline lifecycle cleanly, preserve learnings, and update the current source-of-truth state."
-    primary_repo: "caf"
+    primary_repo: "analytics-workspace"
     fallback_reference_repo: "dbt-agent"
     steps:
-      - "Read CAF entrypoint and manifests."
+      - "Read analytics-workspace entrypoint and manifests."
       - "Resolve the target pipeline and inspect its lifecycle state in dbt-agent."
       - "Verify whether the workflow is complete or partially complete."
       - "Gather artifacts and reusable learnings from the pipeline handoff directory."
@@ -137,10 +137,10 @@ workflows:
     name: "Run dbt QA"
     goal: "Validate a dbt model or pipeline change using the approved QA workflow."
     primary_repo: "dbt-enterprise"
-    control_plane_repo: "caf"
+    control_plane_repo: "analytics-workspace"
     fallback_reference_repo: "dbt-agent"
     steps:
-      - "Locate QA methodology in CAF or fallback to dbt-agent."
+      - "Locate QA methodology in analytics-workspace or fallback to dbt-agent."
       - "Inspect the relevant model and project constraints in dbt-enterprise."
       - "Run validation from the execution target repo."
       - "Record findings in the appropriate state location."
@@ -154,7 +154,7 @@ workflows:
       - ".claude/skills/dbt-migration/resources/qa-execution-handoff-template.md"
       - "knowledge/reference/tools/dbt-mcp-tools-reference.md"
       - ".claude/manifests/repo-adapters.yaml"
-      - "dbt-agent:shared/reference/qa-validation-checklist.md (resolve via repo-adapters.yaml if CAF copy is insufficient)"
+      - "dbt-agent:shared/reference/qa-validation-checklist.md (resolve via repo-adapters.yaml if analytics-workspace copy is insufficient)"
     success_criteria:
       - "QA follows approved methodology"
       - "dbt-enterprise remains source of execution truth"
@@ -162,10 +162,10 @@ workflows:
   - id: "contribute_shared_knowledge"
     name: "Contribute shared knowledge"
     goal: "Add reusable team knowledge without mixing shared docs into delivery repos unnecessarily."
-    primary_repo: "caf"
+    primary_repo: "analytics-workspace"
     steps:
       - "Confirm the content is shared/team-facing rather than project-local."
-      - "Place content in CAF under the appropriate shared domain."
+      - "Place content in analytics-workspace under the appropriate shared domain."
       - "Declare provenance or ownership if copied from another repo."
       - "Update manifests or planning docs if the new content affects routing."
     key_files:
@@ -173,13 +173,13 @@ workflows:
       - ".claude/manifests/workspace-manifest.yaml"
       - ".claude/manifests/ccv3-dependencies.yaml"
     success_criteria:
-      - "Shared knowledge lives in CAF"
+      - "Shared knowledge lives in analytics-workspace"
       - "Ownership and provenance are explicit"
 
   - id: "investigate_cross_repo_behavior"
     name: "Investigate cross-repo behavior"
     goal: "Understand a workflow, dependency, or state issue that spans multiple repos."
-    primary_repo: "caf"
+    primary_repo: "analytics-workspace"
     steps:
       - "Start with AGENT_ENTRYPOINT.md and the workspace manifests."
       - "Use repo adapters to determine which repos participate."

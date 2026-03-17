@@ -1,9 +1,9 @@
 <!--
-source_of_truth: caf
+source_of_truth: analytics-workspace
 mirrored_from: dbt-agent/shared/knowledge-base/legacy-kpi-gold-standard-metrics.md
 -->
 
-> CAF migration note: this is a curated CAF copy of the certified KPI reference used for requirements framing and QA benchmarking. Use it from CAF root, then validate against the execution repo and certified source tables as needed.
+> analytics-workspace migration note: this is a curated analytics-workspace copy of the certified KPI reference used for requirements framing and QA benchmarking. Use it from workspace root, then validate against the execution repo and certified source tables as needed.
 
 # Legacy KPI Gold Standard Metrics
 

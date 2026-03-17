@@ -3,7 +3,7 @@ source_of_truth: caf
 mirrored_from: dbt-agent/shared/knowledge-base/macros-registry.md
 -->
 
-> CAF migration note: this is a curated CAF copy of the macro registry used during migration and architecture review. Prefer this from CAF root, then inspect the macro source in the execution repo if needed.
+> analytics-workspace migration note: this is a curated analytics-workspace copy of the macro registry used during migration and architecture review. Prefer this from analytics-workspace root, then inspect the macro source in the execution repo if needed.
 
 # Macros Registry
 

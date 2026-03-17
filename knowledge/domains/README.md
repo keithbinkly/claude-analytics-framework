@@ -1,6 +1,6 @@
 # Domain Knowledge
 
-This directory is for shared, team-contributed domain knowledge that should live in CAF rather than in an execution repo.
+This directory is for shared, team-contributed domain knowledge that should live in analytics-workspace rather than in an execution repo.
 
 Use domain folders for:
 

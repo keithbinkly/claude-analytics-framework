@@ -36,7 +36,7 @@ check_dir() {
   fi
 }
 
-echo "CAF workspace readiness check"
+echo "analytics-workspace readiness check"
 echo
 
 check_file "AGENT_ENTRYPOINT.md" "Agent-neutral bootstrap"
@@ -84,6 +84,6 @@ fi
 
 echo
 echo "Notes"
-echo "- CAF is the shared control plane."
-echo "- dbt CLI should run from dbt-enterprise, not CAF root."
+echo "- analytics-workspace is the shared control plane."
+echo "- dbt CLI should run from dbt-enterprise, not workspace root."
 echo "- dbt-agent remains the intact fallback reference during migration."

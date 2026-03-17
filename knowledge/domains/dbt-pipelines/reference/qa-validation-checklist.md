@@ -3,7 +3,7 @@ source_of_truth: caf
 mirrored_from: dbt-agent/shared/reference/qa-validation-checklist.md
 -->
 
-> CAF migration note: this is a promoted copy from `dbt-agent`. Prefer this CAF path first. If a referenced companion doc has not been promoted yet, fall back to `dbt-agent`.
+> analytics-workspace migration note: this is a promoted copy from `dbt-agent`. Prefer this analytics-workspace path first. If a referenced companion doc has not been promoted yet, fall back to `dbt-agent`.
 
 # QA Validation Checklist
 

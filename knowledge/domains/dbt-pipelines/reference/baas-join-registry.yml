@@ -1,6 +1,6 @@
-# source_of_truth: caf
+# source_of_truth: analytics-workspace
 # mirrored_from: dbt-agent/shared/reference/baas-join-registry.yml
-# CAF migration note: this is a curated CAF subset of commonly reused join guidance.
+# analytics-workspace migration note: this is a curated analytics-workspace subset of commonly reused join guidance.
 
 metadata:
   purpose: "Curated join patterns for common BaaS pipeline work"
@@ -83,4 +83,4 @@ rules:
   - "Prefer documented high-frequency join keys before inventing new joins."
   - "Treat orphan-risk joins as validation points and measure match rate explicitly."
   - "For GBOS entity joins, check whether `sor_uid` is available before falling back to alternate identifiers."
-  - "If the needed join pattern is missing from this CAF subset, consult the fuller dbt-agent registry."
+  - "If the needed join pattern is missing from this analytics-workspace subset, consult the fuller dbt-agent registry."

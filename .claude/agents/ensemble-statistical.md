@@ -11,7 +11,7 @@ Confidence scale: HIGH (8-10), MEDIUM (5-7), LOW (1-4).
 1. Read the domain context file: `/tmp/disbursements-ensemble-context.md`
 2. Read the full statistical analyst persona: `.claude/skills/ai-analyst-ensemble/resources/statistical-analyst.md`
 3. Read the ensemble skill for shared constraints: `.claude/skills/ai-analyst-ensemble/SKILL.md`
-4. Read business context: `repos/dbt-enterprise/docs/business_context/DISBURSEMENTS_PIPELINE_GUIDE.md`
+4. Read business context: `dbt-enterprise/docs/business_context/DISBURSEMENTS_PIPELINE_GUIDE.md`
 5. Query the dbt Semantic Layer using `mcp__dbt-mcp__query_metrics` to assess statistical robustness
 6. Write your YAML findings to `/tmp/ensemble-output-statistical.md`
 

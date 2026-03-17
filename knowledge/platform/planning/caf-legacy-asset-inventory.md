@@ -1,8 +1,8 @@
-# CAF Legacy Asset Inventory
+# analytics-workspace Legacy Asset Inventory
 
-Purpose: classify current CAF assets into `keep`, `keep temporarily`, `replace after equivalent exists`, or `archive after replacement exists`.
+Purpose: classify current analytics-workspace assets into `keep`, `keep temporarily`, `replace after equivalent exists`, or `archive after replacement exists`.
 
-This document satisfies the CAF-side prerequisite from the migration plan: do not archive legacy CAF content blindly.
+This document satisfies the analytics-workspace-side prerequisite from the migration plan: do not archive legacy analytics-workspace content blindly.
 
 ## Classification Legend
 
@@ -18,9 +18,9 @@ This document satisfies the CAF-side prerequisite from the migration plan: do no
 | Path | Classification | Notes |
 |---|---|---|
 | `AGENT_ENTRYPOINT.md` | Keep | New agent-neutral bootstrap for all agents |
-| `CLAUDE.md` | Keep | Rewritten for CAF workspace model |
-| `README.md` | Keep temporarily | Now points toward the new model, but may need another pass as CAF evolves |
-| `CONTRIBUTING.md` | Keep | Rewritten for CAF contribution model |
+| `CLAUDE.md` | Keep | Rewritten for analytics-workspace workspace model |
+| `README.md` | Keep temporarily | Now points toward the new model, but may need another pass as analytics-workspace evolves |
+| `CONTRIBUTING.md` | Keep | Rewritten for analytics-workspace contribution model |
 
 ## Manifests
 
@@ -31,15 +31,15 @@ This document satisfies the CAF-side prerequisite from the migration plan: do no
 | `.claude/manifests/workflow-contracts.yaml` | Keep | Agent-neutral workflow contract |
 | `.claude/manifests/ccv3-dependencies.yaml` | Keep | Explicit global dependency inventory |
 
-## Current CAF Agents
+## Current analytics-workspace Agents
 
 | Path Group | Classification | Notes |
 |---|---|---|
-| `.claude/agents/roles/*` | Replace after equivalent exists | Graniterock-era role architecture; do not archive until replacement agent set exists in CAF |
+| `.claude/agents/roles/*` | Replace after equivalent exists | Graniterock-era role architecture; do not archive until replacement agent set exists in analytics-workspace |
 | `.claude/agents/specialists/*` | Replace after equivalent exists | Legacy specialist model; preserve until the workspace-native replacement is in place |
 | `.claude/agents/README.md` | Replace after equivalent exists | Still reflects the older architecture |
 
-## Current CAF Commands
+## Current analytics-workspace Commands
 
 | Path Group | Classification | Notes |
 |---|---|---|
@@ -55,7 +55,7 @@ This document satisfies the CAF-side prerequisite from the migration plan: do no
 | `.claude/commands/start.md` | Archive after replacement exists | Legacy ADLC command |
 | `.claude/commands/switch.md` | Keep temporarily | Could remain useful if adapted |
 
-## Current CAF Skills
+## Current analytics-workspace Skills
 
 | Path Group | Classification | Notes |
 |---|---|---|
@@ -72,7 +72,7 @@ This document satisfies the CAF-side prerequisite from the migration plan: do no
 | Path | Classification | Notes |
 |---|---|---|
 | `scripts/bootstrap-linked-repos.sh` | Keep | New local visibility bootstrap |
-| `scripts/check-workspace-readiness.sh` | Keep | New CAF readiness check |
+| `scripts/check-workspace-readiness.sh` | Keep | New analytics-workspace readiness check |
 | `scripts/validate-mcp.sh` | Keep | Still useful in the workspace model |
 | `scripts/setup-submodules.sh` | Keep temporarily | Retain until repo-linking decision is fully settled |
 | `scripts/convert-to-submodules.sh` | Keep temporarily | Historical but still relevant to the topology discussion |
@@ -115,6 +115,6 @@ This document satisfies the CAF-side prerequisite from the migration plan: do no
 
 ## Next Actions
 
-1. Use this inventory before archiving any legacy CAF asset.
-2. Promote the first high-leverage `dbt-agent` slice into CAF.
-3. Only then archive or replace the legacy CAF agent/command/skill assets that become obsolete.
+1. Use this inventory before archiving any legacy analytics-workspace asset.
+2. Promote the first high-leverage `dbt-agent` slice into analytics-workspace.
+3. Only then archive or replace the legacy analytics-workspace agent/command/skill assets that become obsolete.

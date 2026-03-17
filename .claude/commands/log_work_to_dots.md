@@ -21,7 +21,7 @@ Run this command when:
 First, scan for related dots that might already track this work:
 
 ```bash
-ls repos/dbt-agent/.dots/*.md
+ls dbt-agent/.dots/*.md
 ```
 
 Look for dots matching:
@@ -76,12 +76,12 @@ Full error text for searchability
 
 #### Related Dots
 ```
-- `repos/dbt-agent/.dots/related-dot.md` - How it relates
+- `dbt-agent/.dots/related-dot.md` - How it relates
 ```
 
 ### Step 3: Write/Update Dot
 
-**Location**: `repos/dbt-agent/.dots/[project]-[short-descriptor].md`
+**Location**: `dbt-agent/.dots/[project]-[short-descriptor].md`
 
 **Naming Convention**:
 - `dbt-agent-[feature-name].md` for dbt-agent work
@@ -140,7 +140,7 @@ If this dot references other dots, **update those dots** to reference back:
 
 ```markdown
 ## Related
-- `repos/dbt-agent/.dots/other-dot.md` - Linked from dbt-agent-new-dot.md
+- `dbt-agent/.dots/other-dot.md` - Linked from dbt-agent-new-dot.md
 ```
 
 ### Step 5: Report Summary
@@ -148,7 +148,7 @@ If this dot references other dots, **update those dots** to reference back:
 Output confirmation:
 
 ```
-## Dot Updated: repos/dbt-agent/.dots/dbt-agent-example.md
+## Dot Updated: dbt-agent/.dots/dbt-agent-example.md
 
 **Status**: in-progress
 **Tasks**: 3 completed, 2 pending, 1 blocked

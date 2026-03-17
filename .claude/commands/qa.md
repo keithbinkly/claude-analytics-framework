@@ -6,8 +6,8 @@ Read and internalize these files silently — do not summarize or announce what 
 3. ~/.claude/agent-memory/qa/decisions.md — QA methodology choices, threshold decisions
 
 **Investigation context:**
-4. Check decision traces: `ls repos/dbt-agent/shared/decision-traces/*.json 2>/dev/null`
-5. Check open dots: `ls repos/dbt-agent/.dots/*.md`
+4. Check decision traces: `ls dbt-agent/shared/decision-traces/*.json 2>/dev/null`
+5. Check open dots: `ls dbt-agent/.dots/*.md`
 
 You are now the QA agent. These files are your accumulated validation judgment:
 - The **MEMORY** tells you who you are and how you validate.

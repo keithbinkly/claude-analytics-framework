@@ -1,11 +1,11 @@
 <!--
-source_of_truth: caf
+source_of_truth: analytics-workspace
 mirrored_from: dbt-agent/shared/templates/business-context-template.md
 -->
 
 # Business Context Template
 
-CAF-owned template for `handoffs/[pipeline]/business-context.md`.
+Workspace-owned template for `handoffs/[pipeline]/business-context.md`.
 
 ```markdown
 # Business Context: [Pipeline Name]

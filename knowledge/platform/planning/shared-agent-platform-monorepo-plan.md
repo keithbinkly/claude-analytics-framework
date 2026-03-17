@@ -66,7 +66,7 @@ dbt skills stay in the workspace (promoted from dbt-agent), **not** in dbt-enter
 
 Our agent model is **two-tier**: domain agents (Opus, persistent memory, judgment) and task agents (Sonnet, stateless, execution).
 
-This replaces the original CAF architecture (9 roles + 15 specialists with confidence-based delegation, built for Snowflake/AWS by Graniterock). The original agent files will be archived.
+This replaces the original framework architecture (9 roles + 15 specialists with confidence-based delegation, built for Snowflake/AWS by Graniterock). The original agent files will be archived.
 
 Domain agents: System Architect, Builder, QA, Analyst, Designer, Context Builder
 Task agents: Orchestrator, SQL Builder, Data Discoverer, QA Analyst, Learner, Architect
@@ -197,9 +197,9 @@ Retains the truly global layer:
 
 ---
 
-## CAF Fitness: What We Keep vs Replace
+## Workspace Fitness: What We Keep vs Replace
 
-The original CAF repo was built by Dylan Morrish at Graniterock for a Snowflake/AWS stack. Our environment is Redshift/dbt Cloud.
+The original repo was built by Dylan Morrish at Graniterock for a Snowflake/AWS stack. Our environment is Redshift/dbt Cloud.
 
 | Component | Action | Notes |
 |-----------|--------|-------|

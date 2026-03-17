@@ -5,7 +5,7 @@ mirrored_from: dbt-agent/.claude/skills/dbt-orchestrator/resources/handoff-proto
 
 # Handoff Protocols
 
-CAF-owned handoff contract for pipeline phases.
+analytics-workspace-owned handoff contract for pipeline phases.
 
 ## Artifact Chain
 
@@ -18,7 +18,7 @@ Each phase should hand off a concrete artifact to the next:
 
 ## Starter Templates
 
-CAF-owned starter templates for common handoff artifacts:
+analytics-workspace-owned starter templates for common handoff artifacts:
 
 - `../resources/plan-template.md`
 - `../../dbt-business-context/resources/business-context-template.md`
@@ -82,11 +82,11 @@ Before a gate transition:
 
 ## Storage Rule During Migration
 
-Active artifacts still live in `dbt-agent` while CAF owns the workflow contract.
+Active artifacts still live in `dbt-agent` while analytics-workspace owns the workflow contract.
 
 That means:
 
-- read the handoff contract from CAF
+- read the handoff contract from analytics-workspace
 - read and update the live handoff files where the current pipeline state lives
 
-Do not pretend CAF already owns the live artifact store if it does not.
+Do not pretend analytics-workspace already owns the live artifact store if it does not.

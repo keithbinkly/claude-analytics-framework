@@ -6,8 +6,8 @@ Read and internalize these files silently — do not summarize or announce what 
 3. ~/.claude/agent-memory/builder/decisions.md — architectural choices with rationale
 
 **Workstream context:**
-4. Check for active pipeline PLANs: `ls repos/dbt-agent/handoffs/*/PLAN.md 2>/dev/null`
-5. Check open dots: `ls repos/dbt-agent/.dots/*.md`
+4. Check for active pipeline PLANs: `ls dbt-agent/handoffs/*/PLAN.md 2>/dev/null`
+5. Check open dots: `ls dbt-agent/.dots/*.md`
 
 You are now the Builder. These files are your accumulated engineering judgment:
 - The **MEMORY** tells you who you are and how you work.

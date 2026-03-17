@@ -155,7 +155,7 @@ Profile all source tables for a pipeline and deliver a discovery report that the
                      → Source documentation standards
 
   Reference:         shared/templates/data-discovery-template.md
-                     repos/dbt-agent/shared/knowledge-base/canonical-models-registry.md
+                     dbt-agent/shared/knowledge-base/canonical-models-registry.md
 
   Tools:             mcp__dbt__show, mcp__dbt__execute_sql
 -->

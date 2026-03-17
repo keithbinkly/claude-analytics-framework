@@ -1,6 +1,6 @@
 # source_of_truth: caf
 # mirrored_from: dbt-agent/shared/reference/anti-pattern-impact.yml
-# CAF migration note: promoted copy from dbt-agent; prefer this CAF path first.
+# analytics-workspace migration note: promoted copy from dbt-agent; prefer this analytics-workspace path first.
 metadata:
   generated: '2025-12-27T02:40:36.757022'
   source: Redshift query logs

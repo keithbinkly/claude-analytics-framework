@@ -1,10 +1,10 @@
 version: 1
 last_updated: "2026-03-11"
-purpose: "Per-repo operating adapters for agents working inside the CAF analytics workspace."
+purpose: "Per-repo operating adapters for agents working inside the analytics-workspace."
 
 adapters:
   caf:
-    display_name: "claude-analytics-framework"
+    display_name: "analytics-workspace"
     path: "."
     role: "shared_platform"
     description: "Canonical analytics operating system, control plane, and shared team repo."
@@ -26,13 +26,13 @@ adapters:
     environment_notes:
       - "Use as the default starting point for analytics agents."
       - "This repo should become the source of truth for analytics-specific shared assets."
-      - "Prefer copying high-leverage assets into CAF rather than removing them from source repos."
+      - "Prefer copying high-leverage assets into analytics-workspace rather than removing them from source repos."
 
   dbt-enterprise:
     display_name: "dbt-enterprise"
-    path: "/Users/kbinkly/git-repos/dbt_projects/dbt-enterprise"
+    path: "./dbt-enterprise"
     role: "production_dbt_project"
-    description: "Intact production dbt project linked into the CAF workspace."
+    description: "Intact production dbt project linked into the analytics-workspace."
     safe_work_types:
       - "dbt model development"
       - "project-specific architecture"
@@ -48,7 +48,7 @@ adapters:
       - "local CLAUDE.md"
       - "local README.md"
       - "project-specific docs and runbooks"
-    shared_dependencies_from_caf:
+    shared_dependencies_from_analytics_workspace:
       - "shared platform commands and manifests"
       - "shared analytics agents and skills"
     environment_notes:
@@ -59,9 +59,9 @@ adapters:
 
   data-centered:
     display_name: "data-centered"
-    path: "/Users/kbinkly/git-repos/data-centered"
+    path: "./data-centered"
     role: "content_and_visualization_project"
-    description: "Intact publishing, storytelling, and visualization project linked into the CAF workspace."
+    description: "Intact publishing, storytelling, and visualization project linked into the analytics-workspace."
     safe_work_types:
       - "article and content development"
       - "visualization and dashboard work"
@@ -81,13 +81,13 @@ adapters:
       - "shared design and cross-repo coordination assets"
     environment_notes:
       - "Preserve internal structure."
-      - "Do not flatten content conventions into CAF root-level patterns."
+      - "Do not flatten content conventions into workspace root-level patterns."
 
   dbt-agent:
     display_name: "dbt-agent"
-    path: "/Users/kbinkly/git-repos/dbt-agent"
+    path: "./dbt-agent"
     role: "current_operational_reference_and_migration_source"
-    description: "Current dbt-centric operating reference and transitional source of reusable analytics-agent content being copied into CAF."
+    description: "Current dbt-centric operating reference and transitional source of reusable analytics-agent content being copied into analytics-workspace."
     safe_work_types:
       - "content extraction"
       - "migration planning"
@@ -113,12 +113,12 @@ adapters:
     environment_notes:
       - "Still functions as the practical control plane for dbt-agent-specific workflows today."
       - "Must remain fully usable throughout incremental migration."
-      - "Prefer copying canonical shared assets into CAF rather than removing them from dbt-agent."
-      - "Reduce authority only as CAF replaces concrete capabilities."
+      - "Prefer copying canonical shared assets into analytics-workspace rather than removing them from dbt-agent."
+      - "Reduce authority only as analytics-workspace replaces concrete capabilities."
 
 routing_rules:
   - condition: "task concerns shared analytics platform, manifests, commands, workstreams, or multi-repo coordination"
-    use_adapter: "caf"
+    use_adapter: "analytics-workspace"
   - condition: "task concerns production dbt code, QA, or dbt-enterprise-specific behavior"
     use_adapter: "dbt-enterprise"
   - condition: "task concerns content publishing, storytelling, or site/visualization product work"
@@ -127,7 +127,7 @@ routing_rules:
     use_adapter: "dbt-agent"
 
 global_layer_policy:
-  default_position: "analytics-specific commands, manifests, and selected skills should migrate from ~/.claude into CAF"
+  default_position: "analytics-specific commands, manifests, and selected skills should migrate from ~/.claude into analytics-workspace"
   keep_global_only_if:
     - "asset is truly universal across unrelated domains"
     - "asset is personal rather than team/platform level"

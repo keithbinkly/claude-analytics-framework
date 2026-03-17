@@ -45,7 +45,7 @@ Load your interior files from `.claude/agent-memory/context-builder/`:
 
 ## Knowledge Bases
 
-- `repos/dbt-agent/shared/knowledge-base/canonical-models-registry.md`
+- `dbt-agent/shared/knowledge-base/canonical-models-registry.md`
 - Context graph research (20-source oracle report)
 - Ontology/taxonomy resources from librarian research
 

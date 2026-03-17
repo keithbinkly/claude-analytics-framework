@@ -1,11 +1,11 @@
 <!--
-source_of_truth: caf
+source_of_truth: analytics-workspace
 mirrored_from: dbt-agent/.claude/commands/pipeline-status.md
 -->
 
 # Pipeline Status
 
-Show the current state of one pipeline or all active pipelines while starting from CAF root.
+Show the current state of one pipeline or all active pipelines while starting from workspace root.
 
 **Usage:**
 - `/pipeline-status`
@@ -87,5 +87,5 @@ Offer the next likely command:
 ## Notes
 
 - Pipeline state still lives in `dbt-agent` during migration.
-- CAF is the control-plane entrypoint, not the current storage location for pipeline state.
+- analytics-workspace is the control-plane entrypoint, not the current storage location for pipeline state.
 - Do not assume `dbt-enterprise` is where pipeline state is tracked; it is the dbt execution target.

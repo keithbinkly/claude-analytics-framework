@@ -1,18 +1,18 @@
 <!--
-source_of_truth: caf
+source_of_truth: analytics-workspace
 mirrored_from: dbt-agent/.claude/skills/dbt-orchestrator/resources/gate-enforcement-rules.md
 -->
 
 # Gate Enforcement Rules
 
-CAF-owned gate rules for the pipeline lifecycle.
+analytics-workspace-owned gate rules for the pipeline lifecycle.
 
 ## Rule Set
 
 - Gates are mandatory by default.
 - Gate approval must be explicit.
 - State changes should be written only to the current source-of-truth location.
-- If a gate dependency is still external to CAF, say so explicitly.
+- If a gate dependency is still external to analytics-workspace, say so explicitly.
 
 ## Gate 1: Requirements Review
 
@@ -83,6 +83,6 @@ If a required artifact or validation criterion is missing:
 
 ## Migration Note
 
-This CAF copy should be treated as authoritative for the gate contract.
+This analytics-workspace copy should be treated as authoritative for the gate contract.
 
 If deeper operational detail is still needed during migration, fall back to the matching `dbt-agent` resource and record that dependency explicitly.

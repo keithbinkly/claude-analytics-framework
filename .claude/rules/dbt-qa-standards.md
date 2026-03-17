@@ -18,7 +18,7 @@ A staging PK violation propagates to all downstream models before being caught. 
 
 ## Search Traces First
 
-Before investigating any QA issue, variance, or test failure, search decision traces first: check `repos/dbt-agent/shared/decision-traces/rules.json` for matching rules, then `repos/dbt-agent/shared/decision-traces/traces.json` for similar past cases. Only start fresh investigation if no match is found.
+Before investigating any QA issue, variance, or test failure, search decision traces first: check `dbt-agent/shared/decision-traces/rules.json` for matching rules, then `dbt-agent/shared/decision-traces/traces.json` for similar past cases. Only start fresh investigation if no match is found.
 
 ## Define Grain Before Building
 

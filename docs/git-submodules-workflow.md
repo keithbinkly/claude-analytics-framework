@@ -1,4 +1,4 @@
-# Git Submodules Workflow for Claude Analytics Framework
+# Git Submodules Workflow for analytics-workspace
 
 **Purpose**: Manage external repositories (knowledge bases, data stack repos) using git submodules for version control and collaboration.
 
@@ -24,8 +24,8 @@
 
 ```bash
 # Clone the main repository
-git clone https://github.com/your-org/claude-analytics-framework.git
-cd claude-analytics-framework
+git clone https://github.com/your-org/analytics-workspace.git
+cd analytics-workspace
 
 # Setup all submodules
 ./scripts/setup-submodules.sh
@@ -124,7 +124,7 @@ git commit -m "Remove old_repo submodule"
 ### Default Layout
 
 ```
-claude-analytics-framework/
+analytics-workspace/
 ├── .gitmodules                    # Submodule configuration
 ├── knowledge/                     # Knowledge repositories
 │   ├── team_documentation/        # Submodule: team docs
@@ -203,7 +203,7 @@ git push
 
 ```bash
 # Clone and initialize all submodules
-git clone --recurse-submodules https://github.com/your-org/claude-analytics-framework.git
+git clone --recurse-submodules https://github.com/your-org/analytics-workspace.git
 ```
 
 ---

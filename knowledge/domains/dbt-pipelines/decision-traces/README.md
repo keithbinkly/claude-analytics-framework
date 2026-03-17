@@ -5,13 +5,13 @@ mirrored_from: dbt-agent/shared/decision-traces/
 
 # Decision Traces
 
-CAF-owned landing area for reusable QA and debugging decision traces.
+analytics-workspace-owned landing area for reusable QA and debugging decision traces.
 
 ## Current State
 
-- CAF has promoted a curated `selected-traces.json` subset plus reusable `rules.json`.
+- analytics-workspace has promoted a curated `selected-traces.json` subset plus reusable `rules.json`.
 - Active detailed traces still live in `dbt-agent/shared/decision-traces/`.
-- CAF skills should treat those assets as fallback references until the trace migration slice lands.
+- analytics-workspace skills should treat those assets as fallback references until the trace migration slice lands.
 
 ## Migration Intent
 

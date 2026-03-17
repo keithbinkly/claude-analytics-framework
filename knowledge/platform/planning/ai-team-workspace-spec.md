@@ -81,7 +81,7 @@ Domain Agents (Opus)          Task Agents (Sonnet)
 - Domain agents coordinate; task agents execute
 - Model selection: Opus for judgment, Sonnet for extraction. Never Haiku
 
-**What this replaces:** CAF originally shipped with a 9-role + 15-specialist confidence-based delegation model built for Snowflake/AWS. Our model is simpler, proven, and Redshift-native.
+**What this replaces:** The original framework shipped with a 9-role + 15-specialist confidence-based delegation model built for Snowflake/AWS. Our model is simpler, proven, and Redshift-native.
 
 ### Layer 2: Skills (`.claude/skills/`)
 
@@ -211,7 +211,7 @@ repos/
 
 ---
 
-## What We Kept From the Original CAF
+## What We Kept From the Original Framework
 
 | Component | Status | Notes |
 |-----------|--------|-------|

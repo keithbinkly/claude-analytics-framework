@@ -153,7 +153,7 @@ Answer business questions accurately using certified dbt Semantic Layer metrics.
   Business context:  Partner → dimension mappings, metric catalog, demo sequences
                      (currently in v1 analyst-agent.md — needs extraction to skill)
 
-  Connectivity:      repos/dbt-agent/shared/knowledge-base/metricflow-connectivity-status.md
+  Connectivity:      dbt-agent/shared/knowledge-base/metricflow-connectivity-status.md
 
   Tools:             mcp__dbt-mcp__list_metrics, mcp__dbt-mcp__get_dimensions,
                      mcp__dbt-mcp__query_metrics, mf query (CLI fallback)

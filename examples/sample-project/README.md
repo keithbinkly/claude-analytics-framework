@@ -1,6 +1,6 @@
 # Sample Project: Customer Churn Dashboard
 
-This is an example of what a completed project looks like in the Claude Analytics Framework.
+This is an example of what a completed project looks like in the analytics-workspace.
 
 ## Project Context
 

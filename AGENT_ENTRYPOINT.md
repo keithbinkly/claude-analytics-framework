@@ -1,15 +1,15 @@
 # Agent Entrypoint
 
-Tool-agnostic bootstrap for coding agents working in the Analytics & Insights Team Workspace (`claude-analytics-framework`).
+Tool-agnostic bootstrap for coding agents working in the Analytics & Insights Team Workspace (`analytics-workspace`).
 
-This file is for agents that do not use Claude-specific slash commands, skills, or memory conventions as their primary interface. Read this first if you are starting from the CAF root and need to understand how to navigate the workspace safely.
+This file is for agents that do not use Claude-specific slash commands, skills, or memory conventions as their primary interface. Read this first if you are starting from the workspace root and need to understand how to navigate the workspace safely.
 
 ## What This Workspace Is
 
-`claude-analytics-framework` is the shared analytics control plane. It is the team-facing root for:
+`analytics-workspace` is the shared analytics control plane. It is the team-facing root for:
 - shared workflow docs
 - shared manifests
-- shared commands and skills as they are promoted into CAF
+- shared commands and skills as they are promoted into analytics-workspace
 - cross-repo coordination
 - team-contributed domain knowledge
 
@@ -19,14 +19,14 @@ It is not the production dbt project itself.
 
 This workspace coordinates three linked repositories:
 
-1. `claude-analytics-framework`
+1. `analytics-workspace`
    The shared control plane and team entrypoint.
 
 2. `dbt-enterprise`
    The production dbt project. This is where dbt CLI commands run.
 
 3. `dbt-agent`
-   The current operational reference and migration source. It stays intact while useful assets are copied into CAF over time.
+   The current operational reference and migration source. It stays intact while useful assets are copied into analytics-workspace over time.
 
 There is also `data-centered`, which is the content and visualization project.
 
@@ -54,7 +54,7 @@ If you want local convenience links for the linked repos, run:
 
 Use these rules unless a more specific local repo rule overrides them:
 
-- If the task is about shared platform behavior, manifests, shared knowledge, or cross-repo coordination, stay in CAF.
+- If the task is about shared platform behavior, manifests, shared knowledge, or cross-repo coordination, stay in analytics-workspace.
 - If the task is about dbt models, dbt QA, or dbt project behavior, route into `dbt-enterprise`.
 - If the task is about reference workflows, legacy shared logic, or not-yet-promoted analytics agent behavior, consult `dbt-agent`.
 - If the task is about publishing, storytelling, or visualization product work, route into `data-centered`.
@@ -62,27 +62,27 @@ Use these rules unless a more specific local repo rule overrides them:
 ## Critical Constraint
 
 For dbt pipeline work:
-- use CAF for control-plane context
+- use analytics-workspace for control-plane context
 - use `dbt-enterprise` for dbt CLI execution
-- use `dbt-agent` as fallback reference until CAF has replaced the needed capability
+- use `dbt-agent` as fallback reference until analytics-workspace has replaced the needed capability
 
-Do not assume dbt commands run from CAF root.
+Do not assume dbt commands run from workspace root.
 
 ## Current Migration Model
 
 The migration is non-destructive:
 - `dbt-agent` remains fully usable
-- assets are promoted into CAF by copy
+- assets are promoted into analytics-workspace by copy
 - promoted assets should declare ownership metadata
 - promoted assets should declare CCV3/global dependencies explicitly
 
-CAF is the planned team entrypoint, but not every capability has been re-homed yet.
+analytics-workspace is the planned team entrypoint, but not every capability has been re-homed yet.
 
 ## Current State Locations
 
 Look in these places for active state:
 
-- CAF shared state:
+- analytics-workspace shared state:
   - `workstreams/active`
   - `workstreams/archive`
   - `knowledge/platform`
@@ -114,8 +114,8 @@ If local convenience symlinks exist, they will appear under `repos/`.
 Use `.claude/manifests/workflow-contracts.yaml` for the machine-readable version. In plain terms:
 
 ### Build or resume a dbt pipeline
-- read CAF manifests and planning docs
-- consult CAF dbt references under:
+- read analytics-workspace manifests and planning docs
+- consult analytics-workspace dbt references under:
   - `knowledge/domains/dbt-pipelines/reference/`
   - `knowledge/reference/standards/`
   - `knowledge/reference/tools/`
@@ -126,13 +126,13 @@ Use `.claude/manifests/workflow-contracts.yaml` for the machine-readable version
   - `.claude/skills/dbt-lineage/`
   - `.claude/skills/dbt-sql-unit-testing/`
   - `.claude/skills/sql-hidden-gems/`
-- consult promoted CAF assets if available
+- consult promoted analytics-workspace assets if available
 - consult `dbt-agent` if the capability is not yet promoted
 - run dbt CLI from `dbt-enterprise`
 
 ### Run QA on a dbt model
-- locate QA workflow guidance in CAF under `knowledge/domains/dbt-pipelines/reference/qa-validation-checklist.md`
-- use CAF troubleshooting and reusable-rule guidance under:
+- locate QA workflow guidance in analytics-workspace under `knowledge/domains/dbt-pipelines/reference/qa-validation-checklist.md`
+- use analytics-workspace troubleshooting and reusable-rule guidance under:
   - `knowledge/domains/dbt-pipelines/reference/troubleshooting.md`
   - `knowledge/domains/dbt-pipelines/decision-traces/rules.json`
 - use `knowledge/reference/tools/dbt-mcp-tools-reference.md` for tool routing
@@ -140,11 +140,11 @@ Use `.claude/manifests/workflow-contracts.yaml` for the machine-readable version
 - apply project-local dbt constraints from `dbt-enterprise`
 
 ### Contribute shared team knowledge
-- add or update content in CAF under `knowledge/domains/`
+- add or update content in analytics-workspace under `knowledge/domains/`
 - do not modify `dbt-enterprise` just to add shared reference material
 
 ### Investigate cross-repo workflow behavior
-- start in CAF manifests
+- start in analytics-workspace manifests
 - then route into the relevant repo using `.claude/manifests/repo-adapters.yaml`
 
 ## Non-Claude Agents
@@ -158,9 +158,9 @@ If you do not support Claude slash commands or Claude skill loading:
 ## Do Not Assume
 
 - Do not assume `~/.claude` is your primary interface.
-- Do not assume all useful workflows are already promoted into CAF.
+- Do not assume all useful workflows are already promoted into analytics-workspace.
 - Do not assume machine-specific absolute paths are portable.
-- Do not assume a CAF asset is team-ready unless its dependencies are explicit.
+- Do not assume a workspace asset is team-ready unless its dependencies are explicit.
 
 ## Immediate Goal
 

@@ -68,7 +68,7 @@ Validate dbt model outputs against legacy or expected results.
 ### On Start
 1. Read the pipeline's PLAN.md or handoff for current state
 2. Load QA skill: `.claude/skills/dbt-qa/SKILL.md`
-3. Load QA reference: `repos/dbt-agent/shared/reference/qa-validation-checklist.md`
+3. Load QA reference: `dbt-agent/shared/reference/qa-validation-checklist.md`
 4. Search decision traces for similar past issues:
    ```bash
    cat shared/decision-traces/index.json | jq '.by_model'
@@ -168,7 +168,7 @@ Append to `shared/decision-traces/traces.json`:
   Primary skill:     .claude/skills/dbt-qa/SKILL.md
                      → QA Templates 1-4 SQL, threshold definitions, unit testing patterns
 
-  Reference docs:    repos/dbt-agent/shared/reference/qa-validation-checklist.md
+  Reference docs:    dbt-agent/shared/reference/qa-validation-checklist.md
                      → Step-by-step validation procedures
 
   Decision traces:   shared/decision-traces/traces.json + index.json

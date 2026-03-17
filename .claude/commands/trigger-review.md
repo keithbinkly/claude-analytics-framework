@@ -11,7 +11,7 @@ Interactive review of suggested trigger phrases. Approving an item adds the phra
 Read the trigger review queue:
 
 ```bash
-cat repos/dbt-agent/.dots/dbt-agent-trigger-review-queue.md
+cat dbt-agent/.dots/dbt-agent-trigger-review-queue.md
 ```
 
 Parse all unchecked items (`- [ ]`). Each has format:
@@ -37,11 +37,11 @@ For each approved phrase:
 1. Read the target skill's SKILL.md file at `.claude/skills/{skill-name}/SKILL.md`
 2. Find the YAML frontmatter `triggers:` list (or the trigger keywords section)
 3. Add the new phrase to the triggers list
-4. Also update the `CURRENT_TRIGGERS` dict in `repos/dbt-agent/tools/chatops/trigger_suggester.py` to keep it in sync
+4. Also update the `CURRENT_TRIGGERS` dict in `dbt-agent/tools/chatops/trigger_suggester.py` to keep it in sync
 
 ### 4. Mark Applied in Queue
 
-In `repos/dbt-agent/.dots/dbt-agent-trigger-review-queue.md`, change applied items from:
+In `dbt-agent/.dots/dbt-agent-trigger-review-queue.md`, change applied items from:
 ```
 - [ ] `phrase` → skill-name ...
 ```

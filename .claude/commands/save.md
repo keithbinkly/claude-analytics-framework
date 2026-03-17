@@ -49,14 +49,14 @@ a) Check if any workstream file was recently read this session (likely from `/sa
 b) List existing workstreams AND pipeline PLANs:
 ```bash
 ls thoughts/shared/workstreams/*.yaml 2>/dev/null
-ls repos/dbt-agent/handoffs/*/PLAN.md 2>/dev/null
+ls dbt-agent/handoffs/*/PLAN.md 2>/dev/null
 ```
 
 c) If only one workstream exists, use it. If multiple, check which has dots that overlap with files modified this session.
 
-d) **Pipeline fallback:** If the name matches a pipeline in `repos/dbt-agent/handoffs/` but has no workstream file, inform the user:
+d) **Pipeline fallback:** If the name matches a pipeline in `dbt-agent/handoffs/` but has no workstream file, inform the user:
 ```
-Found pipeline PLAN at repos/dbt-agent/handoffs/[name]/PLAN.md — no workstream file yet.
+Found pipeline PLAN at dbt-agent/handoffs/[name]/PLAN.md — no workstream file yet.
 Options:
 1. Update the pipeline PLAN.md directly (pipeline work)
 2. Create a workstream file that links to the pipeline (recommended for long-running work)
@@ -97,7 +97,7 @@ Collect what happened since last save. Use your current context to determine:
 
 **b) Dots changes:**
 - Were any dots created, updated, or completed this session?
-- Check: `ls repos/dbt-agent/.dots/*$NAME*.md 2>/dev/null` and any dots mentioned in conversation
+- Check: `ls dbt-agent/.dots/*$NAME*.md 2>/dev/null` and any dots mentioned in conversation
 
 **c) Decisions made:**
 - Any architectural, design, or approach decisions made this session?
@@ -195,13 +195,13 @@ Workstream just created. See next_action for first step.
 
 Write to `thoughts/shared/workstreams/$NAME.yaml`.
 
-Also check if a dot should be created: "Create a tracking dot at `repos/dbt-agent/.dots/$NAME.md`?"
+Also check if a dot should be created: "Create a tracking dot at `dbt-agent/.dots/$NAME.md`?"
 
 ### 6. List All Workstreams (--list)
 
 ```bash
 ls thoughts/shared/workstreams/*.yaml 2>/dev/null
-ls repos/dbt-agent/handoffs/*/PLAN.md 2>/dev/null
+ls dbt-agent/handoffs/*/PLAN.md 2>/dev/null
 ```
 
 For each file, read YAML frontmatter and display unified view:
@@ -215,7 +215,7 @@ For each file, read YAML frontmatter and display unified view:
 | [name] | skills | Phase 2 | P1 | 2h ago | Active |
 | [name] | presentation | Draft | P2 | 3d ago | Paused |
 
-### Pipelines (repos/dbt-agent/handoffs/*/PLAN.md)
+### Pipelines (dbt-agent/handoffs/*/PLAN.md)
 | Pipeline | Phase | Priority | Last Updated | Status |
 |----------|-------|----------|--------------|--------|
 | merchant-spend | deploy | P1 | 1d ago | Active |

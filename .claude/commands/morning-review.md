@@ -30,7 +30,7 @@ head -50 thoughts/shared/session-log.md
 Read the most recent system audit:
 
 ```bash
-ls -t repos/dbt-agent/data/telemetry/audits/system-audit-*.md | head -1
+ls -t dbt-agent/data/telemetry/audits/system-audit-*.md | head -1
 ```
 
 Summarize key findings: skill underutilization, trigger suggestions, wiring issues.
@@ -38,7 +38,7 @@ Summarize key findings: skill underutilization, trigger suggestions, wiring issu
 ### 2. Check Inbox
 
 ```bash
-cat repos/dbt-agent/data/inbox/system-evolution.md
+cat dbt-agent/data/inbox/system-evolution.md
 ```
 
 Report any new notifications since last review.
@@ -46,7 +46,7 @@ Report any new notifications since last review.
 ### 3. Dots by Priority
 
 ```bash
-ls repos/dbt-agent/.dots/*.md
+ls dbt-agent/.dots/*.md
 ```
 
 Read each dot's YAML frontmatter. Group by status and priority:
@@ -57,7 +57,7 @@ Read each dot's YAML frontmatter. Group by status and priority:
 ### 4. Trigger Review Queue
 
 ```bash
-cat repos/dbt-agent/.dots/dbt-agent-trigger-review-queue.md
+cat dbt-agent/.dots/dbt-agent-trigger-review-queue.md
 ```
 
 Count unchecked items (`- [ ]`). If >5 pending, recommend running `/trigger-review`.
@@ -75,7 +75,7 @@ Surface any "Next Steps", "Proposed Improvements", or "Recommendations" that hav
 ### 6. Active Handoffs
 
 ```bash
-ls repos/dbt-agent/handoffs/*/PLAN.md 2>/dev/null
+ls dbt-agent/handoffs/*/PLAN.md 2>/dev/null
 ```
 
 List any active pipeline work that needs continuation.

@@ -1,7 +1,7 @@
 ---
 name: dbt-orchestrator
 description: |
-  Central workflow coordinator for the CAF-root dbt pipeline model. Manages pipeline state,
+  Central workflow coordinator for the analytics-workspace-root dbt pipeline model. Manages pipeline state,
   enforces human review gates, routes workflow phases to the right skills, and keeps the
   control-plane / execution-target split explicit. Use when starting a new pipeline,
   resuming pipeline work, checking pipeline status, approving gates, or reasoning about
@@ -13,17 +13,17 @@ source_of_truth: caf
 mirrored_from: dbt-agent/.claude/skills/dbt-orchestrator/SKILL.md
 -->
 
-# CAF dbt Orchestrator
+# analytics-workspace dbt Orchestrator
 
-Workflow state machine, gate rules, and phase-loading references for the CAF-root pipeline lifecycle.
+Workflow state machine, gate rules, and phase-loading references for the analytics-workspace-root pipeline lifecycle.
 
 ## Purpose
 
-This skill is the shared control-plane reference for pipeline orchestration in CAF.
+This skill is the shared control-plane reference for pipeline orchestration in analytics-workspace.
 
 It exists to make these rules explicit:
 
-- CAF is the control-plane entrypoint.
+- analytics-workspace is the control-plane entrypoint.
 - `dbt-enterprise` is the dbt execution target.
 - `dbt-agent` remains fallback reference only where the capability has not yet been promoted.
 - Human review gates are mandatory unless explicitly skipped and documented.
@@ -56,7 +56,7 @@ Optional auxiliary state:
 
 - `.dots/pipeline-[name].md`
 
-CAF owns the workflow contract and command entrypoints, but not yet the canonical storage.
+analytics-workspace owns the workflow contract and command entrypoints, but not yet the canonical storage.
 
 ## Phase Model
 
@@ -83,7 +83,7 @@ See `resources/gate-enforcement-rules.md` for required artifacts, validation che
 
 ## Skill Routing
 
-Use CAF-promoted skills first when they exist.
+Use analytics-workspace-promoted skills first when they exist.
 
 Current expected routing:
 
@@ -92,23 +92,23 @@ Current expected routing:
 - Phase 3: `dbt-standards` and `dbt-tech-spec-writer`
 - Phase 4: `dbt-preflight`, `dbt-migration`, `dbt-qa`
 
-If a required skill is not yet promoted into CAF, fall back explicitly to `dbt-agent`.
+If a required skill is not yet promoted into analytics-workspace, fall back explicitly to `dbt-agent`.
 
 ## Execution Routing
 
 This skill does not change where dbt commands run:
 
-- read context from CAF
+- read context from analytics-workspace
 - read or update pipeline state where it currently lives
 - run dbt CLI from `dbt-enterprise`
 
-Never treat CAF root as the dbt execution target.
+Never treat analytics-workspace root as the dbt execution target.
 
 ## Definition Of Done For This Capability
 
-This skill slice is only fully replaced in CAF when:
+This skill slice is only fully replaced in analytics-workspace when:
 
-- gate rules are CAF-owned
-- phase-loading specs are CAF-owned
+- gate rules are analytics-workspace-owned
+- phase-loading specs are analytics-workspace-owned
 - required companion skills are also promoted or explicitly wrapped
 - pipeline commands no longer need hidden `dbt-agent` references for normal operation

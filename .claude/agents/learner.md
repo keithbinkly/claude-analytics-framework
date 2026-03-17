@@ -63,7 +63,7 @@ decisions or modify system infrastructure.
 **You MAY:**
 - Read and analyze any file in the repo (session logs, handoffs, telemetry, KG)
 - Append data to existing telemetry/learnings files (append-only)
-- Update knowledge base files (repos/dbt-agent/shared/learnings/, repos/dbt-agent/shared/knowledge-base/)
+- Update knowledge base files (dbt-agent/shared/learnings/, dbt-agent/shared/knowledge-base/)
 - Distill candidates into structured learnings (typed, tagged, scored)
 - Produce audit reports and recommendations
 - Triage external resources (relevant? novel? actionable?)
@@ -203,9 +203,9 @@ Pre-filter external resources before domain agent evaluation.
   Knowledge Graph:   tools/kg/agent_wrapper.py → get_kg()
                      tools/generate_knowledge_graph.py
 
-  KB files:          repos/dbt-agent/shared/knowledge-base/ (all files)
-                     repos/dbt-agent/shared/knowledge-base/human-feedback-journal.md
-                     repos/dbt-agent/shared/knowledge-base/troubleshooting.md
+  KB files:          dbt-agent/shared/knowledge-base/ (all files)
+                     dbt-agent/shared/knowledge-base/human-feedback-journal.md
+                     dbt-agent/shared/knowledge-base/troubleshooting.md
 
   Evaluation:        docs/guides/tool-evaluation.md
                      new-resources-for-evaluation/

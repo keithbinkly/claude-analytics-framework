@@ -1,11 +1,11 @@
 <!--
-source_of_truth: caf
+source_of_truth: analytics-workspace
 mirrored_from: dbt-agent/.claude/commands/pipeline-resume.md
 -->
 
 # Resume Pipeline
 
-Load a pipeline's current context from CAF root and continue where the workflow left off.
+Load a pipeline's current context from workspace root and continue where the workflow left off.
 
 **Usage:** `/pipeline-resume [name]`
 
@@ -69,9 +69,9 @@ Summarize:
 
 ### 4. Route Capability Loading
 
-If CAF already has the needed promoted workflow asset, use it.
+If analytics-workspace already has the needed promoted workflow asset, use it.
 
-Prefer these CAF-promoted orchestration references first:
+Prefer these analytics-workspace-promoted orchestration references first:
 
 - `.claude/skills/dbt-orchestrator/SKILL.md`
 - `.claude/skills/dbt-orchestrator/resources/agent-loading-specs.md`
@@ -86,12 +86,12 @@ Otherwise, consult the corresponding `dbt-agent` reference material under:
 
 If the next action requires dbt CLI execution:
 
-- keep control-plane context in CAF
+- keep control-plane context in analytics-workspace
 - route execution into `dbt-enterprise`
 
-Do not run dbt CLI from CAF root.
+Do not run dbt CLI from workspace root.
 
 ## Notes
 
-- This command is a CAF-root entrypoint into a workflow whose state still lives in `dbt-agent`.
-- During migration, CAF may provide only part of the full capability stack. When in doubt, use `dbt-agent` as fallback reference.
+- This command is a workspace-root entrypoint into a workflow whose state still lives in `dbt-agent`.
+- During migration, analytics-workspace may provide only part of the full capability stack. When in doubt, use `dbt-agent` as fallback reference.

@@ -1,7 +1,7 @@
 ---
 name: dbt-tech-spec-writer
 description: |
-  CAF-root architecture and specification guidance for dbt pipeline work. Use when designing
+  analytics-workspace-root architecture and specification guidance for dbt pipeline work. Use when designing
   a pipeline, creating a tech spec, documenting model inventory, validating architecture
   decisions, or preparing Gate 3 review artifacts.
 ---
@@ -11,9 +11,9 @@ source_of_truth: caf
 mirrored_from: dbt-agent/.claude/skills/dbt-tech-spec-writer/SKILL.md
 -->
 
-# CAF dbt Tech Spec Writer
+# analytics-workspace dbt Tech Spec Writer
 
-Create reviewable dbt architecture specifications from CAF root while keeping dbt execution in `dbt-enterprise`.
+Create reviewable dbt architecture specifications from analytics-workspace root while keeping dbt execution in `dbt-enterprise`.
 
 ## Use This Skill To
 
@@ -65,4 +65,4 @@ A good tech spec should make these explicit:
 - transformation rules
 - test requirements
 - risks and mitigations
-- unresolved dependencies still outside CAF
+- unresolved dependencies still outside analytics-workspace

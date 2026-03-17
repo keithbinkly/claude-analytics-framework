@@ -1,7 +1,7 @@
 ---
 name: dbt-sql-unit-testing
 description: |
-  CAF-root guidance for fast local SQL transformation tests using mock data and DuckDB-style
+  analytics-workspace-root guidance for fast local SQL transformation tests using mock data and DuckDB-style
   workflows. Use when validating edge cases, complex SQL logic, or bug fixes before slower
   warehouse QA.
 ---
@@ -11,7 +11,7 @@ source_of_truth: caf
 mirrored_from: dbt-agent/.claude/skills/dbt-sql-unit-testing/SKILL.md
 -->
 
-# CAF dbt SQL Unit Testing
+# analytics-workspace dbt SQL Unit Testing
 
 Fast local logic-validation guidance for dbt pipeline work.
 

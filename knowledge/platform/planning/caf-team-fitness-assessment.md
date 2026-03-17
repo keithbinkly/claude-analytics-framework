@@ -1,22 +1,22 @@
-# CAF Team Fitness Assessment
+# analytics-workspace Team Fitness Assessment
 
 **Author:** System Architect (domain agent)
 **Date:** 2026-03-13
 **Status:** Assessment complete. Actionable recommendations below.
 
-**Purpose:** Determine whether CAF in its current state is ready for the team's dbt work — specifically sharing with teammates doing data science feature store and TPG pipelines.
+**Purpose:** Determine whether analytics-workspace in its current state is ready for the team's dbt work — specifically sharing with teammates doing data science feature store and TPG pipelines.
 
 ---
 
 ## Verdict
 
-**CAF is a useful shell, but needs significant retooling before it's team-ready.** The repo infrastructure (directory structure, gitignore, MCP config, symlink pattern) is sound. The agent architecture, commands, and skills are built for a different stack and workflow model. Keep the shell, replace the internals.
+**analytics-workspace is a useful shell, but needs significant retooling before it's team-ready.** The repo infrastructure (directory structure, gitignore, MCP config, symlink pattern) is sound. The agent architecture, commands, and skills are built for a different stack and workflow model. Keep the shell, replace the internals.
 
 ---
 
-## What CAF Was Built For vs What We Need
+## What analytics-workspace Was Built For vs What We Need
 
-| Dimension | CAF Today (Graniterock/Dylan) | What We Need |
+| Dimension | analytics-workspace Today (Graniterock/Dylan) | What We Need |
 |-----------|-------------------------------|--------------|
 | **Data warehouse** | Snowflake | Redshift |
 | **Cloud** | AWS (generic) + Azure planned | AWS (specific to our infra) |
@@ -120,16 +120,16 @@ CONTRIBUTING.md (new)
   - How to add a domain folder
   - How to add reference material
   - How to request a new skill or command
-  - What lives in CAF vs what lives in your project repo
+  - What lives in analytics-workspace vs what lives in your project repo
 ```
 
 ### 3. Team onboarding context
 
-For teammates encountering CAF for the first time:
+For teammates encountering analytics-workspace for the first time:
 
 ```
 knowledge/onboarding/
-  what-is-caf.md          ← 1-page explainer
+  what-is-analytics-workspace.md  ← 1-page explainer
   how-to-contribute.md    ← practical guide
   domain-index.md         ← what knowledge exists where
 ```
@@ -164,4 +164,4 @@ knowledge/onboarding/
 
 ## Key Principle
 
-**CAF earns authority by replacing capabilities, not by declaration.** No one should be told to "use CAF" until CAF can actually do something useful for them. The domain folders are the entry point — teammates contribute knowledge there. Pipeline lifecycle commands and QA skills come later through promotion.
+**analytics-workspace earns authority by replacing capabilities, not by declaration.** No one should be told to "use analytics-workspace" until analytics-workspace can actually do something useful for them. The domain folders are the entry point — teammates contribute knowledge there. Pipeline lifecycle commands and QA skills come later through promotion.

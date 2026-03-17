@@ -49,7 +49,7 @@ Each task agent uses structured XML tags:
 ## Cleanup History
 
 - **2026-02-16**: Created 4 domain agents (Builder, QA, Context Builder, Analytics Manager) with definitions, commands, and seeded interior files (12 files total).
-- **2026-02-16**: Deleted 7 v1 backup files (~89KB). Deleted `_agent-registry.md` (superseded by `agent-map.yaml`). Moved `_metrics-capture.md` and `LEARNING-CODIFICATION-QUICK-REFERENCE.md` to `repos/dbt-agent/shared/reference/`.
+- **2026-02-16**: Deleted 7 v1 backup files (~89KB). Deleted `_agent-registry.md` (superseded by `agent-map.yaml`). Moved `_metrics-capture.md` and `LEARNING-CODIFICATION-QUICK-REFERENCE.md` to `dbt-agent/shared/reference/`.
 - **2026-02-17**: Moved System Architect from data-centered to dbt-agent (agent + memory + command). Rationale: most system evolution work targets dbt-agent's tools/skills/hooks.
 
 ## Related
@@ -58,4 +58,4 @@ Each task agent uses structured XML tags:
 - **Cross-repo historical agent map**: `data-centered/thoughts/shared/agent-map.yaml`
 - **Cross-repo agents**: Designer (global), Librarian (data-centered)
 - **Skills**: `.claude/skills/` — knowledge layer
-- **Reference docs**: `repos/dbt-agent/shared/reference/metrics-capture-protocol.md`, `repos/dbt-agent/shared/reference/learning-codification-quick-reference.md`
+- **Reference docs**: `dbt-agent/shared/reference/metrics-capture-protocol.md`, `dbt-agent/shared/reference/learning-codification-quick-reference.md`

@@ -1,7 +1,7 @@
 ---
 name: dbt-preflight
 description: |
-  CAF-root pre-execution guidance for dbt model work. Use when deciding whether a dbt run is
+  analytics-workspace-root pre-execution guidance for dbt model work. Use when deciding whether a dbt run is
   safe, estimating runtime and risk, or choosing whether to sample before execution.
 ---
 
@@ -10,7 +10,7 @@ source_of_truth: caf
 mirrored_from: dbt-agent/.claude/skills/dbt-preflight/SKILL.md
 -->
 
-# CAF dbt Preflight
+# analytics-workspace dbt Preflight
 
 Estimate execution cost and risk before running dbt work from `dbt-enterprise`.
 

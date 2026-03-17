@@ -1,11 +1,11 @@
 <!--
-source_of_truth: caf
+source_of_truth: analytics-workspace
 mirrored_from: dbt-agent/.claude/commands/pipeline-close.md
 -->
 
 # Close Pipeline
 
-Complete a pipeline workflow from CAF root, capture learnings, and close or archive the state that still lives in `dbt-agent`.
+Complete a pipeline workflow from workspace root, capture learnings, and close or archive the state that still lives in `dbt-agent`.
 
 **Usage:** `/pipeline-close [name]`
 
@@ -74,7 +74,7 @@ Collect:
 - reusable workflow patterns
 - anti-patterns or time wasters
 
-If relevant CAF-promoted learning infrastructure exists, use it.
+If relevant analytics-workspace-promoted learning infrastructure exists, use it.
 
 Otherwise, use `dbt-agent` reference material such as:
 
@@ -122,5 +122,5 @@ Do not archive automatically without confirmation.
 ## Notes
 
 - This command closes workflow state that still lives in `dbt-agent`.
-- CAF is the control-plane entrypoint for the user, but not yet the storage owner for pipeline lifecycle state.
-- If learning capture depends on non-promoted assets, call that out explicitly instead of assuming the CAF copy exists.
+- analytics-workspace is the control-plane entrypoint for the user, but not yet the storage owner for pipeline lifecycle state.
+- If learning capture depends on non-promoted assets, call that out explicitly instead of assuming the analytics-workspace copy exists.

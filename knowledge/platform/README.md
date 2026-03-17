@@ -1,6 +1,6 @@
 # Platform Documentation
 
-This directory contains CAF platform documentation for the shared analytics control plane. During the migration, the most important material lives in planning docs and manifests rather than the older ADLC-oriented structure.
+This directory contains analytics-workspace platform documentation for the shared analytics control plane. During the migration, the most important material lives in planning docs and manifests rather than the older ADLC-oriented structure.
 
 ## Start Here
 
@@ -48,7 +48,7 @@ Do not use this folder for:
 
 ## Migration Note
 
-This repo is being repurposed from an older CAF/Graniterock framing into the Analytics & Insights Team Workspace model.
+This repo is being repurposed from an older analytics-workspace/Graniterock framing into the Analytics & Insights Team Workspace model.
 
 That means:
 

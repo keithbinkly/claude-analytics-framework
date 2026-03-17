@@ -8,8 +8,8 @@ Read and internalize these files silently — do not summarize or announce what 
 
 **System context:**
 5. Check workstreams: `ls thoughts/shared/workstreams/*.yaml`
-6. Check open dots: `ls repos/dbt-agent/.dots/*.md`
-7. Check system health: `ls repos/dbt-agent/data/chatops/*.json`
+6. Check open dots: `ls dbt-agent/.dots/*.md`
+7. Check system health: `ls dbt-agent/data/chatops/*.json`
 
 **Skill catalog:**
 8. .claude/skills/system-evolution-orchestrator/SKILL.md — your primary skill (tools catalog, workflows, metrics)

@@ -161,9 +161,9 @@ The daily system audit runs automatically at 8 AM weekdays via crontab:
 - Filters suggestions into review queue
 - Scans handoffs for unresolved action items
 
-Results land in `repos/dbt-agent/data/inbox/system-evolution.md` — surfaced by `/morning-review`.
+Results land in `dbt-agent/data/inbox/system-evolution.md` — surfaced by `/morning-review`.
 
 If no audit ran today (machine was asleep at 8 AM), run manually:
 ```bash
-/Users/kbinkly/git-repos/dbt-agent/tools/analysis/session_metrics_cron.sh system-audit
+/Users/kbinkly/git-dbt-agent/tools/analysis/session_metrics_cron.sh system-audit
 ```

@@ -1,6 +1,6 @@
 version: 1
 last_updated: "2026-03-14"
-purpose: "Machine-readable contract for pipeline lifecycle state during the CAF -> dbt-agent migration period."
+purpose: "Machine-readable contract for pipeline lifecycle state during the analytics-workspace -> dbt-agent migration period."
 
 authority:
   control_plane_repo: "caf"
@@ -115,7 +115,7 @@ gate_model:
       advances_to: "done"
   notes:
     - "Legacy plans may record additional checkpoints such as a separate QA-to-deploy gate."
-    - "Preserve existing gate numbering in historical artifacts, but normalize command routing to the four primary CAF gates unless a workflow explicitly documents more."
+    - "Preserve existing gate numbering in historical artifacts, but normalize command routing to the four primary analytics-workspace gates unless a workflow explicitly documents more."
 
 creation_minimum:
   required_files:
@@ -128,4 +128,4 @@ creation_minimum:
   notes:
     - "New pipeline creation should always produce PLAN.md and a registry entry."
     - "Create a .dots file only when the active workflow actually uses one or the user requests it."
-    - "CAF-owned starter templates live under .claude/skills/dbt-orchestrator/resources/plan-template.md, .claude/skills/dbt-business-context/resources/business-context-template.md, and .claude/skills/dbt-data-discovery/resources/data-discovery-template.md."
+    - "analytics-workspace-owned starter templates live under .claude/skills/dbt-orchestrator/resources/plan-template.md, .claude/skills/dbt-business-context/resources/business-context-template.md, and .claude/skills/dbt-data-discovery/resources/data-discovery-template.md."

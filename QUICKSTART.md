@@ -18,7 +18,7 @@ This is the Analytics & Insights team's shared AI workspace. It has skills, know
 
 ```bash
 git clone <this-repo-url>
-cd claude-analytics-framework
+cd analytics-workspace
 bash scripts/bootstrap-linked-repos.sh
 ```
 
@@ -36,7 +36,7 @@ bash scripts/validate-mcp.sh
 ### 3. Start Claude Code
 
 ```bash
-cd claude-analytics-framework
+cd analytics-workspace
 claude
 ```
 
@@ -89,7 +89,7 @@ This is the most valuable thing you can do for the team.
 ### Example: Kyuhyun setting up Feature Store knowledge
 
 ```bash
-cd claude-analytics-framework/knowledge/domains/feature-store
+cd analytics-workspace/knowledge/domains/feature-store
 ```
 
 The folder already exists with a README. Add your files:

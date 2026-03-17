@@ -1,6 +1,6 @@
-# Claude Analytics Framework
+# Analytics & Insights Team Workspace
 
-CAF is being adapted into the analytics team workspace: a shared control plane for workflows, manifests, shared commands and skills, and team knowledge across linked repositories.
+analytics-workspace is the shared control plane for workflows, manifests, shared commands and skills, and team knowledge across linked repositories.
 
 It is not the production dbt project itself. For dbt execution, the target repo remains `dbt-enterprise`.
 
@@ -16,17 +16,17 @@ For a fresh session, read these in order:
 6. `.claude/manifests/ccv3-dependencies.yaml`
 7. `knowledge/platform/planning/shared-agent-platform-monorepo-plan.md`
 
-## What CAF Is
+## What analytics-workspace Is
 
-CAF is the shared analytics control plane. It is where the team should increasingly find:
+analytics-workspace is the shared analytics control plane. It is where the team should increasingly find:
 
 - shared workflow docs
 - machine-readable manifests
-- shared commands and skills as they are promoted into CAF
+- shared commands and skills as they are promoted into analytics-workspace
 - cross-repo coordination guidance
 - team-contributed domain knowledge
 
-CAF is also the planned team entrypoint for non-Claude coding agents. That is why the workspace now includes:
+analytics-workspace is also the planned team entrypoint for non-Claude coding agents. That is why the workspace now includes:
 
 - `AGENT_ENTRYPOINT.md`
 - `.claude/manifests/workflow-contracts.yaml`
@@ -34,16 +34,16 @@ CAF is also the planned team entrypoint for non-Claude coding agents. That is wh
 
 ## Linked Repos
 
-CAF coordinates work across these linked repos:
+analytics-workspace coordinates work across these linked repos:
 
-1. `claude-analytics-framework`
+1. `analytics-workspace`
    Shared control plane and team-facing root.
 
 2. `dbt-enterprise`
-   Production dbt project. Run dbt CLI here, not from CAF root.
+   Production dbt project. Run dbt CLI here, not from workspace root.
 
 3. `dbt-agent`
-   Current operational reference and migration source. It remains intact while useful assets are copied into CAF over time.
+   Current operational reference and migration source. It remains intact while useful assets are copied into analytics-workspace over time.
 
 4. `data-centered`
    Content and visualization project.
@@ -53,18 +53,18 @@ CAF coordinates work across these linked repos:
 The migration is non-destructive:
 
 - `dbt-agent` stays fully usable
-- CAF grows by copy-promoting the highest-leverage shared assets
-- legacy CAF assets should only be archived after replacements exist
+- analytics-workspace grows by copy-promoting the highest-leverage shared assets
+- legacy analytics-workspace assets should only be archived after replacements exist
 - promoted assets should declare ownership metadata
 - promoted assets should declare CCV3/global dependencies explicitly
 
-CAF is the planned team entrypoint, but not every capability has been re-homed yet.
+analytics-workspace is the planned team entrypoint, but not every capability has been re-homed yet.
 
 ## Local Setup
 
 ### 1. Create local convenience links
 
-If you want linked repos visible from CAF root:
+If you want linked repos visible from workspace root:
 
 ```bash
 ./scripts/bootstrap-linked-repos.sh
@@ -91,23 +91,23 @@ cp .env.example .env
 
 After changing MCP configuration, restart Claude Code if you expect MCP server discovery to refresh.
 
-## How To Work From CAF Root
+## How To Work From Workspace Root
 
 ### Build or resume a dbt pipeline
 
-- start in CAF for manifests, planning docs, and promoted shared assets
+- start in analytics-workspace for manifests, planning docs, and promoted shared assets
 - route into `dbt-enterprise` for dbt CLI execution
 - consult `dbt-agent` if the needed capability has not yet been promoted
 
 ### Run QA
 
-- use CAF workflow docs or promoted QA assets if available
+- use analytics-workspace workflow docs or promoted QA assets if available
 - inspect the model and project-local constraints in `dbt-enterprise`
 - fall back to `dbt-agent` reference material where needed
 
 ### Contribute shared knowledge
 
-Add reusable team knowledge in CAF, especially under:
+Add reusable team knowledge in analytics-workspace, especially under:
 
 - `knowledge/domains/`
 - `knowledge/platform/`
@@ -118,7 +118,7 @@ Do not put shared reference material in `dbt-enterprise` unless it truly belongs
 ## Repository Layout
 
 ```text
-claude-analytics-framework/
+analytics-workspace/
 ├── AGENT_ENTRYPOINT.md
 ├── .claude/
 │   ├── manifests/
@@ -135,7 +135,7 @@ claude-analytics-framework/
 
 ## Where Things Belong
 
-### CAF
+### analytics-workspace
 
 - shared commands and skills
 - workflow contracts and manifests
@@ -164,15 +164,15 @@ claude-analytics-framework/
 
 ## Current Priorities
 
-1. Make CAF usable as the shared workspace root.
+1. Make analytics-workspace usable as the shared workspace root.
 2. Support non-Claude agents as first-class readers.
 3. Promote the first high-leverage slice from `dbt-agent`.
-4. Archive outdated CAF content only after replacement exists.
+4. Archive outdated analytics-workspace content only after replacement exists.
 
 ## More Detail
 
 - `AGENT_ENTRYPOINT.md` — tool-agnostic bootstrap
-- `CLAUDE.md` — CAF workspace operating contract
+- `CLAUDE.md` — workspace operating contract
 - `CONTRIBUTING.md` — where to contribute what
 - `knowledge/platform/planning/README.md` — planning index
 

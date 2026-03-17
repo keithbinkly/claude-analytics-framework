@@ -1,25 +1,25 @@
 version: 1
 last_updated: "2026-03-11"
-workspace_name: "claude-analytics-framework analytics workspace"
-canonical_root: "/Users/kbinkly/git-repos/claude-analytics-framework"
+workspace_name: "analytics-workspace analytics workspace"
+canonical_root: "/Users/kbinkly/git-repos/analytics-workspace"
 purpose: "Canonical top-level root for the analytics operating system, shared agent platform, and nested analytics projects."
 status: "planned_canonical_root"
 
 principles:
-  - "CAF is the canonical analytics platform root."
-  - "CAF becomes canonical by replacing capabilities, not by declaration alone."
+  - "analytics-workspace is the canonical analytics platform root."
+  - "analytics-workspace becomes canonical by replacing capabilities, not by declaration alone."
   - "dbt-enterprise stays intact as a production dbt project."
   - "data-centered stays intact as a content and visualization project."
-  - "dbt-agent stays intact while selected high-leverage assets are promoted into CAF by copy."
-  - "Analytics-specific commands, manifests, and selected skills should live in CAF."
+  - "dbt-agent stays intact while selected high-leverage assets are promoted into analytics-workspace by copy."
+  - "Analytics-specific commands, manifests, and selected skills should live in analytics-workspace."
   - "Global agent memory stays in ~/.claude/agent-memory/."
   - "Workflow preservation for active dbt pipeline development is a non-negotiable migration constraint."
 
 precedence:
-  - "If analytics-related guidance conflicts between CAF and ~/.claude, prefer CAF once the specific capability has been migrated and declared authoritative."
+  - "If analytics-related guidance conflicts between analytics-workspace and ~/.claude, prefer analytics-workspace once the specific capability has been migrated and declared authoritative."
   - "For production dbt workflow constraints inside dbt-enterprise, prefer local project rules and docs."
   - "Use repo adapters to determine safe commands, environment constraints, and local state."
-  - "dbt-agent remains authoritative for dbt-agent-specific operating depth until CAF has equivalent replacement coverage."
+  - "dbt-agent remains authoritative for dbt-agent-specific operating depth until analytics-workspace has equivalent replacement coverage."
 
 topology:
   shared_platform:
@@ -36,9 +36,9 @@ topology:
       - "templates"
       - "scripts"
   linked_external_projects:
-    - "/Users/kbinkly/git-repos/dbt_projects/dbt-enterprise"
-    - "/Users/kbinkly/git-repos/data-centered"
-    - "/Users/kbinkly/git-repos/dbt-agent"
+    - "./dbt-enterprise"
+    - "./data-centered"
+    - "./dbt-agent"
   global_memory_layer:
     - "~/.claude/agent-memory"
 
@@ -60,30 +60,30 @@ repo_categories:
   content_product:
     description: "Publishing, storytelling, and showcase project."
   migration_source:
-    description: "Transitional source repo whose reusable contents are being selectively copied into CAF while the source remains intact."
+    description: "Transitional source repo whose reusable contents are being selectively copied into analytics-workspace while the source remains intact."
 
 active_repos:
   - id: "caf"
-    display_name: "claude-analytics-framework"
+    display_name: "analytics-workspace"
     path: "."
     category: "platform"
     state: "planned_canonical_team_entrypoint"
     ownership_model: "shared"
   - id: "dbt-enterprise"
     display_name: "dbt-enterprise"
-    path: "/Users/kbinkly/git-repos/dbt_projects/dbt-enterprise"
+    path: "./dbt-enterprise"
     category: "production_dbt"
     state: "intact"
     ownership_model: "linked_repo"
   - id: "data-centered"
     display_name: "data-centered"
-    path: "/Users/kbinkly/git-repos/data-centered"
+    path: "./data-centered"
     category: "content_product"
     state: "intact"
     ownership_model: "linked_repo"
   - id: "dbt-agent"
     display_name: "dbt-agent"
-    path: "/Users/kbinkly/git-repos/dbt-agent"
+    path: "./dbt-agent"
     category: "migration_source"
     state: "current_operational_reference_and_migration_source"
     ownership_model: "transitional_linked_repo"
@@ -95,13 +95,13 @@ live_state_locations:
     - "telemetry"
     - "knowledge/platform"
   per_repo:
-    - "/Users/kbinkly/git-repos/dbt_projects/dbt-enterprise/**/PLAN.md"
-    - "/Users/kbinkly/git-repos/data-centered/**/context.md"
-    - "/Users/kbinkly/git-repos/dbt-agent/**/PLAN.md"
-    - "/Users/kbinkly/git-repos/dbt-agent/.dots"
+    - "./dbt-enterprise/**/PLAN.md"
+    - "/Users/kbinkly/git-data-centered/**/context.md"
+    - "/Users/kbinkly/git-dbt-agent/**/PLAN.md"
+    - "/Users/kbinkly/git-dbt-agent/.dots"
 
 migration_policy:
-  move_into_caf:
+  move_into_analytics_workspace:
     - "analytics-specific global agents"
     - "analytics-specific global commands"
     - "analytics-specific global skills"
@@ -128,12 +128,12 @@ promotion_rules:
 ownership_labels:
   allowed:
     - "source_of_truth: dbt-agent"
-    - "source_of_truth: caf"
+    - "source_of_truth: analytics-workspace"
     - "mirrored_from: dbt-agent"
     - "deprecated_copy: true"
 
 cutover_requirements:
-  dbt_agent_to_caf:
+  dbt_agent_to_analytics_workspace:
     - "MCP tool routing"
     - "Preflight rules"
     - "QA standards and templates"
@@ -146,11 +146,11 @@ cutover_requirements:
     - "Workstream state management"
 
 success_conditions:
-  - "A non-Claude coding agent can bootstrap from CAF and route core workflows correctly."
-  - "A new analytics agent can start at CAF and route correctly without guessing across roots."
-  - "Shared analytics platform behavior is defined in CAF."
+  - "A non-Claude coding agent can bootstrap from analytics-workspace and route core workflows correctly."
+  - "A new analytics agent can start at analytics-workspace and route correctly without guessing across roots."
+  - "Shared analytics platform behavior is defined in analytics-workspace."
   - "Linked repos remain operationally intact."
   - "dbt-agent remains fully usable throughout migration."
-  - "CAF exposes the highest-leverage shared assets for team use and contribution."
+  - "analytics-workspace exposes the highest-leverage shared assets for team use and contribution."
   - "Ownership of promoted assets is explicit."
   - "CCV3/global dependencies for promoted assets are explicit and classified."

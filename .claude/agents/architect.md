@@ -163,9 +163,9 @@ Design complete, buildable tech specs that the SQL Builder can implement without
   Lineage:           .claude/skills/dbt-lineage/SKILL.md
                      → Dependency mapping, impact analysis
 
-  Reference:         repos/dbt-agent/shared/knowledge-base/folder-structure-and-naming.md
-                     repos/dbt-agent/shared/knowledge-base/canonical-models-registry.md
-                     repos/dbt-agent/shared/reference/architecture-validation-checklist.md
+  Reference:         dbt-agent/shared/knowledge-base/folder-structure-and-naming.md
+                     dbt-agent/shared/knowledge-base/canonical-models-registry.md
+                     dbt-agent/shared/reference/architecture-validation-checklist.md
                      shared/templates/tech-spec-template.md
 
   Tools:             mcp__dbt__get_related_models, mcp__dbt__get_model_details,

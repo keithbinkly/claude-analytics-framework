@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to claude-analytics-framework will be documented in this file.
+All notable changes to analytics-workspace will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.0.0] - 2025-01-27
 
 ### Added
-- **Initial public release** of claude-analytics-framework
+- **Initial public release** of analytics-workspace
 - **5-command workflow**: `/idea`, `/research`, `/start`, `/switch`, `/complete`
 - **Interactive onboarding**: `/onboard` command for stack-specific setup
 - **4 production skills**:

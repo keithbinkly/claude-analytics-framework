@@ -21,16 +21,16 @@ If you are not Claude or do not support slash commands/skills natively, start wi
 
 ## Workspace Model
 
-CAF coordinates four important locations:
+analytics-workspace coordinates four important locations:
 
-1. `claude-analytics-framework`
+1. `analytics-workspace`
    Shared control plane, team knowledge, migration planning, promoted shared assets.
 
 2. `dbt-enterprise`
    Production dbt project. This is where dbt CLI commands run.
 
 3. `dbt-agent`
-   Current operational reference and migration source. It remains fully usable while assets are copied into CAF over time.
+   Current operational reference and migration source. It remains fully usable while assets are copied into analytics-workspace over time.
 
 4. `data-centered`
    Content and visualization project.
@@ -39,16 +39,16 @@ CAF coordinates four important locations:
 
 ### dbt Execution
 
-- Do not run dbt CLI from CAF root.
+- Do not run dbt CLI from analytics-workspace root.
 - Route dbt execution into `dbt-enterprise`.
-- Use CAF for control-plane context and promoted shared assets.
-- Use `dbt-agent` as fallback reference until CAF has replaced the needed capability.
+- Use analytics-workspace for control-plane context and promoted shared assets.
+- Use `dbt-agent` as fallback reference until analytics-workspace has replaced the needed capability.
 
 ### Migration Safety
 
 - `dbt-agent` remains fully usable throughout migration.
 - Prefer copy-promote over move-delete.
-- Do not archive legacy CAF assets until working replacements exist.
+- Do not archive legacy analytics-workspace assets until working replacements exist.
 - Do not hide unresolved dependencies behind machine-specific absolute paths.
 - Every promoted asset should declare ownership metadata and CCV3/global dependency metadata.
 
@@ -56,14 +56,14 @@ CAF coordinates four important locations:
 
 - Global agent memory remains in `~/.claude/agent-memory/`.
 - Analytics-specific global dependencies must be explicit in `.claude/manifests/ccv3-dependencies.yaml`.
-- No promoted CAF asset should rely on undocumented `~/.claude` behavior.
+- No promoted analytics-workspace asset should rely on undocumented `~/.claude` behavior.
 
 ## How To Route Work
 
 Use `.claude/manifests/repo-adapters.yaml` as the routing contract.
 
 - Shared platform behavior, manifests, team knowledge, workflow design:
-  Stay in CAF.
+  Stay in analytics-workspace.
 
 - dbt models, project-local dbt QA, dbt execution, production dbt constraints:
   Route into `dbt-enterprise`.
@@ -99,14 +99,14 @@ After changing MCP configuration, restart Claude Code before expecting the MCP s
 
 ## Team Contribution
 
-Shared team-facing knowledge belongs in CAF, especially under:
+Shared team-facing knowledge belongs in analytics-workspace, especially under:
 
 - `knowledge/domains/`
 - `knowledge/platform/`
 - `.claude/manifests/`
 - promoted shared commands and skills in `.claude/`
 
-Project-local delivery code does not belong in CAF. Keep:
+Project-local delivery code does not belong in analytics-workspace. Keep:
 
 - dbt models/tests/YAML in `dbt-enterprise`
 - content/site product code in `data-centered`
@@ -160,4 +160,4 @@ Full list: `knowledge/domains/redshift/reference/anti-pattern-impact.yml`
 
 ## Current Status
 
-CAF is the shared team entrypoint with 27 promoted skills, 24+ commands, 26 agent definitions, and 21 operating rules. Core pipeline workflows are fully supported from CAF root. Consult `dbt-agent` for capabilities not yet promoted.
+analytics-workspace is the shared team entrypoint with 27 promoted skills, 24+ commands, 26 agent definitions, and 21 operating rules. Core pipeline workflows are fully supported from the workspace root. Consult `dbt-agent` for capabilities not yet promoted.

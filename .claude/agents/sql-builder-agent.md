@@ -157,10 +157,10 @@ Implement dbt models from approved tech specs with first-attempt compilation suc
   Jinja:             .claude/skills/dbt-jinja-sql-optimizer/SKILL.md
                      → DRY patterns, macros, templating
 
-  Reference:         repos/dbt-agent/shared/knowledge-base/migration-quick-reference.md
-                     repos/dbt-agent/shared/knowledge-base/canonical-models-registry.md
-                     repos/dbt-agent/shared/knowledge-base/folder-structure-and-naming.md
-                     repos/dbt-agent/shared/reference/qa-validation-checklist.md
+  Reference:         dbt-agent/shared/knowledge-base/migration-quick-reference.md
+                     dbt-agent/shared/knowledge-base/canonical-models-registry.md
+                     dbt-agent/shared/knowledge-base/folder-structure-and-naming.md
+                     dbt-agent/shared/reference/qa-validation-checklist.md
 
   Linter:            tools/lint/dbt_agent_lint.py (runs automatically via hook)
 -->

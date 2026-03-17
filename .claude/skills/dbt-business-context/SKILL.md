@@ -1,7 +1,7 @@
 ---
 name: dbt-business-context
 description: |
-  Captures and structures business context for dbt pipeline work from CAF root. Use when
+  Captures and structures business context for dbt pipeline work from analytics-workspace root. Use when
   gathering requirements, parsing stakeholder notes, documenting key metrics, or creating
   the business-context artifact for a pipeline.
 ---
@@ -11,7 +11,7 @@ source_of_truth: caf
 mirrored_from: dbt-agent/.claude/skills/dbt-business-context/SKILL.md
 -->
 
-# CAF dbt Business Context
+# analytics-workspace dbt Business Context
 
 Requirements-capture guidance for the pipeline workflow.
 
@@ -47,6 +47,6 @@ If needed, fall back to:
 
 ## Migration Note
 
-This CAF version is the preferred control-plane reference.
+This analytics-workspace version is the preferred control-plane reference.
 
-Use `dbt-agent` only when the CAF copy does not yet contain enough domain-specific depth.
+Use `dbt-agent` only when the analytics-workspace copy does not yet contain enough domain-specific depth.

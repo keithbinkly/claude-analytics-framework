@@ -1,17 +1,17 @@
 ---
 name: dbt-qa
 description: |
-  Shared CAF-root QA guidance for validating dbt models against legacy or certified outputs.
+  Shared workspace-root QA guidance for validating dbt models against legacy or certified outputs.
   Use when running variance analysis, checking data quality, investigating mismatches, or
   preparing a QA report for a pipeline.
 ---
 
 <!--
-source_of_truth: caf
+source_of_truth: analytics-workspace
 mirrored_from: dbt-agent/.claude/skills/dbt-qa/SKILL.md
 -->
 
-# CAF dbt QA
+# dbt QA
 
 QA workflow guidance for validating dbt pipeline outputs.
 

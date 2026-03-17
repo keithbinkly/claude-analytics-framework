@@ -1,11 +1,11 @@
 <!--
-source_of_truth: caf
+source_of_truth: analytics-workspace
 mirrored_from: dbt-agent/.claude/commands/pipeline-gate.md
 -->
 
 # Approve Pipeline Gate
 
-Formally approve a gate checkpoint from CAF root so the pipeline can advance to the next phase while state still lives in `dbt-agent`.
+Formally approve a gate checkpoint from workspace root so the pipeline can advance to the next phase while state still lives in `dbt-agent`.
 
 **Usage:** `/pipeline-gate [requirements|discovery|architecture|deploy]`
 
@@ -76,9 +76,9 @@ Then inspect the expected phase artifact:
 - Gate 3: `DBT_AGENT_ROOT/handoffs/[name]/tech-spec.md`
 - Gate 4: `DBT_AGENT_ROOT/handoffs/[name]/qa-report.md`
 
-If CAF has already promoted the relevant workflow guidance, use it first.
+If analytics-workspace has already promoted the relevant workflow guidance, use it first.
 
-Prefer CAF-promoted workflow references first:
+Prefer analytics-workspace-promoted workflow references first:
 
 - `.claude/skills/dbt-orchestrator/resources/gate-enforcement-rules.md`
 - `.claude/skills/dbt-orchestrator/resources/agent-loading-specs.md`
@@ -130,15 +130,15 @@ Record:
 
 After approval:
 
-- stay anchored in CAF as the control plane
-- consult CAF-promoted skills or docs first
+- stay anchored in analytics-workspace as the control plane
+- consult analytics-workspace-promoted skills or docs first
 - use `dbt-agent` as fallback until the needed capability is promoted
 - route dbt CLI execution into `dbt-enterprise` if the next phase requires it
 
-Do not run dbt CLI from CAF root.
+Do not run dbt CLI from workspace root.
 
 ## Notes
 
 - Pipeline state still lives in `dbt-agent` during migration.
-- This CAF command is an entrypoint, not yet the canonical storage location for gate state.
+- This analytics-workspace command is an entrypoint, not yet the canonical storage location for gate state.
 - Missing promoted guidance is not a reason to guess; fall back to `dbt-agent` explicitly.

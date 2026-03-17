@@ -1,0 +1,7545 @@
+metadata:
+  generated: '2025-12-27T02:40:35.762500'
+  source: Redshift query logs
+  query_count: 474144
+  unique_joins: 529
+joins_by_source:
+  ar:
+  - target: volt_dt_0
+    key: achrulekey = achrulekey
+    frequency: 68
+    join_types:
+      OUTER: 68
+    avg_execution_sec: 6.44
+  - target: volt_dt_1
+    key: auth_reason_uid = auth_reason_uid
+    frequency: 12
+    join_types:
+      OUTER: 12
+    avg_execution_sec: 85.33
+  pr:
+  - target: volt_dt_1
+    key: partnerrolekey = partnerrolekey
+    frequency: 884
+    join_types:
+      OUTER: 884
+    avg_execution_sec: 4.59
+  - target: volt_dt_8
+    key: id = profileid
+    frequency: 57
+    join_types:
+      OUTER: 57
+    avg_execution_sec: 81.14
+  - target: volt_dt_9
+    key: id = profileid
+    frequency: 8
+    join_types:
+      OUTER: 8
+    avg_execution_sec: 12.62
+  pp:
+  - target: volt_dt_2
+    key: partnerproductkey = partnerproductkey
+    frequency: 920
+    join_types:
+      OUTER: 920
+    avg_execution_sec: 4.59
+  - target: volt_dt_1
+    key: partnerproductkey = partnerproductkey
+    frequency: 351
+    join_types:
+      OUTER: 351
+    avg_execution_sec: 4.36
+  - target: prhp
+    key: partnerproductkey = partnerproductkey
+    frequency: 71
+    join_types:
+      INNER: 71
+    avg_execution_sec: 3.24
+  - target: p
+    key: partnerkey = partnerkey
+    frequency: 71
+    join_types:
+      INNER: 71
+    avg_execution_sec: 3.24
+  app:
+  - target: volt_dt_3
+    key: applicationkey = applicationkey
+    frequency: 884
+    join_types:
+      OUTER: 884
+    avg_execution_sec: 4.59
+  opt_pgm:
+  - target: volt_dt_1
+    key: optinprogramkey = optinprogramkey
+    frequency: 362
+    join_types:
+      OUTER: 362
+    avg_execution_sec: 3.19
+  lon_prd_1:
+  - target: prd_pgm
+    key: loanproductkey = loanproductkey
+    frequency: 343
+    join_types:
+      OUTER: 343
+    avg_execution_sec: 3.3
+  comp:
+  - target: acct
+    key: accountidentifier = accountidentifier
+    frequency: 68
+    join_types:
+      LEFT: 68
+    avg_execution_sec: 3.08
+    orphan_risk: true
+  acct:
+  - target: prod
+    key: productkey = productkey
+    frequency: 233
+    join_types:
+      INNER: 163
+      LEFT: 70
+    avg_execution_sec: 13.62
+    orphan_risk: true
+  - target: acts
+    key: accountstatuskey = accountstatuskey
+    frequency: 68
+    join_types:
+      LEFT: 68
+    avg_execution_sec: 3.08
+    orphan_risk: true
+  - target: ah
+    key: accountkey = accountkey
+    frequency: 68
+    join_types:
+      INNER: 68
+    avg_execution_sec: 18.71
+  - target: ah
+    key: sor_uid = sor_uid
+    frequency: 68
+    join_types:
+      INNER: 68
+    avg_execution_sec: 18.71
+  - target: fisb
+    key: accountidentifier = accountidentifier
+    frequency: 68
+    join_types:
+      LEFT: 68
+    avg_execution_sec: 3.21
+    orphan_risk: true
+  - target: ptsm
+    key: accountidentifier = accountidentifier
+    frequency: 68
+    join_types:
+      LEFT: 68
+    avg_execution_sec: 3.21
+    orphan_risk: true
+  - target: pstl
+    key: accountidentifier = accountidentifier
+    frequency: 68
+    join_types:
+      LEFT: 68
+    avg_execution_sec: 3.21
+    orphan_risk: true
+  - target: ptsd
+    key: accountidentifier = accountidentifier
+    frequency: 68
+    join_types:
+      LEFT: 68
+    avg_execution_sec: 3.21
+    orphan_risk: true
+  - target: pltb
+    key: accountidentifier = accountidentifier
+    frequency: 68
+    join_types:
+      LEFT: 68
+    avg_execution_sec: 3.21
+    orphan_risk: true
+  - target: volt_dt_4
+    key: accountkey = accountkey
+    frequency: 34
+    join_types:
+      OUTER: 34
+    avg_execution_sec: 34.09
+  - target: volt_dt_4
+    key: sor_uid = sor_uid
+    frequency: 34
+    join_types:
+      OUTER: 34
+    avg_execution_sec: 34.09
+  cset:
+  - target: cstt
+    key: checksettlementkey = checksettlementkey
+    frequency: 70
+    join_types:
+      LEFT: 70
+    avg_execution_sec: 19.96
+    orphan_risk: true
+  - target: acct
+    key: accountnumber = accountnumber
+    frequency: 70
+    join_types:
+      LEFT: 70
+    avg_execution_sec: 19.96
+    orphan_risk: true
+  cstt:
+  - target: tdtl
+    key: checksettlementtransactionkey = checksettlementtransactionkey
+    frequency: 70
+    join_types:
+      LEFT: 70
+    avg_execution_sec: 19.96
+    orphan_risk: true
+  - target: tdtl
+    key: checksettlementstatuskey = checksettlementstatuskey
+    frequency: 70
+    join_types:
+      LEFT: 70
+    avg_execution_sec: 19.96
+    orphan_risk: true
+  - target: sets
+    key: checksettlementstatuskey = checksettlementstatuskey
+    frequency: 70
+    join_types:
+      LEFT: 70
+    avg_execution_sec: 19.96
+    orphan_risk: true
+  - target: cful
+    key: checkfulfillmentkey = checkfulfillmentkey
+    frequency: 70
+    join_types:
+      LEFT: 70
+    avg_execution_sec: 19.96
+    orphan_risk: true
+  prod:
+  - target: prgm
+    key: programkey = programkey
+    frequency: 70
+    join_types:
+      LEFT: 70
+    avg_execution_sec: 19.96
+    orphan_risk: true
+  - target: rtlr
+    key: retailerkey = retailerkey
+    frequency: 68
+    join_types:
+      INNER: 68
+    avg_execution_sec: 297.21
+  tdtl:
+  - target: stsr
+    key: checksettlementstatusreasonkey = checksettlementstatusreasonkey
+    frequency: 70
+    join_types:
+      LEFT: 70
+    avg_execution_sec: 19.96
+    orphan_risk: true
+  aic:
+  - target: cd
+    key: account_key = accountkey
+    frequency: 68
+    join_types:
+      INNER: 68
+    avg_execution_sec: 78.07
+  - target: pt
+    key: product_key = productkey
+    frequency: 34
+    join_types:
+      INNER: 34
+    avg_execution_sec: 19.76
+  c:
+  - target: ai
+    key: accountid = id
+    frequency: 103
+    join_types:
+      LEFT: 103
+    avg_execution_sec: 66.77
+    orphan_risk: true
+  - target: afc
+    key: ownerid = ownerid
+    frequency: 68
+    join_types:
+      LEFT: 68
+    avg_execution_sec: 8.09
+    orphan_risk: true
+  - target: p
+    key: productkey = productkey
+    frequency: 68
+    join_types:
+      LEFT: 68
+    avg_execution_sec: 10.21
+    orphan_risk: true
+  - target: u
+    key: ownerid = id
+    frequency: 68
+    join_types:
+      OUTER: 68
+    avg_execution_sec: 18.89
+  - target: volt_dt_10
+    key: casenumber = dispute_id
+    frequency: 54
+    join_types:
+      OUTER: 54
+    avg_execution_sec: 79.57
+  - target: m
+    key: casenumber = e_greendot_cc_salesforce_case_int
+    frequency: 35
+    join_types:
+      LEFT: 35
+    avg_execution_sec: 19.64
+    orphan_risk: true
+  - target: a
+    key: casenumber = casenumber
+    frequency: 35
+    join_types:
+      LEFT: 35
+    avg_execution_sec: 12.34
+    orphan_risk: true
+  - target: c2a
+    key: casenumber = casenumber
+    frequency: 35
+    join_types:
+      LEFT: 35
+    avg_execution_sec: 133.28
+    orphan_risk: true
+  - target: s
+    key: agent_group__c = agent_group__c
+    frequency: 34
+    join_types:
+      LEFT: 34
+    avg_execution_sec: 33.93
+    orphan_risk: true
+  - target: ca
+    key: casenumber = casenumber
+    frequency: 34
+    join_types:
+      LEFT: 34
+    avg_execution_sec: 33.93
+    orphan_risk: true
+  - target: da
+    key: account_key__c = sor_acct_id
+    frequency: 34
+    join_types:
+      LEFT: 34
+    avg_execution_sec: 103.91
+    orphan_risk: true
+  - target: wcd
+    key: case_id = wave_case_number__c
+    frequency: 34
+    join_types:
+      INNER: 34
+    avg_execution_sec: 4.15
+  - target: volt_dt_1
+    key: externalidentifier = externalidentifier
+    frequency: 11
+    join_types:
+      OUTER: 11
+    avg_execution_sec: 15.36
+  - target: volt_dt_11
+    key: casenumber = dispute_id
+    frequency: 8
+    join_types:
+      OUTER: 8
+    avg_execution_sec: 12.62
+  - target: a
+    key: casenumber = parent_casenumber
+    frequency: 1
+    join_types:
+      OUTER: 1
+    avg_execution_sec: 51
+  - target: volt_dt_3
+    key: acct_uid = acct_uid
+    frequency: 1
+    join_types:
+      OUTER: 1
+    avg_execution_sec: 90
+  disb:
+  - target: mapp
+    key: programkey = programkey
+    frequency: 136
+    join_types:
+      INNER: 136
+    avg_execution_sec: 1.26
+  - target: mapp
+    key: partnerkey = partnerkey
+    frequency: 136
+    join_types:
+      INNER: 136
+    avg_execution_sec: 1.26
+  - target: mapp
+    key: partnerprogramkey = partnerprogramkey
+    frequency: 136
+    join_types:
+      INNER: 136
+    avg_execution_sec: 1.26
+  pss:
+  - target: volt_dt_1
+    key: partnerrolesubstatuskey = partnerrolesubstatuskey
+    frequency: 627
+    join_types:
+      OUTER: 627
+    avg_execution_sec: 4.93
+  ps:
+  - target: volt_dt_2
+    key: partnerrolestatuskey = partnerrolestatuskey
+    frequency: 627
+    join_types:
+      OUTER: 627
+    avg_execution_sec: 4.93
+  p:
+  - target: volt_dt_3
+    key: partnerkey = partnerkey
+    frequency: 627
+    join_types:
+      OUTER: 627
+    avg_execution_sec: 4.93
+  - target: volt_dt_6
+    key: productkey = productkey
+    frequency: 93
+    join_types:
+      OUTER: 93
+    avg_execution_sec: 138.26
+  pr2:
+  - target: volt_dt_4
+    key: partnerrolekey = partnerrolekey1
+    frequency: 627
+    join_types:
+      OUTER: 627
+    avg_execution_sec: 4.93
+  lpr_2:
+  - target: volt_dt_5
+    key: linkedpartnerrolekey = parentlinkedpartnerrolekey
+    frequency: 627
+    join_types:
+      OUTER: 627
+    avg_execution_sec: 4.93
+  bnk1:
+  - target: bnk2
+    key: abaroutingnumber = abaroutingnumber
+    frequency: 138
+    join_types:
+      INNER: 138
+    avg_execution_sec: 2.7
+  - target: bnk2
+    key: bankkey = bankkey
+    frequency: 138
+    join_types:
+      INNER: 138
+    avg_execution_sec: 2.7
+  fnd_trf:
+  - target: trf_led
+    key: globalfundtransferkey = globalfundtransferkey
+    frequency: 138
+    join_types:
+      OUTER: 138
+    avg_execution_sec: 4.95
+  trcc:
+  - target: volt_dt_0
+    key: transactioncategorykey = transactioncategorykey
+    frequency: 34
+    join_types:
+      OUTER: 34
+    avg_execution_sec: 34.09
+  atst:
+  - target: volt_dt_2
+    key: accounttransactionstatuskey = accounttransactionstatuskey
+    frequency: 34
+    join_types:
+      OUTER: 34
+    avg_execution_sec: 34.09
+  acts:
+  - target: volt_dt_3
+    key: accountstatuskey = accountstatuskey
+    frequency: 34
+    join_types:
+      OUTER: 34
+    avg_execution_sec: 34.09
+  lae:
+  - target: a
+    key: loanapplicantconsumerprofilekey = loanapplicantconsumerprofilekey
+    frequency: 11
+    join_types:
+      OUTER: 11
+    avg_execution_sec: 3.89
+  svcs:
+  - target: serv
+    key: svc_uid = svc_uid
+    frequency: 68
+    join_types:
+      LEFT: 68
+    avg_execution_sec: 297.21
+    orphan_risk: true
+  serv:
+  - target: svct
+    key: svc_type_uid = svc_type_uid
+    frequency: 68
+    join_types:
+      LEFT: 68
+    avg_execution_sec: 297.21
+    orphan_risk: true
+  prds:
+  - target: dimp
+    key: product_uid = product_uid
+    frequency: 68
+    join_types:
+      LEFT: 68
+    avg_execution_sec: 297.21
+    orphan_risk: true
+  pinn:
+  - target: prod
+    key: productkey = productkey
+    frequency: 68
+    join_types:
+      INNER: 68
+    avg_execution_sec: 297.21
+  - target: rets
+    key: pinkey = pinkey
+    frequency: 68
+    join_types:
+      LEFT: 68
+    avg_execution_sec: 297.21
+    orphan_risk: true
+  rets:
+  - target: rpts
+    key: retailersaleskey = retailersaleskey
+    frequency: 68
+    join_types:
+      LEFT: 68
+    avg_execution_sec: 297.21
+    orphan_risk: true
+  a:
+  - target: b
+    key: vendorprogramresponsekey = vendorprogramresponsekey
+    frequency: 284
+    join_types:
+      INNER: 284
+    avg_execution_sec: 2.03
+  - target: volt_dt_2
+    key: applicationkey = applicationkey1
+    frequency: 265
+    join_types:
+      OUTER: 265
+    avg_execution_sec: 3.87
+  - target: cp
+    key: applicationkey = applicationkey
+    frequency: 240
+    join_types:
+      INNER: 240
+    avg_execution_sec: 4.98
+  - target: b
+    key: taxreturnheaderkey = taxreturnheaderkey
+    frequency: 213
+    join_types:
+      INNER: 213
+    avg_execution_sec: 1.41
+  - target: par_prd
+    key: partnerproductkey = partnerproductkey
+    frequency: 139
+    join_types:
+      OUTER: 139
+    avg_execution_sec: 13.43
+  - target: arf
+    key: applicationkey = applicationkey
+    frequency: 98
+    join_types:
+      LEFT: 71
+      INNER: 27
+    avg_execution_sec: 9.05
+    orphan_risk: true
+  - target: ars
+    key: applicationkey = applicationkey
+    frequency: 98
+    join_types:
+      LEFT: 98
+    avg_execution_sec: 9.05
+    orphan_risk: true
+  - target: volt_dt_2
+    key: applicationkey = applicationkey
+    frequency: 86
+    join_types:
+      OUTER: 86
+    avg_execution_sec: 5.84
+  - target: b
+    key: loanunderwritingkey = loanunderwritingkey
+    frequency: 72
+    join_types:
+      LEFT: 72
+    avg_execution_sec: 1.46
+    orphan_risk: true
+  - target: c
+    key: loanunderwritingkey = loanunderwritingkey
+    frequency: 72
+    join_types:
+      LEFT: 72
+    avg_execution_sec: 1.46
+    orphan_risk: true
+  - target: d
+    key: loanunderwritingkey = loanunderwritingkey
+    frequency: 72
+    join_types:
+      LEFT: 72
+    avg_execution_sec: 1.46
+    orphan_risk: true
+  - target: b
+    key: scoringdecisionrequestattributekey = scoringdecisionrequestattributekey
+    frequency: 71
+    join_types:
+      INNER: 71
+    avg_execution_sec: 3.1
+  - target: b
+    key: returnheader_primaryssn = identitytoken
+    frequency: 71
+    join_types:
+      INNER: 71
+    avg_execution_sec: 1.09
+  - target: b
+    key: vendorprogramrequestkey = vendorprogramrequestkey
+    frequency: 71
+    join_types:
+      INNER: 71
+    avg_execution_sec: 1.52
+  - target: b
+    key: applicationkey = applicationkey
+    frequency: 71
+    join_types:
+      LEFT: 71
+    avg_execution_sec: 1.34
+    orphan_risk: true
+  - target: c
+    key: applicationkey = applicationkey
+    frequency: 71
+    join_types:
+      LEFT: 71
+    avg_execution_sec: 1.34
+    orphan_risk: true
+  - target: c
+    key: externalidentifier = externalidentifier
+    frequency: 71
+    join_types:
+      LEFT: 71
+    avg_execution_sec: 2.63
+    orphan_risk: true
+  - target: b
+    key: taxreturnattributekey = taxreturnattributekey
+    frequency: 71
+    join_types:
+      LEFT: 71
+    avg_execution_sec: 10.25
+    orphan_risk: true
+  - target: b
+    key: scoringdecisionrequestkey = scoringdecisionrequestkey
+    frequency: 71
+    join_types:
+      INNER: 71
+    avg_execution_sec: 2.81
+  - target: c
+    key: scoringdecisionrequestkey = scoringdecisionrequestkey
+    frequency: 71
+    join_types:
+      INNER: 71
+    avg_execution_sec: 2.81
+  - target: aa
+    key: applicationkey = applicationkey
+    frequency: 71
+    join_types:
+      LEFT: 71
+    avg_execution_sec: 8.7
+    orphan_risk: true
+  - target: q
+    key: dispute_id = dispute_id
+    frequency: 62
+    join_types:
+      OUTER: 62
+    avg_execution_sec: 70.94
+  - target: b
+    key: returnheader_primaryssn = returnheader_primaryssn
+    frequency: 44
+    join_types:
+      LEFT: 44
+    avg_execution_sec: 1.5
+    orphan_risk: true
+  - target: c
+    key: returnheader_primaryssn = returnheader_primaryssn
+    frequency: 44
+    join_types:
+      LEFT: 44
+    avg_execution_sec: 1.5
+    orphan_risk: true
+  - target: d
+    key: returnheader_primaryssn = returnheader_primaryssn
+    frequency: 44
+    join_types:
+      LEFT: 44
+    avg_execution_sec: 1.5
+    orphan_risk: true
+  - target: e
+    key: returnheader_primaryssn = returnheader_primaryssn
+    frequency: 44
+    join_types:
+      LEFT: 44
+    avg_execution_sec: 1.5
+    orphan_risk: true
+  - target: f
+    key: returnheader_primaryssn = returnheader_primaryssn
+    frequency: 44
+    join_types:
+      LEFT: 44
+    avg_execution_sec: 1.5
+    orphan_risk: true
+  - target: g
+    key: returnheader_primaryssn = returnheader_primaryssn
+    frequency: 44
+    join_types:
+      LEFT: 44
+    avg_execution_sec: 1.5
+    orphan_risk: true
+  - target: h
+    key: returnheader_primaryssn = returnheader_primaryssn
+    frequency: 44
+    join_types:
+      LEFT: 44
+    avg_execution_sec: 1.5
+    orphan_risk: true
+  - target: b
+    key: loanapplicantevaluationkey = loanapplicantevaluationkey
+    frequency: 36
+    join_types:
+      INNER: 36
+    avg_execution_sec: 1.33
+  - target: volt_dt_3
+    key: applicationkey = applicationkey
+    frequency: 36
+    join_types:
+      OUTER: 36
+    avg_execution_sec: 4.66
+  - target: f
+    key: applicationkey = applicationkey
+    frequency: 35
+    join_types:
+      OUTER: 8
+      LEFT: 27
+    avg_execution_sec: 23.14
+    orphan_risk: true
+  - target: woy
+    key: calendar_date = calendar_date
+    frequency: 34
+    join_types:
+      INNER: 34
+    avg_execution_sec: 91.85
+  - target: dm
+    key: calendar_date = calendar_date
+    frequency: 33
+    join_types:
+      INNER: 33
+    avg_execution_sec: 64.61
+  - target: scp
+    key: applicationkey = applicationkey
+    frequency: 27
+    join_types:
+      LEFT: 27
+    avg_execution_sec: 25.7
+    orphan_risk: true
+  - target: ala
+    key: applicationkey = applicationkey
+    frequency: 27
+    join_types:
+      INNER: 27
+    avg_execution_sec: 25.7
+  - target: fr
+    key: applicationkey = applicationkey
+    frequency: 27
+    join_types:
+      LEFT: 27
+    avg_execution_sec: 25.7
+    orphan_risk: true
+  - target: sr
+    key: applicationkey = applicationkey
+    frequency: 27
+    join_types:
+      LEFT: 27
+    avg_execution_sec: 25.7
+    orphan_risk: true
+  - target: ar
+    key: applicationkey = applicationkey
+    frequency: 27
+    join_types:
+      LEFT: 27
+    avg_execution_sec: 25.7
+    orphan_risk: true
+  fisd:
+  - target: fism
+    key: bcmu_account = bcmu_account
+    frequency: 68
+    join_types:
+      INNER: 68
+    avg_execution_sec: 6.25
+  - target: fism
+    key: source_file_name = source_file_name
+    frequency: 68
+    join_types:
+      INNER: 68
+    avg_execution_sec: 6.25
+  aa:
+  - target: at
+    key: achtransactionkey = achtransactionkey
+    frequency: 428
+    join_types:
+      INNER: 428
+    avg_execution_sec: 2.82
+  - target: b
+    key: applicationkey = applicationkey
+    frequency: 142
+    join_types:
+      INNER: 142
+    avg_execution_sec: 2.21
+  - target: st
+    key: prioryeartaxpayerfundingstatuskey = prioryearfederalfundingstatuskey
+    frequency: 71
+    join_types:
+      LEFT: 71
+    avg_execution_sec: 8.7
+    orphan_risk: true
+  at:
+  - target: abh
+    key: achbatchheaderkey = achbatchheaderkey
+    frequency: 428
+    join_types:
+      INNER: 428
+    avg_execution_sec: 2.82
+  - target: volt_dt_1
+    key: messagehashid = authorizemessagehashid
+    frequency: 93
+    join_types:
+      OUTER: 93
+    avg_execution_sec: 138.26
+  cp:
+  - target: cpi
+    key: consumerprofilekey = consumerprofilekey
+    frequency: 311
+    join_types:
+      INNER: 311
+    avg_execution_sec: 4.29
+  - target: cpa
+    key: consumerprofilekey = consumerprofilekey
+    frequency: 27
+    join_types:
+      LEFT: 27
+    avg_execution_sec: 25.7
+    orphan_risk: true
+  - target: lacp
+    key: consumerprofilekey = consumerprofilekey
+    frequency: 27
+    join_types:
+      INNER: 27
+    avg_execution_sec: 25.7
+  - target: volt_dt_3
+    key: consumerprofilekey = consumerprofilekey
+    frequency: 5
+    join_types:
+      OUTER: 5
+    avg_execution_sec: 26.2
+  - target: volt_dt_3
+    key: sor_uid = sor_uid1
+    frequency: 5
+    join_types:
+      OUTER: 5
+    avg_execution_sec: 26.2
+  act_mig:
+  - target: volt_dt_1
+    key: accountkey = accountkey
+    frequency: 96
+    join_types:
+      OUTER: 96
+    avg_execution_sec: 2.62
+  ft:
+  - target: a
+    key: targetaccountidentifier = accountidentifier
+    frequency: 34
+    join_types:
+      INNER: 34
+    avg_execution_sec: 406.12
+  - target: a
+    key: initiatoraccountidentifier = accountidentifier
+    frequency: 34
+    join_types:
+      INNER: 34
+    avg_execution_sec: 430.53
+  lon_prd:
+  - target: volt_dt_4
+    key: loanproductkey = loanproductkey
+    frequency: 139
+    join_types:
+      OUTER: 139
+    avg_execution_sec: 13.43
+  - target: prd_pgm
+    key: loanproductkey = loanproductkey
+    frequency: 19
+    join_types:
+      OUTER: 19
+    avg_execution_sec: 1.57
+  - target: volt_dt_1
+    key: loanproductkey = loanproductkey
+    frequency: 8
+    join_types:
+      OUTER: 8
+    avg_execution_sec: 14.5
+  psti:
+  - target: payi
+    key: sor_uid = sor_uid
+    frequency: 137
+    join_types:
+      INNER: 137
+    avg_execution_sec: 92.49
+  - target: payi
+    key: paymentidentifier = paymentidentifier
+    frequency: 137
+    join_types:
+      INNER: 137
+    avg_execution_sec: 92.49
+  - target: acct
+    key: sor_uid = sor_uid
+    frequency: 137
+    join_types:
+      INNER: 137
+    avg_execution_sec: 92.49
+  - target: acct
+    key: accountidentifier = accountidentifier
+    frequency: 137
+    join_types:
+      INNER: 137
+    avg_execution_sec: 92.49
+  - target: trnc
+    key: transclasskey = transclasskey
+    frequency: 137
+    join_types:
+      INNER: 137
+    avg_execution_sec: 92.49
+  pstt:
+  - target: payi
+    key: sor_uid = sor_uid
+    frequency: 137
+    join_types:
+      INNER: 137
+    avg_execution_sec: 92.49
+  - target: payi
+    key: paymentidentifier = paymentidentifier
+    frequency: 137
+    join_types:
+      INNER: 137
+    avg_execution_sec: 92.49
+  - target: acct
+    key: sor_uid = sor_uid
+    frequency: 137
+    join_types:
+      INNER: 137
+    avg_execution_sec: 92.49
+  - target: acct
+    key: accountidentifier = accountidentifier
+    frequency: 137
+    join_types:
+      INNER: 137
+    avg_execution_sec: 92.49
+  - target: trnc
+    key: transclasskey = transclasskey
+    frequency: 137
+    join_types:
+      INNER: 137
+    avg_execution_sec: 92.49
+  act_ods:
+  - target: cus_leg
+    key: sor_acct_id = accountkey
+    frequency: 97
+    join_types:
+      OUTER: 97
+    avg_execution_sec: 14.31
+  fnd_trf_4:
+  - target: trf_led_4
+    key: globalfundtransferkey = globalfundtransferkey
+    frequency: 91
+    join_types:
+      OUTER: 91
+    avg_execution_sec: 2.18
+  d:
+  - target: woy
+    key: calendar_date = calendar_date
+    frequency: 136
+    join_types:
+      LEFT: 136
+    avg_execution_sec: 4.47
+    orphan_risk: true
+  - target: volt_dt_0
+    key: casenumber = child_casenumber
+    frequency: 1
+    join_types:
+      OUTER: 1
+    avg_execution_sec: 51
+  - target: volt_dt_2
+    key: acct_uid = acct_uid
+    frequency: 1
+    join_types:
+      OUTER: 1
+    avg_execution_sec: 90
+  actblk:
+  - target: volt_dt_1
+    key: acct_uid = acct_uid
+    frequency: 15
+    join_types:
+      OUTER: 15
+    avg_execution_sec: 59.29
+  acbd:
+  - target: acct
+    key: sor_uid = sor_uid
+    frequency: 71
+    join_types:
+      INNER: 71
+    avg_execution_sec: 281.23
+  - target: acct
+    key: accountkey = accountkey
+    frequency: 71
+    join_types:
+      INNER: 71
+    avg_execution_sec: 281.23
+  - target: abdm
+    key: balance_dt = balance_dt
+    frequency: 71
+    join_types:
+      INNER: 71
+    avg_execution_sec: 281.23
+  - target: abdm
+    key: accountbalanceidentifier = accountbalanceidentifier
+    frequency: 71
+    join_types:
+      INNER: 71
+    avg_execution_sec: 281.23
+  - target: abdm
+    key: accountbalancetypekey = accountbalancetypekey
+    frequency: 71
+    join_types:
+      INNER: 71
+    avg_execution_sec: 281.23
+  - target: abdm
+    key: sor_uid = sor_uid
+    frequency: 71
+    join_types:
+      INNER: 71
+    avg_execution_sec: 281.23
+  - target: abdm
+    key: accountkey = accountkey
+    frequency: 71
+    join_types:
+      INNER: 71
+    avg_execution_sec: 281.23
+  b_4:
+  - target: sh_2
+    key: accountidentifier = accountidentifier
+    frequency: 37
+    join_types:
+      OUTER: 37
+    avg_execution_sec: 6.23
+  invc:
+  - target: osls
+    key: sor_uid = sor_uid
+    frequency: 68
+    join_types:
+      FULL: 68
+    avg_execution_sec: 2.07
+  - target: osls
+    key: transactionprimarykey = transactionprimarykey
+    frequency: 68
+    join_types:
+      FULL: 68
+    avg_execution_sec: 2.07
+  dtr:
+  - target: dpp
+    key: targetdisbursementprofilekey = disbursementprofilekey
+    frequency: 136
+    join_types:
+      INNER: 136
+    avg_execution_sec: 43.54
+  - target: dpc
+    key: targetdisbursementprofilekey = disbursementprofilekey
+    frequency: 136
+    join_types:
+      LEFT: 136
+    avg_execution_sec: 43.54
+    orphan_risk: true
+  - target: dpgc
+    key: targetdisbursementprofilekey = disbursementprofilekey
+    frequency: 136
+    join_types:
+      LEFT: 136
+    avg_execution_sec: 43.54
+    orphan_risk: true
+  - target: dtf
+    key: disbursementtransferrequestkey = disbursementtransferrequestkey
+    frequency: 136
+    join_types:
+      LEFT: 136
+    avg_execution_sec: 43.54
+    orphan_risk: true
+  - target: dts
+    key: disbursementtransferrequeststatuskey = disbursementtransferrequeststatuskey
+    frequency: 136
+    join_types:
+      LEFT: 136
+    avg_execution_sec: 43.54
+    orphan_risk: true
+  - target: pap
+    key: partnerprogramkey = partnerprogramkey
+    frequency: 136
+    join_types:
+      LEFT: 136
+    avg_execution_sec: 43.54
+    orphan_risk: true
+  - target: bar
+    key: targetdisbursementprofilekey = disbursementprofilekey
+    frequency: 136
+    join_types:
+      LEFT: 136
+    avg_execution_sec: 43.54
+    orphan_risk: true
+  - target: dcc
+    key: disbursementtransferrequestkey = disbursementtransferrequestkey
+    frequency: 136
+    join_types:
+      LEFT: 136
+    avg_execution_sec: 43.54
+    orphan_risk: true
+  dpp:
+  - target: dpt
+    key: disbursementprofiletypekey = disbursementprofiletypekey
+    frequency: 136
+    join_types:
+      INNER: 136
+    avg_execution_sec: 43.54
+  dtf:
+  - target: dfd
+    key: disbursementtransferfulfillmentkey = disbursementtransferfulfillmentkey
+    frequency: 136
+    join_types:
+      LEFT: 136
+    avg_execution_sec: 43.54
+    orphan_risk: true
+  - target: atxn
+    key: disbursementtransferfulfillmentid = confirmationid
+    frequency: 136
+    join_types:
+      LEFT: 136
+    avg_execution_sec: 125.99
+    orphan_risk: true
+  - target: cust
+    key: gdaccountkey = accountkey
+    frequency: 136
+    join_types:
+      LEFT: 136
+    avg_execution_sec: 125.99
+    orphan_risk: true
+  pap:
+  - target: pro
+    key: programkey = programkey
+    frequency: 136
+    join_types:
+      LEFT: 136
+    avg_execution_sec: 43.54
+    orphan_risk: true
+  - target: par
+    key: partnerkey = partnerkey
+    frequency: 136
+    join_types:
+      LEFT: 136
+    avg_execution_sec: 43.54
+    orphan_risk: true
+  jag:
+  - target: s
+    key: checkpaymentsettlementstatuskey = checkpaymentsettlementstatuskey
+    frequency: 68
+    join_types:
+      INNER: 68
+    avg_execution_sec: 10.21
+  ref:
+  - target: c
+    key: accountkey = accountkey
+    frequency: 68
+    join_types:
+      LEFT: 68
+    avg_execution_sec: 10.21
+    orphan_risk: true
+  rtl_sls:
+  - target: rpt_sls
+    key: retailersaleskey = retailersaleskey
+    frequency: 79
+    join_types:
+      INNER: 68
+      LEFT: 11
+    avg_execution_sec: 84.46
+    orphan_risk: true
+  - target: rtl_txn
+    key: retailersaleskey = retailersaleskey
+    frequency: 68
+    join_types:
+      LEFT: 68
+    avg_execution_sec: 97.51
+    orphan_risk: true
+  - target: pnd_lod
+    key: retailertransid = posted_transaction_id
+    frequency: 68
+    join_types:
+      LEFT: 68
+    avg_execution_sec: 97.51
+    orphan_risk: true
+  - target: cus_nec
+    key: customerkey = customerkey
+    frequency: 68
+    join_types:
+      LEFT: 68
+    avg_execution_sec: 97.51
+    orphan_risk: true
+  - target: sls_pin
+    key: pinkey = pinkey
+    frequency: 68
+    join_types:
+      LEFT: 68
+    avg_execution_sec: 97.51
+    orphan_risk: true
+  - target: crd_nec
+    key: cardkey = cardkey
+    frequency: 68
+    join_types:
+      LEFT: 68
+    avg_execution_sec: 97.51
+    orphan_risk: true
+  - target: crd_prd
+    key: pinkey = pinkey
+    frequency: 68
+    join_types:
+      LEFT: 68
+    avg_execution_sec: 97.51
+    orphan_risk: true
+  - target: svc_xrf
+    key: saletransactiontypekey = sor_svc_type_id
+    frequency: 68
+    join_types:
+      LEFT: 68
+    avg_execution_sec: 97.51
+    orphan_risk: true
+  - target: rtl_map
+    key: retailersaleskey = retailersaleskey
+    frequency: 68
+    join_types:
+      LEFT: 68
+    avg_execution_sec: 97.51
+    orphan_risk: true
+  cus_nec:
+  - target: act_ods
+    key: accountkey = sor_acct_id
+    frequency: 136
+    join_types:
+      LEFT: 136
+    avg_execution_sec: 97.51
+    orphan_risk: true
+  - target: crd_nec
+    key: cardkey = cardkey
+    frequency: 68
+    join_types:
+      LEFT: 68
+    avg_execution_sec: 97.51
+    orphan_risk: true
+  - target: pym_idn
+    key: cardkey = oltp_card_id
+    frequency: 68
+    join_types:
+      LEFT: 68
+    avg_execution_sec: 97.51
+    orphan_risk: true
+  - target: prd_xrf
+    key: productkey = sor_product_cd
+    frequency: 68
+    join_types:
+      LEFT: 68
+    avg_execution_sec: 97.51
+    orphan_risk: true
+  prd_xrf:
+  - target: dim_prd
+    key: product_uid = product_uid
+    frequency: 136
+    join_types:
+      LEFT: 136
+    avg_execution_sec: 97.51
+    orphan_risk: true
+  svc_xrf:
+  - target: svc_typ
+    key: svc_type_uid = svc_type_uid
+    frequency: 68
+    join_types:
+      LEFT: 68
+    avg_execution_sec: 97.51
+    orphan_risk: true
+  rpt_sls:
+  - target: rtl_par
+    key: effectivepartnerkey = partnerkey
+    frequency: 68
+    join_types:
+      LEFT: 68
+    avg_execution_sec: 97.51
+    orphan_risk: true
+  - target: str_nec
+    key: retailstorekey = retailstorekey
+    frequency: 68
+    join_types:
+      LEFT: 68
+    avg_execution_sec: 97.51
+    orphan_risk: true
+  str_nec:
+  - target: str_adr
+    key: retailstoreaddresskey = retailstoreaddresskey
+    frequency: 136
+    join_types:
+      LEFT: 136
+    avg_execution_sec: 97.51
+    orphan_risk: true
+  rtl_txn:
+  - target: cus_nec
+    key: customerkey = customerkey
+    frequency: 68
+    join_types:
+      LEFT: 68
+    avg_execution_sec: 97.51
+    orphan_risk: true
+  - target: rtl_par
+    key: partnerkey = partnerkey
+    frequency: 68
+    join_types:
+      LEFT: 68
+    avg_execution_sec: 97.51
+    orphan_risk: true
+  - target: rtl_chn
+    key: retailchainkey = retailchainkey
+    frequency: 68
+    join_types:
+      LEFT: 68
+    avg_execution_sec: 97.51
+    orphan_risk: true
+  - target: str_nec
+    key: storeid = storenbr
+    frequency: 68
+    join_types:
+      LEFT: 68
+    avg_execution_sec: 97.51
+    orphan_risk: true
+  - target: str_nec
+    key: retailchainkey = retailchainkey
+    frequency: 68
+    join_types:
+      LEFT: 68
+    avg_execution_sec: 97.51
+    orphan_risk: true
+  crd_nec:
+  - target: crd_pin
+    key: pinkey = pinkey
+    frequency: 68
+    join_types:
+      LEFT: 68
+    avg_execution_sec: 97.51
+    orphan_risk: true
+  - target: act_pin
+    key: accountkey = accountkey
+    frequency: 68
+    join_types:
+      LEFT: 68
+    avg_execution_sec: 97.51
+    orphan_risk: true
+  - target: pin_nec
+    key: pinkey = pinkey
+    frequency: 68
+    join_types:
+      INNER: 68
+    avg_execution_sec: 22.65
+  n_1:
+  - target: volt_dt_1
+    key: tablepk = creditratinghistorykey
+    frequency: 35
+    join_types:
+      OUTER: 35
+    avg_execution_sec: 14.37
+  crh_2:
+  - target: l_2
+    key: customerkey = customerkey
+    frequency: 35
+    join_types:
+      OUTER: 35
+    avg_execution_sec: 14.37
+  - target: volt_dt_1
+    key: customerkey = customerkey
+    frequency: 35
+    join_types:
+      OUTER: 35
+    avg_execution_sec: 14.37
+  rt:
+  - target: c
+    key: id = recordtypeid
+    frequency: 103
+    join_types:
+      LEFT: 103
+    avg_execution_sec: 66.77
+    orphan_risk: true
+  - target: ct
+    key: id = id
+    frequency: 35
+    join_types:
+      INNER: 35
+    avg_execution_sec: 133.28
+  w_4:
+  - target: sh_2
+    key: accountidentifier = accountidentifier
+    frequency: 35
+    join_types:
+      OUTER: 35
+    avg_execution_sec: 5.66
+  am:
+  - target: volt_dt_1
+    key: destinationaccountidentifier = accountidentifier
+    frequency: 5
+    join_types:
+      OUTER: 5
+    avg_execution_sec: 26.2
+  cp_add:
+  - target: volt_dt_2
+    key: sor_uid = sor_uid1
+    frequency: 5
+    join_types:
+      OUTER: 5
+    avg_execution_sec: 26.2
+  - target: volt_dt_2
+    key: consumerprofilekey = consumerprofilekey
+    frequency: 5
+    join_types:
+      OUTER: 5
+    avg_execution_sec: 26.2
+  ab:
+  - target: abe
+    key: achbatchkey = achbatchkey
+    frequency: 138
+    join_types:
+      INNER: 138
+    avg_execution_sec: 13.06
+  - target: volt_dt_4
+    key: accountkey = accountkey
+    frequency: 5
+    join_types:
+      OUTER: 5
+    avg_execution_sec: 26.2
+  - target: volt_dt_4
+    key: sor_uid = sor_uid
+    frequency: 5
+    join_types:
+      OUTER: 5
+    avg_execution_sec: 26.2
+  ahc:
+  - target: volt_dt_5
+    key: accountholdercurekey = accountholdercurekey
+    frequency: 5
+    join_types:
+      OUTER: 5
+    avg_execution_sec: 26.2
+  p3:
+  - target: volt_dt_1
+    key: partner_uid = partner_uid
+    frequency: 389
+    join_types:
+      OUTER: 389
+    avg_execution_sec: 122.4
+  pr3:
+  - target: volt_dt_2
+    key: partner_role_uid = retail_chain_partner_role_uid
+    frequency: 389
+    join_types:
+      OUTER: 389
+    avg_execution_sec: 122.4
+  p2:
+  - target: volt_dt_3
+    key: partner_uid = partner_uid
+    frequency: 389
+    join_types:
+      OUTER: 389
+    avg_execution_sec: 122.4
+  p1:
+  - target: volt_dt_5
+    key: partner_uid = partner_uid
+    frequency: 389
+    join_types:
+      OUTER: 389
+    avg_execution_sec: 122.4
+  pr_1:
+  - target: volt_dt_2
+    key: productkey = productkey
+    frequency: 35
+    join_types:
+      OUTER: 35
+    avg_execution_sec: 14.37
+  vld_txn:
+  - target: rpt_dat
+    key: cardid = cardid
+    frequency: 39
+    join_types:
+      LEFT: 39
+    avg_execution_sec: 8.66
+    orphan_risk: true
+  - target: rpt_dat
+    key: programkey = payerprogramkey
+    frequency: 34
+    join_types:
+      LEFT: 34
+    avg_execution_sec: 9.45
+    orphan_risk: true
+  - target: rpt_dat
+    key: companykey = payercompanykey
+    frequency: 34
+    join_types:
+      LEFT: 34
+    avg_execution_sec: 9.45
+    orphan_risk: true
+  - target: rpt_dat
+    key: programkey = programkey
+    frequency: 34
+    join_types:
+      LEFT: 34
+    avg_execution_sec: 2
+    orphan_risk: true
+  - target: rpt_dat
+    key: companykey = companykey
+    frequency: 34
+    join_types:
+      LEFT: 34
+    avg_execution_sec: 2
+    orphan_risk: true
+  - target: crd_dtl
+    key: programkey = programkey
+    frequency: 6
+    join_types:
+      LEFT: 6
+    avg_execution_sec: 1
+    orphan_risk: true
+  - target: crd_dtl
+    key: companykey = companykey
+    frequency: 6
+    join_types:
+      LEFT: 6
+    avg_execution_sec: 1
+    orphan_risk: true
+  - target: mis_bal
+    key: cardid = cardid
+    frequency: 5
+    join_types:
+      LEFT: 5
+    avg_execution_sec: 8.8
+    orphan_risk: true
+  usr_com:
+  - target: usr_dtl
+    key: userdetailkey = userdetailkey
+    frequency: 35
+    join_types:
+      INNER: 35
+    avg_execution_sec: 6.69
+  - target: cmp_inf
+    key: companykey = companykey
+    frequency: 35
+    join_types:
+      INNER: 35
+    avg_execution_sec: 6.69
+  cmp_inf:
+  - target: cmp_pgm
+    key: companykey = companykey
+    frequency: 35
+    join_types:
+      INNER: 35
+    avg_execution_sec: 6.69
+  cmp_pgm:
+  - target: pgm_inf
+    key: programkey = programkey
+    frequency: 35
+    join_types:
+      INNER: 35
+    avg_execution_sec: 6.69
+  usr_dtl:
+  - target: usr_log
+    key: primaryemail = username
+    frequency: 69
+    join_types:
+      INNER: 69
+    avg_execution_sec: 5.91
+  - target: usr_mod
+    key: userdetailkey = userdetailkey
+    frequency: 35
+    join_types:
+      INNER: 35
+    avg_execution_sec: 6.69
+  - target: rol_inf
+    key: rolekey = rolekey
+    frequency: 35
+    join_types:
+      LEFT: 35
+    avg_execution_sec: 7.17
+    orphan_risk: true
+  - target: sts_inf
+    key: statuskey = statuskey
+    frequency: 35
+    join_types:
+      INNER: 35
+    avg_execution_sec: 7.17
+  - target: cre_dtl
+    key: createby = userdetailkey
+    frequency: 35
+    join_types:
+      INNER: 35
+    avg_execution_sec: 7.17
+  - target: chg_dtl
+    key: changeby = userdetailkey
+    frequency: 35
+    join_types:
+      LEFT: 35
+    avg_execution_sec: 7.17
+    orphan_risk: true
+  volt_dt_0:
+  - target: volt_tt_6442efb10cea2
+    key: oid = oid
+    frequency: 1
+    join_types:
+      OUTER: 1
+    avg_execution_sec: 2
+  - target: volt_tt_6441ad0add5cf
+    key: oid = oid
+    frequency: 1
+    join_types:
+      OUTER: 1
+    avg_execution_sec: 1
+  - target: volt_tt_644430c512714
+    key: oid = oid
+    frequency: 1
+    join_types:
+      OUTER: 1
+  - target: volt_tt_6446b47ba6d5d
+    key: oid = oid
+    frequency: 1
+    join_types:
+      OUTER: 1
+    avg_execution_sec: 1
+  - target: volt_tt_644573cce34da
+    key: oid = oid
+    frequency: 1
+    join_types:
+      OUTER: 1
+    avg_execution_sec: 6
+  - target: volt_tt_6447f6757264d
+    key: oid = oid
+    frequency: 1
+    join_types:
+      OUTER: 1
+    avg_execution_sec: 13
+  - target: volt_tt_644a7a15c8f37
+    key: oid = oid
+    frequency: 1
+    join_types:
+      OUTER: 1
+  - target: volt_tt_644bbc0c92437
+    key: oid = oid
+    frequency: 1
+    join_types:
+      OUTER: 1
+    avg_execution_sec: 1
+  - target: volt_tt_644938379a388
+    key: oid = oid
+    frequency: 1
+    join_types:
+      OUTER: 1
+    avg_execution_sec: 1
+  - target: volt_tt_644cfde690564
+    key: oid = oid
+    frequency: 1
+    join_types:
+      OUTER: 1
+    avg_execution_sec: 1
+  - target: volt_tt_644e3ffb87ffc
+    key: oid = oid
+    frequency: 1
+    join_types:
+      OUTER: 1
+    avg_execution_sec: 2
+  - target: volt_tt_644f81a6b32f0
+    key: oid = oid
+    frequency: 1
+    join_types:
+      OUTER: 1
+    avg_execution_sec: 2
+  - target: volt_tt_64520569fc67c
+    key: oid = oid
+    frequency: 1
+    join_types:
+      OUTER: 1
+    avg_execution_sec: 1
+  - target: volt_tt_6450c3864ed70
+    key: oid = oid
+    frequency: 1
+    join_types:
+      OUTER: 1
+    avg_execution_sec: 1
+  - target: volt_tt_64534783d8f6f
+    key: oid = oid
+    frequency: 1
+    join_types:
+      OUTER: 1
+    avg_execution_sec: 1
+  - target: volt_tt_6452384bedb24
+    key: oid = oid
+    frequency: 1
+    join_types:
+      OUTER: 1
+    avg_execution_sec: 1
+  - target: volt_tt_645768bc8bfae
+    key: oid = oid
+    frequency: 1
+    join_types:
+      OUTER: 1
+    avg_execution_sec: 2
+  - target: volt_tt_6455cafb678d9
+    key: oid = oid
+    frequency: 1
+    join_types:
+      OUTER: 1
+    avg_execution_sec: 2
+  - target: volt_tt_6454892b77cd9
+    key: oid = oid
+    frequency: 1
+    join_types:
+      OUTER: 1
+    avg_execution_sec: 2
+  - target: volt_tt_645aec22c1d06
+    key: oid = oid
+    frequency: 1
+    join_types:
+      OUTER: 1
+    avg_execution_sec: 2
+  - target: volt_tt_64584e9ba4749
+    key: oid = oid
+    frequency: 1
+    join_types:
+      OUTER: 1
+  - target: volt_tt_64570cf402c43
+    key: oid = oid
+    frequency: 1
+    join_types:
+      OUTER: 1
+    avg_execution_sec: 1
+  - target: volt_tt_645767d6d4266
+    key: oid = oid
+    frequency: 1
+    join_types:
+      OUTER: 1
+    avg_execution_sec: 6
+  - target: volt_tt_645990badf16c
+    key: oid = oid
+    frequency: 1
+    join_types:
+      OUTER: 1
+    avg_execution_sec: 2
+  - target: volt_tt_645ae70ef007d
+    key: oid = oid
+    frequency: 1
+    join_types:
+      OUTER: 1
+    avg_execution_sec: 1
+  - target: volt_tt_645ad2b675ea6
+    key: oid = oid
+    frequency: 1
+    join_types:
+      OUTER: 1
+    avg_execution_sec: 1
+  - target: volt_tt_645eaf614c72f
+    key: oid = oid
+    frequency: 1
+    join_types:
+      OUTER: 1
+    avg_execution_sec: 11
+  - target: volt_tt_645c1433bffa1
+    key: oid = oid
+    frequency: 1
+    join_types:
+      OUTER: 1
+    avg_execution_sec: 3
+  - target: volt_tt_645b07dbf67a5
+    key: oid = oid
+    frequency: 1
+    join_types:
+      OUTER: 1
+    avg_execution_sec: 1
+  - target: volt_tt_645d6d154d12b
+    key: oid = oid
+    frequency: 1
+    join_types:
+      OUTER: 1
+    avg_execution_sec: 1
+  - target: volt_tt_6461765993ccc
+    key: oid = oid
+    frequency: 1
+    join_types:
+      OUTER: 1
+    avg_execution_sec: 2
+  - target: volt_tt_646050c824976
+    key: oid = oid
+    frequency: 1
+    join_types:
+      OUTER: 1
+  - target: volt_tt_64614e0ee1f04
+    key: oid = oid
+    frequency: 1
+    join_types:
+      OUTER: 1
+    avg_execution_sec: 1
+  - target: volt_tt_64604dfac0ac9
+    key: oid = oid
+    frequency: 1
+    join_types:
+      OUTER: 1
+    avg_execution_sec: 1
+  - target: volt_tt_64615d42a1725
+    key: oid = oid
+    frequency: 1
+    join_types:
+      OUTER: 1
+  - target: volt_tt_64617588acdc2
+    key: oid = oid
+    frequency: 1
+    join_types:
+      OUTER: 1
+    avg_execution_sec: 14
+  - target: volt_tt_645ffcdbe01b7
+    key: oid = oid
+    frequency: 1
+    join_types:
+      OUTER: 1
+    avg_execution_sec: 4
+  - target: volt_tt_64613530daec8
+    key: oid = oid
+    frequency: 1
+    join_types:
+      OUTER: 1
+    avg_execution_sec: 3
+  - target: volt_tt_64615d7ea3ef3
+    key: oid = oid
+    frequency: 1
+    join_types:
+      OUTER: 1
+  - target: volt_tt_6461a4d0c7840
+    key: oid = oid
+    frequency: 1
+    join_types:
+      OUTER: 1
+    avg_execution_sec: 1
+  - target: volt_tt_6462749dc9cba
+    key: oid = oid
+    frequency: 1
+    join_types:
+      OUTER: 1
+    avg_execution_sec: 4
+  - target: volt_tt_6461a53cd5576
+    key: oid = oid
+    frequency: 1
+    join_types:
+      OUTER: 1
+  - target: volt_tt_6462972cc87d6
+    key: oid = oid
+    frequency: 1
+    join_types:
+      OUTER: 1
+  - target: volt_tt_64614de06990a
+    key: oid = oid
+    frequency: 1
+    join_types:
+      OUTER: 1
+    avg_execution_sec: 1
+  - target: volt_tt_646296c5570a3
+    key: oid = oid
+    frequency: 1
+    join_types:
+      OUTER: 1
+  - target: volt_tt_6464f99e34898
+    key: oid = oid
+    frequency: 1
+    join_types:
+      OUTER: 1
+    avg_execution_sec: 4
+  - target: volt_tt_646297573e9e8
+    key: oid = oid
+    frequency: 1
+    join_types:
+      OUTER: 1
+  - target: volt_tt_64640f17a64a0
+    key: oid = oid
+    frequency: 1
+    join_types:
+      OUTER: 1
+  - target: volt_tt_64640f3b7ec7d
+    key: oid = oid
+    frequency: 1
+    join_types:
+      OUTER: 1
+    avg_execution_sec: 1
+  - target: volt_tt_6463b645cfdfc
+    key: oid = oid
+    frequency: 1
+    join_types:
+      OUTER: 1
+    avg_execution_sec: 1
+  - target: volt_tt_646b42e6c755a
+    key: oid = oid
+    frequency: 1
+    join_types:
+      OUTER: 1
+    avg_execution_sec: 1
+  - target: volt_tt_646639aca5c2b
+    key: oid = oid
+    frequency: 1
+    join_types:
+      OUTER: 1
+    avg_execution_sec: 9
+  - target: volt_tt_6468c6176c401
+    key: oid = oid
+    frequency: 1
+    join_types:
+      OUTER: 1
+    avg_execution_sec: 2
+  - target: volt_tt_6469ff90936d3
+    key: oid = oid
+    frequency: 1
+    join_types:
+      OUTER: 1
+    avg_execution_sec: 1
+  - target: volt_tt_64677b811c95b
+    key: oid = oid
+    frequency: 1
+    join_types:
+      OUTER: 1
+    avg_execution_sec: 2
+  c2:
+  - target: c
+    key: parentid = id
+    frequency: 35
+    join_types:
+      LEFT: 35
+    avg_execution_sec: 19.64
+    orphan_risk: true
+  - target: c
+    key: casenumber = casenumber
+    frequency: 34
+    join_types:
+      INNER: 34
+    avg_execution_sec: 2.59
+  ps_5:
+  - target: sh_5
+    key: accountidentifier = accountidentifier
+    frequency: 37
+    join_types:
+      OUTER: 37
+    avg_execution_sec: 6.53
+  sftp:
+  - target: volt_dt_0
+    key: applicationkey = applicationkey
+    frequency: 138
+    join_types:
+      OUTER: 138
+    avg_execution_sec: 10.71
+  sff:
+  - target: volt_dt_1
+    key: applicationkey = applicationkey
+    frequency: 138
+    join_types:
+      OUTER: 138
+    avg_execution_sec: 10.71
+  arwd24:
+  - target: volt_dt_2
+    key: applicationkey = applicationkey
+    frequency: 138
+    join_types:
+      OUTER: 138
+    avg_execution_sec: 10.71
+  arwd23:
+  - target: volt_dt_3
+    key: applicationkey = applicationkey
+    frequency: 138
+    join_types:
+      OUTER: 138
+    avg_execution_sec: 10.71
+  arwd22:
+  - target: volt_dt_4
+    key: applicationkey = applicationkey
+    frequency: 138
+    join_types:
+      OUTER: 138
+    avg_execution_sec: 10.71
+  arwd21:
+  - target: volt_dt_5
+    key: applicationkey = applicationkey
+    frequency: 138
+    join_types:
+      OUTER: 138
+    avg_execution_sec: 10.71
+  arwd20:
+  - target: volt_dt_6
+    key: applicationkey = applicationkey
+    frequency: 138
+    join_types:
+      OUTER: 138
+    avg_execution_sec: 10.71
+  arwd7:
+  - target: volt_dt_7
+    key: applicationkey = applicationkey
+    frequency: 138
+    join_types:
+      OUTER: 138
+    avg_execution_sec: 10.71
+  arwd6:
+  - target: volt_dt_8
+    key: applicationkey = applicationkey
+    frequency: 138
+    join_types:
+      OUTER: 138
+    avg_execution_sec: 10.71
+  arwd5:
+  - target: volt_dt_9
+    key: applicationkey = applicationkey
+    frequency: 138
+    join_types:
+      OUTER: 138
+    avg_execution_sec: 10.71
+  arwd4:
+  - target: volt_dt_10
+    key: applicationkey = applicationkey
+    frequency: 138
+    join_types:
+      OUTER: 138
+    avg_execution_sec: 10.71
+  arwd3:
+  - target: volt_dt_11
+    key: applicationkey = applicationkey
+    frequency: 138
+    join_types:
+      OUTER: 138
+    avg_execution_sec: 10.71
+  arwd18:
+  - target: volt_dt_12
+    key: applicationkey = applicationkey
+    frequency: 138
+    join_types:
+      OUTER: 138
+    avg_execution_sec: 10.71
+  arwd2:
+  - target: volt_dt_13
+    key: applicationkey = applicationkey
+    frequency: 138
+    join_types:
+      OUTER: 138
+    avg_execution_sec: 10.71
+  arwd14:
+  - target: volt_dt_14
+    key: applicationkey = applicationkey
+    frequency: 138
+    join_types:
+      OUTER: 138
+    avg_execution_sec: 10.71
+  arwd13:
+  - target: volt_dt_15
+    key: applicationkey = applicationkey
+    frequency: 138
+    join_types:
+      OUTER: 138
+    avg_execution_sec: 10.71
+  arwd12:
+  - target: volt_dt_16
+    key: applicationkey = applicationkey
+    frequency: 138
+    join_types:
+      OUTER: 138
+    avg_execution_sec: 10.71
+  arwd11:
+  - target: volt_dt_17
+    key: applicationkey = applicationkey
+    frequency: 138
+    join_types:
+      OUTER: 138
+    avg_execution_sec: 10.71
+  arwd8:
+  - target: a
+    key: applicationkey = applicationkey
+    frequency: 138
+    join_types:
+      OUTER: 138
+    avg_execution_sec: 10.71
+  ad:
+  - target: volt_dt_1
+    key: applicationkey = applicationkey
+    frequency: 139
+    join_types:
+      OUTER: 139
+    avg_execution_sec: 13.43
+  trn_inf:
+  - target: volt_dt_3
+    key: partnerroleidentityvalue = transmitterefin
+    frequency: 139
+    join_types:
+      OUTER: 139
+    avg_execution_sec: 13.43
+  f_1:
+  - target: volt_dt_5
+    key: applicationkey = applicationkey
+    frequency: 139
+    join_types:
+      OUTER: 139
+    avg_execution_sec: 13.43
+  usr_key:
+  - target: usr_mod
+    key: userdetailkey = userdetailkey
+    frequency: 104
+    join_types:
+      INNER: 104
+    avg_execution_sec: 6.38
+  - target: usr_dtl
+    key: userdetailkey = userdetailkey
+    frequency: 69
+    join_types:
+      INNER: 69
+    avg_execution_sec: 5.91
+  - target: usr_per
+    key: userdetailkey = userdetailkey
+    frequency: 35
+    join_types:
+      INNER: 35
+    avg_execution_sec: 6.03
+  - target: prd_lst
+    key: userdetailkey = userdetailkey
+    frequency: 35
+    join_types:
+      INNER: 35
+    avg_execution_sec: 7.17
+  - target: per_lst
+    key: userdetailkey = userdetailkey
+    frequency: 35
+    join_types:
+      LEFT: 35
+    avg_execution_sec: 7.17
+    orphan_risk: true
+  - target: crd_lst
+    key: userdetailkey = userdetailkey
+    frequency: 35
+    join_types:
+      INNER: 35
+    avg_execution_sec: 7.17
+  - target: acc_lst
+    key: userdetailkey = userdetailkey
+    frequency: 35
+    join_types:
+      INNER: 35
+    avg_execution_sec: 7.17
+  - target: cmp_lst
+    key: userdetailkey = userdetailkey
+    frequency: 35
+    join_types:
+      INNER: 35
+    avg_execution_sec: 7.17
+  - target: org_lst
+    key: userdetailkey = userdetailkey
+    frequency: 35
+    join_types:
+      LEFT: 35
+    avg_execution_sec: 7.17
+    orphan_risk: true
+  - target: prd_mod
+    key: userdetailkey = userdetailkey
+    frequency: 34
+    join_types:
+      INNER: 34
+    avg_execution_sec: 1.9
+  - target: usr_org
+    key: userdetailkey = userdetailkey
+    frequency: 34
+    join_types:
+      INNER: 34
+    avg_execution_sec: 5.91
+  - target: usr_cmp
+    key: userdetailkey = userdetailkey
+    frequency: 34
+    join_types:
+      INNER: 34
+    avg_execution_sec: 2.91
+  usr_per:
+  - target: rol_per
+    key: role_permissionkey = role_permissionkey
+    frequency: 35
+    join_types:
+      INNER: 35
+    avg_execution_sec: 6.03
+  rol_per:
+  - target: per_inf
+    key: permissionkey = permissionkey
+    frequency: 35
+    join_types:
+      INNER: 35
+    avg_execution_sec: 6.03
+  a1:
+  - target: aa
+    key: applicationkey = applicationkey
+    frequency: 142
+    join_types:
+      INNER: 142
+    avg_execution_sec: 3.76
+  - target: ft
+    key: feetypekey = feetypekey
+    frequency: 71
+    join_types:
+      INNER: 71
+    avg_execution_sec: 8.7
+  cm_1:
+  - target: dd_1
+    key: calendar_date = calendar_date
+    frequency: 10
+    join_types:
+      OUTER: 10
+    avg_execution_sec: 4.7
+  osls:
+  - target: vuin
+    key: partnerkey = partnerkey
+    frequency: 68
+    join_types:
+      LEFT: 68
+    avg_execution_sec: 311.82
+    orphan_risk: true
+  - target: vuin
+    key: retailchainkey = retailchainkey
+    frequency: 68
+    join_types:
+      LEFT: 68
+    avg_execution_sec: 311.82
+    orphan_risk: true
+  - target: prnr
+    key: partnerkey = partnerkey
+    frequency: 68
+    join_types:
+      LEFT: 68
+    avg_execution_sec: 311.82
+    orphan_risk: true
+  - target: rtls
+    key: retailersaleskey = retailersaleskey
+    frequency: 68
+    join_types:
+      LEFT: 68
+    avg_execution_sec: 311.82
+    orphan_risk: true
+  - target: rtxn
+    key: sourcepkvalue = retailsalestransactionkey
+    frequency: 68
+    join_types:
+      LEFT: 68
+    avg_execution_sec: 311.82
+    orphan_risk: true
+  - target: rtlu
+    key: sourcepkvalue = retailunloadtransactionkey
+    frequency: 68
+    join_types:
+      LEFT: 68
+    avg_execution_sec: 311.82
+    orphan_risk: true
+  rtls:
+  - target: rtlt
+    key: saletransactiontypekey = saletransactiontypekey
+    frequency: 68
+    join_types:
+      LEFT: 68
+    avg_execution_sec: 311.82
+    orphan_risk: true
+  rtxn:
+  - target: rtxt
+    key: retailsalestransactiontypekey = retailsalestransactiontypekey
+    frequency: 68
+    join_types:
+      LEFT: 68
+    avg_execution_sec: 311.82
+    orphan_risk: true
+  b:
+  - target: volt_dt_7
+    key: binkey = binkey
+    frequency: 93
+    join_types:
+      OUTER: 93
+    avg_execution_sec: 138.26
+  - target: fm
+    key: customerkey = customerkey
+    frequency: 55
+    join_types:
+      OUTER: 55
+    avg_execution_sec: 2.92
+  ac:
+  - target: abe
+    key: achtrancodekey = achtrancodekey
+    frequency: 68
+    join_types:
+      INNER: 68
+    avg_execution_sec: 17.53
+  - target: volt_dt_3
+    key: accountkey = account_key
+    frequency: 57
+    join_types:
+      OUTER: 57
+    avg_execution_sec: 81.14
+  - target: da
+    key: accountkey = sor_acct_id
+    frequency: 34
+    join_types:
+      INNER: 34
+    avg_execution_sec: 45.76
+  - target: volt_dt_4
+    key: accountkey = account_key
+    frequency: 8
+    join_types:
+      OUTER: 8
+    avg_execution_sec: 12.62
+  - target: volt_dt_1
+    key: accountreferenceid = accountreferenceid
+    frequency: 1
+    join_types:
+      OUTER: 1
+    avg_execution_sec: 16
+  abe:
+  - target: s
+    key: achbatchentrystatuskey = achbatchentrystatuskey
+    frequency: 138
+    join_types:
+      INNER: 138
+    avg_execution_sec: 13.06
+  - target: c
+    key: customerkey = customerkey
+    frequency: 138
+    join_types:
+      LEFT: 138
+    avg_execution_sec: 13.06
+    orphan_risk: true
+  - target: bank
+    key: receivingbankid = abaroutingnumber
+    frequency: 138
+    join_types:
+      LEFT: 138
+    avg_execution_sec: 13.06
+    orphan_risk: true
+  ors:
+  - target: volt_dt_13
+    key: retail_store_uid = retail_store_uid
+    frequency: 71
+    join_types:
+      OUTER: 71
+    avg_execution_sec: 202.54
+  - target: volt_dt_9
+    key: retail_store_uid = retail_store_uid
+    frequency: 71
+    join_types:
+      OUTER: 71
+    avg_execution_sec: 202.54
+  pan:
+  - target: volt_dt_1
+    key: pymt_and_atm_network_uid = pymt_and_atm_network_uid
+    frequency: 71
+    join_types:
+      OUTER: 71
+    avg_execution_sec: 202.54
+  pid:
+  - target: volt_dt_14
+    key: pymt_identifier_uid = pymt_identifier_uid
+    frequency: 71
+    join_types:
+      OUTER: 71
+    avg_execution_sec: 202.54
+  - target: t
+    key: paymentidentifierdevicekey = paymentidentifierdevicekey
+    frequency: 2
+    join_types:
+      INNER: 2
+    avg_execution_sec: 9
+  - target: pt
+    key: paymentidentifierdevicekey = paymentidentifierdevicekey
+    frequency: 1
+    join_types:
+      INNER: 1
+    avg_execution_sec: 16
+  tth:
+  - target: volt_dt_2
+    key: txn_type_hierarchy_key = txn_type_hierarchy_key
+    frequency: 71
+    join_types:
+      OUTER: 71
+    avg_execution_sec: 202.54
+  svt:
+  - target: volt_dt_10
+    key: svc_type_uid = svc_type_uid
+    frequency: 71
+    join_types:
+      OUTER: 71
+    avg_execution_sec: 202.54
+  sv:
+  - target: volt_dt_15
+    key: product_uid = product_uid
+    frequency: 71
+    join_types:
+      OUTER: 71
+    avg_execution_sec: 202.54
+  - target: volt_dt_11
+    key: svc_uid = svc_uid
+    frequency: 71
+    join_types:
+      OUTER: 71
+    avg_execution_sec: 202.54
+  ttx:
+  - target: volt_dt_3
+    key: txn_type_uid = txn_type_uid
+    frequency: 71
+    join_types:
+      OUTER: 71
+    avg_execution_sec: 202.54
+  tt:
+  - target: volt_dt_4
+    key: txn_type_uid = txn_type_uid
+    frequency: 71
+    join_types:
+      OUTER: 71
+    avg_execution_sec: 202.54
+  dp:
+  - target: volt_dt_5
+    key: product_uid = product_uid
+    frequency: 71
+    join_types:
+      OUTER: 71
+    avg_execution_sec: 202.54
+  da:
+  - target: volt_dt_7
+    key: acct_uid = acct_uid
+    frequency: 71
+    join_types:
+      OUTER: 71
+    avg_execution_sec: 202.54
+  - target: p
+    key: product_uid = product_uid
+    frequency: 35
+    join_types:
+      LEFT: 35
+    avg_execution_sec: 133.28
+    orphan_risk: true
+  - target: pc
+    key: product_channel_uid = product_channel_uid
+    frequency: 35
+    join_types:
+      LEFT: 35
+    avg_execution_sec: 133.28
+    orphan_risk: true
+  - target: ac
+    key: sor_uid = sor_uid
+    frequency: 34
+    join_types:
+      INNER: 34
+    avg_execution_sec: 45.76
+  - target: volt_dt_1
+    key: acct_uid = acct_uid
+    frequency: 5
+    join_types:
+      OUTER: 5
+    avg_execution_sec: 50.4
+  pf:
+  - target: u
+    key: id = profileid
+    frequency: 136
+    join_types:
+      LEFT: 136
+    avg_execution_sec: 12.37
+    orphan_risk: true
+  trn_rap:
+  - target: trn_cod
+    key: transcode = sor_txn_type
+    frequency: 34
+    join_types:
+      LEFT: 34
+    avg_execution_sec: 69.88
+    orphan_risk: true
+  - target: crd_hld
+    key: cardholderid = cardholderid
+    frequency: 34
+    join_types:
+      INNER: 34
+    avg_execution_sec: 69.88
+  - target: crd_rap
+    key: cardid = cardid
+    frequency: 34
+    join_types:
+      INNER: 34
+    avg_execution_sec: 69.88
+  - target: crd_hdt
+    key: payeecardholderid = cardholderid
+    frequency: 34
+    join_types:
+      LEFT: 34
+    avg_execution_sec: 69.88
+    orphan_risk: true
+  - target: emp_inf
+    key: cardid = cardid
+    frequency: 34
+    join_types:
+      INNER: 34
+    avg_execution_sec: 69.88
+  - target: emp_ift
+    key: payeecardid = cardid
+    frequency: 34
+    join_types:
+      LEFT: 34
+    avg_execution_sec: 69.88
+    orphan_risk: true
+  crd_hld:
+  - target: cmp_inf
+    key: clientprogramid = subcompanyid
+    frequency: 68
+    join_types:
+      LEFT: 34
+      INNER: 34
+    avg_execution_sec: 38.41
+    orphan_risk: true
+  - target: pgm_inf
+    key: uniqueprogramid = programid
+    frequency: 68
+    join_types:
+      LEFT: 34
+      INNER: 34
+    avg_execution_sec: 38.41
+    orphan_risk: true
+  crd_rpd:
+  - target: crd_hld
+    key: cardholderid = cardholderid
+    frequency: 34
+    join_types:
+      INNER: 34
+    avg_execution_sec: 6.94
+  - target: emp_inf
+    key: cardid = cardid
+    frequency: 34
+    join_types:
+      INNER: 34
+    avg_execution_sec: 6.94
+  - target: crd_lod
+    key: cardholderid = cardholderid
+    frequency: 28
+    join_types:
+      LEFT: 28
+    avg_execution_sec: 1.64
+    orphan_risk: true
+  pgm_inf:
+  - target: pgm_spn
+    key: programkey = programkey
+    frequency: 34
+    join_types:
+      INNER: 34
+    avg_execution_sec: 6.94
+  pgm_spn:
+  - target: spn_sor
+    key: sponsorkey = sponsorkey
+    frequency: 34
+    join_types:
+      INNER: 34
+    avg_execution_sec: 6.94
+  cd:
+  - target: pd
+    key: productkey = productkey
+    frequency: 34
+    join_types:
+      INNER: 34
+    avg_execution_sec: 71.59
+  - target: cust
+    key: cardreference = cardreference
+    frequency: 34
+    join_types:
+      INNER: 34
+    avg_execution_sec: 84.56
+  cmp_sub:
+  - target: fre_que
+    key: frequencykey = frequencykey
+    frequency: 68
+    join_types:
+      INNER: 68
+    avg_execution_sec: 4.21
+  - target: cmp_req
+    key: companyreportsubscriptionkey = companyreportsubscriptionkey
+    frequency: 68
+    join_types:
+      INNER: 68
+    avg_execution_sec: 4.21
+  - target: rpt_tmp
+    key: companyreporttemplatekey = companyreporttemplatekey
+    frequency: 68
+    join_types:
+      INNER: 68
+    avg_execution_sec: 4.21
+  - target: req_dtl
+    key: companyreportsubscriptionkey = companyreportsubscriptionkey
+    frequency: 68
+    join_types:
+      INNER: 68
+    avg_execution_sec: 4.21
+  - target: pgm_inf
+    key: programkey = programkey
+    frequency: 34
+    join_types:
+      INNER: 34
+    avg_execution_sec: 4.55
+  fnd_trf_3:
+  - target: trf_led_3
+    key: globalfundtransferkey = globalfundtransferkey
+    frequency: 91
+    join_types:
+      OUTER: 91
+    avg_execution_sec: 5.8
+  volt_dt_1:
+  - target: volt_dt_2
+    key: packid = packageid
+    frequency: 34
+    join_types:
+      OUTER: 34
+    avg_execution_sec: 3.94
+  - target: volt_dt_2
+    key: accountproxy = accountproxynumber
+    frequency: 34
+    join_types:
+      OUTER: 34
+    avg_execution_sec: 3.94
+  - target: volt_dt_2
+    key: cardproxy = cardproxy
+    frequency: 34
+    join_types:
+      OUTER: 34
+    avg_execution_sec: 3.94
+  de:
+  - target: ure
+    key: loanunderwritingstatusreasonkey = loanunderwritingstatusreasonkey
+    frequency: 72
+    join_types:
+      LEFT: 72
+    avg_execution_sec: 2.09
+    orphan_risk: true
+  prd_mod:
+  - target: mod_inf
+    key: modulekey = modulekey
+    frequency: 34
+    join_types:
+      INNER: 34
+    avg_execution_sec: 1.9
+  pt:
+  - target: a
+    key: accountkey = accountkey
+    frequency: 34
+    join_types:
+      INNER: 34
+    avg_execution_sec: 393.74
+  fnd_txn:
+  - target: cus_txn
+    key: cardid = linkedcardid
+    frequency: 34
+    join_types:
+      LEFT: 34
+    avg_execution_sec: 7.32
+    orphan_risk: true
+  - target: cus_txn
+    key: nbrettransid = nbrettransid
+    frequency: 34
+    join_types:
+      LEFT: 34
+    avg_execution_sec: 7.32
+    orphan_risk: true
+  - target: trn_cod
+    key: transcode = sor_txn_type
+    frequency: 34
+    join_types:
+      LEFT: 34
+    avg_execution_sec: 7.32
+    orphan_risk: true
+  usr_log:
+  - target: log_ses
+    key: userloginkey = userloginkey
+    frequency: 34
+    join_types:
+      LEFT: 34
+    avg_execution_sec: 4.62
+    orphan_risk: true
+  hdr:
+  - target: app
+    key: ivrapplicationkey = ivrapplicationkey
+    frequency: 34
+    join_types:
+      LEFT: 34
+    avg_execution_sec: 103.03
+    orphan_risk: true
+  - target: et
+    key: ivrexittypekey = ivrexittypekey
+    frequency: 34
+    join_types:
+      LEFT: 34
+    avg_execution_sec: 103.03
+    orphan_risk: true
+  - target: card
+    key: cardkey = cardkey
+    frequency: 34
+    join_types:
+      LEFT: 34
+    avg_execution_sec: 103.03
+    orphan_risk: true
+  - target: dtl
+    key: callsid = callsid
+    frequency: 34
+    join_types:
+      INNER: 34
+    avg_execution_sec: 30.15
+  card:
+  - target: prod
+    key: productkey = productkey
+    frequency: 34
+    join_types:
+      LEFT: 34
+    avg_execution_sec: 103.03
+    orphan_risk: true
+  prh:
+  - target: prhp
+    key: partnerrolehierarchykey = partnerrolehierarchykey
+    frequency: 71
+    join_types:
+      INNER: 71
+    avg_execution_sec: 3.24
+  - target: pr
+    key: partnerroleidentityvaluelevel1 = partnerroleidentityvalue
+    frequency: 71
+    join_types:
+      INNER: 71
+    avg_execution_sec: 3.24
+  psp:
+  - target: pp
+    key: partnersubproductkey = partnersubproductkey
+    frequency: 71
+    join_types:
+      INNER: 71
+    avg_execution_sec: 3.24
+  d2:
+  - target: d
+    key: casenumber = casenumber
+    frequency: 34
+    join_types:
+      INNER: 34
+    avg_execution_sec: 2.27
+  - target: d
+    key: min_order = order2
+    frequency: 34
+    join_types:
+      INNER: 34
+    avg_execution_sec: 2.27
+  - target: volt_dt_2
+    key: globalfundtransferprofilekey = targetglobalfundtransferprofilekey
+    frequency: 20
+    join_types:
+      OUTER: 20
+    avg_execution_sec: 24
+  mapp:
+  - target: disb
+    key: disbursementinvoicedartmappid = disbursementinvoicedartmappid
+    frequency: 136
+    join_types:
+      LEFT: 136
+    avg_execution_sec: 1.3
+    orphan_risk: true
+  - target: parp
+    key: partnerprogramkey = partnerprogramkey
+    frequency: 136
+    join_types:
+      LEFT: 136
+    avg_execution_sec: 1.3
+    orphan_risk: true
+  - target: dats
+    key: recurrence = recurrence
+    frequency: 13
+    join_types:
+      INNER: 13
+    avg_execution_sec: 5.33
+  m:
+  - target: apc
+    key: a_surveyid = surveyid
+    frequency: 35
+    join_types:
+      LEFT: 35
+    avg_execution_sec: 19.64
+    orphan_risk: true
+  su:
+  - target: u
+    key: sysuserkey = sysuserkey__c
+    frequency: 103
+    join_types:
+      LEFT: 103
+    avg_execution_sec: 16.85
+    orphan_risk: true
+  u:
+  - target: dc
+    key: id = agentid
+    frequency: 68
+    join_types:
+      LEFT: 68
+    avg_execution_sec: 16.28
+    orphan_risk: true
+  - target: volt_dt_9
+    key: id = createdbyid
+    frequency: 57
+    join_types:
+      OUTER: 57
+    avg_execution_sec: 81.14
+  - target: volt_dt_10
+    key: id = createdbyid
+    frequency: 8
+    join_types:
+      OUTER: 8
+    avg_execution_sec: 12.62
+  atxn:
+  - target: prsp
+    key: processorresponsecodekey = processorresponsecodekey
+    frequency: 68
+    join_types:
+      LEFT: 68
+    avg_execution_sec: 2.73
+    orphan_risk: true
+  - target: prnr
+    key: retailpartnerkey = partnerkey
+    frequency: 68
+    join_types:
+      INNER: 68
+    avg_execution_sec: 2.73
+  - target: mapp
+    key: retailpartnerkey = partnerkey
+    frequency: 68
+    join_types:
+      INNER: 68
+    avg_execution_sec: 2.73
+  r:
+  - target: abe
+    key: achbatchentrykey = achbatchentrykey
+    frequency: 70
+    join_types:
+      INNER: 70
+    avg_execution_sec: 8.71
+  - target: tc
+    key: achtrancodekey = achtrancodekey
+    frequency: 70
+    join_types:
+      INNER: 70
+    avg_execution_sec: 8.71
+  usr_mod:
+  - target: cmp_rol
+    key: companyrolekey = companyrolekey
+    frequency: 35
+    join_types:
+      INNER: 35
+    avg_execution_sec: 7.17
+  dc:
+  - target: dis
+    key: wave_case_number__c = wave_case_number__c
+    frequency: 34
+    join_types:
+      LEFT: 34
+    avg_execution_sec: 5.94
+    orphan_risk: true
+  dis:
+  - target: dc
+    key: wave_casenumber = casenumber
+    frequency: 34
+    join_types:
+      LEFT: 34
+    avg_execution_sec: 5.94
+    orphan_risk: true
+  th:
+  - target: trd
+    key: taxreturnheaderkey = taxreturnheaderkey
+    frequency: 71
+    join_types:
+      INNER: 71
+    avg_execution_sec: 2.41
+  usr_org:
+  - target: org_inf
+    key: organizationkey = organizationkey
+    frequency: 34
+    join_types:
+      INNER: 34
+    avg_execution_sec: 5.91
+  gab:
+  - target: volt_dt_0
+    key: accountkey = accountkey
+    frequency: 57
+    join_types:
+      OUTER: 57
+    avg_execution_sec: 81.14
+  - target: volt_dt_0
+    key: sor_uid = sor_uid1
+    frequency: 57
+    join_types:
+      OUTER: 57
+    avg_execution_sec: 81.14
+  - target: volt_dt_1
+    key: accountkey = accountkey
+    frequency: 8
+    join_types:
+      OUTER: 8
+    avg_execution_sec: 12.62
+  - target: volt_dt_1
+    key: sor_uid = sor_uid1
+    frequency: 8
+    join_types:
+      OUTER: 8
+    avg_execution_sec: 12.62
+  cust:
+  - target: volt_dt_2
+    key: accountkey = account_key
+    frequency: 57
+    join_types:
+      OUTER: 57
+    avg_execution_sec: 81.14
+  - target: volt_dt_3
+    key: accountkey = account_key
+    frequency: 8
+    join_types:
+      OUTER: 8
+    avg_execution_sec: 12.62
+  init:
+  - target: volt_dt_4
+    key: claim_id = claim_id
+    frequency: 57
+    join_types:
+      OUTER: 57
+    avg_execution_sec: 81.14
+  - target: volt_dt_5
+    key: claim_id = claim_id
+    frequency: 8
+    join_types:
+      OUTER: 8
+    avg_execution_sec: 12.62
+  l:
+  - target: k
+    key: fcaprogramknockoutrulekey = fcaprogramknockoutrulekey
+    frequency: 72
+    join_types:
+      LEFT: 72
+    avg_execution_sec: 1.33
+    orphan_risk: true
+  - target: volt_dt_6
+    key: productkey = productkey
+    frequency: 57
+    join_types:
+      OUTER: 57
+    avg_execution_sec: 81.14
+  - target: volt_dt_7
+    key: productkey = productkey
+    frequency: 8
+    join_types:
+      OUTER: 8
+    avg_execution_sec: 12.62
+  e:
+  - target: volt_dt_7
+    key: accountkey = account_key
+    frequency: 57
+    join_types:
+      OUTER: 57
+    avg_execution_sec: 81.14
+  - target: volt_dt_1
+    key: globalfundtransferprofilekey = globalfundtransferprofilekey
+    frequency: 20
+    join_types:
+      OUTER: 20
+    avg_execution_sec: 24
+  - target: volt_dt_8
+    key: accountkey = account_key
+    frequency: 8
+    join_types:
+      OUTER: 8
+    avg_execution_sec: 12.62
+  - target: volt_dt_1
+    key: acct_uid = acct_uid
+    frequency: 1
+    join_types:
+      OUTER: 1
+    avg_execution_sec: 90
+  usr_cmp:
+  - target: cmp_inf
+    key: companykey = companykey
+    frequency: 34
+    join_types:
+      INNER: 34
+    avg_execution_sec: 2.91
+  req_dtl:
+  - target: cmp_inf
+    key: companykey = companykey
+    frequency: 34
+    join_types:
+      INNER: 34
+    avg_execution_sec: 4.55
+  fism:
+  - target: ptsm
+    key: accountidentifier = accountidentifier
+    frequency: 34
+    join_types:
+      FULL: 34
+    avg_execution_sec: 1.53
+  - target: ptsm
+    key: loanbalance = loanbalance
+    frequency: 34
+    join_types:
+      FULL: 34
+    avg_execution_sec: 1.53
+  lp:
+  - target: volt_dt_1
+    key: loanproductkey = loanproductkey
+    frequency: 21
+    join_types:
+      OUTER: 21
+    avg_execution_sec: 5.62
+  lpr:
+  - target: volt_dt_0
+    key: linkedpartnerrolekey = linkedpartnerrolekey
+    frequency: 351
+    join_types:
+      OUTER: 351
+    avg_execution_sec: 4.36
+  c2a:
+  - target: da
+    key: acct_uid = acct_uid
+    frequency: 35
+    join_types:
+      LEFT: 35
+    avg_execution_sec: 133.28
+    orphan_risk: true
+  pc:
+  - target: volt_dt_5
+    key: processorkey = processorkey
+    frequency: 93
+    join_types:
+      OUTER: 93
+    avg_execution_sec: 138.26
+  - target: bd
+    key: business_division_uid = business_division_uid
+    frequency: 35
+    join_types:
+      LEFT: 35
+    avg_execution_sec: 133.28
+    orphan_risk: true
+  ope:
+  - target: pro
+    key: filingyear = filingyear
+    frequency: 57
+    join_types:
+      OUTER: 57
+    avg_execution_sec: 5.08
+  - target: pro
+    key: optinprogrameligibilitykey = optinprogrameligibilitykey
+    frequency: 57
+    join_types:
+      OUTER: 57
+    avg_execution_sec: 5.08
+  md:
+  - target: volt_dt_2
+    key: mcc_code = merchantcategorycode
+    frequency: 93
+    join_types:
+      OUTER: 93
+    avg_execution_sec: 138.26
+  bt:
+  - target: volt_dt_3
+    key: bintypekey = bintypekey
+    frequency: 93
+    join_types:
+      OUTER: 93
+    avg_execution_sec: 138.26
+  pg:
+  - target: volt_dt_4
+    key: programkey = programkey
+    frequency: 93
+    join_types:
+      OUTER: 93
+    avg_execution_sec: 138.26
+  bp:
+  - target: volt_dt_8
+    key: binproductkey = binproductkey
+    frequency: 93
+    join_types:
+      OUTER: 93
+    avg_execution_sec: 138.26
+  tc:
+  - target: volt_dt_9
+    key: transclasskey = transclasskey
+    frequency: 93
+    join_types:
+      OUTER: 93
+    avg_execution_sec: 138.26
+  crh_1:
+  - target: volt_dt_1
+    key: customerkey = customerkey
+    frequency: 5
+    join_types:
+      OUTER: 5
+    avg_execution_sec: 13.4
+  daty:
+  - target: dca
+    key: address_type_uid = address_type_uid
+    frequency: 5
+    join_types:
+      OUTER: 5
+    avg_execution_sec: 28.8
+  ahh:
+  - target: volt_dt_2
+    key: sor_uid = sor_uid
+    frequency: 5
+    join_types:
+      OUTER: 5
+    avg_execution_sec: 28.8
+  - target: volt_dt_2
+    key: acct_uid = acct_uid
+    frequency: 5
+    join_types:
+      OUTER: 5
+    avg_execution_sec: 28.8
+  pint:
+  - target: acct
+    key: sor_uid = sor_uid
+    frequency: 27
+    join_types:
+      INNER: 27
+    avg_execution_sec: 6.59
+  - target: acct
+    key: accountidentifier = accountidentifier
+    frequency: 27
+    join_types:
+      INNER: 27
+    avg_execution_sec: 6.59
+  - target: acht
+    key: transactionreferenceid = achtransactionidentifier
+    frequency: 27
+    join_types:
+      LEFT: 27
+    avg_execution_sec: 6.59
+    orphan_risk: true
+  - target: acht
+    key: transactionamount = transamount
+    frequency: 27
+    join_types:
+      LEFT: 27
+    avg_execution_sec: 6.59
+    orphan_risk: true
+  - target: trnc
+    key: transclasskey = transclasskey
+    frequency: 27
+    join_types:
+      INNER: 27
+    avg_execution_sec: 6.59
+  h:
+  - target: f
+    key: txn_type_hierarchy_key = txn_type_hierarchy_key
+    frequency: 7
+    join_types:
+      OUTER: 7
+    avg_execution_sec: 40.71
+  ah:
+  - target: volt_dt_1
+    key: acct_uid = acct_uid1
+    frequency: 6
+    join_types:
+      OUTER: 6
+    avg_execution_sec: 10
+  - target: volt_dt_1
+    key: sor_uid = sor_uid
+    frequency: 6
+    join_types:
+      OUTER: 6
+    avg_execution_sec: 10
+  aw:
+  - target: da
+    key: acct_uid = acct_uid
+    frequency: 6
+    join_types:
+      OUTER: 6
+    avg_execution_sec: 10
+  vpr_in:
+  - target: vpre_in
+    key: vendorprogramrequestkey = vendorprogramrequestkey
+    frequency: 5
+    join_types:
+      OUTER: 5
+    avg_execution_sec: 5.5
+  d1:
+  - target: volt_dt_3
+    key: globalfundtransferprofilekey = sourceglobalfundtransferprofilekey
+    frequency: 20
+    join_types:
+      OUTER: 20
+    avg_execution_sec: 24
+  db:
+  - target: volt_dt_2
+    key: bin_uid = bin_uid
+    frequency: 5
+    join_types:
+      OUTER: 5
+    avg_execution_sec: 50.4
+  dpid:
+  - target: dpi
+    key: pymt_identifier_uid = pymt_identifier_uid
+    frequency: 5
+    join_types:
+      OUTER: 5
+    avg_execution_sec: 50.4
+  leg_ret:
+  - target: bas_ret
+    key: transactiontokenresponseid = transactiontokenresponseid
+    frequency: 11
+    join_types:
+      INNER: 11
+    avg_execution_sec: 3.73
+  rtl_trn:
+  - target: rtl_res
+    key: retailsalestransactionkey = retailsalestransactionkey
+    frequency: 11
+    join_types:
+      LEFT: 11
+    avg_execution_sec: 3.73
+    orphan_risk: true
+  t1:
+  - target: volt_dt_1
+    key: col1 = fundacctkey
+    frequency: 2
+    join_types:
+      OUTER: 2
+    avg_execution_sec: 26
+  - target: volt_dt_1
+    key: distkey_accountkey = distkey_accountkey
+    frequency: 2
+    join_types:
+      OUTER: 2
+    avg_execution_sec: 26
+  sf:
+  - target: volt_dt_1
+    key: id = accountid
+    frequency: 1
+    join_types:
+      OUTER: 1
+    avg_execution_sec: 51
+  fvrt:
+  - target: volt_dt_1
+    key: feeevaluationresulttypekey = feeevaluationresulttypekey
+    frequency: 2
+    join_types:
+      OUTER: 2
+    avg_execution_sec: 62.5
+  mfe:
+  - target: mfer
+    key: accountkey = accountkey
+    frequency: 2
+    join_types:
+      OUTER: 2
+    avg_execution_sec: 62.5
+  - target: mfer
+    key: monthlyfeeevaluationreferenceid = monthlyfeeevaluationreferenceid
+    frequency: 2
+    join_types:
+      OUTER: 2
+    avg_execution_sec: 62.5
+  mf:
+  - target: volt_dt_1
+    key: membershipkey = membershipkey
+    frequency: 1
+    join_types:
+      OUTER: 1
+    avg_execution_sec: 32
+  str_gss:
+  - target: volt_dt_1
+    key: storenbr = paymentinstrumentattributevalue
+    frequency: 42
+    join_types:
+      OUTER: 42
+    avg_execution_sec: 5.17
+  pay_dtl:
+  - target: volt_dt_2
+    key: paymentinstrumentkey = sor_pymt_instrument_id
+    frequency: 1
+    join_types:
+      OUTER: 1
+    avg_execution_sec: 11
+  - target: volt_dt_2
+    key: sor_uid = sor_uid
+    frequency: 1
+    join_types:
+      OUTER: 1
+    avg_execution_sec: 11
+  la:
+  - target: volt_dt_1
+    key: loanapplicationidentifier = loanapplicationidentifier
+    frequency: 36
+    join_types:
+      OUTER: 36
+    avg_execution_sec: 4.66
+  - target: ala
+    key: loanapplicationkey = loanapplicationkey
+    frequency: 27
+    join_types:
+      INNER: 27
+    avg_execution_sec: 25.7
+  - target: las
+    key: loanapplicationstatuskey = loanapplicationstatuskey
+    frequency: 27
+    join_types:
+      INNER: 27
+    avg_execution_sec: 25.7
+  - target: lalu
+    key: loanapplicationkey = loanapplicationkey
+    frequency: 27
+    join_types:
+      INNER: 27
+    avg_execution_sec: 25.7
+  scp:
+  - target: scpi
+    key: consumerprofilekey = consumerprofilekey
+    frequency: 27
+    join_types:
+      LEFT: 27
+    avg_execution_sec: 25.7
+    orphan_risk: true
+  ala:
+  - target: lala
+    key: loanapplicationkey = loanapplicationkey
+    frequency: 27
+    join_types:
+      INNER: 27
+    avg_execution_sec: 25.7
+  lala:
+  - target: lacp
+    key: loanapplicantkey = loanapplicantkey
+    frequency: 27
+    join_types:
+      INNER: 27
+    avg_execution_sec: 25.7
+  lacp:
+  - target: lae
+    key: loanapplicantconsumerprofilekey = loanapplicantconsumerprofilekey
+    frequency: 27
+    join_types:
+      INNER: 27
+    avg_execution_sec: 25.7
+  - target: s
+    key: loanapplicantconsumerprofilekey = loanapplicantconsumerprofilekey
+    frequency: 27
+    join_types:
+      LEFT: 27
+    avg_execution_sec: 25.7
+    orphan_risk: true
+  lalu:
+  - target: dr
+    key: loanunderwritingkey = loanunderwritingkey
+    frequency: 27
+    join_types:
+      LEFT: 27
+    avg_execution_sec: 25.7
+    orphan_risk: true
+  c_1:
+  - target: volt_dt_10
+    key: casenumber = dispute_id
+    frequency: 3
+    join_types:
+      OUTER: 3
+    avg_execution_sec: 109.33
+  a_1:
+  - target: q
+    key: dispute_id = dispute_id
+    frequency: 3
+    join_types:
+      OUTER: 3
+    avg_execution_sec: 109.33
+  fnd_trf_26:
+  - target: trf_led_9
+    key: globalfundtransferkey = globalfundtransferkey
+    frequency: 47
+    join_types:
+      OUTER: 47
+    avg_execution_sec: 2.85
+  pinstt:
+  - target: volt_dt_0
+    key: posted_txn_uid = posted_txn_uid
+    frequency: 8
+    join_types:
+      OUTER: 8
+    avg_execution_sec: 12.62
+  pss_3:
+  - target: volt_dt_1
+    key: partnerrolesubstatuskey = partnerrolesubstatuskey
+    frequency: 71
+    join_types:
+      OUTER: 71
+    avg_execution_sec: 5.23
+  ps_3:
+  - target: volt_dt_2
+    key: partnerrolestatuskey = partnerrolestatuskey
+    frequency: 71
+    join_types:
+      OUTER: 71
+    avg_execution_sec: 5.23
+  p_9:
+  - target: volt_dt_3
+    key: partnerkey = partnerkey
+    frequency: 11
+    join_types:
+      OUTER: 11
+    avg_execution_sec: 2.38
+  pr2_3:
+  - target: volt_dt_4
+    key: partnerrolekey = partnerrolekey1
+    frequency: 71
+    join_types:
+      OUTER: 71
+    avg_execution_sec: 5.23
+  lpr_8:
+  - target: volt_dt_5
+    key: linkedpartnerrolekey = parentlinkedpartnerrolekey
+    frequency: 71
+    join_types:
+      OUTER: 71
+    avg_execution_sec: 5.23
+  str_gss_7:
+  - target: volt_dt_1
+    key: storenbr = paymentinstrumentattributevalue
+    frequency: 2
+    join_types:
+      OUTER: 2
+    avg_execution_sec: 16.5
+  pay_dtl_7:
+  - target: volt_dt_2
+    key: paymentinstrumentkey = sor_pymt_instrument_id
+    frequency: 2
+    join_types:
+      OUTER: 2
+    avg_execution_sec: 16.5
+  - target: volt_dt_2
+    key: sor_uid = sor_uid
+    frequency: 2
+    join_types:
+      OUTER: 2
+    avg_execution_sec: 16.5
+  actblk_4:
+  - target: volt_dt_1
+    key: acct_uid = acct_uid
+    frequency: 11
+    join_types:
+      OUTER: 11
+    avg_execution_sec: 40.27
+  t:
+  - target: tl
+    key: globalfundtransferkey = globalfundtransferkey
+    frequency: 1
+    join_types:
+      LEFT: 1
+    avg_execution_sec: 7
+    orphan_risk: true
+  pss_8:
+  - target: volt_dt_1
+    key: partnerrolesubstatuskey = partnerrolesubstatuskey
+    frequency: 29
+    join_types:
+      OUTER: 29
+    avg_execution_sec: 1.94
+  ps_8:
+  - target: volt_dt_2
+    key: partnerrolestatuskey = partnerrolestatuskey
+    frequency: 29
+    join_types:
+      OUTER: 29
+    avg_execution_sec: 1.94
+  p_19:
+  - target: volt_dt_3
+    key: partnerkey = partnerkey
+    frequency: 29
+    join_types:
+      OUTER: 29
+    avg_execution_sec: 1.94
+  pr2_8:
+  - target: volt_dt_4
+    key: partnerrolekey = partnerrolekey1
+    frequency: 29
+    join_types:
+      OUTER: 29
+    avg_execution_sec: 1.94
+  lpr_18:
+  - target: volt_dt_5
+    key: linkedpartnerrolekey = parentlinkedpartnerrolekey
+    frequency: 29
+    join_types:
+      OUTER: 29
+    avg_execution_sec: 1.94
+  fnd_trf_25:
+  - target: trf_led_8
+    key: globalfundtransferkey = globalfundtransferkey
+    frequency: 47
+    join_types:
+      OUTER: 47
+    avg_execution_sec: 5.44
+  p_8:
+  - target: volt_dt_3
+    key: partnerkey = partnerkey
+    frequency: 60
+    join_types:
+      OUTER: 60
+    avg_execution_sec: 5.75
+  qc:
+  - target: volt_dt_0
+    key: pxinsname = claim_id1
+    frequency: 1
+    join_types:
+      OUTER: 1
+    avg_execution_sec: 90
+  str_gss_13:
+  - target: volt_dt_1
+    key: storenbr = paymentinstrumentattributevalue
+    frequency: 10
+    join_types:
+      OUTER: 10
+    avg_execution_sec: 8.8
+  pay_dtl_13:
+  - target: volt_dt_2
+    key: paymentinstrumentkey = sor_pymt_instrument_id
+    frequency: 10
+    join_types:
+      OUTER: 10
+    avg_execution_sec: 8.8
+  - target: volt_dt_2
+    key: sor_uid = sor_uid
+    frequency: 10
+    join_types:
+      OUTER: 10
+    avg_execution_sec: 8.8
+  wt:
+  - target: pid
+    key: wallettypekey = wallettypekey
+    frequency: 4
+    join_types:
+      INNER: 4
+    avg_execution_sec: 12.5
+  ash_1:
+  - target: volt_dt_1
+    key: accountkey = accountkey
+    frequency: 12
+    join_types:
+      OUTER: 12
+    avg_execution_sec: 19.92
+  rpd_txn:
+  - target: vld_txn
+    key: cardid = cardid
+    frequency: 5
+    join_types:
+      INNER: 5
+    avg_execution_sec: 3.4
+  pi:
+  - target: pit
+    key: pymt_instrument_type_uid = pymt_instrument_type_uid
+    frequency: 1
+    join_types:
+      INNER: 1
+    avg_execution_sec: 27
+  dpi:
+  - target: pi
+    key: pymt_identifier_uid = pymt_identifier_uid
+    frequency: 1
+    join_types:
+      INNER: 1
+    avg_execution_sec: 27
+  g:
+  - target: e
+    key: posttransactionkey = posted_txn_uid
+    frequency: 1
+    join_types:
+      INNER: 1
+    avg_execution_sec: 175
+joins_by_target:
+  volt_dt_0:
+  - source: lpr
+    key: linkedpartnerrolekey = linkedpartnerrolekey
+    frequency: 351
+  - source: sftp
+    key: applicationkey = applicationkey
+    frequency: 138
+  - source: ar
+    key: achrulekey = achrulekey
+    frequency: 68
+  - source: gab
+    key: accountkey = accountkey
+    frequency: 57
+  - source: gab
+    key: sor_uid = sor_uid1
+    frequency: 57
+  - source: trcc
+    key: transactioncategorykey = transactioncategorykey
+    frequency: 34
+  - source: pinstt
+    key: posted_txn_uid = posted_txn_uid
+    frequency: 8
+  - source: d
+    key: casenumber = child_casenumber
+    frequency: 1
+  - source: qc
+    key: pxinsname = claim_id1
+    frequency: 1
+  volt_dt_1:
+  - source: pr
+    key: partnerrolekey = partnerrolekey
+    frequency: 884
+  - source: pss
+    key: partnerrolesubstatuskey = partnerrolesubstatuskey
+    frequency: 627
+  - source: p3
+    key: partner_uid = partner_uid
+    frequency: 389
+  - source: opt_pgm
+    key: optinprogramkey = optinprogramkey
+    frequency: 362
+  - source: pp
+    key: partnerproductkey = partnerproductkey
+    frequency: 351
+  - source: ad
+    key: applicationkey = applicationkey
+    frequency: 139
+  - source: sff
+    key: applicationkey = applicationkey
+    frequency: 138
+  - source: act_mig
+    key: accountkey = accountkey
+    frequency: 96
+  - source: at
+    key: messagehashid = authorizemessagehashid
+    frequency: 93
+  - source: pan
+    key: pymt_and_atm_network_uid = pymt_and_atm_network_uid
+    frequency: 71
+  - source: pss_3
+    key: partnerrolesubstatuskey = partnerrolesubstatuskey
+    frequency: 71
+  - source: str_gss
+    key: storenbr = paymentinstrumentattributevalue
+    frequency: 42
+  - source: la
+    key: loanapplicationidentifier = loanapplicationidentifier
+    frequency: 36
+  - source: n_1
+    key: tablepk = creditratinghistorykey
+    frequency: 35
+  - source: crh_2
+    key: customerkey = customerkey
+    frequency: 35
+  - source: pss_8
+    key: partnerrolesubstatuskey = partnerrolesubstatuskey
+    frequency: 29
+  - source: lp
+    key: loanproductkey = loanproductkey
+    frequency: 21
+  - source: e
+    key: globalfundtransferprofilekey = globalfundtransferprofilekey
+    frequency: 20
+  - source: actblk
+    key: acct_uid = acct_uid
+    frequency: 15
+  - source: ar
+    key: auth_reason_uid = auth_reason_uid
+    frequency: 12
+  - source: ash_1
+    key: accountkey = accountkey
+    frequency: 12
+  - source: c
+    key: externalidentifier = externalidentifier
+    frequency: 11
+  - source: actblk_4
+    key: acct_uid = acct_uid
+    frequency: 11
+  - source: str_gss_13
+    key: storenbr = paymentinstrumentattributevalue
+    frequency: 10
+  - source: lon_prd
+    key: loanproductkey = loanproductkey
+    frequency: 8
+  - source: gab
+    key: accountkey = accountkey
+    frequency: 8
+  - source: gab
+    key: sor_uid = sor_uid1
+    frequency: 8
+  - source: ah
+    key: acct_uid = acct_uid1
+    frequency: 6
+  - source: ah
+    key: sor_uid = sor_uid
+    frequency: 6
+  - source: am
+    key: destinationaccountidentifier = accountidentifier
+    frequency: 5
+  - source: crh_1
+    key: customerkey = customerkey
+    frequency: 5
+  - source: da
+    key: acct_uid = acct_uid
+    frequency: 5
+  - source: t1
+    key: col1 = fundacctkey
+    frequency: 2
+  - source: t1
+    key: distkey_accountkey = distkey_accountkey
+    frequency: 2
+  - source: fvrt
+    key: feeevaluationresulttypekey = feeevaluationresulttypekey
+    frequency: 2
+  - source: str_gss_7
+    key: storenbr = paymentinstrumentattributevalue
+    frequency: 2
+  - source: sf
+    key: id = accountid
+    frequency: 1
+  - source: mf
+    key: membershipkey = membershipkey
+    frequency: 1
+  - source: ac
+    key: accountreferenceid = accountreferenceid
+    frequency: 1
+  - source: e
+    key: acct_uid = acct_uid
+    frequency: 1
+  volt_dt_2:
+  - source: pp
+    key: partnerproductkey = partnerproductkey
+    frequency: 920
+  - source: ps
+    key: partnerrolestatuskey = partnerrolestatuskey
+    frequency: 627
+  - source: pr3
+    key: partner_role_uid = retail_chain_partner_role_uid
+    frequency: 389
+  - source: a
+    key: applicationkey = applicationkey1
+    frequency: 265
+  - source: arwd24
+    key: applicationkey = applicationkey
+    frequency: 138
+  - source: md
+    key: mcc_code = merchantcategorycode
+    frequency: 93
+  - source: a
+    key: applicationkey = applicationkey
+    frequency: 86
+  - source: tth
+    key: txn_type_hierarchy_key = txn_type_hierarchy_key
+    frequency: 71
+  - source: ps_3
+    key: partnerrolestatuskey = partnerrolestatuskey
+    frequency: 71
+  - source: cust
+    key: accountkey = account_key
+    frequency: 57
+  - source: pr_1
+    key: productkey = productkey
+    frequency: 35
+  - source: atst
+    key: accounttransactionstatuskey = accounttransactionstatuskey
+    frequency: 34
+  - source: volt_dt_1
+    key: packid = packageid
+    frequency: 34
+  - source: volt_dt_1
+    key: accountproxy = accountproxynumber
+    frequency: 34
+  - source: volt_dt_1
+    key: cardproxy = cardproxy
+    frequency: 34
+  - source: ps_8
+    key: partnerrolestatuskey = partnerrolestatuskey
+    frequency: 29
+  - source: d2
+    key: globalfundtransferprofilekey = targetglobalfundtransferprofilekey
+    frequency: 20
+  - source: pay_dtl_13
+    key: paymentinstrumentkey = sor_pymt_instrument_id
+    frequency: 10
+  - source: pay_dtl_13
+    key: sor_uid = sor_uid
+    frequency: 10
+  - source: cp_add
+    key: sor_uid = sor_uid1
+    frequency: 5
+  - source: cp_add
+    key: consumerprofilekey = consumerprofilekey
+    frequency: 5
+  - source: ahh
+    key: sor_uid = sor_uid
+    frequency: 5
+  - source: ahh
+    key: acct_uid = acct_uid
+    frequency: 5
+  - source: db
+    key: bin_uid = bin_uid
+    frequency: 5
+  - source: pay_dtl_7
+    key: paymentinstrumentkey = sor_pymt_instrument_id
+    frequency: 2
+  - source: pay_dtl_7
+    key: sor_uid = sor_uid
+    frequency: 2
+  - source: pay_dtl
+    key: paymentinstrumentkey = sor_pymt_instrument_id
+    frequency: 1
+  - source: pay_dtl
+    key: sor_uid = sor_uid
+    frequency: 1
+  - source: d
+    key: acct_uid = acct_uid
+    frequency: 1
+  volt_dt_3:
+  - source: app
+    key: applicationkey = applicationkey
+    frequency: 884
+  - source: p
+    key: partnerkey = partnerkey
+    frequency: 627
+  - source: p2
+    key: partner_uid = partner_uid
+    frequency: 389
+  - source: trn_inf
+    key: partnerroleidentityvalue = transmitterefin
+    frequency: 139
+  - source: arwd23
+    key: applicationkey = applicationkey
+    frequency: 138
+  - source: bt
+    key: bintypekey = bintypekey
+    frequency: 93
+  - source: ttx
+    key: txn_type_uid = txn_type_uid
+    frequency: 71
+  - source: p_8
+    key: partnerkey = partnerkey
+    frequency: 60
+  - source: ac
+    key: accountkey = account_key
+    frequency: 57
+  - source: a
+    key: applicationkey = applicationkey
+    frequency: 36
+  - source: acts
+    key: accountstatuskey = accountstatuskey
+    frequency: 34
+  - source: p_19
+    key: partnerkey = partnerkey
+    frequency: 29
+  - source: d1
+    key: globalfundtransferprofilekey = sourceglobalfundtransferprofilekey
+    frequency: 20
+  - source: p_9
+    key: partnerkey = partnerkey
+    frequency: 11
+  - source: cust
+    key: accountkey = account_key
+    frequency: 8
+  - source: cp
+    key: consumerprofilekey = consumerprofilekey
+    frequency: 5
+  - source: cp
+    key: sor_uid = sor_uid1
+    frequency: 5
+  - source: c
+    key: acct_uid = acct_uid
+    frequency: 1
+  prd_pgm:
+  - source: lon_prd_1
+    key: loanproductkey = loanproductkey
+    frequency: 343
+  - source: lon_prd
+    key: loanproductkey = loanproductkey
+    frequency: 19
+  acct:
+  - source: psti
+    key: sor_uid = sor_uid
+    frequency: 137
+  - source: psti
+    key: accountidentifier = accountidentifier
+    frequency: 137
+  - source: pstt
+    key: sor_uid = sor_uid
+    frequency: 137
+  - source: pstt
+    key: accountidentifier = accountidentifier
+    frequency: 137
+  - source: acbd
+    key: sor_uid = sor_uid
+    frequency: 71
+  - source: acbd
+    key: accountkey = accountkey
+    frequency: 71
+  - source: cset
+    key: accountnumber = accountnumber
+    frequency: 70
+  - source: comp
+    key: accountidentifier = accountidentifier
+    frequency: 68
+  - source: pint
+    key: sor_uid = sor_uid
+    frequency: 27
+  - source: pint
+    key: accountidentifier = accountidentifier
+    frequency: 27
+  acts:
+  - source: acct
+    key: accountstatuskey = accountstatuskey
+    frequency: 68
+  prod:
+  - source: acct
+    key: productkey = productkey
+    frequency: 233
+  - source: pinn
+    key: productkey = productkey
+    frequency: 68
+  - source: card
+    key: productkey = productkey
+    frequency: 34
+  cstt:
+  - source: cset
+    key: checksettlementkey = checksettlementkey
+    frequency: 70
+  tdtl:
+  - source: cstt
+    key: checksettlementtransactionkey = checksettlementtransactionkey
+    frequency: 70
+  - source: cstt
+    key: checksettlementstatuskey = checksettlementstatuskey
+    frequency: 70
+  sets:
+  - source: cstt
+    key: checksettlementstatuskey = checksettlementstatuskey
+    frequency: 70
+  cful:
+  - source: cstt
+    key: checkfulfillmentkey = checkfulfillmentkey
+    frequency: 70
+  prgm:
+  - source: prod
+    key: programkey = programkey
+    frequency: 70
+  stsr:
+  - source: tdtl
+    key: checksettlementstatusreasonkey = checksettlementstatusreasonkey
+    frequency: 70
+  ah:
+  - source: acct
+    key: accountkey = accountkey
+    frequency: 68
+  - source: acct
+    key: sor_uid = sor_uid
+    frequency: 68
+  pt:
+  - source: aic
+    key: product_key = productkey
+    frequency: 34
+  - source: pid
+    key: paymentidentifierdevicekey = paymentidentifierdevicekey
+    frequency: 1
+  mapp:
+  - source: disb
+    key: programkey = programkey
+    frequency: 136
+  - source: disb
+    key: partnerkey = partnerkey
+    frequency: 136
+  - source: disb
+    key: partnerprogramkey = partnerprogramkey
+    frequency: 136
+  - source: atxn
+    key: retailpartnerkey = partnerkey
+    frequency: 68
+  volt_dt_4:
+  - source: pr2
+    key: partnerrolekey = partnerrolekey1
+    frequency: 627
+  - source: lon_prd
+    key: loanproductkey = loanproductkey
+    frequency: 139
+  - source: arwd22
+    key: applicationkey = applicationkey
+    frequency: 138
+  - source: pg
+    key: programkey = programkey
+    frequency: 93
+  - source: tt
+    key: txn_type_uid = txn_type_uid
+    frequency: 71
+  - source: pr2_3
+    key: partnerrolekey = partnerrolekey1
+    frequency: 71
+  - source: init
+    key: claim_id = claim_id
+    frequency: 57
+  - source: acct
+    key: accountkey = accountkey
+    frequency: 34
+  - source: acct
+    key: sor_uid = sor_uid
+    frequency: 34
+  - source: pr2_8
+    key: partnerrolekey = partnerrolekey1
+    frequency: 29
+  - source: ac
+    key: accountkey = account_key
+    frequency: 8
+  - source: ab
+    key: accountkey = accountkey
+    frequency: 5
+  - source: ab
+    key: sor_uid = sor_uid
+    frequency: 5
+  volt_dt_5:
+  - source: lpr_2
+    key: linkedpartnerrolekey = parentlinkedpartnerrolekey
+    frequency: 627
+  - source: p1
+    key: partner_uid = partner_uid
+    frequency: 389
+  - source: f_1
+    key: applicationkey = applicationkey
+    frequency: 139
+  - source: arwd21
+    key: applicationkey = applicationkey
+    frequency: 138
+  - source: pc
+    key: processorkey = processorkey
+    frequency: 93
+  - source: dp
+    key: product_uid = product_uid
+    frequency: 71
+  - source: lpr_8
+    key: linkedpartnerrolekey = parentlinkedpartnerrolekey
+    frequency: 71
+  - source: lpr_18
+    key: linkedpartnerrolekey = parentlinkedpartnerrolekey
+    frequency: 29
+  - source: init
+    key: claim_id = claim_id
+    frequency: 8
+  - source: ahc
+    key: accountholdercurekey = accountholdercurekey
+    frequency: 5
+  bnk2:
+  - source: bnk1
+    key: abaroutingnumber = abaroutingnumber
+    frequency: 138
+  - source: bnk1
+    key: bankkey = bankkey
+    frequency: 138
+  trf_led:
+  - source: fnd_trf
+    key: globalfundtransferkey = globalfundtransferkey
+    frequency: 138
+  a:
+  - source: arwd8
+    key: applicationkey = applicationkey
+    frequency: 138
+  - source: c
+    key: casenumber = casenumber
+    frequency: 35
+  - source: ft
+    key: targetaccountidentifier = accountidentifier
+    frequency: 34
+  - source: ft
+    key: initiatoraccountidentifier = accountidentifier
+    frequency: 34
+  - source: pt
+    key: accountkey = accountkey
+    frequency: 34
+  - source: lae
+    key: loanapplicantconsumerprofilekey = loanapplicantconsumerprofilekey
+    frequency: 11
+  - source: c
+    key: casenumber = parent_casenumber
+    frequency: 1
+  serv:
+  - source: svcs
+    key: svc_uid = svc_uid
+    frequency: 68
+  svct:
+  - source: serv
+    key: svc_type_uid = svc_type_uid
+    frequency: 68
+  dimp:
+  - source: prds
+    key: product_uid = product_uid
+    frequency: 68
+  rets:
+  - source: pinn
+    key: pinkey = pinkey
+    frequency: 68
+  rpts:
+  - source: rets
+    key: retailersaleskey = retailersaleskey
+    frequency: 68
+  rtlr:
+  - source: prod
+    key: retailerkey = retailerkey
+    frequency: 68
+  b:
+  - source: a
+    key: vendorprogramresponsekey = vendorprogramresponsekey
+    frequency: 284
+  - source: a
+    key: taxreturnheaderkey = taxreturnheaderkey
+    frequency: 213
+  - source: aa
+    key: applicationkey = applicationkey
+    frequency: 142
+  - source: a
+    key: loanunderwritingkey = loanunderwritingkey
+    frequency: 72
+  - source: a
+    key: scoringdecisionrequestattributekey = scoringdecisionrequestattributekey
+    frequency: 71
+  - source: a
+    key: returnheader_primaryssn = identitytoken
+    frequency: 71
+  - source: a
+    key: vendorprogramrequestkey = vendorprogramrequestkey
+    frequency: 71
+  - source: a
+    key: applicationkey = applicationkey
+    frequency: 71
+  - source: a
+    key: taxreturnattributekey = taxreturnattributekey
+    frequency: 71
+  - source: a
+    key: scoringdecisionrequestkey = scoringdecisionrequestkey
+    frequency: 71
+  - source: a
+    key: returnheader_primaryssn = returnheader_primaryssn
+    frequency: 44
+  - source: a
+    key: loanapplicantevaluationkey = loanapplicantevaluationkey
+    frequency: 36
+  fism:
+  - source: fisd
+    key: bcmu_account = bcmu_account
+    frequency: 68
+  - source: fisd
+    key: source_file_name = source_file_name
+    frequency: 68
+  at:
+  - source: aa
+    key: achtransactionkey = achtransactionkey
+    frequency: 428
+  abh:
+  - source: at
+    key: achbatchheaderkey = achbatchheaderkey
+    frequency: 428
+  cp:
+  - source: a
+    key: applicationkey = applicationkey
+    frequency: 240
+  cpi:
+  - source: cp
+    key: consumerprofilekey = consumerprofilekey
+    frequency: 311
+  dm:
+  - source: a
+    key: calendar_date = calendar_date
+    frequency: 33
+  payi:
+  - source: psti
+    key: sor_uid = sor_uid
+    frequency: 137
+  - source: psti
+    key: paymentidentifier = paymentidentifier
+    frequency: 137
+  - source: pstt
+    key: sor_uid = sor_uid
+    frequency: 137
+  - source: pstt
+    key: paymentidentifier = paymentidentifier
+    frequency: 137
+  trnc:
+  - source: psti
+    key: transclasskey = transclasskey
+    frequency: 137
+  - source: pstt
+    key: transclasskey = transclasskey
+    frequency: 137
+  - source: pint
+    key: transclasskey = transclasskey
+    frequency: 27
+  cus_leg:
+  - source: act_ods
+    key: sor_acct_id = accountkey
+    frequency: 97
+  fisb:
+  - source: acct
+    key: accountidentifier = accountidentifier
+    frequency: 68
+  ptsm:
+  - source: acct
+    key: accountidentifier = accountidentifier
+    frequency: 68
+  - source: fism
+    key: accountidentifier = accountidentifier
+    frequency: 34
+  - source: fism
+    key: loanbalance = loanbalance
+    frequency: 34
+  pstl:
+  - source: acct
+    key: accountidentifier = accountidentifier
+    frequency: 68
+  ptsd:
+  - source: acct
+    key: accountidentifier = accountidentifier
+    frequency: 68
+  pltb:
+  - source: acct
+    key: accountidentifier = accountidentifier
+    frequency: 68
+  trf_led_4:
+  - source: fnd_trf_4
+    key: globalfundtransferkey = globalfundtransferkey
+    frequency: 91
+  woy:
+  - source: d
+    key: calendar_date = calendar_date
+    frequency: 136
+  - source: a
+    key: calendar_date = calendar_date
+    frequency: 34
+  afc:
+  - source: c
+    key: ownerid = ownerid
+    frequency: 68
+  abdm:
+  - source: acbd
+    key: balance_dt = balance_dt
+    frequency: 71
+  - source: acbd
+    key: accountbalanceidentifier = accountbalanceidentifier
+    frequency: 71
+  - source: acbd
+    key: accountbalancetypekey = accountbalancetypekey
+    frequency: 71
+  - source: acbd
+    key: sor_uid = sor_uid
+    frequency: 71
+  - source: acbd
+    key: accountkey = accountkey
+    frequency: 71
+  sh_2:
+  - source: b_4
+    key: accountidentifier = accountidentifier
+    frequency: 37
+  - source: w_4
+    key: accountidentifier = accountidentifier
+    frequency: 35
+  osls:
+  - source: invc
+    key: sor_uid = sor_uid
+    frequency: 68
+  - source: invc
+    key: transactionprimarykey = transactionprimarykey
+    frequency: 68
+  dpp:
+  - source: dtr
+    key: targetdisbursementprofilekey = disbursementprofilekey
+    frequency: 136
+  dpt:
+  - source: dpp
+    key: disbursementprofiletypekey = disbursementprofiletypekey
+    frequency: 136
+  dpc:
+  - source: dtr
+    key: targetdisbursementprofilekey = disbursementprofilekey
+    frequency: 136
+  dpgc:
+  - source: dtr
+    key: targetdisbursementprofilekey = disbursementprofilekey
+    frequency: 136
+  dtf:
+  - source: dtr
+    key: disbursementtransferrequestkey = disbursementtransferrequestkey
+    frequency: 136
+  dfd:
+  - source: dtf
+    key: disbursementtransferfulfillmentkey = disbursementtransferfulfillmentkey
+    frequency: 136
+  dts:
+  - source: dtr
+    key: disbursementtransferrequeststatuskey = disbursementtransferrequeststatuskey
+    frequency: 136
+  pap:
+  - source: dtr
+    key: partnerprogramkey = partnerprogramkey
+    frequency: 136
+  pro:
+  - source: pap
+    key: programkey = programkey
+    frequency: 136
+  - source: ope
+    key: filingyear = filingyear
+    frequency: 57
+  - source: ope
+    key: optinprogrameligibilitykey = optinprogrameligibilitykey
+    frequency: 57
+  par:
+  - source: pap
+    key: partnerkey = partnerkey
+    frequency: 136
+  bar:
+  - source: dtr
+    key: targetdisbursementprofilekey = disbursementprofilekey
+    frequency: 136
+  dcc:
+  - source: dtr
+    key: disbursementtransferrequestkey = disbursementtransferrequestkey
+    frequency: 136
+  s:
+  - source: abe
+    key: achbatchentrystatuskey = achbatchentrystatuskey
+    frequency: 138
+  - source: jag
+    key: checkpaymentsettlementstatuskey = checkpaymentsettlementstatuskey
+    frequency: 68
+  - source: c
+    key: agent_group__c = agent_group__c
+    frequency: 34
+  - source: lacp
+    key: loanapplicantconsumerprofilekey = loanapplicantconsumerprofilekey
+    frequency: 27
+  c:
+  - source: abe
+    key: customerkey = customerkey
+    frequency: 138
+  - source: rt
+    key: id = recordtypeid
+    frequency: 103
+  - source: a
+    key: loanunderwritingkey = loanunderwritingkey
+    frequency: 72
+  - source: a
+    key: applicationkey = applicationkey
+    frequency: 71
+  - source: a
+    key: externalidentifier = externalidentifier
+    frequency: 71
+  - source: a
+    key: scoringdecisionrequestkey = scoringdecisionrequestkey
+    frequency: 71
+  - source: ref
+    key: accountkey = accountkey
+    frequency: 68
+  - source: a
+    key: returnheader_primaryssn = returnheader_primaryssn
+    frequency: 44
+  - source: c2
+    key: parentid = id
+    frequency: 35
+  - source: c2
+    key: casenumber = casenumber
+    frequency: 34
+  p:
+  - source: pp
+    key: partnerkey = partnerkey
+    frequency: 71
+  - source: c
+    key: productkey = productkey
+    frequency: 68
+  - source: da
+    key: product_uid = product_uid
+    frequency: 35
+  rpt_sls:
+  - source: rtl_sls
+    key: retailersaleskey = retailersaleskey
+    frequency: 79
+  rtl_txn:
+  - source: rtl_sls
+    key: retailersaleskey = retailersaleskey
+    frequency: 68
+  pnd_lod:
+  - source: rtl_sls
+    key: retailertransid = posted_transaction_id
+    frequency: 68
+  cus_nec:
+  - source: rtl_sls
+    key: customerkey = customerkey
+    frequency: 68
+  - source: rtl_txn
+    key: customerkey = customerkey
+    frequency: 68
+  act_ods:
+  - source: cus_nec
+    key: accountkey = sor_acct_id
+    frequency: 136
+  sls_pin:
+  - source: rtl_sls
+    key: pinkey = pinkey
+    frequency: 68
+  crd_nec:
+  - source: rtl_sls
+    key: cardkey = cardkey
+    frequency: 68
+  - source: cus_nec
+    key: cardkey = cardkey
+    frequency: 68
+  crd_prd:
+  - source: rtl_sls
+    key: pinkey = pinkey
+    frequency: 68
+  dim_prd:
+  - source: prd_xrf
+    key: product_uid = product_uid
+    frequency: 136
+  svc_xrf:
+  - source: rtl_sls
+    key: saletransactiontypekey = sor_svc_type_id
+    frequency: 68
+  svc_typ:
+  - source: svc_xrf
+    key: svc_type_uid = svc_type_uid
+    frequency: 68
+  rtl_par:
+  - source: rpt_sls
+    key: effectivepartnerkey = partnerkey
+    frequency: 68
+  - source: rtl_txn
+    key: partnerkey = partnerkey
+    frequency: 68
+  rtl_map:
+  - source: rtl_sls
+    key: retailersaleskey = retailersaleskey
+    frequency: 68
+  str_nec:
+  - source: rpt_sls
+    key: retailstorekey = retailstorekey
+    frequency: 68
+  - source: rtl_txn
+    key: storeid = storenbr
+    frequency: 68
+  - source: rtl_txn
+    key: retailchainkey = retailchainkey
+    frequency: 68
+  str_adr:
+  - source: str_nec
+    key: retailstoreaddresskey = retailstoreaddresskey
+    frequency: 136
+  pym_idn:
+  - source: cus_nec
+    key: cardkey = oltp_card_id
+    frequency: 68
+  crd_pin:
+  - source: crd_nec
+    key: pinkey = pinkey
+    frequency: 68
+  act_pin:
+  - source: crd_nec
+    key: accountkey = accountkey
+    frequency: 68
+  prd_xrf:
+  - source: cus_nec
+    key: productkey = sor_product_cd
+    frequency: 68
+  rtl_chn:
+  - source: rtl_txn
+    key: retailchainkey = retailchainkey
+    frequency: 68
+  l_2:
+  - source: crh_2
+    key: customerkey = customerkey
+    frequency: 35
+  ai:
+  - source: c
+    key: accountid = id
+    frequency: 103
+  rpt_dat:
+  - source: vld_txn
+    key: cardid = cardid
+    frequency: 39
+  - source: vld_txn
+    key: programkey = payerprogramkey
+    frequency: 34
+  - source: vld_txn
+    key: companykey = payercompanykey
+    frequency: 34
+  - source: vld_txn
+    key: programkey = programkey
+    frequency: 34
+  - source: vld_txn
+    key: companykey = companykey
+    frequency: 34
+  atxn:
+  - source: dtf
+    key: disbursementtransferfulfillmentid = confirmationid
+    frequency: 136
+  cust:
+  - source: dtf
+    key: gdaccountkey = accountkey
+    frequency: 136
+  - source: cd
+    key: cardreference = cardreference
+    frequency: 34
+  usr_dtl:
+  - source: usr_key
+    key: userdetailkey = userdetailkey
+    frequency: 69
+  - source: usr_com
+    key: userdetailkey = userdetailkey
+    frequency: 35
+  cmp_inf:
+  - source: crd_hld
+    key: clientprogramid = subcompanyid
+    frequency: 68
+  - source: usr_com
+    key: companykey = companykey
+    frequency: 35
+  - source: usr_cmp
+    key: companykey = companykey
+    frequency: 34
+  - source: req_dtl
+    key: companykey = companykey
+    frequency: 34
+  cmp_pgm:
+  - source: cmp_inf
+    key: companykey = companykey
+    frequency: 35
+  pgm_inf:
+  - source: crd_hld
+    key: uniqueprogramid = programid
+    frequency: 68
+  - source: cmp_pgm
+    key: programkey = programkey
+    frequency: 35
+  - source: cmp_sub
+    key: programkey = programkey
+    frequency: 34
+  usr_mod:
+  - source: usr_key
+    key: userdetailkey = userdetailkey
+    frequency: 104
+  - source: usr_dtl
+    key: userdetailkey = userdetailkey
+    frequency: 35
+  volt_tt_6442efb10cea2:
+  - source: volt_dt_0
+    key: oid = oid
+    frequency: 1
+  sh_5:
+  - source: ps_5
+    key: accountidentifier = accountidentifier
+    frequency: 37
+  d:
+  - source: a
+    key: loanunderwritingkey = loanunderwritingkey
+    frequency: 72
+  - source: a
+    key: returnheader_primaryssn = returnheader_primaryssn
+    frequency: 44
+  - source: d2
+    key: casenumber = casenumber
+    frequency: 34
+  - source: d2
+    key: min_order = order2
+    frequency: 34
+  volt_tt_6441ad0add5cf:
+  - source: volt_dt_0
+    key: oid = oid
+    frequency: 1
+  volt_dt_6:
+  - source: arwd20
+    key: applicationkey = applicationkey
+    frequency: 138
+  - source: p
+    key: productkey = productkey
+    frequency: 93
+  - source: l
+    key: productkey = productkey
+    frequency: 57
+  volt_dt_7:
+  - source: arwd7
+    key: applicationkey = applicationkey
+    frequency: 138
+  - source: b
+    key: binkey = binkey
+    frequency: 93
+  - source: da
+    key: acct_uid = acct_uid
+    frequency: 71
+  - source: e
+    key: accountkey = account_key
+    frequency: 57
+  - source: l
+    key: productkey = productkey
+    frequency: 8
+  volt_dt_8:
+  - source: arwd6
+    key: applicationkey = applicationkey
+    frequency: 138
+  - source: bp
+    key: binproductkey = binproductkey
+    frequency: 93
+  - source: pr
+    key: id = profileid
+    frequency: 57
+  - source: e
+    key: accountkey = account_key
+    frequency: 8
+  volt_dt_9:
+  - source: arwd5
+    key: applicationkey = applicationkey
+    frequency: 138
+  - source: tc
+    key: transclasskey = transclasskey
+    frequency: 93
+  - source: ors
+    key: retail_store_uid = retail_store_uid
+    frequency: 71
+  - source: u
+    key: id = createdbyid
+    frequency: 57
+  - source: pr
+    key: id = profileid
+    frequency: 8
+  volt_dt_10:
+  - source: arwd4
+    key: applicationkey = applicationkey
+    frequency: 138
+  - source: svt
+    key: svc_type_uid = svc_type_uid
+    frequency: 71
+  - source: c
+    key: casenumber = dispute_id
+    frequency: 54
+  - source: u
+    key: id = createdbyid
+    frequency: 8
+  - source: c_1
+    key: casenumber = dispute_id
+    frequency: 3
+  volt_dt_11:
+  - source: arwd3
+    key: applicationkey = applicationkey
+    frequency: 138
+  - source: sv
+    key: svc_uid = svc_uid
+    frequency: 71
+  - source: c
+    key: casenumber = dispute_id
+    frequency: 8
+  volt_dt_12:
+  - source: arwd18
+    key: applicationkey = applicationkey
+    frequency: 138
+  volt_dt_13:
+  - source: arwd2
+    key: applicationkey = applicationkey
+    frequency: 138
+  - source: ors
+    key: retail_store_uid = retail_store_uid
+    frequency: 71
+  volt_dt_14:
+  - source: arwd14
+    key: applicationkey = applicationkey
+    frequency: 138
+  - source: pid
+    key: pymt_identifier_uid = pymt_identifier_uid
+    frequency: 71
+  volt_dt_15:
+  - source: arwd13
+    key: applicationkey = applicationkey
+    frequency: 138
+  - source: sv
+    key: product_uid = product_uid
+    frequency: 71
+  volt_dt_16:
+  - source: arwd12
+    key: applicationkey = applicationkey
+    frequency: 138
+  volt_dt_17:
+  - source: arwd11
+    key: applicationkey = applicationkey
+    frequency: 138
+  pin_nec:
+  - source: crd_nec
+    key: pinkey = pinkey
+    frequency: 68
+  par_prd:
+  - source: a
+    key: partnerproductkey = partnerproductkey
+    frequency: 139
+  f:
+  - source: a
+    key: returnheader_primaryssn = returnheader_primaryssn
+    frequency: 44
+  - source: a
+    key: applicationkey = applicationkey
+    frequency: 35
+  - source: h
+    key: txn_type_hierarchy_key = txn_type_hierarchy_key
+    frequency: 7
+  usr_per:
+  - source: usr_key
+    key: userdetailkey = userdetailkey
+    frequency: 35
+  rol_per:
+  - source: usr_per
+    key: role_permissionkey = role_permissionkey
+    frequency: 35
+  per_inf:
+  - source: rol_per
+    key: permissionkey = permissionkey
+    frequency: 35
+  u:
+  - source: pf
+    key: id = profileid
+    frequency: 136
+  - source: su
+    key: sysuserkey = sysuserkey__c
+    frequency: 103
+  - source: c
+    key: ownerid = id
+    frequency: 68
+  aa:
+  - source: a1
+    key: applicationkey = applicationkey
+    frequency: 142
+  - source: a
+    key: applicationkey = applicationkey
+    frequency: 71
+  dd_1:
+  - source: cm_1
+    key: calendar_date = calendar_date
+    frequency: 10
+  vuin:
+  - source: osls
+    key: partnerkey = partnerkey
+    frequency: 68
+  - source: osls
+    key: retailchainkey = retailchainkey
+    frequency: 68
+  prnr:
+  - source: osls
+    key: partnerkey = partnerkey
+    frequency: 68
+  - source: atxn
+    key: retailpartnerkey = partnerkey
+    frequency: 68
+  rtls:
+  - source: osls
+    key: retailersaleskey = retailersaleskey
+    frequency: 68
+  rtlt:
+  - source: rtls
+    key: saletransactiontypekey = saletransactiontypekey
+    frequency: 68
+  rtxn:
+  - source: osls
+    key: sourcepkvalue = retailsalestransactionkey
+    frequency: 68
+  rtxt:
+  - source: rtxn
+    key: retailsalestransactiontypekey = retailsalestransactiontypekey
+    frequency: 68
+  rtlu:
+  - source: osls
+    key: sourcepkvalue = retailunloadtransactionkey
+    frequency: 68
+  fm:
+  - source: b
+    key: customerkey = customerkey
+    frequency: 55
+  abe:
+  - source: ab
+    key: achbatchkey = achbatchkey
+    frequency: 138
+  - source: r
+    key: achbatchentrykey = achbatchentrykey
+    frequency: 70
+  - source: ac
+    key: achtrancodekey = achtrancodekey
+    frequency: 68
+  bank:
+  - source: abe
+    key: receivingbankid = abaroutingnumber
+    frequency: 138
+  trn_cod:
+  - source: trn_rap
+    key: transcode = sor_txn_type
+    frequency: 34
+  - source: fnd_txn
+    key: transcode = sor_txn_type
+    frequency: 34
+  crd_hld:
+  - source: trn_rap
+    key: cardholderid = cardholderid
+    frequency: 34
+  - source: crd_rpd
+    key: cardholderid = cardholderid
+    frequency: 34
+  crd_rap:
+  - source: trn_rap
+    key: cardid = cardid
+    frequency: 34
+  crd_hdt:
+  - source: trn_rap
+    key: payeecardholderid = cardholderid
+    frequency: 34
+  emp_inf:
+  - source: trn_rap
+    key: cardid = cardid
+    frequency: 34
+  - source: crd_rpd
+    key: cardid = cardid
+    frequency: 34
+  emp_ift:
+  - source: trn_rap
+    key: payeecardid = cardid
+    frequency: 34
+  pgm_spn:
+  - source: pgm_inf
+    key: programkey = programkey
+    frequency: 34
+  spn_sor:
+  - source: pgm_spn
+    key: sponsorkey = sponsorkey
+    frequency: 34
+  cd:
+  - source: aic
+    key: account_key = accountkey
+    frequency: 68
+  pd:
+  - source: cd
+    key: productkey = productkey
+    frequency: 34
+  fre_que:
+  - source: cmp_sub
+    key: frequencykey = frequencykey
+    frequency: 68
+  cmp_req:
+  - source: cmp_sub
+    key: companyreportsubscriptionkey = companyreportsubscriptionkey
+    frequency: 68
+  rpt_tmp:
+  - source: cmp_sub
+    key: companyreporttemplatekey = companyreporttemplatekey
+    frequency: 68
+  req_dtl:
+  - source: cmp_sub
+    key: companyreportsubscriptionkey = companyreportsubscriptionkey
+    frequency: 68
+  trf_led_3:
+  - source: fnd_trf_3
+    key: globalfundtransferkey = globalfundtransferkey
+    frequency: 91
+  ure:
+  - source: de
+    key: loanunderwritingstatusreasonkey = loanunderwritingstatusreasonkey
+    frequency: 72
+  prd_mod:
+  - source: usr_key
+    key: userdetailkey = userdetailkey
+    frequency: 34
+  mod_inf:
+  - source: prd_mod
+    key: modulekey = modulekey
+    frequency: 34
+  cus_txn:
+  - source: fnd_txn
+    key: cardid = linkedcardid
+    frequency: 34
+  - source: fnd_txn
+    key: nbrettransid = nbrettransid
+    frequency: 34
+  usr_log:
+  - source: usr_dtl
+    key: primaryemail = username
+    frequency: 69
+  log_ses:
+  - source: usr_log
+    key: userloginkey = userloginkey
+    frequency: 34
+  app:
+  - source: hdr
+    key: ivrapplicationkey = ivrapplicationkey
+    frequency: 34
+  et:
+  - source: hdr
+    key: ivrexittypekey = ivrexittypekey
+    frequency: 34
+  card:
+  - source: hdr
+    key: cardkey = cardkey
+    frequency: 34
+  prhp:
+  - source: prh
+    key: partnerrolehierarchykey = partnerrolehierarchykey
+    frequency: 71
+  - source: pp
+    key: partnerproductkey = partnerproductkey
+    frequency: 71
+  pp:
+  - source: psp
+    key: partnersubproductkey = partnersubproductkey
+    frequency: 71
+  pr:
+  - source: prh
+    key: partnerroleidentityvaluelevel1 = partnerroleidentityvalue
+    frequency: 71
+  ca:
+  - source: c
+    key: casenumber = casenumber
+    frequency: 34
+  disb:
+  - source: mapp
+    key: disbursementinvoicedartmappid = disbursementinvoicedartmappid
+    frequency: 136
+  parp:
+  - source: mapp
+    key: partnerprogramkey = partnerprogramkey
+    frequency: 136
+  m:
+  - source: c
+    key: casenumber = e_greendot_cc_salesforce_case_int
+    frequency: 35
+  apc:
+  - source: m
+    key: a_surveyid = surveyid
+    frequency: 35
+  dc:
+  - source: u
+    key: id = agentid
+    frequency: 68
+  - source: dis
+    key: wave_casenumber = casenumber
+    frequency: 34
+  prsp:
+  - source: atxn
+    key: processorresponsecodekey = processorresponsecodekey
+    frequency: 68
+  crd_dtl:
+  - source: vld_txn
+    key: programkey = programkey
+    frequency: 6
+  - source: vld_txn
+    key: companykey = companykey
+    frequency: 6
+  tc:
+  - source: r
+    key: achtrancodekey = achtrancodekey
+    frequency: 70
+  rol_inf:
+  - source: usr_dtl
+    key: rolekey = rolekey
+    frequency: 35
+  sts_inf:
+  - source: usr_dtl
+    key: statuskey = statuskey
+    frequency: 35
+  cre_dtl:
+  - source: usr_dtl
+    key: createby = userdetailkey
+    frequency: 35
+  chg_dtl:
+  - source: usr_dtl
+    key: changeby = userdetailkey
+    frequency: 35
+  prd_lst:
+  - source: usr_key
+    key: userdetailkey = userdetailkey
+    frequency: 35
+  per_lst:
+  - source: usr_key
+    key: userdetailkey = userdetailkey
+    frequency: 35
+  crd_lst:
+  - source: usr_key
+    key: userdetailkey = userdetailkey
+    frequency: 35
+  acc_lst:
+  - source: usr_key
+    key: userdetailkey = userdetailkey
+    frequency: 35
+  cmp_rol:
+  - source: usr_mod
+    key: companyrolekey = companyrolekey
+    frequency: 35
+  cmp_lst:
+  - source: usr_key
+    key: userdetailkey = userdetailkey
+    frequency: 35
+  org_lst:
+  - source: usr_key
+    key: userdetailkey = userdetailkey
+    frequency: 35
+  da:
+  - source: c2a
+    key: acct_uid = acct_uid
+    frequency: 35
+  - source: ac
+    key: accountkey = sor_acct_id
+    frequency: 34
+  - source: c
+    key: account_key__c = sor_acct_id
+    frequency: 34
+  - source: aw
+    key: acct_uid = acct_uid
+    frequency: 6
+  ac:
+  - source: da
+    key: sor_uid = sor_uid
+    frequency: 34
+  dis:
+  - source: dc
+    key: wave_case_number__c = wave_case_number__c
+    frequency: 34
+  trd:
+  - source: th
+    key: taxreturnheaderkey = taxreturnheaderkey
+    frequency: 71
+  arf:
+  - source: a
+    key: applicationkey = applicationkey
+    frequency: 98
+  ars:
+  - source: a
+    key: applicationkey = applicationkey
+    frequency: 98
+  usr_org:
+  - source: usr_key
+    key: userdetailkey = userdetailkey
+    frequency: 34
+  org_inf:
+  - source: usr_org
+    key: organizationkey = organizationkey
+    frequency: 34
+  q:
+  - source: a
+    key: dispute_id = dispute_id
+    frequency: 62
+  - source: a_1
+    key: dispute_id = dispute_id
+    frequency: 3
+  usr_cmp:
+  - source: usr_key
+    key: userdetailkey = userdetailkey
+    frequency: 34
+  e:
+  - source: a
+    key: returnheader_primaryssn = returnheader_primaryssn
+    frequency: 44
+  - source: g
+    key: posttransactionkey = posted_txn_uid
+    frequency: 1
+  g:
+  - source: a
+    key: returnheader_primaryssn = returnheader_primaryssn
+    frequency: 44
+  h:
+  - source: a
+    key: returnheader_primaryssn = returnheader_primaryssn
+    frequency: 44
+  wcd:
+  - source: c
+    key: case_id = wave_case_number__c
+    frequency: 34
+  c2a:
+  - source: c
+    key: casenumber = casenumber
+    frequency: 35
+  pc:
+  - source: da
+    key: product_channel_uid = product_channel_uid
+    frequency: 35
+  bd:
+  - source: pc
+    key: business_division_uid = business_division_uid
+    frequency: 35
+  ct:
+  - source: rt
+    key: id = id
+    frequency: 35
+  dtl:
+  - source: hdr
+    key: callsid = callsid
+    frequency: 34
+  st:
+  - source: aa
+    key: prioryeartaxpayerfundingstatuskey = prioryearfederalfundingstatuskey
+    frequency: 71
+  ft:
+  - source: a1
+    key: feetypekey = feetypekey
+    frequency: 71
+  dca:
+  - source: daty
+    key: address_type_uid = address_type_uid
+    frequency: 5
+  acht:
+  - source: pint
+    key: transactionreferenceid = achtransactionidentifier
+    frequency: 27
+  - source: pint
+    key: transactionamount = transamount
+    frequency: 27
+  vpre_in:
+  - source: vpr_in
+    key: vendorprogramrequestkey = vendorprogramrequestkey
+    frequency: 5
+  volt_tt_644430c512714:
+  - source: volt_dt_0
+    key: oid = oid
+    frequency: 1
+  dats:
+  - source: mapp
+    key: recurrence = recurrence
+    frequency: 13
+  volt_tt_6446b47ba6d5d:
+  - source: volt_dt_0
+    key: oid = oid
+    frequency: 1
+  dpi:
+  - source: dpid
+    key: pymt_identifier_uid = pymt_identifier_uid
+    frequency: 5
+  bas_ret:
+  - source: leg_ret
+    key: transactiontokenresponseid = transactiontokenresponseid
+    frequency: 11
+  rtl_res:
+  - source: rtl_trn
+    key: retailsalestransactionkey = retailsalestransactionkey
+    frequency: 11
+  volt_tt_644573cce34da:
+  - source: volt_dt_0
+    key: oid = oid
+    frequency: 1
+  crd_lod:
+  - source: crd_rpd
+    key: cardholderid = cardholderid
+    frequency: 28
+  volt_tt_6447f6757264d:
+  - source: volt_dt_0
+    key: oid = oid
+    frequency: 1
+  volt_tt_644a7a15c8f37:
+  - source: volt_dt_0
+    key: oid = oid
+    frequency: 1
+  volt_tt_644bbc0c92437:
+  - source: volt_dt_0
+    key: oid = oid
+    frequency: 1
+  volt_tt_644938379a388:
+  - source: volt_dt_0
+    key: oid = oid
+    frequency: 1
+  volt_tt_644cfde690564:
+  - source: volt_dt_0
+    key: oid = oid
+    frequency: 1
+  volt_tt_644e3ffb87ffc:
+  - source: volt_dt_0
+    key: oid = oid
+    frequency: 1
+  volt_tt_644f81a6b32f0:
+  - source: volt_dt_0
+    key: oid = oid
+    frequency: 1
+  volt_tt_64520569fc67c:
+  - source: volt_dt_0
+    key: oid = oid
+    frequency: 1
+  mfer:
+  - source: mfe
+    key: accountkey = accountkey
+    frequency: 2
+  - source: mfe
+    key: monthlyfeeevaluationreferenceid = monthlyfeeevaluationreferenceid
+    frequency: 2
+  volt_tt_6450c3864ed70:
+  - source: volt_dt_0
+    key: oid = oid
+    frequency: 1
+  volt_tt_64534783d8f6f:
+  - source: volt_dt_0
+    key: oid = oid
+    frequency: 1
+  k:
+  - source: l
+    key: fcaprogramknockoutrulekey = fcaprogramknockoutrulekey
+    frequency: 72
+  volt_tt_6452384bedb24:
+  - source: volt_dt_0
+    key: oid = oid
+    frequency: 1
+  volt_tt_645768bc8bfae:
+  - source: volt_dt_0
+    key: oid = oid
+    frequency: 1
+  volt_tt_6455cafb678d9:
+  - source: volt_dt_0
+    key: oid = oid
+    frequency: 1
+  cpa:
+  - source: cp
+    key: consumerprofilekey = consumerprofilekey
+    frequency: 27
+  scp:
+  - source: a
+    key: applicationkey = applicationkey
+    frequency: 27
+  scpi:
+  - source: scp
+    key: consumerprofilekey = consumerprofilekey
+    frequency: 27
+  ala:
+  - source: a
+    key: applicationkey = applicationkey
+    frequency: 27
+  - source: la
+    key: loanapplicationkey = loanapplicationkey
+    frequency: 27
+  las:
+  - source: la
+    key: loanapplicationstatuskey = loanapplicationstatuskey
+    frequency: 27
+  lala:
+  - source: ala
+    key: loanapplicationkey = loanapplicationkey
+    frequency: 27
+  lacp:
+  - source: lala
+    key: loanapplicantkey = loanapplicantkey
+    frequency: 27
+  - source: cp
+    key: consumerprofilekey = consumerprofilekey
+    frequency: 27
+  lae:
+  - source: lacp
+    key: loanapplicantconsumerprofilekey = loanapplicantconsumerprofilekey
+    frequency: 27
+  lalu:
+  - source: la
+    key: loanapplicationkey = loanapplicationkey
+    frequency: 27
+  dr:
+  - source: lalu
+    key: loanunderwritingkey = loanunderwritingkey
+    frequency: 27
+  fr:
+  - source: a
+    key: applicationkey = applicationkey
+    frequency: 27
+  sr:
+  - source: a
+    key: applicationkey = applicationkey
+    frequency: 27
+  ar:
+  - source: a
+    key: applicationkey = applicationkey
+    frequency: 27
+  volt_tt_6454892b77cd9:
+  - source: volt_dt_0
+    key: oid = oid
+    frequency: 1
+  volt_tt_645aec22c1d06:
+  - source: volt_dt_0
+    key: oid = oid
+    frequency: 1
+  volt_tt_64584e9ba4749:
+  - source: volt_dt_0
+    key: oid = oid
+    frequency: 1
+  volt_tt_64570cf402c43:
+  - source: volt_dt_0
+    key: oid = oid
+    frequency: 1
+  volt_tt_645767d6d4266:
+  - source: volt_dt_0
+    key: oid = oid
+    frequency: 1
+  volt_tt_645990badf16c:
+  - source: volt_dt_0
+    key: oid = oid
+    frequency: 1
+  volt_tt_645ae70ef007d:
+  - source: volt_dt_0
+    key: oid = oid
+    frequency: 1
+  volt_tt_645ad2b675ea6:
+  - source: volt_dt_0
+    key: oid = oid
+    frequency: 1
+  trf_led_9:
+  - source: fnd_trf_26
+    key: globalfundtransferkey = globalfundtransferkey
+    frequency: 47
+  volt_tt_645eaf614c72f:
+  - source: volt_dt_0
+    key: oid = oid
+    frequency: 1
+  volt_tt_645c1433bffa1:
+  - source: volt_dt_0
+    key: oid = oid
+    frequency: 1
+  volt_tt_645b07dbf67a5:
+  - source: volt_dt_0
+    key: oid = oid
+    frequency: 1
+  tl:
+  - source: t
+    key: globalfundtransferkey = globalfundtransferkey
+    frequency: 1
+  trf_led_8:
+  - source: fnd_trf_25
+    key: globalfundtransferkey = globalfundtransferkey
+    frequency: 47
+  volt_tt_645d6d154d12b:
+  - source: volt_dt_0
+    key: oid = oid
+    frequency: 1
+  volt_tt_6461765993ccc:
+  - source: volt_dt_0
+    key: oid = oid
+    frequency: 1
+  volt_tt_646050c824976:
+  - source: volt_dt_0
+    key: oid = oid
+    frequency: 1
+  volt_tt_64614e0ee1f04:
+  - source: volt_dt_0
+    key: oid = oid
+    frequency: 1
+  pid:
+  - source: wt
+    key: wallettypekey = wallettypekey
+    frequency: 4
+  t:
+  - source: pid
+    key: paymentidentifierdevicekey = paymentidentifierdevicekey
+    frequency: 2
+  volt_tt_64604dfac0ac9:
+  - source: volt_dt_0
+    key: oid = oid
+    frequency: 1
+  volt_tt_64615d42a1725:
+  - source: volt_dt_0
+    key: oid = oid
+    frequency: 1
+  volt_tt_64617588acdc2:
+  - source: volt_dt_0
+    key: oid = oid
+    frequency: 1
+  volt_tt_645ffcdbe01b7:
+  - source: volt_dt_0
+    key: oid = oid
+    frequency: 1
+  volt_tt_64613530daec8:
+  - source: volt_dt_0
+    key: oid = oid
+    frequency: 1
+  volt_tt_64615d7ea3ef3:
+  - source: volt_dt_0
+    key: oid = oid
+    frequency: 1
+  volt_tt_6461a4d0c7840:
+  - source: volt_dt_0
+    key: oid = oid
+    frequency: 1
+  volt_tt_6462749dc9cba:
+  - source: volt_dt_0
+    key: oid = oid
+    frequency: 1
+  volt_tt_6461a53cd5576:
+  - source: volt_dt_0
+    key: oid = oid
+    frequency: 1
+  volt_tt_6462972cc87d6:
+  - source: volt_dt_0
+    key: oid = oid
+    frequency: 1
+  volt_tt_64614de06990a:
+  - source: volt_dt_0
+    key: oid = oid
+    frequency: 1
+  volt_tt_646296c5570a3:
+  - source: volt_dt_0
+    key: oid = oid
+    frequency: 1
+  volt_tt_6464f99e34898:
+  - source: volt_dt_0
+    key: oid = oid
+    frequency: 1
+  volt_tt_646297573e9e8:
+  - source: volt_dt_0
+    key: oid = oid
+    frequency: 1
+  volt_tt_64640f17a64a0:
+  - source: volt_dt_0
+    key: oid = oid
+    frequency: 1
+  vld_txn:
+  - source: rpd_txn
+    key: cardid = cardid
+    frequency: 5
+  volt_tt_64640f3b7ec7d:
+  - source: volt_dt_0
+    key: oid = oid
+    frequency: 1
+  mis_bal:
+  - source: vld_txn
+    key: cardid = cardid
+    frequency: 5
+  volt_tt_6463b645cfdfc:
+  - source: volt_dt_0
+    key: oid = oid
+    frequency: 1
+  volt_tt_646b42e6c755a:
+  - source: volt_dt_0
+    key: oid = oid
+    frequency: 1
+  pit:
+  - source: pi
+    key: pymt_instrument_type_uid = pymt_instrument_type_uid
+    frequency: 1
+  pi:
+  - source: dpi
+    key: pymt_identifier_uid = pymt_identifier_uid
+    frequency: 1
+  volt_tt_646639aca5c2b:
+  - source: volt_dt_0
+    key: oid = oid
+    frequency: 1
+  volt_tt_6468c6176c401:
+  - source: volt_dt_0
+    key: oid = oid
+    frequency: 1
+  volt_tt_6469ff90936d3:
+  - source: volt_dt_0
+    key: oid = oid
+    frequency: 1
+  volt_tt_64677b811c95b:
+  - source: volt_dt_0
+    key: oid = oid
+    frequency: 1
+edges:
+- source: pp
+  target: volt_dt_2
+  weight: 920
+  key: partnerproductkey
+- source: pr
+  target: volt_dt_1
+  weight: 884
+  key: partnerrolekey
+- source: app
+  target: volt_dt_3
+  weight: 884
+  key: applicationkey
+- source: pss
+  target: volt_dt_1
+  weight: 627
+  key: partnerrolesubstatuskey
+- source: ps
+  target: volt_dt_2
+  weight: 627
+  key: partnerrolestatuskey
+- source: p
+  target: volt_dt_3
+  weight: 627
+  key: partnerkey
+- source: pr2
+  target: volt_dt_4
+  weight: 627
+  key: partnerrolekey
+- source: lpr_2
+  target: volt_dt_5
+  weight: 627
+  key: linkedpartnerrolekey
+- source: aa
+  target: at
+  weight: 428
+  key: achtransactionkey
+- source: at
+  target: abh
+  weight: 428
+  key: achbatchheaderkey
+- source: p3
+  target: volt_dt_1
+  weight: 389
+  key: partner_uid
+- source: pr3
+  target: volt_dt_2
+  weight: 389
+  key: partner_role_uid
+- source: p2
+  target: volt_dt_3
+  weight: 389
+  key: partner_uid
+- source: p1
+  target: volt_dt_5
+  weight: 389
+  key: partner_uid
+- source: opt_pgm
+  target: volt_dt_1
+  weight: 362
+  key: optinprogramkey
+- source: lpr
+  target: volt_dt_0
+  weight: 351
+  key: linkedpartnerrolekey
+- source: pp
+  target: volt_dt_1
+  weight: 351
+  key: partnerproductkey
+- source: lon_prd_1
+  target: prd_pgm
+  weight: 343
+  key: loanproductkey
+- source: cp
+  target: cpi
+  weight: 311
+  key: consumerprofilekey
+- source: a
+  target: b
+  weight: 284
+  key: vendorprogramresponsekey
+- source: a
+  target: volt_dt_2
+  weight: 265
+  key: applicationkey
+- source: a
+  target: cp
+  weight: 240
+  key: applicationkey
+- source: acct
+  target: prod
+  weight: 233
+  key: productkey
+- source: a
+  target: b
+  weight: 213
+  key: taxreturnheaderkey
+- source: aa
+  target: b
+  weight: 142
+  key: applicationkey
+- source: a1
+  target: aa
+  weight: 142
+  key: applicationkey
+- source: ad
+  target: volt_dt_1
+  weight: 139
+  key: applicationkey
+- source: trn_inf
+  target: volt_dt_3
+  weight: 139
+  key: partnerroleidentityvalue
+- source: lon_prd
+  target: volt_dt_4
+  weight: 139
+  key: loanproductkey
+- source: f_1
+  target: volt_dt_5
+  weight: 139
+  key: applicationkey
+- source: a
+  target: par_prd
+  weight: 139
+  key: partnerproductkey
+- source: bnk1
+  target: bnk2
+  weight: 138
+  key: abaroutingnumber
+- source: bnk1
+  target: bnk2
+  weight: 138
+  key: bankkey
+- source: fnd_trf
+  target: trf_led
+  weight: 138
+  key: globalfundtransferkey
+- source: sftp
+  target: volt_dt_0
+  weight: 138
+  key: applicationkey
+- source: sff
+  target: volt_dt_1
+  weight: 138
+  key: applicationkey
+- source: arwd24
+  target: volt_dt_2
+  weight: 138
+  key: applicationkey
+- source: arwd23
+  target: volt_dt_3
+  weight: 138
+  key: applicationkey
+- source: arwd22
+  target: volt_dt_4
+  weight: 138
+  key: applicationkey
+- source: arwd21
+  target: volt_dt_5
+  weight: 138
+  key: applicationkey
+- source: arwd20
+  target: volt_dt_6
+  weight: 138
+  key: applicationkey
+- source: arwd7
+  target: volt_dt_7
+  weight: 138
+  key: applicationkey
+- source: arwd6
+  target: volt_dt_8
+  weight: 138
+  key: applicationkey
+- source: arwd5
+  target: volt_dt_9
+  weight: 138
+  key: applicationkey
+- source: arwd4
+  target: volt_dt_10
+  weight: 138
+  key: applicationkey
+- source: arwd3
+  target: volt_dt_11
+  weight: 138
+  key: applicationkey
+- source: arwd18
+  target: volt_dt_12
+  weight: 138
+  key: applicationkey
+- source: arwd2
+  target: volt_dt_13
+  weight: 138
+  key: applicationkey
+- source: arwd14
+  target: volt_dt_14
+  weight: 138
+  key: applicationkey
+- source: arwd13
+  target: volt_dt_15
+  weight: 138
+  key: applicationkey
+- source: arwd12
+  target: volt_dt_16
+  weight: 138
+  key: applicationkey
+- source: arwd11
+  target: volt_dt_17
+  weight: 138
+  key: applicationkey
+- source: arwd8
+  target: a
+  weight: 138
+  key: applicationkey
+- source: ab
+  target: abe
+  weight: 138
+  key: achbatchkey
+- source: abe
+  target: s
+  weight: 138
+  key: achbatchentrystatuskey
+- source: abe
+  target: c
+  weight: 138
+  key: customerkey
+- source: abe
+  target: bank
+  weight: 138
+  key: receivingbankid
+- source: psti
+  target: payi
+  weight: 137
+  key: sor_uid
+- source: psti
+  target: payi
+  weight: 137
+  key: paymentidentifier
+- source: psti
+  target: acct
+  weight: 137
+  key: sor_uid
+- source: psti
+  target: acct
+  weight: 137
+  key: accountidentifier
+- source: psti
+  target: trnc
+  weight: 137
+  key: transclasskey
+- source: pstt
+  target: payi
+  weight: 137
+  key: sor_uid
+- source: pstt
+  target: payi
+  weight: 137
+  key: paymentidentifier
+- source: pstt
+  target: acct
+  weight: 137
+  key: sor_uid
+- source: pstt
+  target: acct
+  weight: 137
+  key: accountidentifier
+- source: pstt
+  target: trnc
+  weight: 137
+  key: transclasskey
+- source: disb
+  target: mapp
+  weight: 136
+  key: programkey
+- source: disb
+  target: mapp
+  weight: 136
+  key: partnerkey
+- source: disb
+  target: mapp
+  weight: 136
+  key: partnerprogramkey
+- source: d
+  target: woy
+  weight: 136
+  key: calendar_date
+- source: dtr
+  target: dpp
+  weight: 136
+  key: targetdisbursementprofilekey
+- source: dpp
+  target: dpt
+  weight: 136
+  key: disbursementprofiletypekey
+- source: dtr
+  target: dpc
+  weight: 136
+  key: targetdisbursementprofilekey
+- source: dtr
+  target: dpgc
+  weight: 136
+  key: targetdisbursementprofilekey
+- source: dtr
+  target: dtf
+  weight: 136
+  key: disbursementtransferrequestkey
+- source: dtf
+  target: dfd
+  weight: 136
+  key: disbursementtransferfulfillmentkey
+- source: dtr
+  target: dts
+  weight: 136
+  key: disbursementtransferrequeststatuskey
+- source: dtr
+  target: pap
+  weight: 136
+  key: partnerprogramkey
+- source: pap
+  target: pro
+  weight: 136
+  key: programkey
+- source: pap
+  target: par
+  weight: 136
+  key: partnerkey
+- source: dtr
+  target: bar
+  weight: 136
+  key: targetdisbursementprofilekey
+- source: dtr
+  target: dcc
+  weight: 136
+  key: disbursementtransferrequestkey
+- source: cus_nec
+  target: act_ods
+  weight: 136
+  key: accountkey
+- source: prd_xrf
+  target: dim_prd
+  weight: 136
+  key: product_uid
+- source: str_nec
+  target: str_adr
+  weight: 136
+  key: retailstoreaddresskey
+- source: dtf
+  target: atxn
+  weight: 136
+  key: disbursementtransferfulfillmentid
+- source: dtf
+  target: cust
+  weight: 136
+  key: gdaccountkey
+- source: pf
+  target: u
+  weight: 136
+  key: id
+- source: mapp
+  target: disb
+  weight: 136
+  key: disbursementinvoicedartmappid
+- source: mapp
+  target: parp
+  weight: 136
+  key: partnerprogramkey
+- source: usr_key
+  target: usr_mod
+  weight: 104
+  key: userdetailkey
+- source: rt
+  target: c
+  weight: 103
+  key: id
+- source: c
+  target: ai
+  weight: 103
+  key: accountid
+- source: su
+  target: u
+  weight: 103
+  key: sysuserkey
+- source: a
+  target: arf
+  weight: 98
+  key: applicationkey
+- source: a
+  target: ars
+  weight: 98
+  key: applicationkey
+- source: act_ods
+  target: cus_leg
+  weight: 97
+  key: sor_acct_id
+- source: act_mig
+  target: volt_dt_1
+  weight: 96
+  key: accountkey
+- source: at
+  target: volt_dt_1
+  weight: 93
+  key: messagehashid
+- source: md
+  target: volt_dt_2
+  weight: 93
+  key: mcc_code
+- source: bt
+  target: volt_dt_3
+  weight: 93
+  key: bintypekey
+- source: pg
+  target: volt_dt_4
+  weight: 93
+  key: programkey
+- source: pc
+  target: volt_dt_5
+  weight: 93
+  key: processorkey
+- source: p
+  target: volt_dt_6
+  weight: 93
+  key: productkey
+- source: b
+  target: volt_dt_7
+  weight: 93
+  key: binkey
+- source: bp
+  target: volt_dt_8
+  weight: 93
+  key: binproductkey
+- source: tc
+  target: volt_dt_9
+  weight: 93
+  key: transclasskey
+- source: fnd_trf_4
+  target: trf_led_4
+  weight: 91
+  key: globalfundtransferkey
+- source: fnd_trf_3
+  target: trf_led_3
+  weight: 91
+  key: globalfundtransferkey
+- source: a
+  target: volt_dt_2
+  weight: 86
+  key: applicationkey
+- source: rtl_sls
+  target: rpt_sls
+  weight: 79
+  key: retailersaleskey
+- source: a
+  target: b
+  weight: 72
+  key: loanunderwritingkey
+- source: a
+  target: c
+  weight: 72
+  key: loanunderwritingkey
+- source: a
+  target: d
+  weight: 72
+  key: loanunderwritingkey
+- source: de
+  target: ure
+  weight: 72
+  key: loanunderwritingstatusreasonkey
+- source: l
+  target: k
+  weight: 72
+  key: fcaprogramknockoutrulekey
+- source: a
+  target: b
+  weight: 71
+  key: scoringdecisionrequestattributekey
+- source: acbd
+  target: acct
+  weight: 71
+  key: sor_uid
+- source: acbd
+  target: acct
+  weight: 71
+  key: accountkey
+- source: acbd
+  target: abdm
+  weight: 71
+  key: balance_dt
+- source: acbd
+  target: abdm
+  weight: 71
+  key: accountbalanceidentifier
+- source: acbd
+  target: abdm
+  weight: 71
+  key: accountbalancetypekey
+- source: acbd
+  target: abdm
+  weight: 71
+  key: sor_uid
+- source: acbd
+  target: abdm
+  weight: 71
+  key: accountkey
+- source: a
+  target: b
+  weight: 71
+  key: returnheader_primaryssn
+- source: a
+  target: b
+  weight: 71
+  key: vendorprogramrequestkey
+- source: a
+  target: b
+  weight: 71
+  key: applicationkey
+- source: a
+  target: c
+  weight: 71
+  key: applicationkey
+- source: ors
+  target: volt_dt_13
+  weight: 71
+  key: retail_store_uid
+- source: pan
+  target: volt_dt_1
+  weight: 71
+  key: pymt_and_atm_network_uid
+- source: ors
+  target: volt_dt_9
+  weight: 71
+  key: retail_store_uid
+- source: pid
+  target: volt_dt_14
+  weight: 71
+  key: pymt_identifier_uid
+- source: tth
+  target: volt_dt_2
+  weight: 71
+  key: txn_type_hierarchy_key
+- source: svt
+  target: volt_dt_10
+  weight: 71
+  key: svc_type_uid
+- source: sv
+  target: volt_dt_15
+  weight: 71
+  key: product_uid
+- source: ttx
+  target: volt_dt_3
+  weight: 71
+  key: txn_type_uid
+- source: sv
+  target: volt_dt_11
+  weight: 71
+  key: svc_uid
+- source: tt
+  target: volt_dt_4
+  weight: 71
+  key: txn_type_uid
+- source: dp
+  target: volt_dt_5
+  weight: 71
+  key: product_uid
+- source: da
+  target: volt_dt_7
+  weight: 71
+  key: acct_uid
+- source: a
+  target: c
+  weight: 71
+  key: externalidentifier
+- source: prh
+  target: prhp
+  weight: 71
+  key: partnerrolehierarchykey
+- source: pp
+  target: prhp
+  weight: 71
+  key: partnerproductkey
+- source: psp
+  target: pp
+  weight: 71
+  key: partnersubproductkey
+- source: pp
+  target: p
+  weight: 71
+  key: partnerkey
+- source: prh
+  target: pr
+  weight: 71
+  key: partnerroleidentityvaluelevel1
+- source: th
+  target: trd
+  weight: 71
+  key: taxreturnheaderkey
+- source: a
+  target: b
+  weight: 71
+  key: taxreturnattributekey
+- source: a
+  target: b
+  weight: 71
+  key: scoringdecisionrequestkey
+- source: a
+  target: c
+  weight: 71
+  key: scoringdecisionrequestkey
+- source: a
+  target: aa
+  weight: 71
+  key: applicationkey
+- source: aa
+  target: st
+  weight: 71
+  key: prioryeartaxpayerfundingstatuskey
+- source: a1
+  target: ft
+  weight: 71
+  key: feetypekey
+- source: pss_3
+  target: volt_dt_1
+  weight: 71
+  key: partnerrolesubstatuskey
+- source: ps_3
+  target: volt_dt_2
+  weight: 71
+  key: partnerrolestatuskey
+- source: pr2_3
+  target: volt_dt_4
+  weight: 71
+  key: partnerrolekey
+- source: lpr_8
+  target: volt_dt_5
+  weight: 71
+  key: linkedpartnerrolekey
+- source: cset
+  target: cstt
+  weight: 70
+  key: checksettlementkey
+- source: cstt
+  target: tdtl
+  weight: 70
+  key: checksettlementtransactionkey
+- source: cstt
+  target: tdtl
+  weight: 70
+  key: checksettlementstatuskey
+- source: cstt
+  target: sets
+  weight: 70
+  key: checksettlementstatuskey
+- source: cstt
+  target: cful
+  weight: 70
+  key: checkfulfillmentkey
+- source: cset
+  target: acct
+  weight: 70
+  key: accountnumber
+- source: prod
+  target: prgm
+  weight: 70
+  key: programkey
+- source: tdtl
+  target: stsr
+  weight: 70
+  key: checksettlementstatusreasonkey
+- source: r
+  target: abe
+  weight: 70
+  key: achbatchentrykey
+- source: r
+  target: tc
+  weight: 70
+  key: achtrancodekey
+- source: usr_key
+  target: usr_dtl
+  weight: 69
+  key: userdetailkey
+- source: usr_dtl
+  target: usr_log
+  weight: 69
+  key: primaryemail
+- source: ar
+  target: volt_dt_0
+  weight: 68
+  key: achrulekey
+- source: comp
+  target: acct
+  weight: 68
+  key: accountidentifier
+- source: acct
+  target: acts
+  weight: 68
+  key: accountstatuskey
+- source: acct
+  target: ah
+  weight: 68
+  key: accountkey
+- source: acct
+  target: ah
+  weight: 68
+  key: sor_uid
+- source: svcs
+  target: serv
+  weight: 68
+  key: svc_uid
+- source: serv
+  target: svct
+  weight: 68
+  key: svc_type_uid
+- source: prds
+  target: dimp
+  weight: 68
+  key: product_uid
+- source: pinn
+  target: prod
+  weight: 68
+  key: productkey
+- source: pinn
+  target: rets
+  weight: 68
+  key: pinkey
+- source: rets
+  target: rpts
+  weight: 68
+  key: retailersaleskey
+- source: prod
+  target: rtlr
+  weight: 68
+  key: retailerkey
+- source: fisd
+  target: fism
+  weight: 68
+  key: bcmu_account
+- source: fisd
+  target: fism
+  weight: 68
+  key: source_file_name
+- source: acct
+  target: fisb
+  weight: 68
+  key: accountidentifier
+- source: acct
+  target: ptsm
+  weight: 68
+  key: accountidentifier
+- source: acct
+  target: pstl
+  weight: 68
+  key: accountidentifier
+- source: acct
+  target: ptsd
+  weight: 68
+  key: accountidentifier
+- source: acct
+  target: pltb
+  weight: 68
+  key: accountidentifier
+- source: c
+  target: afc
+  weight: 68
+  key: ownerid
+- source: invc
+  target: osls
+  weight: 68
+  key: sor_uid
+- source: invc
+  target: osls
+  weight: 68
+  key: transactionprimarykey
+- source: jag
+  target: s
+  weight: 68
+  key: checkpaymentsettlementstatuskey
+- source: ref
+  target: c
+  weight: 68
+  key: accountkey
+- source: c
+  target: p
+  weight: 68
+  key: productkey
+- source: rtl_sls
+  target: rtl_txn
+  weight: 68
+  key: retailersaleskey
+- source: rtl_sls
+  target: pnd_lod
+  weight: 68
+  key: retailertransid
+- source: rtl_sls
+  target: cus_nec
+  weight: 68
+  key: customerkey
+- source: rtl_sls
+  target: sls_pin
+  weight: 68
+  key: pinkey
+- source: rtl_sls
+  target: crd_nec
+  weight: 68
+  key: cardkey
+- source: rtl_sls
+  target: crd_prd
+  weight: 68
+  key: pinkey
+- source: rtl_sls
+  target: svc_xrf
+  weight: 68
+  key: saletransactiontypekey
+- source: svc_xrf
+  target: svc_typ
+  weight: 68
+  key: svc_type_uid
+- source: rpt_sls
+  target: rtl_par
+  weight: 68
+  key: effectivepartnerkey
+- source: rtl_sls
+  target: rtl_map
+  weight: 68
+  key: retailersaleskey
+- source: rpt_sls
+  target: str_nec
+  weight: 68
+  key: retailstorekey
+- source: rtl_txn
+  target: cus_nec
+  weight: 68
+  key: customerkey
+- source: cus_nec
+  target: crd_nec
+  weight: 68
+  key: cardkey
+- source: cus_nec
+  target: pym_idn
+  weight: 68
+  key: cardkey
+- source: crd_nec
+  target: crd_pin
+  weight: 68
+  key: pinkey
+- source: crd_nec
+  target: act_pin
+  weight: 68
+  key: accountkey
+- source: cus_nec
+  target: prd_xrf
+  weight: 68
+  key: productkey
+- source: rtl_txn
+  target: rtl_par
+  weight: 68
+  key: partnerkey
+- source: rtl_txn
+  target: rtl_chn
+  weight: 68
+  key: retailchainkey
+- source: rtl_txn
+  target: str_nec
+  weight: 68
+  key: storeid
+- source: rtl_txn
+  target: str_nec
+  weight: 68
+  key: retailchainkey
+- source: crd_nec
+  target: pin_nec
+  weight: 68
+  key: pinkey
+- source: c
+  target: u
+  weight: 68
+  key: ownerid
+- source: osls
+  target: vuin
+  weight: 68
+  key: partnerkey
+- source: osls
+  target: vuin
+  weight: 68
+  key: retailchainkey
+- source: osls
+  target: prnr
+  weight: 68
+  key: partnerkey
+- source: osls
+  target: rtls
+  weight: 68
+  key: retailersaleskey
+- source: rtls
+  target: rtlt
+  weight: 68
+  key: saletransactiontypekey
+- source: osls
+  target: rtxn
+  weight: 68
+  key: sourcepkvalue
+- source: rtxn
+  target: rtxt
+  weight: 68
+  key: retailsalestransactiontypekey
+- source: osls
+  target: rtlu
+  weight: 68
+  key: sourcepkvalue
+- source: ac
+  target: abe
+  weight: 68
+  key: achtrancodekey
+- source: crd_hld
+  target: cmp_inf
+  weight: 68
+  key: clientprogramid
+- source: crd_hld
+  target: pgm_inf
+  weight: 68
+  key: uniqueprogramid
+- source: aic
+  target: cd
+  weight: 68
+  key: account_key
+- source: cmp_sub
+  target: fre_que
+  weight: 68
+  key: frequencykey
+- source: cmp_sub
+  target: cmp_req
+  weight: 68
+  key: companyreportsubscriptionkey
+- source: cmp_sub
+  target: rpt_tmp
+  weight: 68
+  key: companyreporttemplatekey
+- source: cmp_sub
+  target: req_dtl
+  weight: 68
+  key: companyreportsubscriptionkey
+- source: u
+  target: dc
+  weight: 68
+  key: id
+- source: atxn
+  target: prsp
+  weight: 68
+  key: processorresponsecodekey
+- source: atxn
+  target: prnr
+  weight: 68
+  key: retailpartnerkey
+- source: atxn
+  target: mapp
+  weight: 68
+  key: retailpartnerkey
+- source: a
+  target: q
+  weight: 62
+  key: dispute_id
+- source: p_8
+  target: volt_dt_3
+  weight: 60
+  key: partnerkey
+- source: gab
+  target: volt_dt_0
+  weight: 57
+  key: accountkey
+- source: gab
+  target: volt_dt_0
+  weight: 57
+  key: sor_uid
+- source: cust
+  target: volt_dt_2
+  weight: 57
+  key: accountkey
+- source: ac
+  target: volt_dt_3
+  weight: 57
+  key: accountkey
+- source: init
+  target: volt_dt_4
+  weight: 57
+  key: claim_id
+- source: l
+  target: volt_dt_6
+  weight: 57
+  key: productkey
+- source: e
+  target: volt_dt_7
+  weight: 57
+  key: accountkey
+- source: pr
+  target: volt_dt_8
+  weight: 57
+  key: id
+- source: u
+  target: volt_dt_9
+  weight: 57
+  key: id
+- source: ope
+  target: pro
+  weight: 57
+  key: filingyear
+- source: ope
+  target: pro
+  weight: 57
+  key: optinprogrameligibilitykey
+- source: b
+  target: fm
+  weight: 55
+  key: customerkey
+- source: c
+  target: volt_dt_10
+  weight: 54
+  key: casenumber
+- source: fnd_trf_26
+  target: trf_led_9
+  weight: 47
+  key: globalfundtransferkey
+- source: fnd_trf_25
+  target: trf_led_8
+  weight: 47
+  key: globalfundtransferkey
+- source: a
+  target: b
+  weight: 44
+  key: returnheader_primaryssn
+- source: a
+  target: c
+  weight: 44
+  key: returnheader_primaryssn
+- source: a
+  target: d
+  weight: 44
+  key: returnheader_primaryssn
+- source: a
+  target: e
+  weight: 44
+  key: returnheader_primaryssn
+- source: a
+  target: f
+  weight: 44
+  key: returnheader_primaryssn
+- source: a
+  target: g
+  weight: 44
+  key: returnheader_primaryssn
+- source: a
+  target: h
+  weight: 44
+  key: returnheader_primaryssn
+- source: str_gss
+  target: volt_dt_1
+  weight: 42
+  key: storenbr
+- source: vld_txn
+  target: rpt_dat
+  weight: 39
+  key: cardid
+- source: b_4
+  target: sh_2
+  weight: 37
+  key: accountidentifier
+- source: ps_5
+  target: sh_5
+  weight: 37
+  key: accountidentifier
+- source: a
+  target: b
+  weight: 36
+  key: loanapplicantevaluationkey
+- source: la
+  target: volt_dt_1
+  weight: 36
+  key: loanapplicationidentifier
+- source: a
+  target: volt_dt_3
+  weight: 36
+  key: applicationkey
+- source: n_1
+  target: volt_dt_1
+  weight: 35
+  key: tablepk
+- source: crh_2
+  target: l_2
+  weight: 35
+  key: customerkey
+- source: w_4
+  target: sh_2
+  weight: 35
+  key: accountidentifier
+- source: crh_2
+  target: volt_dt_1
+  weight: 35
+  key: customerkey
+- source: pr_1
+  target: volt_dt_2
+  weight: 35
+  key: productkey
+- source: usr_com
+  target: usr_dtl
+  weight: 35
+  key: userdetailkey
+- source: usr_com
+  target: cmp_inf
+  weight: 35
+  key: companykey
+- source: cmp_inf
+  target: cmp_pgm
+  weight: 35
+  key: companykey
+- source: cmp_pgm
+  target: pgm_inf
+  weight: 35
+  key: programkey
+- source: usr_dtl
+  target: usr_mod
+  weight: 35
+  key: userdetailkey
+- source: a
+  target: f
+  weight: 35
+  key: applicationkey
+- source: usr_key
+  target: usr_per
+  weight: 35
+  key: userdetailkey
+- source: usr_per
+  target: rol_per
+  weight: 35
+  key: role_permissionkey
+- source: rol_per
+  target: per_inf
+  weight: 35
+  key: permissionkey
+- source: c2
+  target: c
+  weight: 35
+  key: parentid
+- source: c
+  target: m
+  weight: 35
+  key: casenumber
+- source: m
+  target: apc
+  weight: 35
+  key: a_surveyid
+- source: usr_dtl
+  target: rol_inf
+  weight: 35
+  key: rolekey
+- source: usr_dtl
+  target: sts_inf
+  weight: 35
+  key: statuskey
+- source: usr_dtl
+  target: cre_dtl
+  weight: 35
+  key: createby
+- source: usr_dtl
+  target: chg_dtl
+  weight: 35
+  key: changeby
+- source: usr_key
+  target: prd_lst
+  weight: 35
+  key: userdetailkey
+- source: usr_key
+  target: per_lst
+  weight: 35
+  key: userdetailkey
+- source: usr_key
+  target: crd_lst
+  weight: 35
+  key: userdetailkey
+- source: usr_key
+  target: acc_lst
+  weight: 35
+  key: userdetailkey
+- source: usr_mod
+  target: cmp_rol
+  weight: 35
+  key: companyrolekey
+- source: usr_key
+  target: cmp_lst
+  weight: 35
+  key: userdetailkey
+- source: usr_key
+  target: org_lst
+  weight: 35
+  key: userdetailkey
+- source: c
+  target: a
+  weight: 35
+  key: casenumber
+- source: c
+  target: c2a
+  weight: 35
+  key: casenumber
+- source: c2a
+  target: da
+  weight: 35
+  key: acct_uid
+- source: da
+  target: p
+  weight: 35
+  key: product_uid
+- source: da
+  target: pc
+  weight: 35
+  key: product_channel_uid
+- source: pc
+  target: bd
+  weight: 35
+  key: business_division_uid
+- source: rt
+  target: ct
+  weight: 35
+  key: id
+- source: aic
+  target: pt
+  weight: 34
+  key: product_key
+- source: trcc
+  target: volt_dt_0
+  weight: 34
+  key: transactioncategorykey
+- source: atst
+  target: volt_dt_2
+  weight: 34
+  key: accounttransactionstatuskey
+- source: acts
+  target: volt_dt_3
+  weight: 34
+  key: accountstatuskey
+- source: acct
+  target: volt_dt_4
+  weight: 34
+  key: accountkey
+- source: acct
+  target: volt_dt_4
+  weight: 34
+  key: sor_uid
+- source: ft
+  target: a
+  weight: 34
+  key: targetaccountidentifier
+- source: a
+  target: woy
+  weight: 34
+  key: calendar_date
+- source: vld_txn
+  target: rpt_dat
+  weight: 34
+  key: programkey
+- source: vld_txn
+  target: rpt_dat
+  weight: 34
+  key: companykey
+- source: c2
+  target: c
+  weight: 34
+  key: casenumber
+- source: ft
+  target: a
+  weight: 34
+  key: initiatoraccountidentifier
+- source: trn_rap
+  target: trn_cod
+  weight: 34
+  key: transcode
+- source: trn_rap
+  target: crd_hld
+  weight: 34
+  key: cardholderid
+- source: trn_rap
+  target: crd_rap
+  weight: 34
+  key: cardid
+- source: trn_rap
+  target: crd_hdt
+  weight: 34
+  key: payeecardholderid
+- source: trn_rap
+  target: emp_inf
+  weight: 34
+  key: cardid
+- source: trn_rap
+  target: emp_ift
+  weight: 34
+  key: payeecardid
+- source: crd_rpd
+  target: crd_hld
+  weight: 34
+  key: cardholderid
+- source: crd_rpd
+  target: emp_inf
+  weight: 34
+  key: cardid
+- source: pgm_inf
+  target: pgm_spn
+  weight: 34
+  key: programkey
+- source: pgm_spn
+  target: spn_sor
+  weight: 34
+  key: sponsorkey
+- source: cd
+  target: pd
+  weight: 34
+  key: productkey
+- source: cd
+  target: cust
+  weight: 34
+  key: cardreference
+- source: volt_dt_1
+  target: volt_dt_2
+  weight: 34
+  key: packid
+- source: volt_dt_1
+  target: volt_dt_2
+  weight: 34
+  key: accountproxy
+- source: volt_dt_1
+  target: volt_dt_2
+  weight: 34
+  key: cardproxy
+- source: usr_key
+  target: prd_mod
+  weight: 34
+  key: userdetailkey
+- source: prd_mod
+  target: mod_inf
+  weight: 34
+  key: modulekey
+- source: pt
+  target: a
+  weight: 34
+  key: accountkey
+- source: fnd_txn
+  target: cus_txn
+  weight: 34
+  key: cardid
+- source: fnd_txn
+  target: cus_txn
+  weight: 34
+  key: nbrettransid
+- source: fnd_txn
+  target: trn_cod
+  weight: 34
+  key: transcode
+- source: usr_log
+  target: log_ses
+  weight: 34
+  key: userloginkey
+- source: hdr
+  target: app
+  weight: 34
+  key: ivrapplicationkey
+- source: hdr
+  target: et
+  weight: 34
+  key: ivrexittypekey
+- source: hdr
+  target: card
+  weight: 34
+  key: cardkey
+- source: card
+  target: prod
+  weight: 34
+  key: productkey
+- source: d2
+  target: d
+  weight: 34
+  key: casenumber
+- source: d2
+  target: d
+  weight: 34
+  key: min_order
+- source: c
+  target: s
+  weight: 34
+  key: agent_group__c
+- source: c
+  target: ca
+  weight: 34
+  key: casenumber
+- source: ac
+  target: da
+  weight: 34
+  key: accountkey
+- source: da
+  target: ac
+  weight: 34
+  key: sor_uid
+- source: dc
+  target: dis
+  weight: 34
+  key: wave_case_number__c
+- source: dis
+  target: dc
+  weight: 34
+  key: wave_casenumber
+- source: usr_key
+  target: usr_org
+  weight: 34
+  key: userdetailkey
+- source: usr_org
+  target: org_inf
+  weight: 34
+  key: organizationkey
+- source: c
+  target: da
+  weight: 34
+  key: account_key__c
+- source: usr_key
+  target: usr_cmp
+  weight: 34
+  key: userdetailkey
+- source: usr_cmp
+  target: cmp_inf
+  weight: 34
+  key: companykey
+- source: cmp_sub
+  target: pgm_inf
+  weight: 34
+  key: programkey
+- source: req_dtl
+  target: cmp_inf
+  weight: 34
+  key: companykey
+- source: fism
+  target: ptsm
+  weight: 34
+  key: accountidentifier
+- source: fism
+  target: ptsm
+  weight: 34
+  key: loanbalance
+- source: c
+  target: wcd
+  weight: 34
+  key: case_id
+- source: hdr
+  target: dtl
+  weight: 34
+  key: callsid
+- source: vld_txn
+  target: rpt_dat
+  weight: 34
+  key: programkey
+- source: vld_txn
+  target: rpt_dat
+  weight: 34
+  key: companykey
+- source: a
+  target: dm
+  weight: 33
+  key: calendar_date
+- source: pss_8
+  target: volt_dt_1
+  weight: 29
+  key: partnerrolesubstatuskey
+- source: ps_8
+  target: volt_dt_2
+  weight: 29
+  key: partnerrolestatuskey
+- source: p_19
+  target: volt_dt_3
+  weight: 29
+  key: partnerkey
+- source: pr2_8
+  target: volt_dt_4
+  weight: 29
+  key: partnerrolekey
+- source: lpr_18
+  target: volt_dt_5
+  weight: 29
+  key: linkedpartnerrolekey
+- source: crd_rpd
+  target: crd_lod
+  weight: 28
+  key: cardholderid
+- source: pint
+  target: acct
+  weight: 27
+  key: sor_uid
+- source: pint
+  target: acct
+  weight: 27
+  key: accountidentifier
+- source: pint
+  target: acht
+  weight: 27
+  key: transactionreferenceid
+- source: pint
+  target: acht
+  weight: 27
+  key: transactionamount
+- source: pint
+  target: trnc
+  weight: 27
+  key: transclasskey
+- source: cp
+  target: cpa
+  weight: 27
+  key: consumerprofilekey
+- source: a
+  target: scp
+  weight: 27
+  key: applicationkey
+- source: scp
+  target: scpi
+  weight: 27
+  key: consumerprofilekey
+- source: a
+  target: ala
+  weight: 27
+  key: applicationkey
+- source: la
+  target: ala
+  weight: 27
+  key: loanapplicationkey
+- source: la
+  target: las
+  weight: 27
+  key: loanapplicationstatuskey
+- source: ala
+  target: lala
+  weight: 27
+  key: loanapplicationkey
+- source: lala
+  target: lacp
+  weight: 27
+  key: loanapplicantkey
+- source: cp
+  target: lacp
+  weight: 27
+  key: consumerprofilekey
+- source: lacp
+  target: lae
+  weight: 27
+  key: loanapplicantconsumerprofilekey
+- source: la
+  target: lalu
+  weight: 27
+  key: loanapplicationkey
+- source: lalu
+  target: dr
+  weight: 27
+  key: loanunderwritingkey
+- source: lacp
+  target: s
+  weight: 27
+  key: loanapplicantconsumerprofilekey
+- source: a
+  target: fr
+  weight: 27
+  key: applicationkey
+- source: a
+  target: sr
+  weight: 27
+  key: applicationkey
+- source: a
+  target: ar
+  weight: 27
+  key: applicationkey
+- source: lp
+  target: volt_dt_1
+  weight: 21
+  key: loanproductkey
+- source: e
+  target: volt_dt_1
+  weight: 20
+  key: globalfundtransferprofilekey
+- source: d2
+  target: volt_dt_2
+  weight: 20
+  key: globalfundtransferprofilekey
+- source: d1
+  target: volt_dt_3
+  weight: 20
+  key: globalfundtransferprofilekey
+- source: lon_prd
+  target: prd_pgm
+  weight: 19
+  key: loanproductkey
+- source: actblk
+  target: volt_dt_1
+  weight: 15
+  key: acct_uid
+- source: mapp
+  target: dats
+  weight: 13
+  key: recurrence
+- source: ar
+  target: volt_dt_1
+  weight: 12
+  key: auth_reason_uid
+- source: ash_1
+  target: volt_dt_1
+  weight: 12
+  key: accountkey
+- source: c
+  target: volt_dt_1
+  weight: 11
+  key: externalidentifier
+- source: lae
+  target: a
+  weight: 11
+  key: loanapplicantconsumerprofilekey
+- source: leg_ret
+  target: bas_ret
+  weight: 11
+  key: transactiontokenresponseid
+- source: rtl_trn
+  target: rtl_res
+  weight: 11
+  key: retailsalestransactionkey
+- source: p_9
+  target: volt_dt_3
+  weight: 11
+  key: partnerkey
+- source: actblk_4
+  target: volt_dt_1
+  weight: 11
+  key: acct_uid
+- source: cm_1
+  target: dd_1
+  weight: 10
+  key: calendar_date
+- source: str_gss_13
+  target: volt_dt_1
+  weight: 10
+  key: storenbr
+- source: pay_dtl_13
+  target: volt_dt_2
+  weight: 10
+  key: paymentinstrumentkey
+- source: pay_dtl_13
+  target: volt_dt_2
+  weight: 10
+  key: sor_uid
+- source: lon_prd
+  target: volt_dt_1
+  weight: 8
+  key: loanproductkey
+- source: pinstt
+  target: volt_dt_0
+  weight: 8
+  key: posted_txn_uid
+- source: gab
+  target: volt_dt_1
+  weight: 8
+  key: accountkey
+- source: gab
+  target: volt_dt_1
+  weight: 8
+  key: sor_uid
+- source: cust
+  target: volt_dt_3
+  weight: 8
+  key: accountkey
+- source: ac
+  target: volt_dt_4
+  weight: 8
+  key: accountkey
+- source: init
+  target: volt_dt_5
+  weight: 8
+  key: claim_id
+- source: l
+  target: volt_dt_7
+  weight: 8
+  key: productkey
+- source: e
+  target: volt_dt_8
+  weight: 8
+  key: accountkey
+- source: pr
+  target: volt_dt_9
+  weight: 8
+  key: id
+- source: u
+  target: volt_dt_10
+  weight: 8
+  key: id
+- source: c
+  target: volt_dt_11
+  weight: 8
+  key: casenumber
+- source: h
+  target: f
+  weight: 7
+  key: txn_type_hierarchy_key
+- source: vld_txn
+  target: crd_dtl
+  weight: 6
+  key: programkey
+- source: vld_txn
+  target: crd_dtl
+  weight: 6
+  key: companykey
+- source: ah
+  target: volt_dt_1
+  weight: 6
+  key: acct_uid
+- source: ah
+  target: volt_dt_1
+  weight: 6
+  key: sor_uid
+- source: aw
+  target: da
+  weight: 6
+  key: acct_uid
+- source: am
+  target: volt_dt_1
+  weight: 5
+  key: destinationaccountidentifier
+- source: cp_add
+  target: volt_dt_2
+  weight: 5
+  key: sor_uid
+- source: cp_add
+  target: volt_dt_2
+  weight: 5
+  key: consumerprofilekey
+- source: cp
+  target: volt_dt_3
+  weight: 5
+  key: consumerprofilekey
+- source: cp
+  target: volt_dt_3
+  weight: 5
+  key: sor_uid
+- source: ab
+  target: volt_dt_4
+  weight: 5
+  key: accountkey
+- source: ab
+  target: volt_dt_4
+  weight: 5
+  key: sor_uid
+- source: ahc
+  target: volt_dt_5
+  weight: 5
+  key: accountholdercurekey
+- source: crh_1
+  target: volt_dt_1
+  weight: 5
+  key: customerkey
+- source: daty
+  target: dca
+  weight: 5
+  key: address_type_uid
+- source: ahh
+  target: volt_dt_2
+  weight: 5
+  key: sor_uid
+- source: ahh
+  target: volt_dt_2
+  weight: 5
+  key: acct_uid
+- source: vpr_in
+  target: vpre_in
+  weight: 5
+  key: vendorprogramrequestkey
+- source: da
+  target: volt_dt_1
+  weight: 5
+  key: acct_uid
+- source: db
+  target: volt_dt_2
+  weight: 5
+  key: bin_uid
+- source: dpid
+  target: dpi
+  weight: 5
+  key: pymt_identifier_uid
+- source: rpd_txn
+  target: vld_txn
+  weight: 5
+  key: cardid
+- source: vld_txn
+  target: mis_bal
+  weight: 5
+  key: cardid
+- source: wt
+  target: pid
+  weight: 4
+  key: wallettypekey
+- source: c_1
+  target: volt_dt_10
+  weight: 3
+  key: casenumber
+- source: a_1
+  target: q
+  weight: 3
+  key: dispute_id
+- source: t1
+  target: volt_dt_1
+  weight: 2
+  key: col1
+- source: t1
+  target: volt_dt_1
+  weight: 2
+  key: distkey_accountkey
+- source: fvrt
+  target: volt_dt_1
+  weight: 2
+  key: feeevaluationresulttypekey
+- source: mfe
+  target: mfer
+  weight: 2
+  key: accountkey
+- source: mfe
+  target: mfer
+  weight: 2
+  key: monthlyfeeevaluationreferenceid
+- source: str_gss_7
+  target: volt_dt_1
+  weight: 2
+  key: storenbr
+- source: pay_dtl_7
+  target: volt_dt_2
+  weight: 2
+  key: paymentinstrumentkey
+- source: pay_dtl_7
+  target: volt_dt_2
+  weight: 2
+  key: sor_uid
+- source: pid
+  target: t
+  weight: 2
+  key: paymentidentifierdevicekey
+- source: volt_dt_0
+  target: volt_tt_6442efb10cea2
+  weight: 1
+  key: oid
+- source: volt_dt_0
+  target: volt_tt_6441ad0add5cf
+  weight: 1
+  key: oid
+- source: volt_dt_0
+  target: volt_tt_644430c512714
+  weight: 1
+  key: oid
+- source: volt_dt_0
+  target: volt_tt_6446b47ba6d5d
+  weight: 1
+  key: oid
+- source: volt_dt_0
+  target: volt_tt_644573cce34da
+  weight: 1
+  key: oid
+- source: volt_dt_0
+  target: volt_tt_6447f6757264d
+  weight: 1
+  key: oid
+- source: volt_dt_0
+  target: volt_tt_644a7a15c8f37
+  weight: 1
+  key: oid
+- source: volt_dt_0
+  target: volt_tt_644bbc0c92437
+  weight: 1
+  key: oid
+- source: volt_dt_0
+  target: volt_tt_644938379a388
+  weight: 1
+  key: oid
+- source: volt_dt_0
+  target: volt_tt_644cfde690564
+  weight: 1
+  key: oid
+- source: volt_dt_0
+  target: volt_tt_644e3ffb87ffc
+  weight: 1
+  key: oid
+- source: d
+  target: volt_dt_0
+  weight: 1
+  key: casenumber
+- source: sf
+  target: volt_dt_1
+  weight: 1
+  key: id
+- source: c
+  target: a
+  weight: 1
+  key: casenumber
+- source: volt_dt_0
+  target: volt_tt_644f81a6b32f0
+  weight: 1
+  key: oid
+- source: volt_dt_0
+  target: volt_tt_64520569fc67c
+  weight: 1
+  key: oid
+- source: volt_dt_0
+  target: volt_tt_6450c3864ed70
+  weight: 1
+  key: oid
+- source: mf
+  target: volt_dt_1
+  weight: 1
+  key: membershipkey
+- source: pay_dtl
+  target: volt_dt_2
+  weight: 1
+  key: paymentinstrumentkey
+- source: pay_dtl
+  target: volt_dt_2
+  weight: 1
+  key: sor_uid
+- source: volt_dt_0
+  target: volt_tt_64534783d8f6f
+  weight: 1
+  key: oid
+- source: ac
+  target: volt_dt_1
+  weight: 1
+  key: accountreferenceid
+- source: volt_dt_0
+  target: volt_tt_6452384bedb24
+  weight: 1
+  key: oid
+- source: volt_dt_0
+  target: volt_tt_645768bc8bfae
+  weight: 1
+  key: oid
+- source: volt_dt_0
+  target: volt_tt_6455cafb678d9
+  weight: 1
+  key: oid
+- source: volt_dt_0
+  target: volt_tt_6454892b77cd9
+  weight: 1
+  key: oid
+- source: volt_dt_0
+  target: volt_tt_645aec22c1d06
+  weight: 1
+  key: oid
+- source: volt_dt_0
+  target: volt_tt_64584e9ba4749
+  weight: 1
+  key: oid
+- source: volt_dt_0
+  target: volt_tt_64570cf402c43
+  weight: 1
+  key: oid
+- source: volt_dt_0
+  target: volt_tt_645767d6d4266
+  weight: 1
+  key: oid
+- source: volt_dt_0
+  target: volt_tt_645990badf16c
+  weight: 1
+  key: oid
+- source: volt_dt_0
+  target: volt_tt_645ae70ef007d
+  weight: 1
+  key: oid
+- source: volt_dt_0
+  target: volt_tt_645ad2b675ea6
+  weight: 1
+  key: oid
+- source: volt_dt_0
+  target: volt_tt_645eaf614c72f
+  weight: 1
+  key: oid
+- source: volt_dt_0
+  target: volt_tt_645c1433bffa1
+  weight: 1
+  key: oid
+- source: volt_dt_0
+  target: volt_tt_645b07dbf67a5
+  weight: 1
+  key: oid
+- source: t
+  target: tl
+  weight: 1
+  key: globalfundtransferkey
+- source: volt_dt_0
+  target: volt_tt_645d6d154d12b
+  weight: 1
+  key: oid
+- source: qc
+  target: volt_dt_0
+  weight: 1
+  key: pxinsname
+- source: e
+  target: volt_dt_1
+  weight: 1
+  key: acct_uid
+- source: d
+  target: volt_dt_2
+  weight: 1
+  key: acct_uid
+- source: c
+  target: volt_dt_3
+  weight: 1
+  key: acct_uid
+- source: volt_dt_0
+  target: volt_tt_6461765993ccc
+  weight: 1
+  key: oid
+- source: volt_dt_0
+  target: volt_tt_646050c824976
+  weight: 1
+  key: oid
+- source: volt_dt_0
+  target: volt_tt_64614e0ee1f04
+  weight: 1
+  key: oid
+- source: volt_dt_0
+  target: volt_tt_64604dfac0ac9
+  weight: 1
+  key: oid
+- source: volt_dt_0
+  target: volt_tt_64615d42a1725
+  weight: 1
+  key: oid
+- source: volt_dt_0
+  target: volt_tt_64617588acdc2
+  weight: 1
+  key: oid
+- source: volt_dt_0
+  target: volt_tt_645ffcdbe01b7
+  weight: 1
+  key: oid
+- source: volt_dt_0
+  target: volt_tt_64613530daec8
+  weight: 1
+  key: oid
+- source: volt_dt_0
+  target: volt_tt_64615d7ea3ef3
+  weight: 1
+  key: oid
+- source: volt_dt_0
+  target: volt_tt_6461a4d0c7840
+  weight: 1
+  key: oid
+- source: volt_dt_0
+  target: volt_tt_6462749dc9cba
+  weight: 1
+  key: oid
+- source: volt_dt_0
+  target: volt_tt_6461a53cd5576
+  weight: 1
+  key: oid
+- source: volt_dt_0
+  target: volt_tt_6462972cc87d6
+  weight: 1
+  key: oid
+- source: volt_dt_0
+  target: volt_tt_64614de06990a
+  weight: 1
+  key: oid
+- source: volt_dt_0
+  target: volt_tt_646296c5570a3
+  weight: 1
+  key: oid
+- source: volt_dt_0
+  target: volt_tt_6464f99e34898
+  weight: 1
+  key: oid
+- source: volt_dt_0
+  target: volt_tt_646297573e9e8
+  weight: 1
+  key: oid
+- source: volt_dt_0
+  target: volt_tt_64640f17a64a0
+  weight: 1
+  key: oid
+- source: pid
+  target: pt
+  weight: 1
+  key: paymentidentifierdevicekey
+- source: volt_dt_0
+  target: volt_tt_64640f3b7ec7d
+  weight: 1
+  key: oid
+- source: volt_dt_0
+  target: volt_tt_6463b645cfdfc
+  weight: 1
+  key: oid
+- source: volt_dt_0
+  target: volt_tt_646b42e6c755a
+  weight: 1
+  key: oid
+- source: pi
+  target: pit
+  weight: 1
+  key: pymt_instrument_type_uid
+- source: dpi
+  target: pi
+  weight: 1
+  key: pymt_identifier_uid
+- source: volt_dt_0
+  target: volt_tt_646639aca5c2b
+  weight: 1
+  key: oid
+- source: g
+  target: e
+  weight: 1
+  key: posttransactionkey
+- source: volt_dt_0
+  target: volt_tt_6468c6176c401
+  weight: 1
+  key: oid
+- source: volt_dt_0
+  target: volt_tt_6469ff90936d3
+  weight: 1
+  key: oid
+- source: volt_dt_0
+  target: volt_tt_64677b811c95b
+  weight: 1
+  key: oid

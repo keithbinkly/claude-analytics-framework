@@ -1,0 +1,741 @@
+metadata:
+  generated: '2025-12-27T19:14:05.270508'
+  source: Redshift query logs
+  query_count: 46066
+  total_aliases: 103
+  conflict_count: 32
+canonical_terms:
+- canonical: greendot_cc_apple_osat_apple_support_exp_scale
+  aliases:
+  - name: greendot_cc_apple_osat_apple_support_exp_scale
+    frequency: 68
+  - name: greendot_cc_apple_recommend_advisor_scale
+    frequency: 68
+  - name: greendot_cc_apple_issue_resolved_yn
+    frequency: 68
+  - name: greendot_cc_apple_issue_not_resolved_enum
+    frequency: 68
+  - name: greendot_cc_apple_ease_to_handle_issue_scale
+    frequency: 68
+  source_columns:
+  - cast(null as varchar)
+- canonical: retailerfeesplit
+  aliases:
+  - name: retailerfeesplit
+    frequency: 68
+  - name: greendotfeesplit
+    frequency: 68
+  source_columns:
+  - cast(null as decimal(19, 4))
+- canonical: response_week
+  aliases:
+  - name: response_week
+    frequency: 136
+  source_columns:
+  - cast(woy.first_day_of_week as date)
+- canonical: response_year
+  aliases:
+  - name: response_year
+    frequency: 136
+  source_columns:
+  - cast(d.year_num as varchar)
+- canonical: firstname
+  aliases:
+  - name: firstname
+    frequency: 136
+  source_columns:
+  - pdr_stg.decryptaes(coalesce(cus_nec.firstname, ''))
+- canonical: lastname
+  aliases:
+  - name: lastname
+    frequency: 136
+  source_columns:
+  - pdr_stg.decryptaes(coalesce(cus_nec.lastname, ''))
+- canonical: pymt_identifier_uid
+  aliases:
+  - name: pymt_identifier_uid
+    frequency: 136
+  source_columns:
+  - isnull(pym_idn.pymt_identifier_uid, -1)
+- canonical: prn
+  aliases:
+  - name: prn
+    frequency: 136
+  source_columns:
+  - coalesce(crd_pin.externid, act_pin.externid)
+- canonical: invoice_partner
+  aliases:
+  - name: invoice_partner
+    frequency: 136
+  source_columns:
+  - rtl_par.description
+- canonical: retail_chain_partner
+  aliases:
+  - name: retail_chain_partner
+    frequency: 136
+  source_columns:
+  - case when rtl_chn.retailchainkey = 319 then 'ezmoney' else rtl_chn.description
+    end
+- canonical: address_line_1
+  aliases:
+  - name: address_line_1
+    frequency: 136
+  source_columns:
+  - str_adr.address1
+- canonical: address_line_2
+  aliases:
+  - name: address_line_2
+    frequency: 136
+  source_columns:
+  - str_adr.address2
+- canonical: state_province
+  aliases:
+  - name: state_province
+    frequency: 136
+  source_columns:
+  - str_adr.state
+- canonical: postal_cd
+  aliases:
+  - name: postal_cd
+    frequency: 136
+  source_columns:
+  - str_adr.zip
+- canonical: createdate
+  aliases:
+  - name: createdate
+    frequency: 102
+  source_columns:
+  - cast(max(createdate) as date)
+- canonical: accountbalanceidentifier
+  aliases:
+  - name: accountbalanceidentifier
+    frequency: 71
+  source_columns:
+  - max(accountbalanceidentifier)
+- canonical: balance_dt
+  aliases:
+  - name: balance_dt
+    frequency: 71
+  source_columns:
+  - max(balance_dt)
+- canonical: programname
+  aliases:
+  - name: programname
+    frequency: 70
+  source_columns:
+  - coalesce(prgm.programname, 'program not found')
+- canonical: productname
+  aliases:
+  - name: productname
+    frequency: 70
+  source_columns:
+  - coalesce(prod.productname, 'product name not found')
+- canonical: date
+  aliases:
+  - name: date
+    frequency: 70
+  source_columns:
+  - cstt.changedate
+- canonical: abaroutingnumber
+  aliases:
+  - name: abaroutingnumber
+    frequency: 70
+  source_columns:
+  - cset.routingnumber
+- canonical: amount
+  aliases:
+  - name: amount
+    frequency: 70
+  source_columns:
+  - cset.checkamount
+- canonical: accountkey
+  aliases:
+  - name: accountkey
+    frequency: 70
+  source_columns:
+  - acct.accountkey
+- canonical: accountreferencenumber
+  aliases:
+  - name: accountreferencenumber
+    frequency: 70
+  source_columns:
+  - acct.accountreferencenumber
+- canonical: checknumber
+  aliases:
+  - name: checknumber
+    frequency: 70
+  source_columns:
+  - cast(coalesce(nullif(pdr_stg.decryptaes(coalesce(cast(cful.checknumber as varchar(99)),
+    '')), ''), cast(cset.checkreferencetoken as varchar(99)), cast(cset.auxiliaryonus
+    as varchar(99))) as varchar(99))
+- canonical: settlementstatus
+  aliases:
+  - name: settlementstatus
+    frequency: 70
+  source_columns:
+  - case when stsr.checksettlementreturncode ilike 'e' then 'returned' else sets.checksettlementstatus
+    end
+- canonical: checksettlementstatuskey
+  aliases:
+  - name: checksettlementstatuskey
+    frequency: 70
+  source_columns:
+  - cstt.checksettlementstatuskey
+- canonical: checksettlementreturncode
+  aliases:
+  - name: checksettlementreturncode
+    frequency: 70
+  source_columns:
+  - stsr.checksettlementreturncode
+- canonical: transactionid
+  aliases:
+  - name: transactionid
+    frequency: 70
+  source_columns:
+  - cset.transactiontoken
+- canonical: accountnumberlastfive
+  aliases:
+  - name: accountnumberlastfive
+    frequency: 70
+  source_columns:
+  - '''xxxxxxxxx'' || right(pdr_stg.decryptaes(coalesce(acct.accountnumber, '''')),
+    5)'
+- canonical: processorbusinessdate
+  aliases:
+  - name: processorbusinessdate
+    frequency: 69
+  - name: max_date
+    frequency: 1
+  source_columns:
+  - max(processorbusinessdate)
+- canonical: accountcreatedate
+  aliases:
+  - name: accountcreatedate
+    frequency: 68
+  source_columns:
+  - acct.createdate
+- canonical: accountlastupdate
+  aliases:
+  - name: accountlastupdate
+    frequency: 68
+  source_columns:
+  - acct.changedate
+- canonical: isreload
+  aliases:
+  - name: isreload
+    frequency: 68
+  source_columns:
+  - rets.retailerisreload
+- canonical: retailer
+  aliases:
+  - name: retailer
+    frequency: 68
+  source_columns:
+  - rtlr.description
+- canonical: datesold
+  aliases:
+  - name: datesold
+    frequency: 68
+  source_columns:
+  - rtl_txn.transdate
+- canonical: archive_date
+  aliases:
+  - name: archive_date
+    frequency: 35
+  source_columns:
+  - cast(cast(current_timestamp() as timestampntz) at time zone 'utc' at time zone
+    'us/pacific' as date)
+- canonical: created_date
+  aliases:
+  - name: created_date
+    frequency: 35
+  source_columns:
+  - cast(c.createddate as timestampntz) at time zone 'utc' at time zone 'us/pacific'
+- canonical: account
+  aliases:
+  - name: account
+    frequency: 35
+  source_columns:
+  - coalesce(c.account_key__c, ai.account_identifier__c)
+- canonical: channel
+  aliases:
+  - name: channel
+    frequency: 35
+  source_columns:
+  - c.channel_disposition__c
+- canonical: salesforce_product
+  aliases:
+  - name: salesforce_product
+    frequency: 35
+  source_columns:
+  - c.product_type__c
+- canonical: salesforce_brand
+  aliases:
+  - name: salesforce_brand
+    frequency: 35
+  source_columns:
+  - c.brand__c
+- canonical: contact_resolution
+  aliases:
+  - name: contact_resolution
+    frequency: 35
+  source_columns:
+  - c.resolution__c
+- canonical: sla_due_date
+  aliases:
+  - name: sla_due_date
+    frequency: 35
+  source_columns:
+  - cast(case when c.sla_due_date__c is null then ts_or_ds_add(cast(c.createddate
+    as timestampntz) at time zone 'utc' at time zone 'us/pacific', 12, day, timestamp)
+    when cast(cast(c.createddate as timestampntz) at time zone 'utc' at time zone
+    'us/pacific' as date) = cast(cast(c.sla_due_date__c as timestampntz) at time zone
+    'utc' at time zone 'us/pacific' as date) then ts_or_ds_add(cast(c.createddate
+    as timestampntz) at time zone 'utc' at time zone 'us/pacific', 12, day, timestamp)
+    else cast(c.sla_due_date__c as timestampntz) at time zone 'utc' at time zone 'us/pacific'
+    end as timestamp)
+- canonical: record_type_id
+  aliases:
+  - name: record_type_id
+    frequency: 35
+  source_columns:
+  - c.recordtypeid
+- canonical: transactiondescription
+  aliases:
+  - name: transactiondescription
+    frequency: 34
+  source_columns:
+  - sor_txn_type_desc
+- canonical: disposition_subtype
+  aliases:
+  - name: disposition_subtype
+    frequency: 34
+  source_columns:
+  - ltrim(rtrim(coalesce(c.disposition_sub_type__c, c.secondary_taxonomy_category__c)))
+- canonical: asadvisor_csat
+  aliases:
+  - name: asadvisor_csat
+    frequency: 34
+  source_columns:
+  - cast(null as int)
+- canonical: productnetwork
+  aliases:
+  - name: productnetwork
+    frequency: 27
+  source_columns:
+  - replace(quote_literal(@1), chr(39), '')
+- canonical: transclass
+  aliases:
+  - name: transclass
+    frequency: 27
+  source_columns:
+  - case when acht.achtransactioncode in (27, 37) and trnc.transclass = '2-002' then
+    '1-051' when pint.sor_uid in (21, 25, 26) and trnc.transclass = '11-001' then
+    '11-006' when pint.sor_uid in (21, 25, 26) and trnc.transclass = '12-001' then
+    '12-006' else trnc.transclass end
+- canonical: cnt
+  aliases:
+  - name: cnt
+    frequency: 3
+  - name: rows
+    frequency: 2
+  - name: unique_txns
+    frequency: 2
+  - name: record_count
+    frequency: 1
+  - name: device_count
+    frequency: 1
+  - name: distinct_wallets
+    frequency: 1
+  - name: total_records
+    frequency: 1
+  - name: txn_count
+    frequency: 1
+  - name: accounts
+    frequency: 1
+  - name: records
+    frequency: 1
+  source_columns:
+  - count
+- canonical: rn_by_modified
+  aliases:
+  - name: rn_by_modified
+    frequency: 1
+  source_columns:
+  - row_number() over (partition by pid.paymentidentifierdevicekey order by pid.changedate
+    desc nulls first)
+- canonical: rn_by_created
+  aliases:
+  - name: rn_by_created
+    frequency: 1
+  source_columns:
+  - row_number() over (partition by pid.paymentidentifierdevicekey order by pid.createdate
+    desc nulls first)
+- canonical: fan_out_type
+  aliases:
+  - name: fan_out_type
+    frequency: 1
+  source_columns:
+  - case when distinct_wallets = 1 then 'same wallet, multiple records' when distinct_wallets
+    > 1 then 'different wallets' end
+- canonical: avg_records_per_device
+  aliases:
+  - name: avg_records_per_device
+    frequency: 1
+  source_columns:
+  - avg(total_records)
+- canonical: min_date
+  aliases:
+  - name: min_date
+    frequency: 1
+  source_columns:
+  - min(processorbusinessdate)
+conflicts:
+- alias: transactionamount
+  used_for:
+  - column: sum(transactionamount) * (-1.00)
+    frequency: 137
+  - column: psti.transactionamount * psti.creditdebit
+    frequency: 137
+  - column: pstt.transactionamount * pstt.creditdebit
+    frequency: 137
+  - column: cast(pint.transactionamount as decimal(13, 4)) * pint.creditdebit
+    frequency: 27
+  resolution: 'Disambiguate using prefixes: sum(transactionamount) * (-1_00), transactionamount
+    * psti_creditdebit, transactionamount * pstt_creditdebit, transactionamount as
+    decimal(13, 4)) * pint_creditdebit'
+- alias: cardtype
+  used_for:
+  - column: coalesce(svct.svc_type, dimp.product_type, 'other')
+    frequency: 68
+  - column: coalesce(svc_typ.svc_type, dim_prd.product_type)
+    frequency: 68
+  - column: '''unload'''
+    frequency: 68
+  resolution: 'Disambiguate using prefixes: svc_type, dimp_product_type, ''other''),
+    svc_type, dim_prd_product_type), cardtype_3'
+- alias: acct_uid
+  used_for:
+  - column: isnull(act_ods.acct_uid, -1)
+    frequency: 136
+  - column: c2a.acct_uid
+    frequency: 35
+  resolution: 'Disambiguate using prefixes: isnull(act_ods_acct_uid, -1), c2a_acct_uid'
+- alias: response_date
+  used_for:
+  - column: cast(timestamp_trunc(e_responsedate, day) as date)
+    frequency: 34
+  - column: cast(wcd.createddate_utc as date)
+    frequency: 34
+  - column: cast(survey_invitation_ts as date)
+    frequency: 34
+  - column: c.survey_response_dt
+    frequency: 34
+  resolution: 'Disambiguate using prefixes: response_date_1, cast(wcd_createddate_utc
+    as date), response_date_3, c_survey_response_dt'
+- alias: response_month
+  used_for:
+  - column: d.year_num || '-' || cast(lpad(d.month_num, 2, '00') as varchar)
+    frequency: 68
+  - column: cast((d.year_num || '-' || lpad(d.month_num, 2, '00')) as varchar)
+    frequency: 68
+  resolution: 'Disambiguate using prefixes: year_num || ''-'' || cast(lpad(d_month_num,
+    2, ''00'') as varchar), year_num || ''-'' || lpad(d_month_num, 2, ''00'')) as
+    varchar)'
+- alias: response_quarter
+  used_for:
+  - column: d.year_num || '-' || cast(d.qtr_name as varchar)
+    frequency: 68
+  - column: cast((d.year_num || '-' || d.qtr_name) as varchar)
+    frequency: 68
+  resolution: 'Disambiguate using prefixes: year_num || ''-'' || cast(d_qtr_name as
+    varchar), year_num || ''-'' || d_qtr_name) as varchar)'
+- alias: disposition_type
+  used_for:
+  - column: ltrim(rtrim(coalesce(c.disposition_type__c, c.primary_taxonomy_category__c)))
+    frequency: 34
+  - column: cast((ltrim(rtrim(wcd.disposition_type__c))) as varchar)
+    frequency: 34
+  - column: cast(null as varchar)
+    frequency: 34
+  - column: ltrim(rtrim(wcd.disposition_type__c))
+    frequency: 34
+  resolution: 'Disambiguate using prefixes: disposition_type__c, c_primary_taxonomy_category__c))),
+    cast((ltrim(rtrim(wcd_disposition_type__c))) as varchar), disposition_type_3,
+    ltrim(rtrim(wcd_disposition_type__c))'
+- alias: tertiary_taxonomy_category
+  used_for:
+  - column: ltrim(rtrim(c.tertiary_taxonomy_category__c))
+    frequency: 34
+  - column: cast((ltrim(rtrim(wcd.tertiary_taxonomy_category__c))) as varchar)
+    frequency: 34
+  - column: cast(null as varchar)
+    frequency: 34
+  - column: ltrim(rtrim(wcd.tertiary_disp))
+    frequency: 34
+  resolution: 'Disambiguate using prefixes: ltrim(rtrim(c_tertiary_taxonomy_category__c)),
+    cast((ltrim(rtrim(wcd_tertiary_taxonomy_category__c))) as varchar), tertiary_taxonomy_category_3,
+    ltrim(rtrim(wcd_tertiary_disp))'
+- alias: overall_csat
+  used_for:
+  - column: cast(null as int)
+    frequency: 68
+  - column: cast(case when wcd.overall_sat = 'very satisfied' then 5 when wcd.overall_sat
+      = 'somewhat satisfied' then 4 when wcd.overall_sat = 'neither satisfied nor
+      dissatisfied' then 3 when wcd.overall_sat = 'somewhat dissatisfied' then 2 when
+      wcd.overall_sat = 'very dissatisfied' then 1 else null end as int)
+    frequency: 34
+  - column: cast(case when c.overall_satisfaction = 'very satisfied' then 5 when c.overall_satisfaction
+      = 'somewhat satisfied' then 4 when c.overall_satisfaction = 'neither satisfied
+      nor dissatisfied' then 3 when c.overall_satisfaction = 'somewhat dissatisfied'
+      then 2 when c.overall_satisfaction = 'very dissatisfied' then 1 else null end
+      as int)
+    frequency: 34
+  resolution: 'Disambiguate using prefixes: overall_csat_1, overall_sat = ''somewhat
+    dissatisfied'' then 2 when wcd_overall_sat = ''very dissatisfied'' then 1 else
+    null end as int), overall_satisfaction = ''somewhat dissatisfied'' then 2 when
+    c_overall_satisfaction = ''very dissatisfied'' then 1 else null end as int)'
+- alias: bpo
+  used_for:
+  - column: cast(null as varchar)
+    frequency: 68
+  - column: ltrim(rtrim(case when upper(team) ilike 'corporate%' or upper(team) ilike
+      '%cincinnati%' then 'cincinnati' when upper(team) ilike '%concentrix%' then
+      'concentrix' when upper(team) ilike '%cnx%' then 'concentrix' when upper(team)
+      ilike '%sitel%' then 'foundever' when upper(team) ilike '%phil%' then 'foundever'
+      when upper(team) ilike '%bag%' then 'foundever' when upper(team) ilike '%prince%'
+      then 'foundever' when upper(team) ilike '%in%touch%' then 'intouchcx' else 'n/a'
+      end))
+    frequency: 34
+  - column: ltrim(rtrim(case when upper(wcd.bpo) ilike 'corporate%' or upper(wcd.bpo)
+      ilike '%cincinnati%' then 'cincinnati' when upper(wcd.bpo) ilike '%concentrix%'
+      then 'concentrix' when upper(wcd.bpo) ilike '%cnx%' then 'concentrix' when upper(wcd.bpo)
+      ilike '%sitel%' then 'foundever' when upper(wcd.bpo) ilike '%phil%' then 'foundever'
+      when upper(wcd.bpo) ilike '%bag%' then 'foundever' when upper(wcd.bpo) ilike
+      '%prince%' then 'foundever' when upper(wcd.bpo) ilike '%in%touch%' then 'intouchcx'
+      else 'n/a' end))
+    frequency: 34
+  resolution: 'Disambiguate using prefixes: bpo_1, bpo_2, bpo) ilike ''%prince%''
+    then ''foundever'' when upper(wcd_bpo) ilike ''%in%touch%'' then ''intouchcx''
+    else ''n/a'' end))'
+- alias: retailtransactionid
+  used_for:
+  - column: coalesce(case when rtl_chn.retailchainkey = 375 then pnd_lod.transaction_id
+      end, rtl_sls.retailertransid)
+    frequency: 68
+  - column: rtl_txn.transid
+    frequency: 68
+  resolution: 'Disambiguate using prefixes: transaction_id end, rtl_sls_retailertransid),
+    rtl_txn_transid'
+- alias: retailtransactionconfirmationid
+  used_for:
+  - column: rtl_txn.responseid
+    frequency: 68
+  - column: rtl_txn.processresponseid
+    frequency: 68
+  resolution: 'Disambiguate using prefixes: rtl_txn_responseid, rtl_txn_processresponseid'
+- alias: retailtransactionloginid
+  used_for:
+  - column: rtl_sls.username
+    frequency: 68
+  - column: coalesce(rtl_txn.username, 'sfcapiuser')
+    frequency: 68
+  resolution: 'Disambiguate using prefixes: rtl_sls_username, coalesce(rtl_txn_username,
+    ''sfcapiuser'')'
+- alias: loadamount
+  used_for:
+  - column: rtl_sls.pinvalue
+    frequency: 68
+  - column: rtl_txn.transamount * (-1)
+    frequency: 68
+  resolution: 'Disambiguate using prefixes: rtl_sls_pinvalue, rtl_txn_transamount
+    * (-1)'
+- alias: saletype
+  used_for:
+  - column: case when rtl_sls.saletransactiontypekey = 1 then 'productsale' else 'cardload'
+      end
+    frequency: 68
+  - column: '''cardload'''
+    frequency: 68
+  resolution: 'Disambiguate using prefixes: case when rtl_sls_saletransactiontypekey
+    = 1 then ''productsale'' else ''cardload'' end, saletype_2'
+- alias: pymt_identifier_last4
+  used_for:
+  - column: coalesce(crd_nec.lastfourdigit, crd_prd.lastfourdigit, '-')
+    frequency: 68
+  - column: coalesce(crd_nec.lastfourdigit, '-')
+    frequency: 68
+  resolution: 'Disambiguate using prefixes: lastfourdigit, crd_prd_lastfourdigit,
+    ''-''), coalesce(crd_nec_lastfourdigit, ''-'')'
+- alias: sor_retail_store_nbr
+  used_for:
+  - column: rtl_sls.storenbr
+    frequency: 68
+  - column: rtl_txn.storeid
+    frequency: 68
+  resolution: 'Disambiguate using prefixes: rtl_sls_storenbr, rtl_txn_storeid'
+- alias: query_source
+  used_for:
+  - column: '''medallia'''
+    frequency: 34
+  - column: '''salesforce'''
+    frequency: 34
+  - column: '''apple csat'''
+    frequency: 34
+  resolution: 'Disambiguate using prefixes: query_source_1, query_source_2, query_source_3'
+- alias: casenumber
+  used_for:
+  - column: cast(c.disp_casenumber as bigint)
+    frequency: 34
+  - column: cast(null as bigint)
+    frequency: 34
+  - column: cast(wcd.disp_casenumber as bigint)
+    frequency: 34
+  resolution: 'Disambiguate using prefixes: cast(c_disp_casenumber as bigint), casenumber_2,
+    cast(wcd_disp_casenumber as bigint)'
+- alias: wave_casenumber
+  used_for:
+  - column: cast(c.wave_casenumber as bigint)
+    frequency: 34
+  - column: cast(wcd.wave_case_number__c as bigint)
+    frequency: 34
+  - column: cast(case_id as bigint)
+    frequency: 34
+  resolution: 'Disambiguate using prefixes: cast(c_wave_casenumber as bigint), cast(wcd_wave_case_number__c
+    as bigint), wave_casenumber_3'
+- alias: overall_satisfaction
+  used_for:
+  - column: 'null'
+    frequency: 34
+  - column: cast(null as varchar)
+    frequency: 34
+  - column: cast(wcd.overall_sat as varchar)
+    frequency: 34
+  resolution: 'Disambiguate using prefixes: overall_satisfaction_1, overall_satisfaction_2,
+    cast(wcd_overall_sat as varchar)'
+- alias: support_csat
+  used_for:
+  - column: cast(null as int)
+    frequency: 68
+  - column: case when greendot_cc_apple_osat_apple_support_exp_scale ilike '%very
+      satisfied%' then 5 when greendot_cc_apple_osat_apple_support_exp_scale ilike
+      '%somewhat satisfied%' then 4 when greendot_cc_apple_osat_apple_support_exp_scale
+      ilike '%neither satisfied nor dissatisfied%' then 3 when greendot_cc_apple_osat_apple_support_exp_scale
+      ilike '%somewhat dissatisfied%' then 2 when greendot_cc_apple_osat_apple_support_exp_scale
+      ilike '%very dissatisfied%' then 1 else null end
+    frequency: 34
+  resolution: 'Disambiguate using prefixes: support_csat_1, support_csat_2'
+- alias: ease_to_handle_csat
+  used_for:
+  - column: cast(null as int)
+    frequency: 68
+  - column: case when greendot_cc_apple_ease_to_handle_issue_scale ilike '%strongly
+      agree%' then 5 when greendot_cc_apple_ease_to_handle_issue_scale ilike '%somewhat
+      agree%' then 4 when greendot_cc_apple_ease_to_handle_issue_scale ilike '%neither
+      agree nor disagree%' then 3 when greendot_cc_apple_ease_to_handle_issue_scale
+      ilike '%somewhat disagree%' then 2 when greendot_cc_apple_ease_to_handle_issue_scale
+      ilike '%strongly disagree%' then 1 else null end
+    frequency: 34
+  resolution: 'Disambiguate using prefixes: ease_to_handle_csat_1, ease_to_handle_csat_2'
+- alias: createddate
+  used_for:
+  - column: cast(wcd.createddate_utc as datetime)
+    frequency: 34
+  - column: cast(null as datetime)
+    frequency: 34
+  - column: cast(wcd.wave_contactdate as datetime)
+    frequency: 34
+  resolution: 'Disambiguate using prefixes: cast(wcd_createddate_utc as datetime),
+    createddate_2, cast(wcd_wave_contactdate as datetime)'
+- alias: agent_group__c
+  used_for:
+  - column: cast(wcd.tier as varchar)
+    frequency: 34
+  - column: cast(null as varchar)
+    frequency: 34
+  - column: wcd.tier
+    frequency: 34
+  resolution: 'Disambiguate using prefixes: cast(wcd_tier as varchar), agent_group__c_2,
+    wcd_tier'
+- alias: disposition_sub_type
+  used_for:
+  - column: cast((ltrim(rtrim(wcd.disposition_sub_type__c))) as varchar)
+    frequency: 34
+  - column: cast(null as varchar)
+    frequency: 34
+  - column: ltrim(rtrim(wcd.disposition_sub_type__c))
+    frequency: 34
+  resolution: 'Disambiguate using prefixes: cast((ltrim(rtrim(wcd_disposition_sub_type__c)))
+    as varchar), disposition_sub_type_2, ltrim(rtrim(wcd_disposition_sub_type__c))'
+- alias: agent_tenure
+  used_for:
+  - column: case when ts_or_ds_diff(cast(c.createddate as date), afc.first_case_date,
+      day) <= 30 then 'tenure 0 - 30 days' when ts_or_ds_diff(cast(c.createddate as
+      date), afc.first_case_date, day) between 31 and 60 then 'tenure 31 - 60 days'
+      when ts_or_ds_diff(cast(c.createddate as date), afc.first_case_date, day) between
+      61 and 90 then 'tenure 61 - 90 days' when ts_or_ds_diff(cast(c.createddate as
+      date), afc.first_case_date, day) >= 91 then 'tenure 91+days' end
+    frequency: 34
+  - column: cast(null as varchar)
+    frequency: 34
+  resolution: 'Disambiguate using prefixes: createddate as date), afc_first_case_date,
+    day) >= 91 then ''tenure 91+days'' end, agent_tenure_2'
+- alias: advisor_csat
+  used_for:
+  - column: case when greendot_cc_apple_recommend_advisor_scale ilike '%strongly agree%'
+      then 5 when greendot_cc_apple_recommend_advisor_scale ilike '%somewhat agree%'
+      then 4 when greendot_cc_apple_recommend_advisor_scale ilike '%neither agree
+      nor disagree%' then 3 when greendot_cc_apple_recommend_advisor_scale ilike '%somewhat
+      disagree%' then 2 when greendot_cc_apple_recommend_advisor_scale ilike '%strongly
+      disagree%' then 1 else null end
+    frequency: 34
+  - column: cast(null as int)
+    frequency: 34
+  resolution: 'Disambiguate using prefixes: advisor_csat_1, advisor_csat_2'
+- alias: is_autolog
+  used_for:
+  - column: case when resolution__c like 'auto%' then 1 else 0 end
+    frequency: 34
+  - column: cast(null as int)
+    frequency: 34
+  resolution: 'Disambiguate using prefixes: is_autolog_1, is_autolog_2'
+- alias: rn
+  used_for:
+  - column: row_number() over (partition by sor_txn_type order by sor_txn_type nulls
+      last)
+    frequency: 34
+  - column: row_number() over (partition by t.posttransactionkey, t.sor_uid order
+      by pid.changedate desc)
+    frequency: 1
+  resolution: 'Disambiguate using prefixes: rn_1, sor_uid order by pid_changedate
+    desc)'
+- alias: iscardloadtranscode
+  used_for:
+  - column: sor_txn_type in (2125, 2129, 2149, 2151, 2153, 2155, 2157, 2159, 2161,
+      2163, 2177, 2179, 2310, 2350, 2380, 2381, 2385, 2396, 2405, 2512, 2514, 2611,
+      2810, 2815, 2830, 2834, 2836, 2840, 2858, 2865, 2868, 2882, 2886, 2914, 2915,
+      2916, 2917, 2922, 2925, 2926, 2933, 2937, 2942, 2946, 2951, 2982, 3085, 3193,
+      3203, 3213, 3350, 3351, 3375, 3385, 3420, 3450, 3451, 3453, 3454, 3455, 3456,
+      3460, 3462, 3465, 3466, 3467, 3470, 3471, 3472, 3480, 3491, 3511, 3551, 3568,
+      3590, 7205)
+    frequency: 22
+  - column: sor_txn_type in (2125, 2129, 2149, 2151, 2153, 2155, 2157, 2159, 2161,
+      2163, 2177, 2179, 2310, 2350, 2380, 2381, 2385, 2396, 2405, 2512, 2514, 2611,
+      2810, 2815, 2830, 2834, 2836, 2840, 2858, 2865, 2868, 2882, 2886, 2914, 2915,
+      2916, 2917, 2922, 2925, 2926, 2933, 2937, 2942, 2946, 2951, 2982, 3085, 3193,
+      3203, 3213, 3350, 3351, 3375, 3385, 3420, 3450, 3451, 3453, 3454, 3455, 3456,
+      3460, 3462, 3465, 3466, 3467, 3470, 3471, 3472, 3480, 3491, 3511, 3551, 3568,
+      3590, 7205, 2165, 2167)
+    frequency: 12
+  resolution: 'Disambiguate using prefixes: iscardloadtranscode_1, iscardloadtranscode_2'
+- alias: stage
+  used_for:
+  - column: '''before qualify'''
+    frequency: 1
+  - column: '''after qualify (rn=1)'''
+    frequency: 1
+  - column: '''txn_to_device'''
+    frequency: 1
+  - column: '''device_to_wallet'''
+    frequency: 1
+  resolution: 'Disambiguate using prefixes: stage_1, stage_2, stage_3, stage_4'

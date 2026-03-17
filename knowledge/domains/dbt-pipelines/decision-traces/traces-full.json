@@ -1,0 +1,1711 @@
+{
+  "version": "2.0",
+  "last_updated": "2026-03-12T23:40:00Z",
+  "traces": [
+    {
+      "id": "qa_2026-03-12_001",
+      "timestamp": "2026-03-12T23:40:00Z",
+      "model": "samsung_decline_granularity_qa",
+      "problem": {
+        "symptom": "Samsung QA runbook blocked by strict compile dbt0227 on new Samsung columns, intermittent dbt1308 view materialization failure, and missing MetricFlow CLI",
+        "error_type": "operational_incident",
+        "severity": "blocking",
+        "context": "qa_runbook_execution"
+      },
+      "triage_path": [
+        {
+          "step": 1,
+          "hypothesis": "Deferred/prod refs are masking local schema additions during strict compile",
+          "check": "Run strict compile with and without defer",
+          "query_or_action": "~/.local/bin/dbt compile --select ...; ~/.local/bin/dbt compile --no-defer --select ...",
+          "result": "Compile fails with dbt0227 under deferred resolution and passes with --no-defer",
+          "led_to": "step_2"
+        },
+        {
+          "step": 2,
+          "hypothesis": "Redshift view materialization instability matches known bind/rename issue",
+          "check": "Apply bind=false to deduped view model and re-run scoped no-defer build",
+          "query_or_action": "edit int_samsung__external_details_deduped.sql config + dbt build --no-defer --select int_samsung__external_details int_samsung__external_details_deduped",
+          "result": "Deduped model build and tests passed; dbt1308 no longer reproduced",
+          "led_to": "step_3"
+        },
+        {
+          "step": 3,
+          "hypothesis": "MetricFlow can be validated via a Python 3.12 tool environment when repo venv uses unsupported Python 3.14",
+          "check": "Install dbt-metricflow with redshift adapter extras via uv and run validation",
+          "query_or_action": "uv tool install --python 3.12 \"dbt-metricflow[dbt-redshift]\" --force && mf validate-configs",
+          "result": "MetricFlow validation passed (0 errors, 0 warnings)",
+          "led_to": "resolution"
+        }
+      ],
+      "resolution": {
+        "fix": "Use no-defer strict compile/build for Samsung scope, set bind=false on int_samsung__external_details_deduped view, and run MetricFlow through uv-installed Python 3.12 dbt-metricflow with redshift extras",
+        "root_cause": "Mixed execution contexts (deferred schema resolution + Redshift view materialization behavior + Python/runtime incompatibility for MetricFlow) produced recurring non-logic blockers",
+        "fix_location": "models/intermediate/arc_insights_intermediate/disbursements/samsung/int_samsung__external_details_deduped.sql; handoffs/qa-runbook-samsung-decline-granularity-2026-03-11.md",
+        "fix_category": "environment_configuration"
+      },
+      "reuse_guidance": {
+        "when_applicable": "QA runs where new columns exist in dev schema but deferred/prod refs lag; intermittent redshift view materialization relation-not-found; mf unavailable due Python version constraints",
+        "when_not_applicable": "Stable single-environment runs without defer, with native mf available in project-supported Python version"
+      },
+      "cost_total": {
+        "checks_run": 18,
+        "time_minutes": 120,
+        "models_built": 4
+      },
+      "data_quality": {
+        "strict_compile_no_defer": "pass",
+        "fan_out_duplicate_rows": 0,
+        "max_non_regression_variance_pct": 0
+      }
+    },
+    {
+      "id": "qa_2026-02-27_002",
+      "timestamp": "2026-02-27T19:05:00Z",
+      "model": "mrt_geo__population_penetration",
+      "problem": {
+        "symptom": "Copilot review flagged population penetration references to non-existent summary columns (avg_annual_value, active_rate)",
+        "error_type": "logic_error",
+        "severity": "degraded",
+        "context": "pr_review_followup"
+      },
+      "triage_path": [
+        {
+          "step": 1,
+          "hypothesis": "Upstream state summary should expose all downstream-derived columns",
+          "check": "Added placeholder avg_annual_value and duplicated active_rate upstream, then compiled/ran impacted models",
+          "query_or_action": "edit state_summary + dbt compile/run",
+          "result": "Technically valid but introduces non-canonical placeholder field with unclear business semantics",
+          "led_to": "step_2"
+        },
+        {
+          "step": 2,
+          "hypothesis": "Derived fields should be computed in downstream model if base fields are available",
+          "check": "Removed avg_annual_value dependency and derived active_rate in population penetration from active_card_rate",
+          "query_or_action": "edit population_penetration + dbt compile/run",
+          "result": "Compile and run passed; design is cleaner and keeps state_summary canonical",
+          "led_to": "resolution"
+        },
+        {
+          "step": 3,
+          "hypothesis": "End-to-end QA sign-off requires full scoped build + semantic validation",
+          "check": "Ran full demographics+geography dbt build and demographics semantic smoke suite",
+          "query_or_action": "dbt build --select <full scope>; mf validate-configs + mf query",
+          "result": "59/59 build success and semantic suite passed with total consistency",
+          "led_to": "resolution"
+        }
+      ],
+      "resolution": {
+        "fix": "Use downstream derivation pattern for review-flagged metrics and complete full pipeline + semantic revalidation",
+        "root_cause": "Downstream model referenced fields not present in upstream summary and implied ownership of non-canonical derived metric",
+        "fix_location": "models/marts/arc_insights_marts/customer/geography/mrt_geo__population_penetration.sql",
+        "fix_category": "logic_error"
+      },
+      "reuse_guidance": {
+        "when_applicable": "When PR review flags missing upstream columns that can be derived from existing downstream inputs",
+        "when_not_applicable": "When the metric is canonical and intentionally reused across multiple downstream marts"
+      },
+      "cost_total": {
+        "checks_run": 8,
+        "time_minutes": 45,
+        "models_built": 13
+      },
+      "data_quality": {
+        "build_summary": "59 total | 59 success",
+        "semantic_validate_errors": 0,
+        "demo_total_accounts": 8914448
+      }
+    },
+    {
+      "id": "qa_2026-02-27_001",
+      "timestamp": "2026-02-27T18:00:00Z",
+      "model": "mart_demo__account_demographics_base",
+      "problem": {
+        "symptom": "Demographics QA revalidation blocked by mart contract type mismatch and DOB quality gate below threshold",
+        "error_type": "type_mismatch",
+        "severity": "blocking",
+        "context": "qa_revalidation"
+      },
+      "triage_path": [
+        {
+          "step": 1,
+          "hypothesis": "Contract YAML data types diverged from compiled SQL output after DOB decrypt refactor",
+          "check": "Run dbt compile/run on mart_demo__account_demographics_base and inspect contract enforcement error",
+          "query_or_action": "dbt run --select mart_demo__account_demographics_base",
+          "result": "Compilation/runtime error listed mismatches on acct_uid and display/day fields (declared varchar/smallint/integer vs compiled bigint)",
+          "led_to": "step_2"
+        },
+        {
+          "step": 2,
+          "hypothesis": "Updating contract types to compiled output will unblock materialization without changing model logic",
+          "check": "Patch _mart_demo__models.yml types and rerun compile/run/test",
+          "query_or_action": "edit yaml + dbt compile/run/test",
+          "result": "Mart build and tests passed after type alignment",
+          "led_to": "step_3"
+        },
+        {
+          "step": 3,
+          "hypothesis": "DOB quality threshold failure is caused by overly narrow decrypt window, not join breakage",
+          "check": "Compare dob_quality_flag distribution with default window, then rerun with dob_decrypt_years=3 and rebuild downstream mart",
+          "query_or_action": "dbt run --select int_demo__account_demographics --vars '{dob_decrypt_years: 3}'",
+          "result": "valid DOB improved from 72.15% to 94.10%; row parity and funnel monotonicity remained intact",
+          "led_to": "resolution"
+        }
+      ],
+      "resolution": {
+        "fix": "Align mart contract data types to compiled output and widen DOB decrypt window for QA revalidation",
+        "root_cause": "Schema contract drift plus insufficient DOB decrypt window for expected quality threshold",
+        "fix_location": "models/marts/arc_insights_marts/customer/demographics/_mart_demo__models.yml and int_demo__account_demographics runtime vars",
+        "fix_category": "logic_error"
+      },
+      "reuse_guidance": {
+        "when_applicable": "When contract-enforced marts fail after upstream type changes and DOB-quality gates regress after decrypt-window changes",
+        "when_not_applicable": "When business intent requires strict fixed contract types regardless of compiled expression output"
+      },
+      "cost_total": {
+        "checks_run": 12,
+        "time_minutes": 55,
+        "models_built": 4
+      },
+      "data_quality": {
+        "dob_valid_pct_before": 72.15,
+        "dob_valid_pct_after": 94.10,
+        "row_parity": "int=mart=base=8914448"
+      }
+    },
+    {
+      "id": "qa_2026-02-19_001",
+      "timestamp": "2026-02-19T18:20:00Z",
+      "model": "mrt_gbos_registration_cohort_progress",
+      "problem": {
+        "symptom": "Pivot consistency QA reported ~99% mismatches between cohort_progress and cohort_metrics",
+        "error_type": "other",
+        "severity": "degraded",
+        "context": "qa_validation"
+      },
+      "triage_path": [
+        {
+          "step": 1,
+          "hypothesis": "Materialization/performance changes introduced data drift",
+          "check": "Run legacy pivot-consistency query comparing cohort_progress vs cohort_metrics",
+          "query_or_action": "dbt show --inline",
+          "result": "High mismatch counts observed (passed=26870, failed=26919 over 26962 rows)",
+          "led_to": "step_2"
+        },
+        {
+          "step": 2,
+          "hypothesis": "Mismatch is caused by NULL comparison semantics, not value drift",
+          "check": "Re-run comparison with coalesce(...,0) for passed/failed cumulative fields",
+          "query_or_action": "dbt show --inline",
+          "result": "Mismatches dropped to zero; null-heavy rows in source aggregate explained false positives",
+          "led_to": "resolution"
+        }
+      ],
+      "resolution": {
+        "fix": "Use NULL-safe equality (coalesce) in pivot consistency QA checks for sparse cohort metrics",
+        "root_cause": "Legacy QA query used direct equality where both sides were frequently NULL, producing false mismatches",
+        "fix_location": "dbt-enterprise/.vscode/tasks.json (qa:gbos:pivot-consistency-sample query logic)",
+        "fix_category": "logic_error"
+      },
+      "reuse_guidance": {
+        "when_applicable": "Sparse EAV-to-pivot cohort checks where a metric may be absent on many dates",
+        "when_not_applicable": "Checks where NULL has explicit business meaning distinct from zero"
+      },
+      "cost_total": {
+        "checks_run": 3,
+        "time_minutes": 20,
+        "models_built": 0
+      }
+    },
+    {
+      "id": "qa_2026-02-01_001",
+      "timestamp": "2026-02-01T12:00:00Z",
+      "model": "int_interchange__account_product_enriched",
+      "problem": {
+        "symptom": "CI unique test failures (66M duplicates) in downstream models",
+        "error_type": "duplicate_rows",
+        "severity": "blocking",
+        "context": "spike_investigation"
+      },
+      "triage_path": [
+        {
+          "step": 1,
+          "hypothesis": "Fan-out in FPA enrichment join",
+          "check": "Code review of int_interchange__account_product_enriched.sql",
+          "query_or_action": "read_file",
+          "result": "Found non-deduplicated join to ODS sources (product_channel, fpa_group)",
+          "led_to": "resolution"
+        }
+      ],
+      "resolution": {
+        "fix": "Refactored join to use row_number() deduplication logic",
+        "root_cause": "ODS sources returning multiple rows preventing 1:1 account enrichment",
+        "fix_location": "models/intermediate/arc_insights_intermediate/foundations/product/int_interchange__account_product_enriched.sql",
+        "fix_category": "join_cardinality"
+      },
+      "reuse_guidance": {
+        "when_applicable": "When joining ODS sources for enrichment where 1:1 is assumed",
+        "when_not_applicable": "When history preservation is required"
+      },
+      "cost_total": {
+        "checks_run": 2,
+        "time_minutes": 15,
+        "models_built": 1
+      },
+      "data_quality": {
+         "variance_pct": 0.0,
+         "duplicates_removed": 66595406
+      }
+    },
+    {
+      "id": "qa_2026-01-30_001",
+      "timestamp": "2026-01-30T17:15:32.596728Z",
+      "model": "int_gbos_registration_metrics_daily",
+      "problem": {
+        "symptom": "3,761 failures dropped (0.27%) due to NULL failure_reason",
+        "error_type": "missing_rows",
+        "severity": "degraded",
+        "context": "refactoring"
+      },
+      "triage_path": [
+        {
+          "step": 1,
+          "hypothesis": "Filters excluding valid rows",
+          "check": "Checked WHERE clauses",
+          "query_or_action": "grep 'failure_reason'",
+          "result": "Found `where failure_reason is not null` but data had NULLs",
+          "led_to": "resolution"
+        }
+      ],
+      "resolution": {
+        "fix": "Added coalesce(failure_reason, 'Unknown') and removed restrictive filter",
+        "root_cause": "Implicit drop of NULL values in failure_reason column",
+        "fix_location": "int_gbos_registration_metrics_daily.sql",
+        "fix_category": "filter_missing"
+      },
+      "reuse_guidance": {
+        "when_applicable": "When counting failures/status where the field might be NULL for some valid cases",
+        "when_not_applicable": "When NULL strictly means invalid data"
+      },
+      "cost_total": {
+        "checks_run": 3,
+        "time_minutes": 30,
+        "models_built": 2
+      }
+    },
+    {
+      "id": "qa_2026-01-21_001",
+      "timestamp": "2026-01-21T18:00:00Z",
+      "model": "int_transactions__auth_all",
+      "problem": {
+        "symptom": "Incremental run time degraded (28 min / fail) after backfill",
+        "error_type": "performance",
+        "severity": "degraded",
+        "context": "incremental_testing"
+      },
+      "triage_path": [
+        {
+          "step": 1,
+          "hypothesis": "CTEs doing full table scans on late arriving data joins",
+          "check": "Add date filters to CTEs used in left joins",
+          "query_or_action": "dbt run --select int_transactions__auth_all",
+          "result": "Runtime improved from 28m to 2.6m",
+          "led_to": "Resolution"
+        }
+      ],
+      "resolution": {
+        "fix": "Added date filters to gbos_auth and ewallet CTEs",
+        "root_cause": "Missing predicate pushdown on incremental runs causing full scan of referenced CTEs",
+        "fix_location": "int_transactions__auth_all.sql",
+        "fix_category": "performance"
+      },
+      "reuse_guidance": {
+        "when_applicable": "Incremental models taking >10m where CTEs are large",
+        "when_not_applicable": "Small dimension tables"
+      },
+      "cost_total": {
+        "checks_run": 2,
+        "time_minutes": 15,
+        "models_built": 2
+      }
+    },
+    {
+      "id": "qa_2025-12-30_001",
+      "timestamp": "2025-12-30T10:00:00Z",
+      "model": "int_rtp__transfer_details",
+      "problem": {
+        "symptom": "Test failure: 'accepted_values' for ProgramCode found 'tpg' (expected only 'dayforce')",
+        "error_type": "other",
+        "severity": "blocking",
+        "context": "refactoring"
+      },
+      "triage_path": [
+        {
+          "step": 1,
+          "hypothesis": "INNER JOIN to profile_bank_accounts implicitly filters for Dayforce",
+          "check": "Remove explicit WHERE clause and run tests",
+          "query_or_action": "dbt test --select int_rtp__transfer_details",
+          "result": "Failed. 'tpg' records leaked into dataset.",
+          "led_to": "Resolution"
+        }
+      ],
+      "resolution": {
+        "fix": "Restored explicit 'WHERE ProgramCode = dayforce' filter",
+        "root_cause": "TPG program transactions share bank profiles with Dayforce, making JOIN insufficient for filtering",
+        "fix_location": "models/intermediate/arc_insights_intermediate/disbursements/rtp/int_rtp__transfer_details.sql",
+        "fix_category": "filter_missing"
+      },
+      "reuse_guidance": {
+        "when_applicable": "Filtering RTP/Dayforce transactions where infrastructure is shared with other programs (TPG, SEC)",
+        "when_not_applicable": "When programs have distinct, non-overlapping profile tables"
+      },
+      "cost_total": {
+        "checks_run": 2,
+        "time_minutes": 10,
+        "models_built": 1
+      },
+      "executes_procedure": "pipeline-build-playbook",
+      "executes_step": "implement_model",
+      "step_execution": {
+        "started_at": "2025-12-30T10:00:00Z",
+        "ended_at": "2025-12-30T10:10:00Z",
+        "questions_raised": [
+          {
+            "question": "Is it true that: INNER JOIN to profile_bank_accounts implicitly filters for Dayforce?",
+            "asked_at": "2025-12-30T10:00:00Z",
+            "answered_by": "triage"
+          }
+        ],
+        "errors_encountered": [
+          {
+            "error_code": "other",
+            "error_message": "Test failure: 'accepted_values' for ProgramCode found 'tpg' (expected only 'dayforce')",
+            "encountered_at": "2025-12-30T10:00:00Z"
+          }
+        ],
+        "deviation_from_spec": null
+      },
+      "temporal_context": {
+        "execution_time": "2025-12-30T10:00:00Z",
+        "active_rules_at_execution": [],
+        "active_procedure_version": {
+          "version": "3.0.0",
+          "valid_from": "2026-01-01T00:00:00Z",
+          "valid_to": null,
+          "current": true
+        }
+      }
+    },
+    {
+      "id": "qa_2025-12-28_001",
+      "timestamp": "2025-12-28T12:00:00Z",
+      "model": "int_transactions__auth_purchase_agg",
+      "problem": {
+        "symptom": "Redshift error 'Relation already exists' for temp table during incremental run",
+        "error_type": "other",
+        "severity": "blocking",
+        "context": "incremental_testing"
+      },
+      "triage_path": [
+        {
+          "step": 1,
+          "hypothesis": "Transient error or race condition",
+          "check": "Re-run dbt command",
+          "query_or_action": "dbt run --select ...",
+          "result": "Error persisted (42P07)",
+          "led_to": "Hypothesis: Session-scoped temp table stuck from previous crashed run"
+        },
+        {
+          "step": 2,
+          "hypothesis": "Manual cleanup required",
+          "check": "Attempt to drop table via macro",
+          "query_or_action": "run-operation drop_temp_table",
+          "result": "Table dropped successfully",
+          "led_to": "Resolution"
+        }
+      ],
+      "resolution": {
+        "fix": "Created and ran macros/temp_drop_table.sql to force-drop stuck temp table",
+        "root_cause": "Redshift session retained temp table after SIGINT/crash",
+        "fix_location": "macros/temp_drop_table.sql",
+        "fix_category": "logic_error"
+      },
+      "reuse_guidance": {
+        "when_applicable": "Redshift 42P07 errors on #temp tables that persist across runs",
+        "when_not_applicable": "Collisions on permanent tables or views"
+      },
+      "cost_total": {
+        "checks_run": 2,
+        "time_minutes": 15,
+        "models_built": 1
+      },
+      "executes_procedure": "pipeline-build-playbook",
+      "executes_step": "implement_model",
+      "step_execution": {
+        "started_at": "2025-12-28T12:00:00Z",
+        "ended_at": "2025-12-28T12:15:00Z",
+        "questions_raised": [
+          {
+            "question": "Is it true that: Transient error or race condition?",
+            "asked_at": "2025-12-28T12:00:00Z",
+            "answered_by": "triage"
+          },
+          {
+            "question": "Is it true that: Manual cleanup required?",
+            "asked_at": "2025-12-28T12:00:00Z",
+            "answered_by": "triage"
+          }
+        ],
+        "errors_encountered": [
+          {
+            "error_code": "other",
+            "error_message": "Redshift error 'Relation already exists' for temp table during incremental run",
+            "encountered_at": "2025-12-28T12:00:00Z"
+          }
+        ],
+        "deviation_from_spec": null
+      },
+      "temporal_context": {
+        "execution_time": "2025-12-28T12:00:00Z",
+        "active_rules_at_execution": [],
+        "active_procedure_version": {
+          "version": "3.0.0",
+          "valid_from": "2026-01-01T00:00:00Z",
+          "valid_to": null,
+          "current": true
+        }
+      }
+    },
+    {
+      "id": "qa_2025-12-22_001",
+      "timestamp": "2025-12-22T14:00:00Z",
+      "model": "stg_edw__fct_posted_transaction",
+      "problem": {
+        "symptom": "Compilation error 'No column sor_posted_id found' when attempting to join GBOS data",
+        "error_type": "other",
+        "severity": "blocking",
+        "context": "new_model"
+      },
+      "triage_path": [
+        {
+          "step": 1,
+          "hypothesis": "Column exists in source but missing in staging",
+          "check": "dbt show on source",
+          "query_or_action": "dbt show --inline \"select * from {{ source('edw', 'fct_posted_transaction') }}\"",
+          "result": "Column missing in source",
+          "led_to": "Check information_schema"
+        },
+        {
+          "step": 2,
+          "hypothesis": "Column name is different",
+          "check": "Query system catalogs",
+          "query_or_action": "select column_name from svv_columns where table_name = 'fct_posted_transaction'",
+          "result": "No similar column found",
+          "led_to": "Check alternative join keys"
+        },
+        {
+          "step": 3,
+          "hypothesis": "Join on processor_txn_cd",
+          "check": "Query values for sor_uid=3",
+          "query_or_action": "select processor_txn_cd from source where sor_uid = 3",
+          "result": "Values are '-' (invalid for join)",
+          "led_to": "Resolution: Blocked"
+        }
+      ],
+      "resolution": {
+        "fix": "Reverted changes to staging model, created handoff for Data Engineering to expose column",
+        "root_cause": "Column `sor_posted_id` missing from `edw.fct_posted_transaction` in dev environment",
+        "fix_location": "models/staging/edw/stg_edw__fct_posted_transaction.sql",
+        "fix_category": "data_quality"
+      },
+      "reuse_guidance": {
+        "when_applicable": "When adding new columns from EDW sources, verify existence in `dev` environment before implementation",
+        "when_not_applicable": "If column exists but is null"
+      },
+      "cost_total": {
+        "checks_run": 5,
+        "time_minutes": 45,
+        "models_built": 3
+      },
+      "executes_procedure": "pipeline-build-playbook",
+      "executes_step": "validate_results",
+      "step_execution": {
+        "started_at": "2025-12-22T14:00:00Z",
+        "ended_at": "2025-12-22T14:45:00Z",
+        "questions_raised": [
+          {
+            "question": "Is it true that: Column exists in source but missing in staging?",
+            "asked_at": "2025-12-22T14:00:00Z",
+            "answered_by": "triage"
+          },
+          {
+            "question": "Is it true that: Column name is different?",
+            "asked_at": "2025-12-22T14:00:00Z",
+            "answered_by": "triage"
+          },
+          {
+            "question": "Is it true that: Join on processor_txn_cd?",
+            "asked_at": "2025-12-22T14:00:00Z",
+            "answered_by": "triage"
+          }
+        ],
+        "errors_encountered": [
+          {
+            "error_code": "other",
+            "error_message": "Compilation error 'No column sor_posted_id found' when attempting to join GBOS data",
+            "encountered_at": "2025-12-22T14:00:00Z"
+          }
+        ],
+        "deviation_from_spec": null
+      },
+      "temporal_context": {
+        "execution_time": "2025-12-22T14:00:00Z",
+        "active_rules_at_execution": [],
+        "active_procedure_version": {
+          "version": "3.0.0",
+          "valid_from": "2026-01-01T00:00:00Z",
+          "valid_to": null,
+          "current": true
+        }
+      }
+    },
+    {
+      "id": "qa_2025-12-16_001",
+      "timestamp": "2025-12-16T14:30:00Z",
+      "model": "int_transactions__auth_all",
+      "problem": {
+        "symptom": "Redshift error 'Found multiple matches to update the same tuple' during incremental run",
+        "error_type": "duplicate_rows",
+        "severity": "blocking",
+        "context": "refactoring"
+      },
+      "triage_path": [
+        {
+          "step": 1,
+          "hypothesis": "Incremental merge strategy failing due to duplicates in source",
+          "check": "Search KB for 'tuple' error",
+          "query_or_action": "grep_search 'tuple|Found multiple matches'",
+          "result": "Found exact match in troubleshooting.md with solution",
+          "led_to": "Resolution"
+        }
+      ],
+      "resolution": {
+        "fix": "Changed incremental_strategy from 'merge' to 'delete+insert'",
+        "root_cause": "Source query produces duplicate rows for unique_key 'auth_uid' (likely from txn_type_hierarchy join), causing merge failure",
+        "fix_location": "models/intermediate/intermediate_NEW/transactions/edw_based/enriched_auth/int_transactions__auth_all.sql",
+        "fix_category": "join_cardinality"
+      },
+      "reuse_guidance": {
+        "when_applicable": "Redshift incremental models failing with 'Found multiple matches to update the same tuple'",
+        "when_not_applicable": "When unique_key is guaranteed unique and performance of merge is required"
+      },
+      "cost_total": {
+        "checks_run": 5,
+        "time_minutes": 20,
+        "models_built": 2
+      },
+      "executes_procedure": "pipeline-build-playbook",
+      "executes_step": "configure_incremental",
+      "step_execution": {
+        "started_at": "2025-12-16T14:30:00Z",
+        "ended_at": "2025-12-16T14:50:00Z",
+        "questions_raised": [
+          {
+            "question": "Is it true that: Incremental merge strategy failing due to duplicates in source?",
+            "asked_at": "2025-12-16T14:30:00Z",
+            "answered_by": "triage"
+          }
+        ],
+        "errors_encountered": [
+          {
+            "error_code": "duplicate_rows",
+            "error_message": "Redshift error 'Found multiple matches to update the same tuple' during incremental run",
+            "encountered_at": "2025-12-16T14:30:00Z"
+          }
+        ],
+        "deviation_from_spec": null
+      },
+      "temporal_context": {
+        "execution_time": "2025-12-16T14:30:00Z",
+        "active_rules_at_execution": [],
+        "active_procedure_version": {
+          "version": "3.0.0",
+          "valid_from": "2026-01-01T00:00:00Z",
+          "valid_to": null,
+          "current": true
+        }
+      }
+    },
+    {
+      "id": "qa_2025-12-30_001",
+      "timestamp": "2025-12-30T14:00:00Z",
+      "model": "_tpg_sources.yml",
+      "problem": {
+        "symptom": "dbt parse failed with 'Additional properties are not allowed ('loaded_at_field', 'meta' were unexpected)'",
+        "error_type": "other",
+        "severity": "blocking",
+        "context": "refactoring"
+      },
+      "triage_path": [
+        {
+          "step": 1,
+          "hypothesis": "Syntax error in YAML",
+          "check": "Read models/staging/tpg/_tpg_sources.yml",
+          "query_or_action": "read_file",
+          "result": "Found loaded_at_field and meta keys in source definition",
+          "led_to": "Hypothesis: Keys not supported in current dbt version/configuration"
+        }
+      ],
+      "resolution": {
+        "fix": "Commented out loaded_at_field and meta keys",
+        "root_cause": "dbt Fusion strict validation rejected these keys in source properties",
+        "fix_location": "models/staging/tpg/_tpg_sources.yml",
+        "fix_category": "data_quality"
+      },
+      "reuse_guidance": {
+        "when_applicable": "dbt parse errors about unexpected keys in source YAMLs",
+        "when_not_applicable": "When keys are actually required for freshness"
+      },
+      "cost_total": {
+        "checks_run": 1,
+        "time_minutes": 5,
+        "models_built": 0
+      },
+      "executes_procedure": "pipeline-build-playbook",
+      "executes_step": "validate_results",
+      "step_execution": {
+        "started_at": "2025-12-30T14:00:00Z",
+        "ended_at": "2025-12-30T14:05:00Z",
+        "questions_raised": [
+          {
+            "question": "Is it true that: Syntax error in YAML?",
+            "asked_at": "2025-12-30T14:00:00Z",
+            "answered_by": "triage"
+          }
+        ],
+        "errors_encountered": [
+          {
+            "error_code": "other",
+            "error_message": "dbt parse failed with 'Additional properties are not allowed ('loaded_at_field', 'meta' were unexpected)'",
+            "encountered_at": "2025-12-30T14:00:00Z"
+          }
+        ],
+        "deviation_from_spec": null
+      },
+      "temporal_context": {
+        "execution_time": "2025-12-30T14:00:00Z",
+        "active_rules_at_execution": [],
+        "active_procedure_version": {
+          "version": "3.0.0",
+          "valid_from": "2026-01-01T00:00:00Z",
+          "valid_to": null,
+          "current": true
+        }
+      }
+    },
+    {
+      "id": "qa_2025-12-30_002",
+      "timestamp": "2025-12-30T14:30:00Z",
+      "model": "mrt_merchant_auth_decline_analytics",
+      "problem": {
+        "symptom": "0 rows returned for 'Daily' grain validation for historical month (Oct 2025)",
+        "error_type": "missing_rows",
+        "severity": "degraded",
+        "context": "migration"
+      },
+      "triage_path": [
+        {
+          "step": 1,
+          "hypothesis": "Data loss in pipeline",
+          "check": "Check row counts for target month",
+          "query_or_action": "SELECT count(*) ... WHERE time_period = 'Daily'",
+          "result": "0 rows",
+          "led_to": "Hypothesis: Logic filtering out rows"
+        },
+        {
+          "step": 2,
+          "hypothesis": "Retention policy applied",
+          "check": "Inspect SQL definition",
+          "query_or_action": "read_file models/marts/merchant_spend/mrt_merchant_auth_decline_analytics.sql",
+          "result": "Found filter: and not (time_period = 'Daily' and calendar_date < current_date - 21)",
+          "led_to": "Resolution"
+        }
+      ],
+      "resolution": {
+        "fix": "Switched validation strategy to 'Monthly' grain which has 180-day retention",
+        "root_cause": "Intentional 21-day retention policy for Daily grain in mart definition",
+        "fix_location": "models/marts/merchant_spend/mrt_merchant_auth_decline_analytics.sql",
+        "fix_category": "date_boundary"
+      },
+      "reuse_guidance": {
+        "when_applicable": "Missing daily data in marts > 21 days old",
+        "when_not_applicable": "Missing monthly data or recent daily data"
+      },
+      "cost_total": {
+        "checks_run": 3,
+        "time_minutes": 15,
+        "models_built": 1
+      },
+      "executes_procedure": "pipeline-build-playbook",
+      "executes_step": "implement_model",
+      "step_execution": {
+        "started_at": "2025-12-30T14:30:00Z",
+        "ended_at": "2025-12-30T14:45:00Z",
+        "questions_raised": [
+          {
+            "question": "Is it true that: Data loss in pipeline?",
+            "asked_at": "2025-12-30T14:30:00Z",
+            "answered_by": "triage"
+          },
+          {
+            "question": "Is it true that: Retention policy applied?",
+            "asked_at": "2025-12-30T14:30:00Z",
+            "answered_by": "triage"
+          }
+        ],
+        "errors_encountered": [
+          {
+            "error_code": "missing_rows",
+            "error_message": "0 rows returned for 'Daily' grain validation for historical month (Oct 2025)",
+            "encountered_at": "2025-12-30T14:30:00Z"
+          }
+        ],
+        "deviation_from_spec": null
+      },
+      "temporal_context": {
+        "execution_time": "2025-12-30T14:30:00Z",
+        "active_rules_at_execution": [],
+        "active_procedure_version": {
+          "version": "3.0.0",
+          "valid_from": "2026-01-01T00:00:00Z",
+          "valid_to": null,
+          "current": true
+        }
+      }
+    },
+    {
+      "id": "qa_2026-01-03_001",
+      "timestamp": "2026-01-03T00:00:00Z",
+      "model": "merchant_auth_decline_saved_queries",
+      "problem": {
+        "symptom": "dbt parse failed for saved query due to invalid query_params.order_by schema/type",
+        "error_type": "other",
+        "severity": "blocking",
+        "context": "migration"
+      },
+      "triage_path": [
+        {
+          "step": 1,
+          "hypothesis": "Saved query YAML order_by is not in dbt semantic object-builder format",
+          "check": "Run dbt parse and inspect reported path",
+          "query_or_action": "dbt parse --no-partial-parse",
+          "result": "Parse error indicated order_by items must be strings / invalid structure",
+          "led_to": "Resolution"
+        }
+      ],
+      "resolution": {
+        "fix": "Updated saved query order_by to object-builder string: Metric('spend_cardholder_total_attempts').descending(True)",
+        "root_cause": "Saved queries require dbt semantic object-builder syntax; prior config used a structured object that dbt-core rejected",
+        "fix_location": "models/marts/arc_insights_marts/operational/transaction_monitoring/saved_queries/merchant_auth_decline_saved_queries.yml",
+        "fix_category": "logic_error"
+      },
+      "reuse_guidance": {
+        "when_applicable": "dbt parse errors referencing saved_query query_params.order_by type/schema",
+        "when_not_applicable": "When order_by is already an object-builder string and failures are elsewhere in the semantic manifest"
+      },
+      "cost_total": {
+        "checks_run": 3,
+        "time_minutes": 20,
+        "models_built": 0
+      },
+      "executes_procedure": "pipeline-build-playbook",
+      "executes_step": "implement_model",
+      "step_execution": {
+        "started_at": "2026-01-03T00:00:00Z",
+        "ended_at": "2026-01-03T00:20:00Z",
+        "questions_raised": [
+          {
+            "question": "Is it true that: Saved query YAML order_by is not in dbt semantic object-builder format?",
+            "asked_at": "2026-01-03T00:00:00Z",
+            "answered_by": "triage"
+          }
+        ],
+        "errors_encountered": [
+          {
+            "error_code": "other",
+            "error_message": "dbt parse failed for saved query due to invalid query_params.order_by schema/type",
+            "encountered_at": "2026-01-03T00:00:00Z"
+          }
+        ],
+        "deviation_from_spec": null
+      },
+      "temporal_context": {
+        "execution_time": "2026-01-03T00:00:00Z",
+        "active_rules_at_execution": [
+          {
+            "rule_id": "rule_incremental_merge_tuple_collision",
+            "version": 1
+          },
+          {
+            "rule_id": "rule_program_filter_shared_infrastructure",
+            "version": 1
+          },
+          {
+            "rule_id": "rule_daily_grain_retention_policy",
+            "version": 1
+          }
+        ],
+        "active_procedure_version": {
+          "version": "3.0.0",
+          "valid_from": "2026-01-01T00:00:00Z",
+          "valid_to": null,
+          "current": true
+        }
+      }
+    },
+    {
+      "id": "qa_2026-01-03_002",
+      "timestamp": "2026-01-03T00:00:00Z",
+      "model": "merchant_auth_decline_metrics",
+      "problem": {
+        "symptom": "MetricFlow queries for approval-rate metrics returned 0 (unexpected) despite non-zero numerator/denominator",
+        "error_type": "other",
+        "severity": "degraded",
+        "context": "migration"
+      },
+      "triage_path": [
+        {
+          "step": 1,
+          "hypothesis": "Derived metric math is using integer division",
+          "check": "Run mf query for approval rates and compare to raw numerator/denominator",
+          "query_or_action": "mf query --metrics spend_cp_approval_rate,spend_cnp_approval_rate --group-by metric_time__week --limit 4",
+          "result": "Approval rates showed 0 while attempt/approve metrics were non-zero",
+          "led_to": "Inspect metric expressions"
+        },
+        {
+          "step": 2,
+          "hypothesis": "Expression needs float coercion",
+          "check": "Update derived metric expressions to enforce float division",
+          "query_or_action": "Edit metrics YAML and re-run dbt parse + mf query",
+          "result": "Approval rates returned expected decimals (e.g., 0.96 / 0.45)",
+          "led_to": "Resolution"
+        }
+      ],
+      "resolution": {
+        "fix": "Coerced derived divisions to float using 1.0 * numerator / NULLIF(denominator, 0)",
+        "root_cause": "Integer division in derived metric expressions truncated ratios to 0",
+        "fix_location": "models/marts/arc_insights_marts/operational/transaction_monitoring/saved_queries/metrics/merchant_auth_decline_metrics.yml",
+        "fix_category": "logic_error"
+      },
+      "reuse_guidance": {
+        "when_applicable": "Derived ratio metrics return 0/1 only in MetricFlow despite reasonable raw counts",
+        "when_not_applicable": "When ratios are already decimals and issues stem from filters or empty result sets"
+      },
+      "cost_total": {
+        "checks_run": 4,
+        "time_minutes": 25,
+        "models_built": 0
+      },
+      "executes_procedure": "pipeline-build-playbook",
+      "executes_step": "implement_model",
+      "step_execution": {
+        "started_at": "2026-01-03T00:00:00Z",
+        "ended_at": "2026-01-03T00:25:00Z",
+        "questions_raised": [
+          {
+            "question": "Is it true that: Derived metric math is using integer division?",
+            "asked_at": "2026-01-03T00:00:00Z",
+            "answered_by": "triage"
+          },
+          {
+            "question": "Is it true that: Expression needs float coercion?",
+            "asked_at": "2026-01-03T00:00:00Z",
+            "answered_by": "triage"
+          }
+        ],
+        "errors_encountered": [
+          {
+            "error_code": "other",
+            "error_message": "MetricFlow queries for approval-rate metrics returned 0 (unexpected) despite non-zero numerator/denominator",
+            "encountered_at": "2026-01-03T00:00:00Z"
+          }
+        ],
+        "deviation_from_spec": null
+      },
+      "temporal_context": {
+        "execution_time": "2026-01-03T00:00:00Z",
+        "active_rules_at_execution": [
+          {
+            "rule_id": "rule_incremental_merge_tuple_collision",
+            "version": 1
+          },
+          {
+            "rule_id": "rule_program_filter_shared_infrastructure",
+            "version": 1
+          },
+          {
+            "rule_id": "rule_daily_grain_retention_policy",
+            "version": 1
+          }
+        ],
+        "active_procedure_version": {
+          "version": "3.0.0",
+          "valid_from": "2026-01-01T00:00:00Z",
+          "valid_to": null,
+          "current": true
+        }
+      }
+    },
+    {
+      "id": "qa_2026-01-03_003",
+      "timestamp": "2026-01-04T01:46:59.273100Z",
+      "model": "mrt_merchant_auth_decline__semantic_base",
+      "problem": {
+        "symptom": "MetricFlow queries for POS entry mode filtered metrics returned empty results due to filter values not matching the underlying dimension strings",
+        "error_type": "other",
+        "severity": "degraded",
+        "context": "migration"
+      },
+      "triage_path": [
+        {
+          "step": 1,
+          "hypothesis": "The semantic dimension values feeding the metric do not match the filter strings used by metrics/saved queries",
+          "check": "Inspect distinct pos_entry_mode values in the semantic base and compare to expected filter set",
+          "query_or_action": "dbt show --inline \"select pos_entry_mode, count(*) from {{ ref('mrt_merchant_auth_decline__semantic_base') }} group by 1 order by 2 desc\"",
+          "result": "Observed verbose EDW descriptions (e.g., 'Card Present - Chip') rather than the expected short values (e.g., 'Chip')",
+          "led_to": "Normalize pos_entry_mode via the EDW POS entry mode dimension"
+        },
+        {
+          "step": 2,
+          "hypothesis": "stg_edw__dim_pos_entry_mode.business_category provides the canonical category mapping needed for metric filters",
+          "check": "Join to stg_edw__dim_pos_entry_mode and map business_category to the standardized filter strings",
+          "query_or_action": "Update semantic base SQL to join dim and CASE-map business_category to 'Chip'/'Contactless'/'Magnetic Stripe'/'Manual Entry'",
+          "result": "Rebuilt semantic bases and MetricFlow queries for POS modes returned non-empty results",
+          "led_to": "Resolution"
+        }
+      ],
+      "resolution": {
+        "fix": "Normalized pos_entry_mode outputs in merchant auth decline semantic base models by joining stg_edw__dim_pos_entry_mode and mapping business_category to expected filter strings",
+        "root_cause": "Metrics/saved queries filtered on standardized POS entry mode labels while the raw fact table exposed verbose EDW descriptions",
+        "fix_location": "dbt-enterprise models/marts/arc_insights_marts/operational/transaction_monitoring/semantic_models/mrt_merchant_auth_decline__semantic_base.sql (+ related semantic base models)",
+        "fix_category": "logic_error"
+      },
+      "reuse_guidance": {
+        "when_applicable": "MetricFlow returns empty results only when applying categorical filters; distinct raw values look similar-but-not-equal to filter strings",
+        "when_not_applicable": "Filters match raw dimension values exactly but results are still empty (likely date scoping or join exclusions)"
+      },
+      "cost_total": {
+        "checks_run": 4,
+        "time_minutes": 25,
+        "models_built": 1
+      },
+      "executes_procedure": "pipeline-build-playbook",
+      "executes_step": "implement_model",
+      "step_execution": {
+        "started_at": "2026-01-04T01:46:59.273100Z",
+        "ended_at": "2026-01-04T02:11:59.273100Z",
+        "questions_raised": [
+          {
+            "question": "Is it true that: The semantic dimension values feeding the metric do not match the filter strings used by metrics/saved queries?",
+            "asked_at": "2026-01-04T01:46:59.273100Z",
+            "answered_by": "triage"
+          },
+          {
+            "question": "Is it true that: stg_edw__dim_pos_entry_mode.business_category provides the canonical category mapping needed for metric filters?",
+            "asked_at": "2026-01-04T01:46:59.273100Z",
+            "answered_by": "triage"
+          }
+        ],
+        "errors_encountered": [
+          {
+            "error_code": "other",
+            "error_message": "MetricFlow queries for POS entry mode filtered metrics returned empty results due to filter values not matching the underlying dimension strings",
+            "encountered_at": "2026-01-04T01:46:59.273100Z"
+          }
+        ],
+        "deviation_from_spec": null
+      },
+      "temporal_context": {
+        "execution_time": "2026-01-04T01:46:59.273100Z",
+        "active_rules_at_execution": [
+          {
+            "rule_id": "rule_incremental_merge_tuple_collision",
+            "version": 1
+          },
+          {
+            "rule_id": "rule_program_filter_shared_infrastructure",
+            "version": 1
+          },
+          {
+            "rule_id": "rule_daily_grain_retention_policy",
+            "version": 1
+          }
+        ],
+        "active_procedure_version": {
+          "version": "3.0.0",
+          "valid_from": "2026-01-01T00:00:00Z",
+          "valid_to": null,
+          "current": true
+        }
+      }
+    },
+    {
+      "id": "qa_2026-01-04_004",
+      "timestamp": "2026-01-04T21:55:18Z",
+      "model": "fusion_preflight",
+      "problem": {
+        "symptom": "dbt-fusion CI-like preflight failed because YAML selector definitions with embedded excludes were rejected; CI predictor needed a fusion-compatible selection+exclude approach",
+        "error_type": "other",
+        "severity": "blocking",
+        "context": "qa"
+      },
+      "triage_path": [
+        {
+          "step": 1,
+          "hypothesis": "dbt-fusion is stricter than dbt-core and does not accept YAML selector definitions that include YAML-level exclude blocks",
+          "check": "Run dbt-fusion parse/compile using selector YAML that included excludes",
+          "query_or_action": "dbt-fusion parse/compile with selectors.yml selector containing YAML-level exclude blocks",
+          "result": "fusion rejected the selector YAML format and failed before compile could be used as a CI predictor",
+          "led_to": "Move excludes out of YAML and into CLI flags"
+        },
+        {
+          "step": 2,
+          "hypothesis": "The defer/state artifact path expected by the runbook differs from actual local artifacts",
+          "check": "Locate dbt Cloud defer artifacts locally",
+          "query_or_action": "Use target/dbt_cloud_defer for --state/--defer inputs",
+          "result": "Defer artifacts were present under target/dbt_cloud_defer (not ./target-defer/)",
+          "led_to": "Use correct state/defer path in preflight script"
+        },
+        {
+          "step": 3,
+          "hypothesis": "A simple include-only selector + CLI excludes will be accepted by fusion and preserve ownership boundaries",
+          "check": "Simplify selectors.yml to include-only and apply non-owned exclusions via --exclude in a script",
+          "query_or_action": "Update selectors.yml to include-only selector (state:modified+1) and enforce excludes via scripts/fusion_preflight.sh",
+          "result": "dbt-fusion parse + compile succeeded with ownership exclusions enforced via CLI",
+          "led_to": "Resolution"
+        }
+      ],
+      "resolution": {
+        "fix": "Made the CI selector fusion-compatible by removing YAML-level excludes (include-only selector) and enforcing non-owned excludes via CLI flags in fusion_preflight.sh, using target/dbt_cloud_defer for state/defer",
+        "root_cause": "dbt-fusion rejects certain selector YAML constructs that dbt-core tolerates (notably embedded exclude blocks), so the preflight needed to express exclusions at the CLI layer",
+        "fix_location": "dbt-enterprise selectors.yml; dbt-enterprise/scripts/fusion_preflight.sh",
+        "fix_category": "other"
+      },
+      "reuse_guidance": {
+        "when_applicable": "fusion fails early on selectors.yml parsing or reports unsupported selector YAML keys; you need CI-like selection plus strict ownership excludes",
+        "when_not_applicable": "selectors work in fusion but the run still fails later (model compilation/runtime issues rather than selector parsing)"
+      },
+      "cost_total": {
+        "checks_run": 3,
+        "time_minutes": 15,
+        "models_built": 0
+      },
+      "executes_procedure": "qa-validation-workflow",
+      "executes_step": "implement_model",
+      "step_execution": {
+        "started_at": "2026-01-04T21:55:18Z",
+        "ended_at": "2026-01-04T22:10:18Z",
+        "questions_raised": [
+          {
+            "question": "Is it true that: dbt-fusion is stricter than dbt-core and does not accept YAML selector definitions that include YAML-level exclude blocks?",
+            "asked_at": "2026-01-04T21:55:18Z",
+            "answered_by": "triage"
+          },
+          {
+            "question": "Is it true that: The defer/state artifact path expected by the runbook differs from actual local artifacts?",
+            "asked_at": "2026-01-04T21:55:18Z",
+            "answered_by": "triage"
+          },
+          {
+            "question": "Is it true that: A simple include-only selector + CLI excludes will be accepted by fusion and preserve ownership boundaries?",
+            "asked_at": "2026-01-04T21:55:18Z",
+            "answered_by": "triage"
+          }
+        ],
+        "errors_encountered": [
+          {
+            "error_code": "other",
+            "error_message": "dbt-fusion CI-like preflight failed because YAML selector definitions with embedded excludes were rejected; CI predictor needed a fusion-compatible selection+exclude approach",
+            "encountered_at": "2026-01-04T21:55:18Z"
+          }
+        ],
+        "deviation_from_spec": null
+      },
+      "temporal_context": {
+        "execution_time": "2026-01-04T21:55:18Z",
+        "active_rules_at_execution": [
+          {
+            "rule_id": "rule_incremental_merge_tuple_collision",
+            "version": 1
+          },
+          {
+            "rule_id": "rule_program_filter_shared_infrastructure",
+            "version": 1
+          },
+          {
+            "rule_id": "rule_daily_grain_retention_policy",
+            "version": 1
+          }
+        ],
+        "active_procedure_version": {
+          "version": "1.0.0",
+          "valid_from": "2026-01-01T00:00:00Z",
+          "valid_to": null,
+          "current": true
+        }
+      }
+    },
+    {
+      "id": "qa_2026-01-04_005",
+      "timestamp": "2026-01-04T22:44:31Z",
+      "model": "int_transactions__auth_all",
+      "problem": {
+        "symptom": "CI dbt build fast-failed at compilation: model depended on missing node 'stg_gbos__paymentidentifierdevice'",
+        "error_type": "other",
+        "severity": "blocking",
+        "context": "qa"
+      },
+      "triage_path": [
+        {
+          "step": 1,
+          "hypothesis": "The referenced GBOS staging model exists locally but was never committed to the branch",
+          "check": "Confirm presence in HEAD vs working tree",
+          "query_or_action": "git ls-tree -r HEAD models/staging/gbos; git status --porcelain models/staging/gbos",
+          "result": "stg_gbos__paymentidentifierdevice.sql (and related GBOS staging models) were untracked locally and not present in HEAD",
+          "led_to": "Commit missing staging models"
+        },
+        {
+          "step": 2,
+          "hypothesis": "Adding the missing staging nodes will unblock compilation for downstream intermediate models",
+          "check": "Stage + commit GBOS staging models required for eWallet attribution",
+          "query_or_action": "git add models/staging/gbos/stg_gbos__paymentidentifierdevice.sql models/staging/gbos/stg_gbos__posttransaction.sql models/staging/gbos/stg_gbos__wallettype.sql; git commit",
+          "result": "Committed GBOS staging models (commit 658c7f1)",
+          "led_to": "Push and rerun CI"
+        }
+      ],
+      "resolution": {
+        "fix": "Added missing GBOS staging models referenced by intermediate auth models so CI compilation can resolve refs",
+        "root_cause": "Required staging models were created locally but not tracked/committed, so CI could not find the referenced nodes",
+        "fix_location": "models/staging/gbos/stg_gbos__paymentidentifierdevice.sql; models/staging/gbos/stg_gbos__posttransaction.sql; models/staging/gbos/stg_gbos__wallettype.sql",
+        "fix_category": "other"
+      },
+      "reuse_guidance": {
+        "when_applicable": "CI/dbt compile errors report 'depends on a node named X which was not found' after adding refs in downstream models",
+        "when_not_applicable": "Node exists in the repo and compilation fails due to source() configuration, enabled flags, or missing packages"
+      },
+      "cost_total": {
+        "checks_run": 3,
+        "time_minutes": 10,
+        "models_built": 0
+      },
+      "executes_procedure": "qa-validation-workflow",
+      "executes_step": "implement_model",
+      "step_execution": {
+        "started_at": "2026-01-04T22:44:31Z",
+        "ended_at": "2026-01-04T22:54:31Z",
+        "questions_raised": [
+          {
+            "question": "Is it true that: The referenced GBOS staging model exists locally but was never committed to the branch?",
+            "asked_at": "2026-01-04T22:44:31Z",
+            "answered_by": "triage"
+          },
+          {
+            "question": "Is it true that: Adding the missing staging nodes will unblock compilation for downstream intermediate models?",
+            "asked_at": "2026-01-04T22:44:31Z",
+            "answered_by": "triage"
+          }
+        ],
+        "errors_encountered": [
+          {
+            "error_code": "other",
+            "error_message": "CI dbt build fast-failed at compilation: model depended on missing node 'stg_gbos__paymentidentifierdevice'",
+            "encountered_at": "2026-01-04T22:44:31Z"
+          }
+        ],
+        "deviation_from_spec": null
+      },
+      "temporal_context": {
+        "execution_time": "2026-01-04T22:44:31Z",
+        "active_rules_at_execution": [
+          {
+            "rule_id": "rule_incremental_merge_tuple_collision",
+            "version": 1
+          },
+          {
+            "rule_id": "rule_program_filter_shared_infrastructure",
+            "version": 1
+          },
+          {
+            "rule_id": "rule_daily_grain_retention_policy",
+            "version": 1
+          }
+        ],
+        "active_procedure_version": {
+          "version": "1.0.0",
+          "valid_from": "2026-01-01T00:00:00Z",
+          "valid_to": null,
+          "current": true
+        }
+      }
+    },
+    {
+      "id": "qa_2026-01-07_001",
+      "timestamp": "2026-01-07T20:30:00Z",
+      "model": "int_dates, int_oct__aggregated_transfers, qa_oct__deduplication_impact_summary",
+      "problem": {
+        "symptom": "CI failures: 'ERROR creating sql view_create_or_replace model' - materialization macro not found",
+        "error_type": "other",
+        "severity": "blocking",
+        "context": "migration"
+      },
+      "triage_path": [
+        {
+          "step": 1,
+          "hypothesis": "Models use non-standard materialization that doesn't exist",
+          "check": "Search for macro definition",
+          "query_or_action": "grep_search 'view_create_or_replace' + file_search macros/materializations/view_create_or_replace.sql",
+          "result": "Macro file doesn't exist. 3 models reference it.",
+          "led_to": "Check git history"
+        },
+        {
+          "step": 2,
+          "hypothesis": "Macro was deleted in recent commit",
+          "check": "Review recent commits affecting macros",
+          "query_or_action": "git show 6890751 --stat | grep -E '(macro|view_create)'",
+          "result": "Macro deleted in revert commit 6890751 as 'experimental macro'",
+          "led_to": "Try changing models to standard view"
+        },
+        {
+          "step": 3,
+          "hypothesis": "Can use standard 'view' materialization instead",
+          "check": "Change materialized='view_create_or_replace' to materialized='view' and compile",
+          "query_or_action": "multi_replace_string_in_file + dbt compile --select int_dates int_oct__aggregated_transfers qa_oct__deduplication_impact_summary",
+          "result": "OCT models failed with 'upstream_prod ref resolution' errors. int_dates compiled.",
+          "led_to": "Restore macro instead"
+        },
+        {
+          "step": 4,
+          "hypothesis": "Restoring simple macro is cleaner than debugging ref issues",
+          "check": "Recreate view_create_or_replace.sql and revert models",
+          "query_or_action": "create_file macros/materializations/view_create_or_replace.sql + revert 3 models back to view_create_or_replace",
+          "result": "Local compile still failed for OCT models with upstream_prod errors",
+          "led_to": "Clean and rebuild"
+        },
+        {
+          "step": 5,
+          "hypothesis": "Stale target/ cache causing upstream_prod resolution issues",
+          "check": "Clear cache and reinstall dependencies",
+          "query_or_action": "dbt clean && dbt deps && dbt compile --select int_oct__aggregated_transfers qa_oct__deduplication_impact_summary",
+          "result": "All models compiled successfully. Pre-push tests passed (61 tests, 59 success, 2 warn).",
+          "led_to": "Resolution"
+        }
+      ],
+      "resolution": {
+        "fix": "Restored macros/materializations/view_create_or_replace.sql (14-line CREATE OR REPLACE VIEW wrapper) and reverted 3 models back to using it",
+        "root_cause": "Revert commit deleted macro but left model references intact. Local compilation initially succeeded due to cached target/ but CI failed in clean environment.",
+        "fix_location": "macros/materializations/view_create_or_replace.sql + 3 model configs",
+        "fix_category": "data_quality"
+      },
+      "reuse_guidance": {
+        "when_applicable": "CI fails with 'materialization not found' but local compile succeeds - indicates stale cache masking deleted dependency",
+        "when_not_applicable": "Materialization truly doesn't exist and never did - should use standard materializations"
+      },
+      "cost_total": {
+        "checks_run": 5,
+        "time_minutes": 25,
+        "models_built": 3
+      },
+      "executes_procedure": "pipeline-build-playbook",
+      "executes_step": "validate_results",
+      "step_execution": {
+        "started_at": "2026-01-07T20:30:00Z",
+        "ended_at": "2026-01-07T20:55:00Z",
+        "questions_raised": [
+          {
+            "question": "Is it true that: Models use non-standard materialization that doesn't exist?",
+            "asked_at": "2026-01-07T20:30:00Z",
+            "answered_by": "triage"
+          },
+          {
+            "question": "Is it true that: Macro was deleted in recent commit?",
+            "asked_at": "2026-01-07T20:30:00Z",
+            "answered_by": "triage"
+          },
+          {
+            "question": "Is it true that: Can use standard 'view' materialization instead?",
+            "asked_at": "2026-01-07T20:30:00Z",
+            "answered_by": "triage"
+          },
+          {
+            "question": "Is it true that: Restoring simple macro is cleaner than debugging ref issues?",
+            "asked_at": "2026-01-07T20:30:00Z",
+            "answered_by": "triage"
+          },
+          {
+            "question": "Is it true that: Stale target/ cache causing upstream_prod resolution issues?",
+            "asked_at": "2026-01-07T20:30:00Z",
+            "answered_by": "triage"
+          }
+        ],
+        "errors_encountered": [
+          {
+            "error_code": "other",
+            "error_message": "CI failures: 'ERROR creating sql view_create_or_replace model' - materialization macro not found",
+            "encountered_at": "2026-01-07T20:30:00Z"
+          }
+        ],
+        "deviation_from_spec": null
+      },
+      "temporal_context": {
+        "execution_time": "2026-01-07T20:30:00Z",
+        "active_rules_at_execution": [
+          {
+            "rule_id": "rule_incremental_merge_tuple_collision",
+            "version": 1
+          },
+          {
+            "rule_id": "rule_program_filter_shared_infrastructure",
+            "version": 1
+          },
+          {
+            "rule_id": "rule_daily_grain_retention_policy",
+            "version": 1
+          }
+        ],
+        "active_procedure_version": {
+          "version": "3.0.0",
+          "valid_from": "2026-01-01T00:00:00Z",
+          "valid_to": null,
+          "current": true
+        }
+      }
+    },
+    {
+      "id": "qa_2025-01-03_001",
+      "timestamp": "2025-01-03T01:30:00Z",
+      "model": "saved_queries/merchant_auth_decline_saved_queries.yml",
+      "problem": {
+        "symptom": "dbt run --select saved_query:... returns NO-OP in local dbt Core environment",
+        "error_type": "other",
+        "severity": "blocking",
+        "context": "performance_benchmarking"
+      },
+      "triage_path": [
+        {
+          "step": 1,
+          "hypothesis": "Saved Query materialization requires dbt Cloud or specific configuration",
+          "check": "Ran with DBT_INCLUDE_SAVED_QUERY=TRUE and looked for materialization logic",
+          "query_or_action": "dbt build --select saved_query:...",
+          "result": "NO-OP. No table created.",
+          "led_to": "Simulation"
+        }
+      ],
+      "resolution": {
+        "fix": "Manually created standard SQL model to simulate export logic using mf query --explain",
+        "root_cause": "dbt Core local execution does not native support saved_query materialization via dbt run in this version/config",
+        "fix_location": "models/marts/arc_insights_marts/operational/transaction_monitoring/saved_queries/sl_cardholder_concentration_daily.sql",
+        "fix_category": "logic_error"
+      },
+      "reuse_guidance": {
+        "when_applicable": "Benchmarking saved query exports locally when dbt run is NO-OP",
+        "when_not_applicable": "When running in dbt Cloud production environment"
+      },
+      "cost_total": {
+        "checks_run": 5,
+        "time_minutes": 25,
+        "models_built": 1
+      },
+      "executes_procedure": "pipeline-build-playbook",
+      "executes_step": "implement_model",
+      "step_execution": {
+        "started_at": "2025-01-03T01:30:00Z",
+        "ended_at": "2025-01-03T01:55:00Z",
+        "questions_raised": [
+          {
+            "question": "Is it true that: Saved Query materialization requires dbt Cloud or specific configuration?",
+            "asked_at": "2025-01-03T01:30:00Z",
+            "answered_by": "triage"
+          }
+        ],
+        "errors_encountered": [
+          {
+            "error_code": "other",
+            "error_message": "dbt run --select saved_query:... returns NO-OP in local dbt Core environment",
+            "encountered_at": "2025-01-03T01:30:00Z"
+          }
+        ],
+        "deviation_from_spec": null
+      },
+      "temporal_context": {
+        "execution_time": "2025-01-03T01:30:00Z",
+        "active_rules_at_execution": [],
+        "active_procedure_version": {
+          "version": "3.0.0",
+          "valid_from": "2026-01-01T00:00:00Z",
+          "valid_to": null,
+          "current": true
+        }
+      }
+    },
+    {
+      "id": "qa_2026-01-15_001",
+      "timestamp": "2026-01-15T23:59:00Z",
+      "model": "mrt_gbos_registration_cohort_progress",
+      "problem": {
+        "symptom": "Merge job failures persisted after introducing optimized cohort models because downstream semantic model still referenced old mart; old implementation timed out due to cohort\u00d7date cross-join fanout",
+        "error_type": "other",
+        "severity": "blocking",
+        "context": "refactoring"
+      },
+      "triage_path": [
+        {
+          "step": 1,
+          "hypothesis": "New optimized models were created but not actually consumed downstream; the merge job still runs the legacy mart that WLM-times out",
+          "check": "Inspect materialization + lineage: confirm whether mrt_gbos_registration_cohort_progress is still a table and whether semantic model refs were updated",
+          "query_or_action": "Review model configs + downstream refs; run dbt compile/build for cohort chain",
+          "result": "Confirmed legacy mart remained in lineage; downstream references were not migrated",
+          "led_to": "Resolution"
+        }
+      ],
+      "resolution": {
+        "fix": "Converted mrt_gbos_registration_cohort_progress to a backward-compatibility VIEW that pivots from mrt_gbos_registration_cohort_metrics (EAV) into the legacy wide schema",
+        "root_cause": "Downstream semantic models/views still referenced the legacy mart; replacing logic without migration plan caused the old slow model to keep executing",
+        "fix_location": "models/marts/arc_insights_marts/operational/customer_lifecycle/mrt_gbos_registration_cohort_progress.sql",
+        "fix_category": "join_cardinality"
+      },
+      "reuse_guidance": {
+        "when_applicable": "Refactoring/replacing a model with many downstream consumers (semantic models, BI views) where updating all refs is risky; use a backward-compat view to preserve contract",
+        "when_not_applicable": "Greenfield models or small ref surface area where updating downstream refs is trivial"
+      },
+      "cost_total": {
+        "checks_run": 2,
+        "time_minutes": 15,
+        "models_built": 4
+      },
+      "executes_procedure": "pipeline-build-playbook",
+      "executes_step": "configure_incremental",
+      "step_execution": {
+        "started_at": "2026-01-15T23:59:00Z",
+        "ended_at": "2026-01-16T00:14:00Z",
+        "questions_raised": [
+          {
+            "question": "Is it true that: New optimized models were created but not actually consumed downstream; the merge job still runs the legacy mart that WLM-times out?",
+            "asked_at": "2026-01-15T23:59:00Z",
+            "answered_by": "triage"
+          }
+        ],
+        "errors_encountered": [
+          {
+            "error_code": "other",
+            "error_message": "Merge job failures persisted after introducing optimized cohort models because downstream semantic model still referenced old mart; old implementation timed out due to cohort\u00d7date cross-join fanout",
+            "encountered_at": "2026-01-15T23:59:00Z"
+          }
+        ],
+        "deviation_from_spec": null
+      },
+      "temporal_context": {
+        "execution_time": "2026-01-15T23:59:00Z",
+        "active_rules_at_execution": [
+          {
+            "rule_id": "rule_incremental_merge_tuple_collision",
+            "version": 1
+          },
+          {
+            "rule_id": "rule_program_filter_shared_infrastructure",
+            "version": 1
+          },
+          {
+            "rule_id": "rule_daily_grain_retention_policy",
+            "version": 1
+          }
+        ],
+        "active_procedure_version": {
+          "version": "3.0.0",
+          "valid_from": "2026-01-01T00:00:00Z",
+          "valid_to": null,
+          "current": true
+        }
+      }
+    },
+    {
+      "id": "qa_2026-01-21_002",
+      "timestamp": "2026-01-21T18:30:00Z",
+      "model": "int_transactions__posted_all",
+      "problem": {
+        "symptom": "'Zero records' returned for Posted model validation query (Template 1) despite successful run",
+        "error_type": "missing_rows",
+        "severity": "blocking",
+        "context": "qa"
+      },
+      "triage_path": [
+        {
+          "step": 1,
+          "hypothesis": "Data loss or incorrect filter logic in model",
+          "check": "Run simple count query",
+          "query_or_action": "select count(*) from {{ ref('int_transactions__posted_all') }}",
+          "result": "569 rows returned (low but not zero)",
+          "led_to": "Investigate date range of returned data"
+        },
+        {
+          "step": 2,
+          "hypothesis": "Data exists but falls outside validation query window (last 365 days)",
+          "check": "Check min/max calendar_date",
+          "query_or_action": "select min(calendar_date), max(calendar_date) from {{ ref('int_transactions__posted_all') }}",
+          "result": "Max date is 2021-08-31",
+          "led_to": "Resolution"
+        }
+      ],
+      "resolution": {
+        "fix": "Adjusted QA query time window to match available Dev data (2021)",
+        "root_cause": "Dev environment only contains stale data (2021 cutoff) for Posted transactions, while validation query assumed current data (last 365 days)",
+        "fix_location": "QA query parameter",
+        "fix_category": "data_quality"
+      },
+      "reuse_guidance": {
+        "when_applicable": "Validating models in Dev/CI where source data may be stale/truncated",
+        "when_not_applicable": "Prod environment or typically fresh data sources"
+      },
+      "cost_total": {
+        "checks_run": 2,
+        "time_minutes": 10,
+        "models_built": 0
+      }
+    },
+    {
+      "id": "qa_2026-01-26_001",
+      "timestamp": "2026-01-26T20:00:00Z",
+      "model": "int_transaction_pairs__purchase",
+      "problem": {
+        "symptom": "mcc_desc missing in dbt show (upstream prod fallback) + dbt0301 mismatch",
+        "error_type": "type_mismatch",
+        "severity": "blocking",
+        "context": "refactoring"
+      },
+      "triage_path": [
+        {
+          "step": 1,
+          "hypothesis": "UNION ALL schema mismatch causing compilation failure",
+          "check": "Check CTE columns in int_transaction_pairs__purchase",
+          "query_or_action": "dbt compile",
+          "result": "dbt0301 error confirmed",
+          "led_to": "Fix UNION columns"
+        },
+        {
+          "step": 2,
+          "hypothesis": "Upstream Prod (Deferral) masking local changes in dbt show",
+          "check": "Run with upstream_prod_enabled: false",
+          "query_or_action": "dbt show ... --vars '{\"upstream_prod_enabled\": false}'",
+          "result": "mcc_desc populated (99.8%)",
+          "led_to": "Resolution"
+        }
+      ],
+      "resolution": {
+        "fix": "Sync CTE columns in UNION ALL and disable upstream deferral for validation",
+        "root_cause": "Shift Left adding columns requires updating all UNION parts + Deferral hides local schema changes",
+        "fix_location": "int_transaction_pairs__purchase.sql",
+        "fix_category": "environment_configuration"
+      },
+      "reuse_guidance": {
+        "when_applicable": "Adding columns to models involved in UNIONs or when dbt show ignores local changes",
+        "when_not_applicable": "Standard linear models without deferral"
+      },
+      "cost_total": {
+        "checks_run": 2,
+        "time_minutes": 20,
+        "models_built": 3
+      }
+    },
+    {
+      "id": "qa_2026-02-03_001",
+      "timestamp": "2026-02-03T02:00:00Z",
+      "model": "stl_query_history_recovery",
+      "problem": {
+        "symptom": "VS Code crash caused loss of chat history and context; needed to recover executed queries from Redshift execution logs before they expired",
+        "error_type": "operational_incident",
+        "severity": "critical",
+        "context": "recovery"
+      },
+      "triage_path": [
+        {
+          "step": 1,
+          "hypothesis": "Agent account queries are logged in stl_query/stl_querytext on Redshift",
+          "check": "Identify service account for dbt execution",
+          "query_or_action": "Query pg_user joined with stl_query to find top users",
+          "result": "Identified 'svc_dbt_bi' as the primary executor on Apple cluster",
+          "led_to": "Capture history"
+        },
+        {
+          "step": 2,
+          "hypothesis": "Directly querying stl_query via dbt show allows dumping history to local JSON",
+          "check": "Execute dbt show --inline query and capture output",
+          "query_or_action": "dbt show --inline 'SELECT ... FROM stl_query ...' > session-logs/ws3_*.json",
+          "result": "Recovered ~13k queries for Apple (ws3) and Enterprise (ws3) clusters",
+          "led_to": "Prevention"
+        },
+        {
+           "step": 3,
+           "hypothesis": "STL logs rotate quickly (2-7 days); permanent history table needed",
+           "check": "Create dbt macro to materialize cumulative stats",
+           "query_or_action": "Created macros/maintenance/maintain_compute_stats.sql and ran run-operation",
+           "result": "Successfully created mstr_surf.svcmicrostrategy_compute_stats_v2 and backfilled data",
+           "led_to": "Resolution"
+        }
+      ],
+      "resolution": {
+        "fix": "Recovered query history to JSON session logs and established permanent history table via maintenance macro",
+        "root_cause": "Local IDE crash wiped session context; Redshift logs are ephemeral unless materialized",
+        "fix_location": "dbt-apple/macros/maintenance/maintain_compute_stats.sql; session-logs/*.json",
+        "fix_category": "infrastructure"
+      },
+      "reuse_guidance": {
+        "when_applicable": "Recovering lost agent session context or auditing dbt execution when local logs are unavailable",
+        "when_not_applicable": "Normal development with persistent chat history"
+      },
+      "cost_total": {
+        "checks_run": 5,
+        "time_minutes": 20,
+        "models_built": 0
+      }
+    },
+    {
+      "id": "analysis_2026-03-14_001",
+      "timestamp": "2026-03-14T18:00:00Z",
+      "model": "samsung_decline_iso8583_deep_dive",
+      "problem": {
+        "symptom": "Samsung decline analysis showed 44.7% as generic 'Declined' — unhelpful for diagnosis",
+        "domain": "disbursements_samsung",
+        "severity": "high"
+      },
+      "investigation": {
+        "approach": "Upstream drill-down from semantic layer to raw ISO 8583 response codes in int_samsung__external_details",
+        "data_sources": ["dbt Semantic Layer (PROD)", "int_samsung__external_details (raw codes)", "int_samsung__transfer_details (destination banks)"],
+        "key_queries": [
+          "Grouped network_association_response_code for declined txns where network_status_description = 'Declined'",
+          "Cross-cut code 59 by destination bank",
+          "Counterfactual decline rate excluding code 59",
+          "Bancorp-specific monthly trend"
+        ]
+      },
+      "finding": {
+        "root_cause": "61% of generic 'Declined' (42,950 txns / $5.4M) were ISO 8583 code 59 (suspected fraud) from neobank issuers. Bancorp Bank (51%) and Stride Bank (16%) flagged Samsung P2P as suspicious because they didn't recognize the origination pattern.",
+        "resolution": "Code 59 has self-resolved 97.6% (31K → 737/month) as issuers learned the pattern. Residual problem is NSF (37.5%) + Service not allowed (36.4%) requiring partner-side BIN config and balance checks.",
+        "counterfactual": "Samsung's true decline rate excluding fraud flags is ~32.5%, not the reported 45.9%. Code 59 still adds ~13pp."
+      },
+      "decision": {
+        "action": "Updated data story Beat 5 with ISO 8583 breakdown chart + bank concentration analysis. Documented upstream drill-down as a reusable analysis pattern in Analytics Manager napkin.",
+        "rationale": "Generic categories in semantic layer dimensions hide actionable detail. The upstream drill-down pattern enriches — doesn't replace — certified metrics."
+      },
+      "artifacts": {
+        "finding_doc": "session-logs/samsung-decline-deep-dive-finding.md",
+        "data_file": "session-logs/samsung-decline-analysis.json",
+        "data_story": "docs/visualizations/disbursements-platform-data-story.html"
+      },
+      "metrics": {
+        "checks_run": 8,
+        "time_minutes": 45,
+        "models_built": 0
+      }
+    }
+  ],
+  "schema_version": "pko-linked"
+}

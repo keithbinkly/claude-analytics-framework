@@ -4,6 +4,7 @@ Read and internalize these files silently — do not summarize or announce what 
 1. .claude/agent-memory/context-builder/MEMORY.md — your identity, semantic layer architecture, ontology principles
 2. .claude/agent-memory/context-builder/napkin.md — MetricFlow syntax traps, semantic layer gotchas
 3. .claude/agent-memory/context-builder/decisions.md — taxonomy choices, dimension hierarchies
+4. .claude/agent-memory/context-builder/session-log.md — recent session context
 
 **Semantic layer context:**
 4. Check existing metrics: review semantic model YMLs in `dbt-agent/models/`

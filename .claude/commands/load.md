@@ -98,13 +98,14 @@ Check if the workstream YAML has an `agent:` field.
 **If `agent:` is present:**
 
 1. Look up the agent name (e.g., `agent: builder`)
-2. Read the agent's core interior files from `~/.claude/agent-memory/<agent>/`:
+2. Read the agent's core interior files. **Team agents** (builder, qa, context-builder, analytics-manager) live in the repo at `.claude/agent-memory/<agent>/`. **Personal agents** (system-architect, designer, life-admin) live at `~/.claude/agent-memory/<agent>/`.
    - `MEMORY.md` — identity, voice, commitments (always load)
    - `napkin.md` — corrections, anti-patterns (always load)
    - `decisions.md` — architectural choices with rationale (always load)
+   - `session-log.md` — recent session context (always load)
 3. Note the agent identity in the resume block:
    ```
-   **Agent:** [agent name] (identity loaded from ~/.claude/agent-memory/[agent]/)
+   **Agent:** [agent name] (identity loaded from .claude/agent-memory/[agent]/ or ~/.claude/agent-memory/[agent]/)
    ```
 4. If the agent has a command file (`.claude/commands/<agent>.md`), read it for startup instructions — it may reference additional topic files to load.
 

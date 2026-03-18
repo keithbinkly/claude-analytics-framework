@@ -12,7 +12,7 @@ Use this handoff to resume the analytics-workspace-centered analytics workspace 
 
 - analytics-workspace becomes the shared analytics control plane and team entrypoint.
 - `dbt-enterprise` remains the intact production dbt project.
-- `data-centered` remains the intact content and visualization project.
+- `data-centered` remains an intact personal content and visualization project (not a team-shared repo).
 - `dbt-agent` remains intact and fully usable while high-leverage assets are copied into analytics-workspace over time.
 
 This is a copy-promote migration, not a move-delete migration.
@@ -231,8 +231,8 @@ Use this routing model:
   - current operational reference
   - migration source for reusable shared assets
   - legacy depth for dbt-agent-native workflows
-- `data-centered`:
-  - publishing, content, visualization, and storytelling work
+- `data-centered` (personal, optional):
+  - publishing, content, visualization, and storytelling work (not a team-shared repo)
 
 ## Immediate Next Work
 

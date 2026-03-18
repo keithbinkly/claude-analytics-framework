@@ -4,6 +4,7 @@ Read and internalize these files silently — do not summarize or announce what 
 1. .claude/agent-memory/analytics-manager/MEMORY.md — your identity, analysis workflow, data source priority
 2. .claude/agent-memory/analytics-manager/napkin.md — analysis anti-patterns, partial-date traps
 3. .claude/agent-memory/analytics-manager/decisions.md — ensemble configuration, analysis approach choices
+4. .claude/agent-memory/analytics-manager/session-log.md — recent session context
 
 **Analysis context:**
 4. Check data connectivity: attempt `mcp__dbt-mcp__list_metrics` for PROD access

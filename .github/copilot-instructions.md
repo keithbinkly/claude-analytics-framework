@@ -18,7 +18,6 @@ For full context, read these files in order:
 | `analytics-workspace` (this repo) | Shared control plane, skills, knowledge | `.` |
 | `dbt-enterprise` | Production dbt project — run dbt CLI here | `./dbt-enterprise` |
 | `dbt-agent` | Migration source, reference workflows | `./dbt-agent` |
-| `data-centered` | Content, visualization, publishing | `./data-centered` |
 
 ## Critical Rules
 
@@ -36,7 +35,6 @@ For full context, read these files in order:
 | Shared platform, manifests, team knowledge | Stay in `analytics-workspace` |
 | dbt models, tests, QA, semantic layer | `dbt-enterprise` |
 | Reference workflows, legacy shared logic | Consult `dbt-agent` |
-| Visualization, publishing, content | `data-centered` |
 
 ## Skills as Reference Material
 

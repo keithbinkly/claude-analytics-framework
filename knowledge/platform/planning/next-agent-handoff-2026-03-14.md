@@ -5,7 +5,6 @@ Primary workspace root: `/Users/kbinkly/git-repos/analytics-workspace`
 Related repos:
 - `/Users/kbinkly/git-repos/dbt-agent`
 - `/Users/kbinkly/git-repos/dbt_projects/dbt-enterprise`
-- `/Users/kbinkly/git-repos/data-centered`
 
 ## Purpose
 

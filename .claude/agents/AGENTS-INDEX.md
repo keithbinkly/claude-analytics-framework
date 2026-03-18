@@ -55,7 +55,5 @@ Each task agent uses structured XML tags:
 ## Related
 
 - **Repo-local agent manifest**: `.claude/agent-manifest.yaml` (current bootstrap map for this repo)
-- **Cross-repo historical agent map**: `data-centered/thoughts/shared/agent-map.yaml`
-- **Cross-repo agents**: Designer (global), Librarian (data-centered)
 - **Skills**: `.claude/skills/` — knowledge layer
 - **Reference docs**: `dbt-agent/shared/reference/metrics-capture-protocol.md`, `dbt-agent/shared/reference/learning-codification-quick-reference.md`

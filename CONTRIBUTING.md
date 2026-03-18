@@ -29,13 +29,6 @@ analytics-workspace is the shared analytics control plane. Contribute here when 
 - historical or operational content that has not yet been promoted into analytics-workspace
 - deeper dbt-agent-native logic you are consulting but not yet re-homing
 
-### Put it in `data-centered` when it is:
-
-- articles
-- site code
-- visualization product work
-- storytelling deliverables
-
 ## Common Contribution Types
 
 ### Shared knowledge

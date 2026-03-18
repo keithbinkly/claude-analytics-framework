@@ -45,9 +45,6 @@ analytics-workspace coordinates work across these linked repos:
 3. `dbt-agent`
    Current operational reference and migration source. It remains intact while useful assets are copied into analytics-workspace over time.
 
-4. `data-centered`
-   Content and visualization project.
-
 ## Current Migration Model
 
 The migration is non-destructive:
@@ -156,11 +153,6 @@ analytics-workspace/
 - intact migration-source/reference material
 - not-yet-promoted agent logic
 - historical shared workflow content
-
-### `data-centered`
-
-- site/content code
-- storytelling and visualization product work
 
 ## Current Priorities
 

@@ -6,7 +6,6 @@ These repos are not analytics-workspace-owned content. They are separate reposit
 
 - `dbt-enterprise`
 - `dbt-agent`
-- `data-centered`
 
 ## Purpose
 
@@ -39,14 +38,12 @@ The current intended linked repos are:
 
 - `/Users/kbinkly/git-repos/dbt_projects/dbt-enterprise`
 - `/Users/kbinkly/git-repos/dbt-agent`
-- `/Users/kbinkly/git-repos/data-centered`
 
 Those paths may later be replaced by a more team-safe bootstrap mechanism, but the workflow model stays the same:
 
 - analytics-workspace is the shared control plane
 - `dbt-enterprise` is the dbt execution target
 - `dbt-agent` is the intact migration source and fallback reference
-- `data-centered` is the content and visualization project
 
 ## Bootstrap
 

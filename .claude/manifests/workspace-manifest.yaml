@@ -96,7 +96,6 @@ live_state_locations:
     - "knowledge/platform"
   per_repo:
     - "./dbt-enterprise/**/PLAN.md"
-    - "/Users/kbinkly/git-data-centered/**/context.md"
     - "/Users/kbinkly/git-dbt-agent/**/PLAN.md"
     - "/Users/kbinkly/git-dbt-agent/.dots"
 

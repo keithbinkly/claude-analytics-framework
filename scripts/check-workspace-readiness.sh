@@ -53,7 +53,7 @@ check_file "repos/README.md" "Linked repos guide"
 echo
 echo "Linked repo visibility"
 
-for repo_name in dbt-enterprise dbt-agent data-centered; do
+for repo_name in dbt-enterprise dbt-agent; do
   repo_path="${ROOT_DIR}/repos/${repo_name}"
   if [[ -L "${repo_path}" || -d "${repo_path}" ]]; then
     ok "Local convenience entry present: repos/${repo_name}"

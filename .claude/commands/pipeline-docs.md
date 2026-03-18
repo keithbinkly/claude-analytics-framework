@@ -14,7 +14,7 @@ Generate communication-ready documentation from pipeline artifacts. Turns raw ha
 |------|-----------|--------|----------|
 | `diagram` | architecture-diagram-creator | HTML with SVG flow diagrams | Stakeholders, onboarding |
 | `design-doc` | design-document-writer | Markdown design doc + Mermaid | Architecture review, Confluence |
-| `blog` | blog-post-writer | Polished blog post | data-centered.com, external |
+| `blog` | blog-post-writer | Polished blog post | External sharing |
 | `pptx` | pptx-powerpoint-generator | PowerPoint deck | Leadership, cross-team |
 | `data-product` | synq-data-product-architect | data-product.yml | Data governance catalog |
 | `all` | All of the above | Multiple artifacts | Full documentation package |
@@ -65,7 +65,7 @@ Available artifacts to generate from:
 
 1. **Architecture Diagram** — Interactive HTML with data flow, model layers, business context
 2. **Design Document** — Formal spec with Mermaid diagrams, suitable for Confluence
-3. **Blog Post** — "How we migrated [pipeline]" narrative for data-centered.com
+3. **Blog Post** — "How we migrated [pipeline]" narrative
 4. **Presentation** — PowerPoint deck summarizing the pipeline
 5. **Data Product Definition** — Governance YAML for the data product catalog
 6. **All of the above**
@@ -119,7 +119,6 @@ The blog post should:
 - Show the process (phases, gate approvals, key decisions)
 - Include specific metrics (from qa-report.md: variance, reuse %, build time)
 - Be in Keith's voice (problem-first, specific metrics, honest about limitations)
-- Target: data-centered.com
 
 Output to: `dbt-agent/handoffs/$PIPELINE_NAME/docs/blog-post.md`
 
@@ -174,7 +173,7 @@ Output to: `dbt-agent/handoffs/$PIPELINE_NAME/docs/data-product.yml`
 | Data Product | dbt-agent/handoffs/[name]/docs/data-product.yml | Created |
 
 ### Next Actions
-- Review and edit blog post for data-centered.com
+- Review and edit blog post before sharing
 - Serve diagram: `python3 -m http.server 8080` in docs/ directory
 - Upload presentation to SharePoint/Google Drive
 ```

@@ -57,7 +57,7 @@ Structured commands for progressing through the 4-phase pipeline workflow. These
 ```
 /pipeline-docs [name] diagram      → HTML architecture diagram with SVG flows
 /pipeline-docs [name] design-doc   → Formal design document + Mermaid diagrams
-/pipeline-docs [name] blog         → Polished blog post for data-centered.com
+/pipeline-docs [name] blog         → Polished blog post
 /pipeline-docs [name] pptx         → PowerPoint deck for stakeholders
 /pipeline-docs [name] data-product → Governance YAML for data product catalog
 /pipeline-docs [name] all          → Generate everything

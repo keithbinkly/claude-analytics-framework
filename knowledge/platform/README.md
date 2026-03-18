@@ -43,7 +43,6 @@ Use `knowledge/platform/` for:
 Do not use this folder for:
 
 - project-local dbt delivery docs that belong in `dbt-enterprise`
-- content/product docs that belong in `data-centered`
 - historical reference content that still belongs only in `dbt-agent`
 
 ## Migration Note

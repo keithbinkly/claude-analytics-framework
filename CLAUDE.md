@@ -21,7 +21,7 @@ If you are not Claude or do not support slash commands/skills natively, start wi
 
 ## Workspace Model
 
-analytics-workspace coordinates four important locations:
+analytics-workspace coordinates three important locations:
 
 1. `analytics-workspace`
    Shared control plane, team knowledge, migration planning, promoted shared assets.
@@ -31,9 +31,6 @@ analytics-workspace coordinates four important locations:
 
 3. `dbt-agent`
    Current operational reference and migration source. It remains fully usable while assets are copied into analytics-workspace over time.
-
-4. `data-centered`
-   Content and visualization project.
 
 ## Critical Rules
 
@@ -71,9 +68,6 @@ Use `.claude/manifests/repo-adapters.yaml` as the routing contract.
 - Not-yet-promoted commands, skills, reference behavior, legacy shared workflows:
   Consult `dbt-agent`.
 
-- Publishing, storytelling, visualization product work:
-  Route into `data-centered`.
-
 ## Core Workflow References
 
 Use these files for the canonical workflow definitions:
@@ -109,7 +103,6 @@ Shared team-facing knowledge belongs in analytics-workspace, especially under:
 Project-local delivery code does not belong in analytics-workspace. Keep:
 
 - dbt models/tests/YAML in `dbt-enterprise`
-- content/site product code in `data-centered`
 - historical and migration-source reference content in `dbt-agent`
 
 See `CONTRIBUTING.md` for the contribution model.

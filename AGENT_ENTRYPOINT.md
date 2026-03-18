@@ -15,9 +15,9 @@ This file is for agents that do not use Claude-specific slash commands, skills, 
 
 It is not the production dbt project itself.
 
-## The Three Linked Repos
+## Linked Repos
 
-This workspace coordinates three linked repositories:
+This workspace coordinates these linked repositories:
 
 1. `analytics-workspace`
    The shared control plane and team entrypoint.
@@ -27,8 +27,6 @@ This workspace coordinates three linked repositories:
 
 3. `dbt-agent`
    The current operational reference and migration source. It stays intact while useful assets are copied into analytics-workspace over time.
-
-There is also `data-centered`, which is the content and visualization project.
 
 ## Read Order
 
@@ -57,7 +55,6 @@ Use these rules unless a more specific local repo rule overrides them:
 - If the task is about shared platform behavior, manifests, shared knowledge, or cross-repo coordination, stay in analytics-workspace.
 - If the task is about dbt models, dbt QA, or dbt project behavior, route into `dbt-enterprise`.
 - If the task is about reference workflows, legacy shared logic, or not-yet-promoted analytics agent behavior, consult `dbt-agent`.
-- If the task is about publishing, storytelling, or visualization product work, route into `data-centered`.
 
 ## Critical Constraint
 

@@ -22,7 +22,7 @@ cd analytics-workspace
 bash scripts/bootstrap-linked-repos.sh
 ```
 
-This creates symlinks to the sibling repos (dbt-enterprise, dbt-agent, data-centered) so you can search across them.
+This creates symlinks to the sibling repos (dbt-enterprise, dbt-agent) so you can search across them.
 
 ### 2. Verify MCP
 
@@ -68,7 +68,7 @@ Claude will auto-load the right skill based on keywords. See the full keyword→
 |------|------|------------|
 | **AI Team Workspace** (this) | Shared brain — skills, knowledge, commands | Read skills, add domain knowledge, use commands |
 | **dbt-enterprise** | Production dbt code | Write models, run dbt compile/run/test |
-| **dbt-agent** | Legacy reference (migration source) | Read reference material if not yet in workspace |
+| **dbt-agent** | Reference (migration source) | Read reference material if not yet in workspace |
 
 ### When Claude needs to run dbt
 
@@ -133,7 +133,18 @@ Everyone on the team benefits on next pull.
 
 ## Creating a Domain Expert Agent (Optional)
 
-Want Claude to have a dedicated "Feature Store Expert" persona? Create an agent definition:
+Want Claude to have a dedicated "Feature Store Expert" persona? Create an agent definition with persistent memory that the whole team benefits from.
+
+### Team vs Personal Agents
+
+| Type | Memory location | Git-tracked? | Who benefits? |
+|------|----------------|-------------|---------------|
+| **Team agent** | `.claude/agent-memory/<name>/` (in this repo) | Yes | Everyone on `git pull` |
+| **Personal agent** | `~/.claude/agent-memory/<name>/` (on your machine) | No | Only you |
+
+**Rule of thumb:** If your agent's accumulated knowledge would help teammates, make it a team agent. If it's personal preferences or scheduling, make it personal.
+
+Existing team agents: Builder, QA, Context Builder, Analytics Manager. Their memory lives in `.claude/agent-memory/` and is shared with the team via git.
 
 ### 1. Create the agent file
 
@@ -173,7 +184,33 @@ Before answering any question about feature engineering, read these files:
 - You don't guess when you could read the knowledge base
 ```
 
-### 2. Create a slash command (optional)
+### 2. Create the agent's memory files
+
+```bash
+mkdir -p .claude/agent-memory/feature-store-expert
+```
+
+Create the standard 4-file set:
+
+| File | Purpose | Update when |
+|------|---------|-------------|
+| `MEMORY.md` | Identity, commitments (keep under 200 lines) | Rare — identity changes |
+| `napkin.md` | Anti-patterns, things that went wrong | After mistakes |
+| `decisions.md` | Choices with rationale | After non-trivial decisions |
+| `session-log.md` | What happened recently | End of each session |
+
+Then add memory loading to your agent file — add this section to the agent markdown:
+
+```markdown
+## Your memory (team-shared)
+
+Read these files to load your accumulated knowledge:
+- .claude/agent-memory/feature-store-expert/MEMORY.md
+- .claude/agent-memory/feature-store-expert/napkin.md
+- .claude/agent-memory/feature-store-expert/decisions.md
+```
+
+### 3. Create a slash command (optional)
 
 ```bash
 # .claude/commands/feature-store-expert.md
@@ -193,6 +230,16 @@ Greet the user and ask what feature engineering task they need help with.
 ```
 
 Or just ask about feature store topics — if you add it to the skill activation table in `CLAUDE.md`, it'll load automatically.
+
+### 5. Commit the memory
+
+```bash
+git add .claude/agent-memory/feature-store-expert/
+git commit -m "docs: add feature store expert agent memory"
+git push
+```
+
+Now everyone on the team gets this agent's accumulated knowledge on their next pull.
 
 ---
 

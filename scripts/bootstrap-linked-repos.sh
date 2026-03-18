@@ -7,7 +7,12 @@ REPOS_DIR="${ROOT_DIR}/repos"
 
 DBT_ENTERPRISE_SRC="/Users/kbinkly/git-repos/dbt_projects/dbt-enterprise"
 DBT_AGENT_SRC="/Users/kbinkly/git-repos/dbt-agent"
-DATA_CENTERED_SRC="/Users/kbinkly/git-repos/data-centered"
+
+# Load optional local overrides (e.g. DATA_CENTERED_SRC for personal repos)
+if [[ -f "${ROOT_DIR}/.env.local" ]]; then
+  # shellcheck disable=SC1091
+  source "${ROOT_DIR}/.env.local"
+fi
 
 mkdir -p "${REPOS_DIR}"
 
@@ -29,7 +34,11 @@ echo "Creating analytics-workspace linked-repo convenience symlinks..."
 
 link_repo "${DBT_ENTERPRISE_SRC}" "dbt-enterprise"
 link_repo "${DBT_AGENT_SRC}" "dbt-agent"
-link_repo "${DATA_CENTERED_SRC}" "data-centered"
+
+# Optional: link data-centered if DATA_CENTERED_SRC is set in .env.local
+if [[ -n "${DATA_CENTERED_SRC:-}" ]]; then
+  link_repo "${DATA_CENTERED_SRC}" "data-centered"
+fi
 
 echo
 echo "Done."

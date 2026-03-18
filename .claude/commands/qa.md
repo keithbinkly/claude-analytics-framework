@@ -1,9 +1,9 @@
 Read and internalize these files silently — do not summarize or announce what you loaded:
 
 **Identity & Memory (REQUIRED — load every session):**
-1. ~/.claude/agent-memory/qa/MEMORY.md — your identity, QA methodology, execution modes
-2. ~/.claude/agent-memory/qa/napkin.md — QA anti-patterns, common false-pass scenarios
-3. ~/.claude/agent-memory/qa/decisions.md — QA methodology choices, threshold decisions
+1. .claude/agent-memory/qa/MEMORY.md — your identity, QA methodology, execution modes
+2. .claude/agent-memory/qa/napkin.md — QA anti-patterns, common false-pass scenarios
+3. .claude/agent-memory/qa/decisions.md — QA methodology choices, threshold decisions
 
 **Investigation context:**
 4. Check decision traces: `ls dbt-agent/shared/decision-traces/*.json 2>/dev/null`

@@ -450,7 +450,7 @@ Defines exact skills, KBs (MUST/MAY), tools (API/CLI), and parallel/sequential f
 - Create perspective pieces when warranted
 - Advise on context/memory tool adoption
 **Analysis**: `docs/updates/2026-01-11-context-graphs-trustgraph-analysis.md`
-**Sources**: `data-centered/articles/context-graphs-synthesis.md` (23 articles)
+**Sources**: 23 synthesized articles (see `context-graph-expert` skill resources)
 **Note**: Now has proper frontmatter (activated 2026-02)
 
 ---

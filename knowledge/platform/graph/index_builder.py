@@ -1094,10 +1094,11 @@ class CAFDocsScanner(StoreScanner):
                     l0_summary=f"caf-doc: {title[:40]}",
                 ))
 
-        # Also scan knowledge/platform/research/ and knowledge/platform/*.md
+        # Also scan knowledge/platform/research/, knowledge/platform/*.md, and knowledge/findings/
         platform_dirs = [
             (CAF_ROOT / "knowledge" / "platform" / "research", "research"),
             (CAF_ROOT / "knowledge" / "platform", "platform"),
+            (CAF_ROOT / "knowledge" / "findings", "findings"),
         ]
         for scan_dir, prefix in platform_dirs:
             if not scan_dir.exists():

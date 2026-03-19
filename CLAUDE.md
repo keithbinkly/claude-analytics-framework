@@ -137,6 +137,7 @@ See `CONTRIBUTING.md` for the contribution model.
 | dbt artifacts, execution metadata, run history | dbt Artifacts | `.claude/skills/dbt-artifacts/` |
 | SQL unit test, pytest, DuckDB mock | SQL Unit Testing | `.claude/skills/dbt-sql-unit-testing/` |
 | outlier detection, Benford, gaps islands, GROUPING SETS | SQL Hidden Gems | `.claude/skills/sql-hidden-gems/` |
+| contribute, share finding, add to knowledge, save for team | Contribute Knowledge | `.claude/skills/contribute-knowledge/` |
 
 Full registry: `.claude/skills/SKILLS_REGISTRY.md`
 

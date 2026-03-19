@@ -302,7 +302,7 @@ Loads: jinja-sql-optimizer (macro template)
 **Solution:**
 ```bash
 # Verify skill file exists
-ls -la /Users/kbinkly/git-repos/dbt-agent/.claude/skills/jinja-sql-optimizer/
+ls -la /Users/kbinkly/git-dbt-agent/.claude/skills/jinja-sql-optimizer/
 
 # Should show:
 # SKILL.md

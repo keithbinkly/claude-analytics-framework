@@ -29,7 +29,7 @@ Comprehensive documentation organized by category:
 - **examples.md** - Real-world examples and use cases
 
 ### 📦 Source Materials
-Located in `/Users/kbinkly/git-repos/dbt-agent/docs/dbt_utility_packages/`:
+Located in `/Users/kbinkly/git-dbt-agent/docs/dbt_utility_packages/`:
 
 - **jinja_functions_reference.md** - Datacoves Jinja cheat sheet
 - **dbt_utils_package_guide.md** - Complete dbt-utils documentation (50 KB)
@@ -159,17 +159,17 @@ To refresh with latest dbt documentation:
 cd ~/git-repos/Skill_Seekers
 source venv/bin/activate
 python3 cli/doc_scraper.py --config \
-  /Users/kbinkly/git-repos/dbt-agent/.claude/skills/jinja-sql-optimizer/skill_seeker_config.json
+  /Users/kbinkly/git-dbt-agent/.claude/skills/jinja-sql-optimizer/skill_seeker_config.json
 
 # Copy updated files
 cp -r output/jinja-sql-optimizer/references/* \
-  /Users/kbinkly/git-repos/dbt-agent/.claude/skills/jinja-sql-optimizer/references/
+  /Users/kbinkly/git-dbt-agent/.claude/skills/jinja-sql-optimizer/references/
 ```
 
 ## Configuration
 
 The skill was generated using:
-`/Users/kbinkly/git-repos/dbt-agent/.claude/skills/jinja-sql-optimizer/skill_seeker_config.json`
+`/Users/kbinkly/git-dbt-agent/.claude/skills/jinja-sql-optimizer/skill_seeker_config.json`
 
 Key settings:
 - Base URL: https://docs.getdbt.com

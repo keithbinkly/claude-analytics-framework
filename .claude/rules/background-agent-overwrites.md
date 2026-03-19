@@ -23,6 +23,18 @@ When multiple agents are running (Task tool, background agents):
 - Prefer Edit (surgical replacement) over Write (full overwrite) when possible
 - If a background agent produces output, merge it — don't clobber existing content
 
-## The Bug This Prevents
+## Verify Background Agent CSS/Structural Output
 
-A background agent overwrites a data file with an incompatible format, breaking the page that depends on it. The main agent doesn't notice because it wrote the page first and assumed the data file was stable.
+When a background agent converts or restyles a file (especially CSS transformations):
+
+1. **Grep for all top-level HTML sections** — not just the main wrapper
+2. **Check each section has the intended constraints** (max-width, margin, padding)
+3. **Sections outside the primary container are the most likely to be missed**
+
+Example: agent converts `.report-body` to single-column with `max-width: 720px`, but `.intro-spread` and `.sources` sit outside that container and go full-width. Always verify edge sections.
+
+## The Bugs This Prevents
+
+- A background agent overwrites a data file with an incompatible format, breaking the page that depends on it
+- A CSS conversion agent applies constraints to the main wrapper but misses sibling sections that render full-width
+- Source: showcase session 2026-03-17 (consumer finance PDF-to-scroll conversion)

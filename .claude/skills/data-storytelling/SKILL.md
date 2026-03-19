@@ -206,6 +206,7 @@ metric_time is always unprefixed:
 ## Step 11: Storytelling Page Build
 
 Create `docs/visualizations/[topic]-data-story.html`. HTML structure and ECharts config: `resources/design-system.md`.
+**Labels and annotations:** Read `resources/annotation-and-labeling.md` before configuring any chart labels. Use the quick lookup table (chart type × density → strategy) and run the anti-pattern checklist (Section 6) before shipping.
 
 Self-contained: no external dependencies except Google Fonts + ECharts CDN.
 
@@ -261,6 +262,7 @@ Run `/save` to update workstream state.
 ## Resources
 
 - `resources/design-system.md` — CSS vars, color tokens, typography, ECharts helpers, HTML templates
+- `resources/annotation-and-labeling.md` — **Label decision system.** Chart type × density → label strategy, ECharts config, collision heuristics, anti-pattern checklist. Read Section 0 (quick lookup table) before writing any chart labels.
 - `shared/reference/dashboard-design-guidelines.md` — Purpose Before Pixels, cognitive efficiency
 - `.claude/skills/echarts/SKILL.md` — ECharts configuration patterns
 - `.claude/skills/ai-analyst-ensemble/SKILL.md` — Ensemble for Step 2

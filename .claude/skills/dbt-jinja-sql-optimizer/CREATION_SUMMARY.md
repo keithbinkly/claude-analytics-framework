@@ -2,7 +2,7 @@
 
 **Created**: 2025-11-03
 **Tool**: Skill Seekers + Manual Compression
-**Location**: `/Users/kbinkly/git-repos/dbt-agent/.claude/skills/jinja-sql-optimizer/`
+**Location**: `/Users/kbinkly/git-dbt-agent/.claude/skills/jinja-sql-optimizer/`
 
 ## Purpose
 
@@ -57,7 +57,7 @@ Comprehensive documentation including:
 - Success metrics
 
 ### 5. Source Materials Referenced
-Located in `/Users/kbinkly/git-repos/dbt-agent/docs/dbt_utility_packages/`:
+Located in `/Users/kbinkly/git-dbt-agent/docs/dbt_utility_packages/`:
 - jinja_functions_reference.md (Datacoves cheat sheet)
 - dbt_utils_package_guide.md (50 KB complete documentation)
 - dbt_codegen_package_guide.md (13 KB complete documentation)
@@ -193,11 +193,11 @@ Expected behavior:
 cd ~/git-repos/Skill_Seekers
 source venv/bin/activate
 python3 cli/doc_scraper.py --config \
-  /Users/kbinkly/git-repos/dbt-agent/.claude/skills/jinja-sql-optimizer/skill_seeker_config.json
+  /Users/kbinkly/git-dbt-agent/.claude/skills/jinja-sql-optimizer/skill_seeker_config.json
 
 # Copy updated files
 cp -r output/jinja-sql-optimizer/references/* \
-  /Users/kbinkly/git-repos/dbt-agent/.claude/skills/jinja-sql-optimizer/references/
+  /Users/kbinkly/git-dbt-agent/.claude/skills/jinja-sql-optimizer/references/
 ```
 
 ### When to Update

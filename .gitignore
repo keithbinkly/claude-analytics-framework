@@ -115,3 +115,7 @@ config/repositories.json.backup
 *.local
 repos/*
 !repos/README.md
+dbt-enterprise/
+dbt-agent/
+data-centered/
+.dmux/

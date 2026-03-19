@@ -291,6 +291,7 @@ alone. Exa adds depth to narratives and impact scoring, not evidence for claims.
 ### Memory: Semantic Recall
 Check for past analyses, known patterns, and prior findings on this topic:
 ```bash
+**If $CLAUDE_OPC_DIR is not set, skip recall and use the fallback method.**
 (cd $CLAUDE_OPC_DIR && PYTHONPATH=. uv run python scripts/core/recall_learnings.py --query "{topic}" --k 5)
 ```
 

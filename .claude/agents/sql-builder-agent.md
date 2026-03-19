@@ -55,7 +55,8 @@ Implement dbt models from approved tech specs with first-attempt compilation suc
 | Need | Tool | Command | Replaces |
 |------|------|---------|----------|
 | **Domain search (PRIMARY)** | `unified_retrieval()` | `python3 -c "from tools.kg.agent_integration import unified_retrieval; import json; print(json.dumps(unified_retrieval('incremental model pattern'), indent=2))"` | Basic Grep — searches Experience Store + KG + Manifest in parallel |
-| Past build patterns | `dynamic-recall` | `(cd $CLAUDE_OPC_DIR && PYTHONPATH=. uv run python scripts/core/recall_learnings.py --query "sql pattern incremental")` | Grepping handoffs |
+| Past build patterns | `dynamic-recall` | `**If $CLAUDE_OPC_DIR is not set, skip recall and use the fallback method.**
+(cd $CLAUDE_OPC_DIR && PYTHONPATH=. uv run python scripts/core/recall_learnings.py --query "sql pattern incremental")` | Grepping handoffs |
 | Find model patterns in code | `tldr search` | `tldr search "cte_pattern" models/` | `Grep` |
 | Model dependency impact | `tldr impact` | `tldr impact model_name models/` | Manual ref tracing |
 | Model structure | `tldr structure` | `tldr structure models/ --lang sql` | Reading every file |

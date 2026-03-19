@@ -54,7 +54,8 @@ Guide one pipeline through all phases (discovery → architecture → implementa
 | Need | Tool | Command | Replaces |
 |------|------|---------|----------|
 | **Domain search (PRIMARY)** | `unified_retrieval()` | `python3 -c "from tools.kg.agent_integration import unified_retrieval; import json; print(json.dumps(unified_retrieval('pipeline gate criteria'), indent=2))"` | Basic Grep — searches Experience Store + KG + Manifest in parallel |
-| Past pipeline decisions | `dynamic-recall` | `(cd $CLAUDE_OPC_DIR && PYTHONPATH=. uv run python scripts/core/recall_learnings.py --query "pipeline phase gate")` | Grepping handoffs |
+| Past pipeline decisions | `dynamic-recall` | `**If $CLAUDE_OPC_DIR is not set, skip recall and use the fallback method.**
+(cd $CLAUDE_OPC_DIR && PYTHONPATH=. uv run python scripts/core/recall_learnings.py --query "pipeline phase gate")` | Grepping handoffs |
 | Past session context | `search-sessions` | `python3 -m tools.chatops.search_sessions "pipeline_name"` | Manual file search |
 | Pipeline model structure | `tldr tree` | `tldr tree models/ --ext .sql` | `Glob` |
 | Architecture layers | `tldr arch` | `tldr arch models/` | Manual folder browsing |

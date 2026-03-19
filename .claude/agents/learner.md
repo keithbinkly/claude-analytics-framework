@@ -88,7 +88,8 @@ and routes approved items to implementation. Do not implement your own recommend
 | Need | Tool | Command | Replaces |
 |------|------|---------|----------|
 | **Domain search (PRIMARY)** | `unified_retrieval()` | `python3 -c "from tools.kg.agent_integration import unified_retrieval; import json; print(json.dumps(unified_retrieval('learning pattern topic'), indent=2))"` | Basic Grep — searches Experience Store + KG + Manifest in parallel |
-| Check for duplicate learnings | `dynamic-recall` | `(cd $CLAUDE_OPC_DIR && PYTHONPATH=. uv run python scripts/core/recall_learnings.py --query "pattern topic")` | Manual KB grep |
+| Check for duplicate learnings | `dynamic-recall` | `**If $CLAUDE_OPC_DIR is not set, skip recall and use the fallback method.**
+(cd $CLAUDE_OPC_DIR && PYTHONPATH=. uv run python scripts/core/recall_learnings.py --query "pattern topic")` | Manual KB grep |
 | Past session transcripts | `search-sessions` | `python3 -m tools.chatops.search_sessions "query"` | Grepping handoffs |
 | SpecStory history | `qmd` | `qmd --index specstory search "topic"` | grep -rl through .specstory/ |
 | Code patterns to extract | `tldr search` | `tldr search "pattern_name" .` | `Grep` |

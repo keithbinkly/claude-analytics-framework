@@ -173,6 +173,7 @@ underlying dbt model YAML.
 ### Memory: Semantic Recall
 Check for past query patterns and known data quirks:
 ```bash
+**If $CLAUDE_OPC_DIR is not set, skip recall and use the fallback method.**
 (cd $CLAUDE_OPC_DIR && PYTHONPATH=. uv run python scripts/core/recall_learnings.py --query "{topic} data queries" --k 3)
 ```
 

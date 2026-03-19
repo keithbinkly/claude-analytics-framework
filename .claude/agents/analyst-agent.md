@@ -54,7 +54,8 @@ Answer business questions accurately using certified dbt Semantic Layer metrics.
 | Need | Tool | Command | Replaces |
 |------|------|---------|----------|
 | **Domain search (PRIMARY)** | `unified_retrieval()` | `python3 -c "from tools.kg.agent_integration import unified_retrieval; import json; print(json.dumps(unified_retrieval('metric query'), indent=2))"` | Basic Grep — searches Experience Store + KG + Manifest in parallel |
-| Check past analysis patterns | `dynamic-recall` | `(cd $CLAUDE_OPC_DIR && PYTHONPATH=. uv run python scripts/core/recall_learnings.py --query "topic")` | Grepping handoffs |
+| Check past analysis patterns | `dynamic-recall` | `**If $CLAUDE_OPC_DIR is not set, skip recall and use the fallback method.**
+(cd $CLAUDE_OPC_DIR && PYTHONPATH=. uv run python scripts/core/recall_learnings.py --query "topic")` | Grepping handoffs |
 | Code structure (models, refs) | `tldr search` | `tldr search "metric_name" .` | `Grep` for code search |
 | Search docs/KB | `qmd` | `qmd --index dbt-agent search "query"` | Manual file reading |
 

@@ -53,7 +53,8 @@ Validate dbt model outputs against legacy or expected results.
 | Need | Tool | Command | Replaces |
 |------|------|---------|----------|
 | **Domain search (PRIMARY)** | `unified_retrieval()` | `python3 -c "from tools.kg.agent_integration import unified_retrieval; import json; print(json.dumps(unified_retrieval('qa variance root cause'), indent=2))"` | Basic Grep — searches Experience Store + KG + Manifest in parallel |
-| Past QA resolutions (cross-session) | `dynamic-recall` | `(cd $CLAUDE_OPC_DIR && PYTHONPATH=. uv run python scripts/core/recall_learnings.py --query "variance root cause")` | Manual trace search |
+| Past QA resolutions (cross-session) | `dynamic-recall` | `**If $CLAUDE_OPC_DIR is not set, skip recall and use the fallback method.**
+(cd $CLAUDE_OPC_DIR && PYTHONPATH=. uv run python scripts/core/recall_learnings.py --query "variance root cause")` | Manual trace search |
 | Past QA sessions | `search-sessions` | `python3 -m tools.chatops.search_sessions "qa variance"` | Grepping handoffs |
 | Trace model dependencies | `tldr impact` | `tldr impact model_name models/ --depth 3` | Manual lineage tracing |
 | Model code structure | `tldr structure` | `tldr structure models/ --lang sql` | Reading every file |

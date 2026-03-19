@@ -11,7 +11,7 @@ Read these first:
 3. `../../.claude/manifests/workspace-manifest.yaml`
 4. `../../.claude/manifests/repo-adapters.yaml`
 5. `../../.claude/manifests/workflow-contracts.yaml`
-6. `../../.claude/manifests/ccv3-dependencies.yaml`
+6. `../../.claude/manifests/global-dependencies.yaml`
 7. `planning/shared-agent-platform-monorepo-plan.md`
 
 ## Current Planning Docs
@@ -29,7 +29,7 @@ Read these first:
 - `../../.claude/manifests/workspace-manifest.yaml`
 - `../../.claude/manifests/repo-adapters.yaml`
 - `../../.claude/manifests/workflow-contracts.yaml`
-- `../../.claude/manifests/ccv3-dependencies.yaml`
+- `../../.claude/manifests/global-dependencies.yaml`
 
 ## What This Section Is For
 

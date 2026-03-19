@@ -39,7 +39,7 @@ For a fresh session, read these in order:
 5. `.claude/manifests/repo-adapters.yaml`
 6. `.claude/manifests/workflow-contracts.yaml`
 7. `.claude/manifests/pipeline-state-schema.yaml`
-8. `.claude/manifests/ccv3-dependencies.yaml`
+8. `.claude/manifests/global-dependencies.yaml`
 9. `knowledge/platform/planning/shared-agent-platform-monorepo-plan.md`
 
 If you want local convenience links for the linked repos, run:
@@ -71,7 +71,7 @@ The migration is non-destructive:
 - `dbt-agent` remains fully usable
 - assets are promoted into analytics-workspace by copy
 - promoted assets should declare ownership metadata
-- promoted assets should declare CCV3/global dependencies explicitly
+- promoted assets should declare global-layer dependencies explicitly
 
 analytics-workspace is the planned team entrypoint, but not every capability has been re-homed yet.
 

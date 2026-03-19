@@ -13,7 +13,7 @@ For a fresh session, read these in order:
 3. `.claude/manifests/workspace-manifest.yaml`
 4. `.claude/manifests/repo-adapters.yaml`
 5. `.claude/manifests/workflow-contracts.yaml`
-6. `.claude/manifests/ccv3-dependencies.yaml`
+6. `.claude/manifests/global-dependencies.yaml`
 7. `knowledge/platform/planning/shared-agent-platform-monorepo-plan.md`
 
 ## What analytics-workspace Is
@@ -30,7 +30,7 @@ analytics-workspace is also the planned team entrypoint for non-Claude coding ag
 
 - `AGENT_ENTRYPOINT.md`
 - `.claude/manifests/workflow-contracts.yaml`
-- `.claude/manifests/ccv3-dependencies.yaml`
+- `.claude/manifests/global-dependencies.yaml`
 
 ## Linked Repos
 
@@ -53,7 +53,7 @@ The migration is non-destructive:
 - analytics-workspace grows by copy-promoting the highest-leverage shared assets
 - legacy analytics-workspace assets should only be archived after replacements exist
 - promoted assets should declare ownership metadata
-- promoted assets should declare CCV3/global dependencies explicitly
+- promoted assets should declare global-layer dependencies explicitly
 
 analytics-workspace is the planned team entrypoint, but not every capability has been re-homed yet.
 

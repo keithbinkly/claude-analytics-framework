@@ -243,6 +243,37 @@ Now everyone on the team gets this agent's accumulated knowledge on their next p
 
 ---
 
+## What You Can Do
+
+### Build a dbt pipeline
+```
+/pipeline-new overdraft-analytics
+```
+Claude walks you through requirements → data discovery → architecture → implementation → QA, with gates between each phase. It loads the right skills automatically and writes a PLAN.md to track progress.
+
+### Ask a business question
+```
+/analyze What's driving the decline in Dayforce approval rates?
+```
+Dispatches 4 analyst personas (Forensic, Exploratory, Business, Statistical) that query certified metrics via the dbt Semantic Layer, then synthesizes a consensus answer. Findings write back to the relevant partner file so the team accumulates intelligence over time.
+
+### QA a model
+```
+/qa
+```
+Loads the QA agent with the team's methodology: variance analysis (not row counts), decision trace search, and 4 validation templates. It knows the anti-patterns and past QA resolutions.
+
+### Optimize a slow query
+Just describe the problem — "this model takes 8 minutes to run" — and Claude auto-loads the Redshift Optimization skill with the team's benchmarked anti-pattern data.
+
+### Add domain knowledge
+Put what you learn in `knowledge/domains/<your-domain>/`. See the TPG README for a great example of what to add: `knowledge/domains/tpg-pipelines/README.md`
+
+### Create a domain expert agent
+Follow the guide in "Creating a Domain Expert Agent" below — create the agent definition, memory files, and a slash command. Commit it and the whole team gets your agent.
+
+---
+
 ## Key Commands
 
 | Command | What it does |

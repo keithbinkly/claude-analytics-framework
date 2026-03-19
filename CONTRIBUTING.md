@@ -70,7 +70,7 @@ When copying an asset from `dbt-agent` into analytics-workspace:
 
 1. Keep `dbt-agent` intact.
 2. Add ownership metadata.
-3. Add CCV3/global dependency metadata if the asset depends on `~/.claude` or another external layer.
+3. Add global-layer dependency metadata if the asset depends on `~/.claude` or another external layer.
 4. Prefer natural analytics-workspace destinations over shadow folders.
 
 Allowed ownership labels:
@@ -82,7 +82,7 @@ Allowed ownership labels:
 
 Dependency declarations belong in:
 
-- `.claude/manifests/ccv3-dependencies.yaml`
+- `.claude/manifests/global-dependencies.yaml`
 
 ## How To Start
 
@@ -129,7 +129,7 @@ Use conventional commit style when practical:
 ```text
 feat: add agent-neutral workflow contracts
 docs: rewrite workspace bootstrap docs for team workspace
-chore: add CCV3 dependency manifest
+chore: add global dependency manifest
 ```
 
 ## Current Priority

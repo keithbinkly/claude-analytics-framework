@@ -28,7 +28,7 @@ workflows:
       - "AGENT_ENTRYPOINT.md"
       - ".claude/manifests/workspace-manifest.yaml"
       - ".claude/manifests/repo-adapters.yaml"
-      - ".claude/manifests/ccv3-dependencies.yaml"
+      - ".claude/manifests/global-dependencies.yaml"
       - ".claude/manifests/pipeline-state-schema.yaml"
       - ".claude/skills/dbt-orchestrator/SKILL.md"
       - ".claude/skills/dbt-orchestrator/resources/agent-loading-specs.md"
@@ -171,7 +171,7 @@ workflows:
     key_files:
       - "knowledge/domains/"
       - ".claude/manifests/workspace-manifest.yaml"
-      - ".claude/manifests/ccv3-dependencies.yaml"
+      - ".claude/manifests/global-dependencies.yaml"
     success_criteria:
       - "Shared knowledge lives in analytics-workspace"
       - "Ownership and provenance are explicit"
@@ -183,13 +183,13 @@ workflows:
     steps:
       - "Start with AGENT_ENTRYPOINT.md and the workspace manifests."
       - "Use repo adapters to determine which repos participate."
-      - "Check ccv3-dependencies.yaml for hidden global-layer dependencies."
+      - "Check global-dependencies.yaml for hidden global-layer dependencies."
       - "Inspect the participating repo-local docs and state."
     key_files:
       - "AGENT_ENTRYPOINT.md"
       - ".claude/manifests/workspace-manifest.yaml"
       - ".claude/manifests/repo-adapters.yaml"
-      - ".claude/manifests/ccv3-dependencies.yaml"
+      - ".claude/manifests/global-dependencies.yaml"
     success_criteria:
       - "Cross-repo routing is explicit"
       - "Global dependencies are identified rather than inferred"

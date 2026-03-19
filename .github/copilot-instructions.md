@@ -126,4 +126,4 @@ Agent specs under `.claude/agents/` describe specialized roles (builder, QA, ana
 | `.claude/manifests/workspace-manifest.yaml` | Workspace topology and policy |
 | `.claude/manifests/repo-adapters.yaml` | Per-repo routing contract |
 | `.claude/manifests/workflow-contracts.yaml` | Workflow definitions |
-| `.claude/manifests/ccv3-dependencies.yaml` | Global dependency declarations |
+| `.claude/manifests/global-dependencies.yaml` | Global dependency declarations |

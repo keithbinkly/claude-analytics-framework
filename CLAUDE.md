@@ -14,7 +14,7 @@ For a fresh session, read these in order:
 4. `.claude/manifests/workspace-manifest.yaml`
 5. `.claude/manifests/repo-adapters.yaml`
 6. `.claude/manifests/workflow-contracts.yaml`
-7. `.claude/manifests/ccv3-dependencies.yaml`
+7. `.claude/manifests/global-dependencies.yaml`
 8. `knowledge/platform/planning/shared-agent-platform-monorepo-plan.md`
 
 If you are not Claude or do not support slash commands/skills natively, start with `AGENT_ENTRYPOINT.md`.
@@ -47,12 +47,12 @@ analytics-workspace coordinates three important locations:
 - Prefer copy-promote over move-delete.
 - Do not archive legacy analytics-workspace assets until working replacements exist.
 - Do not hide unresolved dependencies behind machine-specific absolute paths.
-- Every promoted asset should declare ownership metadata and CCV3/global dependency metadata.
+- Every promoted asset should declare ownership metadata and global-layer dependency metadata.
 
 ### Global Layer
 
 - Global agent memory remains in `~/.claude/agent-memory/`.
-- Analytics-specific global dependencies must be explicit in `.claude/manifests/ccv3-dependencies.yaml`.
+- Analytics-specific global dependencies must be explicit in `.claude/manifests/global-dependencies.yaml`.
 - No promoted analytics-workspace asset should rely on undocumented `~/.claude` behavior.
 
 ## How To Route Work
@@ -76,7 +76,7 @@ Use these files for the canonical workflow definitions:
 - Machine-readable workflows: `.claude/manifests/workflow-contracts.yaml`
 - Workspace topology and policy: `.claude/manifests/workspace-manifest.yaml`
 - Repo routing: `.claude/manifests/repo-adapters.yaml`
-- Global dependency declarations: `.claude/manifests/ccv3-dependencies.yaml`
+- Global dependency declarations: `.claude/manifests/global-dependencies.yaml`
 
 ## MCP
 

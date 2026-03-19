@@ -1,6 +1,6 @@
 version: 1
 last_updated: "2026-03-14"
-purpose: "Inventory CCV3/global-layer dependencies used by analytics-workspace-promoted assets so they can be made explicit, classified, and migrated intentionally."
+purpose: "Inventory global-layer dependencies used by analytics-workspace-promoted assets so they can be made explicit, classified, and migrated intentionally."
 
 dependency_classes:
   hard_runtime:
@@ -25,7 +25,7 @@ dependency_types:
   - "other"
 
 policies:
-  - "No promoted analytics-workspace asset should have an undocumented dependency on ~/.claude or other CCV3 layers."
+  - "No promoted analytics-workspace asset should have an undocumented dependency on ~/.claude or other global layers."
   - "Prefer copying analytics-specific skills and commands into analytics-workspace before promoting an asset to team-ready status."
   - "Prefer leaving global tools and global memory external initially, but declare them explicitly."
   - "Every promoted asset should either declare graceful degradation or hard runtime requirements."
@@ -836,7 +836,7 @@ assets:
 
 classification_workflow:
   steps:
-    - "List every CCV3/global dependency for the promoted asset."
+    - "List every global-layer dependency for the promoted asset."
     - "Classify each as hard_runtime, soft_runtime, authoring_only, or replace_later."
     - "Record whether the dependency stays global, gets copied into analytics-workspace, or is wrapped by analytics-workspace."
     - "Define fallback behavior if the dependency is missing."

@@ -49,7 +49,7 @@ bootstrap_read_order:
   - ".claude/manifests/workspace-manifest.yaml"
   - ".claude/manifests/repo-adapters.yaml"
   - ".claude/manifests/workflow-contracts.yaml"
-  - ".claude/manifests/ccv3-dependencies.yaml"
+  - ".claude/manifests/global-dependencies.yaml"
   - "knowledge/platform/planning/shared-agent-platform-monorepo-plan.md"
 
 repo_categories:
@@ -121,7 +121,7 @@ promotion_rules:
   - "Preserve dbt-agent workflow functionality during the entire migration."
   - "Promote highest-leverage team-shared assets first."
   - "Every promoted asset should record ownership or mirror status."
-  - "Every promoted asset should declare CCV3/global-layer dependencies explicitly."
+  - "Every promoted asset should declare global-layer dependencies explicitly."
   - "Core workflow navigation should be expressible without Claude-only runtime features."
 
 ownership_labels:
@@ -152,4 +152,4 @@ success_conditions:
   - "dbt-agent remains fully usable throughout migration."
   - "analytics-workspace exposes the highest-leverage shared assets for team use and contribution."
   - "Ownership of promoted assets is explicit."
-  - "CCV3/global dependencies for promoted assets are explicit and classified."
+  - "global-layer dependencies for promoted assets are explicit and classified."

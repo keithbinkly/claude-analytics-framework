@@ -13,6 +13,8 @@ Comprehensive ECharts 5.5+ capability reference for building interactive data vi
 
 **Consumer Finance Playbook**: `resources/consumer-finance-playbook.md` — 20 ECharts-ready chart specs across 10 analytical techniques (K-shape divergence, indexed baselines, contribution decomposition, gap charts, radar, heatmaps, gauges, geo maps, runway analysis, partner dashboards). Each has SQL metric definitions and ECharts config sketches.
 
+**Native Features Guide**: `resources/native-features-guide.md` — Use-case-driven guide to ECharts features beyond basic chart types. Each feature has "use when" / "don't use when" criteria: animationDelay, echarts.connect, universalTransition, graphic component, dataset transforms, SVG renderer, media queries, aria/decal, dispatchAction, sampling, timeline, beeswarm.
+
 ---
 
 ## 1. Rich Text — Inline Legends, Colored Titles, Badges
@@ -331,7 +333,7 @@ series: categories.map(function(cat) {
 
 **Sort direction:** `ascending` sort puts smallest at bottom → biggest on top (matches Power BI behavior where highest-ranked ribbon is at the top).
 
-**Working example:** `/Users/kbinkly/Obsidian-Vault/ClaudeUpdates/merchant-spend-amazon-mcc-v3.html` — 10 MCC categories, 26 weeks, full bezier ribbon chart with ranked tooltip.
+**Working example:** `[your-output-dir]/[name].html` — 10 MCC categories, 26 weeks, full bezier ribbon chart with ranked tooltip.
 
 ---
 

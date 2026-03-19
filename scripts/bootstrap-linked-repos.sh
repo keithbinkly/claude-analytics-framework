@@ -5,14 +5,15 @@ set -euo pipefail
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 REPOS_DIR="${ROOT_DIR}/repos"
 
-DBT_ENTERPRISE_SRC="/Users/kbinkly/git-repos/dbt_projects/dbt-enterprise"
-DBT_AGENT_SRC="/Users/kbinkly/git-repos/dbt-agent"
-
-# Load optional local overrides (e.g. DATA_CENTERED_SRC for personal repos)
+# Load optional local overrides before setting defaults
 if [[ -f "${ROOT_DIR}/.env.local" ]]; then
   # shellcheck disable=SC1091
   source "${ROOT_DIR}/.env.local"
 fi
+
+# Default to sibling directories if not overridden in .env.local
+DBT_ENTERPRISE_SRC="${DBT_ENTERPRISE_SRC:-$(cd "${ROOT_DIR}/.." 2>/dev/null && pwd)/dbt-enterprise}"
+DBT_AGENT_SRC="${DBT_AGENT_SRC:-$(cd "${ROOT_DIR}/.." 2>/dev/null && pwd)/dbt-agent}"
 
 mkdir -p "${REPOS_DIR}"
 

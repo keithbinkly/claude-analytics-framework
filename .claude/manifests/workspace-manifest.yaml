@@ -1,7 +1,7 @@
 version: 1
 last_updated: "2026-03-11"
 workspace_name: "analytics-workspace analytics workspace"
-canonical_root: "/Users/kbinkly/git-repos/analytics-workspace"
+canonical_root: "."
 purpose: "Canonical top-level root for the analytics operating system, shared agent platform, and nested analytics projects."
 status: "planned_canonical_root"
 
@@ -96,8 +96,8 @@ live_state_locations:
     - "knowledge/platform"
   per_repo:
     - "./dbt-enterprise/**/PLAN.md"
-    - "/Users/kbinkly/git-dbt-agent/**/PLAN.md"
-    - "/Users/kbinkly/git-dbt-agent/.dots"
+    - "./dbt-agent/**/PLAN.md"
+    - "./dbt-agent/.dots"
 
 migration_policy:
   move_into_analytics_workspace:

@@ -67,7 +67,7 @@ Count unchecked items (`- [ ]`). If >5 pending, recommend running `/trigger-revi
 Scan active handoffs for unresolved action items:
 
 ```bash
-cd /Users/kbinkly/git-repos/dbt-agent && .venv/bin/python3 -m tools.chatops.handoff_action_scanner --dry-run
+cd dbt-agent && .venv/bin/python3 -m tools.chatops.handoff_action_scanner --dry-run
 ```
 
 Surface any "Next Steps", "Proposed Improvements", or "Recommendations" that haven't been triaged. These are improvement suggestions from past sessions that need routing to the right dot or skill.

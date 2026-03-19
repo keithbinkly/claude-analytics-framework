@@ -331,11 +331,11 @@ Chart heights: `ch-t` = 280px (tall/hero), `ch-m` = 240px (standard).
 
 ```bash
 # Save to Obsidian vault
-/Users/kbinkly/Obsidian-Vault/ClaudeUpdates/[name].html
+[your-output-dir]/[name].html
 
 # Start HTTP server for mobile viewing
 lsof -ti:8080 | xargs kill -9 2>/dev/null; sleep 1
-cd "/Users/kbinkly/Obsidian-Vault/ClaudeUpdates" && nohup python3 -m http.server 8080 > /dev/null 2>&1 &
+cd "[your-output-dir]" && nohup python3 -m http.server 8080 > /dev/null 2>&1 &
 
 # View on phone
 # http://192.168.1.56:8080/[name].html

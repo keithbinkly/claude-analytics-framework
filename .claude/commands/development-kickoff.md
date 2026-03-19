@@ -45,7 +45,7 @@ Confirm each loaded (do not paste contents — just confirm availability).
 ### 2. Check Active Handoffs
 
 ```bash
-ls /Users/kbinkly/git-dbt-agent/handoffs/*/PLAN.md 2>/dev/null
+ls dbt-agent/handoffs/*/PLAN.md 2>/dev/null
 ```
 
 For each active plan, read the YAML frontmatter and current phase. Summarize:
@@ -57,7 +57,7 @@ For each active plan, read the YAML frontmatter and current phase. Summarize:
 ### 3. Check Open Dots
 
 ```bash
-ls /Users/kbinkly/git-dbt-agent/.dots/*.md
+ls dbt-agent/.dots/*.md
 ```
 
 Filter for pipeline-related dots (tags containing "pipeline", "migration", "dbt"). Show status and priority.

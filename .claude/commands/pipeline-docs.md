@@ -34,7 +34,7 @@ If no pipeline specified, list completed or active pipelines from `dbt-agent/han
 Read ALL existing artifacts for the pipeline (these are the source material):
 
 ```bash
-ls /Users/kbinkly/git-dbt-agent/handoffs/$PIPELINE_NAME/
+ls dbt-agent/handoffs/$PIPELINE_NAME/
 ```
 
 Expected sources:

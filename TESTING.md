@@ -173,7 +173,7 @@ Read .claude/manifests/workflow-contracts.yaml and explain how to run QA on a db
 
 ## 8. Regression (Is dbt-agent still intact?)
 
-Open a separate Claude session in `/Users/kbinkly/git-repos/dbt-agent`.
+Open a separate Claude session in `dbt-agent`.
 
 ### 8a. Basic functionality
 ```
@@ -190,7 +190,7 @@ I need to QA a model
 ### 8c. File integrity
 ```bash
 # Run manually in terminal
-cd /Users/kbinkly/git-repos/dbt-agent
+cd dbt-agent
 echo "Commands: $(ls .claude/commands/*.md | wc -l)"   # 24
 echo "Agents: $(ls .claude/agents/*.md | wc -l)"       # 26
 echo "Skills: $(ls -d .claude/skills/*/ | wc -l)"      # 45
@@ -204,7 +204,7 @@ git diff --stat .claude/ shared/                        # Only pre-existing chan
 
 Run the quick script version:
 ```bash
-cd /Users/kbinkly/git-repos/analytics-workspace
+# Run from analytics-workspace root
 bash scripts/check-workspace-readiness.sh
 ```
 

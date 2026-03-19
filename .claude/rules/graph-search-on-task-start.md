@@ -23,7 +23,7 @@ Before planning or implementing, query the unified KG to surface related learnin
 ### How to Query
 
 ```bash
-cd /Users/kbinkly/git-repos/analytics-workspace/dbt-agent && .venv/bin/python3 -m tools.kg.graph_search "<task keywords>" --max 5
+python3 knowledge/platform/graph/graph_search.py "<task keywords>" --max 5
 ```
 
 Extract 2-4 keywords from the task description. For pipeline work, include the pipeline name and domain terms.

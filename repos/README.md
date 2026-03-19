@@ -36,8 +36,8 @@ Use these files for the authoritative routing model:
 
 The current intended linked repos are:
 
-- `/Users/kbinkly/git-repos/dbt_projects/dbt-enterprise`
-- `/Users/kbinkly/git-repos/dbt-agent`
+- `../dbt-enterprise`
+- `../dbt-agent`
 
 Those paths may later be replaced by a more team-safe bootstrap mechanism, but the workflow model stays the same:
 

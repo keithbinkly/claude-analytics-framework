@@ -185,7 +185,7 @@ mcp__dbt-mcp__query_metrics       → Query certified metrics from PROD
 ### Querying DEV Data (Fallback)
 
 ```bash
-cd /Users/kbinkly/git-repos/dbt_projects/dbt-enterprise && source .venv/bin/activate
+cd dbt-enterprise && source .venv/bin/activate
 mf query --metrics [metric] --group-by [dimension]
 ```
 
@@ -214,7 +214,7 @@ mf query --metrics [metric] --group-by [dimension]
 
 5. **If MCP fails, fall back to DEV** (MetricFlow CLI):
    ```bash
-   cd /Users/kbinkly/git-repos/dbt_projects/dbt-enterprise && source .venv/bin/activate
+   cd dbt-enterprise && source .venv/bin/activate
    mf list metrics 2>&1 | head -20
    ```
 
@@ -432,7 +432,7 @@ Analyst Agent requires detailed session history for:
 
 ```bash
 # Load recent analysis sessions (primary location)
-cat /Users/kbinkly/git-repos/dbt_projects/dbt-enterprise/models/marts/marts_NEW/operational/transaction_monitoring/semantic_models/analysis_sessions/*.md 2>/dev/null | tail -200 || echo "No prior sessions"
+cat dbt-enterprise/models/marts/marts_NEW/operational/transaction_monitoring/semantic_models/analysis_sessions/*.md 2>/dev/null | tail -200 || echo "No prior sessions"
 
 # Legacy locations (deprecated, but check for historical context)
 cat session-logs/analyst/working-queries.md 2>/dev/null || echo "No queries logged"
@@ -445,7 +445,7 @@ cat session-logs/analyst/metric-gaps.md 2>/dev/null || echo "No gaps logged"
 **1. Create session file:**
 ```bash
 # Store in semantic models folder alongside queried models
-SESSION_FILE="/Users/kbinkly/git-repos/dbt_projects/dbt-enterprise/models/marts/marts_NEW/operational/transaction_monitoring/semantic_models/analysis_sessions/$(date +%Y-%m-%d-%H%M).md"
+SESSION_FILE="dbt-enterprise/models/marts/marts_NEW/operational/transaction_monitoring/semantic_models/analysis_sessions/$(date +%Y-%m-%d-%H%M).md"
 ```
 
 **2. Log full session details:**
@@ -505,7 +505,7 @@ mf query --metrics X --group-by Y --order Z
 \`\`\`
 **Outcome:** [how to read results]
 **Performance notes:** [any observations about query speed]
-" >> /Users/kbinkly/git-repos/dbt_projects/dbt-enterprise/models/marts/marts_NEW/operational/transaction_monitoring/semantic_models/analysis_sessions/working-queries.md
+" >> dbt-enterprise/models/marts/marts_NEW/operational/transaction_monitoring/semantic_models/analysis_sessions/working-queries.md
 ```
 
 **4. Log Q&A patterns for future:**
@@ -514,7 +514,7 @@ echo "## [Question Pattern] - $(date +%Y-%m-%d)
 **Stakeholder asks:** \"[typical question]\"
 **Translate to:** metrics=[X], dimensions=[Y]
 **Caveats:** [any gotchas]
-" >> /Users/kbinkly/git-repos/dbt_projects/dbt-enterprise/models/marts/marts_NEW/operational/transaction_monitoring/semantic_models/analysis_sessions/qa-patterns.md
+" >> dbt-enterprise/models/marts/marts_NEW/operational/transaction_monitoring/semantic_models/analysis_sessions/qa-patterns.md
 ```
 
 **5. Log metric gaps (feeds back to architect):**
@@ -524,7 +524,7 @@ echo "## Gap: [Description] - $(date +%Y-%m-%d)
 **Why can't answer:** [missing metric/dimension]
 **Proposed solution:** [what would need to be built]
 **Dot:** [if created]
-" >> /Users/kbinkly/git-repos/dbt_projects/dbt-enterprise/models/marts/marts_NEW/operational/transaction_monitoring/semantic_models/analysis_sessions/metric-gaps.md
+" >> dbt-enterprise/models/marts/marts_NEW/operational/transaction_monitoring/semantic_models/analysis_sessions/metric-gaps.md
 ```
 
 ### Key Metrics to Track

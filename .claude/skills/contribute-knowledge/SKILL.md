@@ -43,12 +43,40 @@ After you've:
 | `tool-pattern` | `knowledge/domains/dbt-pipelines/reference/` | "DuckDB CTE injection catches 70% of logic errors" |
 | `analysis-insight` | `knowledge/findings/` | "CP approval rates 92-97%, CNP 75-85% across all partners" |
 
-**Step 3: Write** a concise markdown file with this structure:
+**Step 3: Connect** — search the KG for related existing knowledge, then ask the user two quick questions:
+
+```bash
+python3 knowledge/platform/graph/graph_search.py "[key terms]" --max 5
+```
+
+Show the top 3-5 results and ask:
+
+> "Related context I found in the KG:
+>   1. [title] — [one-line summary]
+>   2. [title] — [one-line summary]
+>   3. [title] — [one-line summary]
+>
+> Any of these related? (numbers, or 'none')
+> Which pipeline/partner does this relate to?
+> Who benefits most — builder, qa, analyst, or everyone?"
+
+This takes ~10 seconds and creates edges that keyword matching alone would miss. If the user skips, that's fine — proceed without.
+
+**Step 4: Write** a concise markdown file with frontmatter for KG enrichment:
 
 ```markdown
-# [Clear, specific title]
+---
+contributed: YYYY-MM-DD
+source: [pipeline name / analysis / investigation]
+partner: [partner name, if applicable]
+benefits: [builder, qa, analyst, or everyone]
+related:
+  - node-id-from-step-3
+  - another-node-id
+tags: [2-4 domain keywords the user mentioned]
+---
 
-**Contributed:** [date] | **Source:** [pipeline name / analysis / investigation]
+# [Clear, specific title]
 
 ## What We Found
 
@@ -63,20 +91,23 @@ After you've:
 [The query, metric, or observation that supports this. Include specific numbers.]
 ```
 
-**Step 4: Place** the file:
+The `related:` field creates explicit KG edges at index time. The `benefits:` field weights retrieval toward the right agent context. Both are optional — the file works without them.
+
+**Step 5: Place** the file:
 - Filename: lowercase-kebab-case, descriptive. e.g., `samsung-decline-code-59-neobank-concentration.md`
 - Directory: per the type table above
-- No frontmatter needed — the index builder extracts metadata from content
 
-**Step 5: Index** — rebuild the KG to include the new file:
+**Step 6: Index** — rebuild the KG to include the new file:
 
 ```bash
 python3 knowledge/platform/graph/index_builder.py
 ```
 
-**Step 6: Confirm** to the user:
+**Step 7: Confirm** to the user:
 
-> "Contributed: [title] to knowledge/[path]. Available to team on next `git pull`. KG rebuilt — [N] nodes."
+> "Contributed: [title] to knowledge/[path].
+> Connected to: [list of related nodes from step 3].
+> Available to team on next `git pull`. KG rebuilt — [N] nodes."
 
 ## What NOT to Contribute
 

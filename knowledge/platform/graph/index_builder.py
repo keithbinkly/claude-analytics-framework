@@ -155,6 +155,45 @@ STOPWORDS = {
 }
 
 
+def parse_frontmatter(content: str) -> dict:
+    """Parse YAML frontmatter from a markdown file. Returns empty dict if none."""
+    if not content.startswith("---"):
+        return {}
+    end = content.find("---", 3)
+    if end == -1:
+        return {}
+    fm_text = content[3:end].strip()
+    result = {}
+    current_key = None
+    current_list = None
+    for line in fm_text.splitlines():
+        stripped = line.strip()
+        if not stripped or stripped.startswith("#"):
+            continue
+        # List item under current key
+        if stripped.startswith("- ") and current_key:
+            if current_list is None:
+                current_list = []
+            current_list.append(stripped[2:].strip())
+            result[current_key] = current_list
+            continue
+        # Key-value pair
+        if ":" in stripped:
+            if current_list is not None:
+                current_list = None
+            parts = stripped.split(":", 1)
+            key = parts[0].strip()
+            val = parts[1].strip()
+            current_key = key
+            if val:
+                result[key] = val
+            else:
+                # Value might be a list on following lines
+                current_list = []
+                result[key] = current_list
+    return result
+
+
 def extract_topics(text: str, max_topics: int = 12) -> list[str]:
     """Extract topic keywords from text using vocabulary matching.
 
@@ -1080,6 +1119,14 @@ class CAFDocsScanner(StoreScanner):
 
                 topics = extract_topics_from_file(ref_file)
 
+                # Parse frontmatter for explicit relationships
+                fm = parse_frontmatter(content)
+                fm_tags = fm.get("tags", [])
+                if isinstance(fm_tags, str):
+                    fm_tags = [t.strip() for t in fm_tags.split(",")]
+                if fm_tags:
+                    topics = list(set(topics + fm_tags))[:12]
+
                 nodes.append(Node(
                     id=node_id,
                     store="caf_reference",
@@ -1093,6 +1140,19 @@ class CAFDocsScanner(StoreScanner):
                     repo="caf",
                     l0_summary=f"caf-doc: {title[:40]}",
                 ))
+
+                # Create explicit edges from frontmatter 'related:' field
+                related = fm.get("related", [])
+                if isinstance(related, str):
+                    related = [related]
+                for target_id in related:
+                    if target_id and isinstance(target_id, str):
+                        edges.append(Edge(
+                            from_id=node_id,
+                            to_id=target_id.strip(),
+                            type="related",
+                            weight=1.0,
+                        ))
 
         # Also scan knowledge/platform/research/, knowledge/platform/*.md, and knowledge/findings/
         platform_dirs = [
@@ -1148,6 +1208,14 @@ class CAFDocsScanner(StoreScanner):
 
                 topics = extract_topics_from_file(md_file)
 
+                # Parse frontmatter for relationships and tags
+                fm = parse_frontmatter(content)
+                fm_tags = fm.get("tags", [])
+                if isinstance(fm_tags, str):
+                    fm_tags = [t.strip() for t in fm_tags.split(",")]
+                if fm_tags:
+                    topics = list(set(topics + fm_tags))[:12]
+
                 nodes.append(Node(
                     id=node_id,
                     store="caf_reference",
@@ -1161,6 +1229,19 @@ class CAFDocsScanner(StoreScanner):
                     repo="caf",
                     l0_summary=f"caf-{prefix}: {title[:40]}",
                 ))
+
+                # Create explicit edges from frontmatter 'related:' field
+                related = fm.get("related", [])
+                if isinstance(related, str):
+                    related = [related]
+                for target_id in related:
+                    if target_id and isinstance(target_id, str):
+                        edges.append(Edge(
+                            from_id=node_id,
+                            to_id=target_id.strip(),
+                            type="related",
+                            weight=1.0,
+                        ))
 
         return nodes, edges
 

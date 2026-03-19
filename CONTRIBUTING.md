@@ -40,6 +40,20 @@ Add team-facing reference material under `knowledge/`, especially:
 
 Use domain folders for reusable knowledge. Do not create shared reference content inside `dbt-enterprise` just because a pipeline happened to need it first.
 
+### When you learn something
+
+The test: **did you solve a problem or learn something that a teammate could use when they hit something similar?** If yes, commit it. If it's just a personal preference or a one-off note, keep it local.
+
+| What you learned | Where it goes | Example |
+|-----------------|--------------|---------|
+| A fact about our data | `knowledge/domains/<domain>/reference/` | "ODS posted_transaction has BaaS + Legacy" |
+| A pattern that works | `knowledge/domains/<domain>/patterns/` | "Use delete+insert for composite keys on Redshift" |
+| A decision with rationale | `knowledge/domains/<domain>/decisions/` | "Why we exclude POS mode X from this pipeline" |
+| A QA resolution | `knowledge/domains/dbt-pipelines/decision-traces/` | "Amount inflation caused by merge strategy at month boundaries" |
+| An agent anti-pattern | `.claude/agent-memory/<agent>/napkin.md` | "Don't trust row counts as QA validation" |
+
+Don't overthink the format. A few sentences with context is better than nothing. The knowledge graph and agents will find it.
+
 ### Shared commands and skills
 
 Add or update:

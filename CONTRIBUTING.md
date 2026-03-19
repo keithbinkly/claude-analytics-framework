@@ -22,6 +22,18 @@ analytics-workspace is the shared analytics control plane. Contribute here when 
 - seeds
 - project-local dbt docs and runbooks
 - anything that should ship with the production dbt project
+- **QA reports for a specific pipeline** — use `dbt-enterprise/analyses/<domain>/_qa/`
+
+### Where analysis artifacts go
+
+| Artifact type | Location | Example |
+|--------------|----------|---------|
+| QA report for a specific pipeline gate | `dbt-enterprise/analyses/<domain>/_qa/` | `analyses/disbursements/_qa/gate-4-qa-report.md` |
+| Reusable finding (applies to future models) | `analytics-workspace/knowledge/domains/` | "merge strategy causes inflation on Redshift" |
+| `/analyze` partner insights | `analytics-workspace/knowledge/domains/dbt-pipelines/partners/` | Automatic writeback via `/analyze` Step 8 |
+| Raw query results, one-off data | Gitignored `session-logs/` | Never committed |
+
+**Rule of thumb:** If it's about *this specific model's correctness*, keep it in dbt-enterprise. If a teammate could learn from it on a *different* model, put it in analytics-workspace.
 
 ### Put it in `dbt-agent` when it is:
 

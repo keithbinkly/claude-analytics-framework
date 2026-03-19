@@ -210,7 +210,7 @@ Read these files to load your accumulated knowledge:
 - .claude/agent-memory/feature-store-expert/decisions.md
 ```
 
-### 3. Create a slash command (optional)
+### 4. Create a slash command (optional)
 
 ```bash
 # .claude/commands/feature-store-expert.md
@@ -222,7 +222,7 @@ Then read all files in `knowledge/domains/feature-store/` to build context.
 Greet the user and ask what feature engineering task they need help with.
 ```
 
-### 3. Use it
+### 5. Use it
 
 ```
 /feature-store-expert
@@ -231,7 +231,7 @@ Greet the user and ask what feature engineering task they need help with.
 
 Or just ask about feature store topics — if you add it to the skill activation table in `CLAUDE.md`, it'll load automatically.
 
-### 5. Commit the memory
+### 6. Commit the memory
 
 ```bash
 git add .claude/agent-memory/feature-store-expert/
@@ -256,6 +256,11 @@ Now everyone on the team gets this agent's accumulated knowledge on their next p
 | `/load [name]` | Resume from saved state |
 | `/qa` | Load QA agent |
 | `/builder` | Load Builder agent |
+| `/morning-review` | Daily standup: check workstreams, dots, pipeline status |
+| `/development-kickoff` | Load all dbt skills for an implementation session |
+| `/pipeline-gate` | Advance a pipeline through phase gates |
+
+For the full list of 23 commands, see `.claude/commands/README.md`.
 
 ---
 

@@ -11,9 +11,22 @@ if [[ -f "${ROOT_DIR}/.env.local" ]]; then
   source "${ROOT_DIR}/.env.local"
 fi
 
-# Default to sibling directories if not overridden in .env.local
-DBT_ENTERPRISE_SRC="${DBT_ENTERPRISE_SRC:-$(cd "${ROOT_DIR}/.." 2>/dev/null && pwd)/dbt-enterprise}"
-DBT_AGENT_SRC="${DBT_AGENT_SRC:-$(cd "${ROOT_DIR}/.." 2>/dev/null && pwd)/dbt-agent}"
+# Default: check nested first (inside workspace), then sibling directories
+if [[ -z "${DBT_ENTERPRISE_SRC:-}" ]]; then
+  if [[ -d "${ROOT_DIR}/dbt-enterprise" ]]; then
+    DBT_ENTERPRISE_SRC="${ROOT_DIR}/dbt-enterprise"
+  else
+    DBT_ENTERPRISE_SRC="$(cd "${ROOT_DIR}/.." 2>/dev/null && pwd)/dbt-enterprise"
+  fi
+fi
+
+if [[ -z "${DBT_AGENT_SRC:-}" ]]; then
+  if [[ -d "${ROOT_DIR}/dbt-agent" ]]; then
+    DBT_AGENT_SRC="${ROOT_DIR}/dbt-agent"
+  else
+    DBT_AGENT_SRC="$(cd "${ROOT_DIR}/.." 2>/dev/null && pwd)/dbt-agent"
+  fi
+fi
 
 mkdir -p "${REPOS_DIR}"
 

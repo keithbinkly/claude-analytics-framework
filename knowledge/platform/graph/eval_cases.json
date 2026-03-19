@@ -1,0 +1,172 @@
+{
+  "description": "KG retrieval eval suite — known problem→solution pairs from production experience",
+  "created": "2026-03-18",
+  "version": 1,
+  "methodology": "For each case, run graph_search with the query and check if any expected_nodes appear in the top-k results. Measures precision@k and recall.",
+  "cases": [
+    {
+      "id": "eval-001",
+      "category": "incremental-strategy",
+      "query": "merge strategy causing inflated amounts at month boundaries",
+      "expected_nodes": ["caf-ref-redshift-unified-anti-pattern-guide", "learning-efx-007"],
+      "expected_files": ["knowledge/domains/redshift/reference/unified-anti-pattern-guide.md"],
+      "source": "Builder decisions: merge vs delete+insert on Redshift"
+    },
+    {
+      "id": "eval-002",
+      "category": "qa-methodology",
+      "query": "how to validate dbt model against legacy system",
+      "expected_nodes": ["caf-ref-dbt-pipelines-qa-row-trace-methodology"],
+      "expected_files": ["knowledge/domains/dbt-pipelines/reference/qa-row-trace-methodology.md"],
+      "source": "QA memory: Template 1-4 methodology"
+    },
+    {
+      "id": "eval-003",
+      "category": "redshift-optimization",
+      "query": "EAV join pattern causing WLM timeout",
+      "expected_nodes": ["caf-ref-redshift-case-study-eav-optimization"],
+      "expected_files": ["knowledge/domains/redshift/reference/case-study-eav-optimization.md"],
+      "source": "GBOS cohort optimization session report"
+    },
+    {
+      "id": "eval-004",
+      "category": "anti-pattern",
+      "query": "NOT IN subquery slow performance redshift",
+      "expected_nodes": ["caf-ref-redshift-unified-anti-pattern-guide", "caf-ref-redshift-anti-pattern-impact"],
+      "expected_files": ["knowledge/domains/redshift/reference/unified-anti-pattern-guide.md"],
+      "source": "Builder napkin: NOT IN 4.18x slower"
+    },
+    {
+      "id": "eval-005",
+      "category": "semantic-layer",
+      "query": "MetricFlow dimension not found query error",
+      "expected_nodes": ["caf-ref-semantic-layer-metricflow-troubleshooting-guide"],
+      "expected_files": ["knowledge/domains/semantic-layer/metricflow-troubleshooting-guide.md"],
+      "source": "QA napkin: entity qualification required"
+    },
+    {
+      "id": "eval-006",
+      "category": "semantic-layer-ci",
+      "query": "semantic model name mismatch CI failure",
+      "expected_nodes": [],
+      "expected_files": [],
+      "source": "dbt-semantic-ci-lessons rule: name must match filename",
+      "note": "This knowledge lives in rules, not in KG-indexed files. Tests whether rules are in graph."
+    },
+    {
+      "id": "eval-007",
+      "category": "data-discovery",
+      "query": "filter suppressed 99% of rows unexpected",
+      "expected_nodes": [],
+      "expected_files": [],
+      "source": "Discovery-before-building rule: the 99% suppression incident",
+      "note": "Tests whether operational rules are findable via KG"
+    },
+    {
+      "id": "eval-008",
+      "category": "qa-pattern",
+      "query": "fan-out duplicate rows 2x exact copies",
+      "expected_nodes": ["caf-ref-dbt-pipelines-multi-agent-qa-workflow"],
+      "expected_files": ["knowledge/domains/dbt-pipelines/reference/multi-agent-qa-workflow.md"],
+      "source": "QA memory: 2x exact copies = stale build, not join fan-out"
+    },
+    {
+      "id": "eval-009",
+      "category": "redshift-optimization",
+      "query": "distribution key account grain models distkey",
+      "expected_nodes": ["skill-dbt-redshift-optimization"],
+      "expected_files": [".claude/skills/dbt-redshift-optimization/SKILL.md"],
+      "source": "Builder decisions: dist='acct_uid' default"
+    },
+    {
+      "id": "eval-010",
+      "category": "query-mining",
+      "query": "redshift query log mining extract anti-patterns",
+      "expected_nodes": ["caf-ref-redshift-query-log-mining-methodology", "caf-ref-redshift-query-mining-executive-summary"],
+      "expected_files": ["knowledge/domains/redshift/reference/query-log-mining-methodology.md"],
+      "source": "Research: 474K queries → institutional knowledge"
+    },
+    {
+      "id": "eval-011",
+      "category": "incremental-strategy",
+      "query": "GBOS date filter WLM abort incremental",
+      "expected_nodes": ["caf-ref-redshift-case-study-eav-optimization"],
+      "expected_files": ["knowledge/domains/redshift/reference/case-study-eav-optimization.md"],
+      "source": "QA decisions: two-phase GBOS filtering"
+    },
+    {
+      "id": "eval-012",
+      "category": "architecture",
+      "query": "canonical dbt lifecycle flow skills comparison",
+      "expected_nodes": ["caf-ref-dbt-pipelines-canonical-dbt-flow-vs-skills"],
+      "expected_files": ["knowledge/domains/dbt-pipelines/reference/canonical-dbt-flow-vs-skills.md"],
+      "source": "Session report: 90+ official dbt Labs sources audit"
+    },
+    {
+      "id": "eval-013",
+      "category": "competitive",
+      "query": "dbt agent vs kepler dash comparison",
+      "expected_nodes": ["caf-ref-research-competitive-analysis-dbt-agent-vs-kepler"],
+      "expected_files": ["knowledge/platform/research/competitive-analysis-dbt-agent-vs-kepler.md"],
+      "source": "Session report: competitive analysis"
+    },
+    {
+      "id": "eval-014",
+      "category": "memory-research",
+      "query": "agent memory persistence research ALMA",
+      "expected_nodes": ["caf-ref-research-memory-research-synthesis"],
+      "expected_files": ["knowledge/platform/research/memory-research-synthesis.md"],
+      "source": "Research: 200+ agent memory papers synthesis"
+    },
+    {
+      "id": "eval-015",
+      "category": "qa-pattern",
+      "query": "compiled SQL correct but column not found in warehouse",
+      "expected_nodes": [],
+      "expected_files": [],
+      "source": "Rule: dbt-warehouse-vs-code. Compiled SQL != materialized data.",
+      "note": "Tests whether operational rules surface for common symptoms"
+    },
+    {
+      "id": "eval-016",
+      "category": "tool",
+      "query": "SQL linter anti-pattern detection dbt",
+      "expected_nodes": [],
+      "expected_files": ["tools/lint/dbt_agent_lint.py"],
+      "source": "Promoted tool: write-time SQL linter",
+      "note": "Tests whether tools/ directory is indexed"
+    },
+    {
+      "id": "eval-017",
+      "category": "multi-agent",
+      "query": "multi agent QA workflow two agents validation",
+      "expected_nodes": ["caf-ref-dbt-pipelines-multi-agent-qa-workflow"],
+      "expected_files": ["knowledge/domains/dbt-pipelines/reference/multi-agent-qa-workflow.md"],
+      "source": "Research update: Claude + Gemini multi-agent QA"
+    },
+    {
+      "id": "eval-018",
+      "category": "context-graph",
+      "query": "context graph knowledge graph TrustGraph reification",
+      "expected_nodes": ["caf-ref-research-context-graphs-trustgraph-analysis", "caf-ref-research-context-graphs-synthesis"],
+      "expected_files": ["knowledge/platform/research/context-graphs-trustgraph-analysis.md"],
+      "source": "Research: context graphs + TrustGraph evaluation"
+    },
+    {
+      "id": "eval-019",
+      "category": "redshift-optimization",
+      "query": "physical anti-pattern disk spiller skewed worker runtime",
+      "expected_nodes": ["caf-ref-redshift-physical-anti-pattern-directory"],
+      "expected_files": ["knowledge/domains/redshift/reference/physical-anti-pattern-directory.md"],
+      "source": "Mining research: runtime detection signatures"
+    },
+    {
+      "id": "eval-020",
+      "category": "onboarding",
+      "query": "explain dbt agent system how it works plain language",
+      "expected_nodes": ["caf-ref-dbt-pipelines-dbt-agent-system-explainer"],
+      "expected_files": ["knowledge/domains/dbt-pipelines/reference/dbt-agent-system-explainer.md"],
+      "source": "Research update: plain-language system explainer"
+    }
+  ]
+}

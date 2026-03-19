@@ -1,12 +1,13 @@
 {
   "version": "1.0",
-  "built_at": "2026-03-18T08:56:12Z",
+  "built_at": "2026-03-19T09:27:49Z",
   "stats": {
-    "total_nodes": 358,
-    "total_edges": 316,
-    "stores_indexed": 12,
+    "total_nodes": 389,
+    "total_edges": 314,
+    "stores_indexed": 13,
     "nodes_by_store": {
-      "caf_reference": 43,
+      "caf_reference": 59,
+      "caf_tools": 14,
       "caf_traces": 24,
       "claude_rules": 21,
       "enterprise_docs": 11,
@@ -16,13 +17,13 @@
       "learnings": 38,
       "reference": 31,
       "rules": 3,
-      "skills": 108,
+      "skills": 109,
       "traces": 24
     },
     "edges_by_type": {
-      "related": 121,
-      "elaborated_in": 84,
-      "reinforces": 64,
+      "related": 112,
+      "elaborated_in": 96,
+      "reinforces": 59,
       "same_as": 24,
       "derived_from": 23
     }
@@ -62,6 +63,8 @@
         "baas",
         "canonical",
         "controlled-vocabulary",
+        "null",
+        "query-log",
         "redshift",
         "source"
       ],
@@ -87,8 +90,12 @@
       "title": "source_of_truth: analytics-workspace",
       "topics": [
         "baas",
+        "edw",
+        "gbos",
         "join",
-        "pipeline"
+        "migration",
+        "pipeline",
+        "validation"
       ],
       "summary": "metadata: purpose: \"Curated join patterns for common BaaS pipeline work\" scope: \"Subset of the broader dbt-agent join registry\"",
       "anchor": "caf-ref-dbt-pipelines-baas-join-registry",
@@ -112,9 +119,14 @@
       "title": "BaaS Schema Join Patterns Reference",
       "topics": [
         "baas",
+        "canonical",
         "edw",
         "gbos",
         "join",
+        "mining",
+        "posted",
+        "posted-transaction",
+        "query-log",
         "redshift",
         "schema",
         "source"
@@ -140,7 +152,18 @@
       "type": "reference_doc",
       "title": "Canonical dbt Development Flow vs Our Skills: Full Audit",
       "topics": [
-        "canonical"
+        "canonical",
+        "cardinality",
+        "casting",
+        "ci-cd",
+        "config",
+        "coverage",
+        "cte",
+        "discovery",
+        "fan-out",
+        "grain",
+        "intermediate",
+        "migration"
       ],
       "summary": "title: Canonical dbt Flow Audit \u2014 Skills, Agents, Commands status: open priority: 0 tags: [architecture, skills, audit, canonical-flow] created: 2026-02-08",
       "anchor": "caf-ref-dbt-pipelines-canonical-dbt-development-flow",
@@ -163,7 +186,18 @@
       "type": "reference_doc",
       "title": "Canonical dbt Development Flow vs Our Skills: Full Audit",
       "topics": [
-        "canonical"
+        "canonical",
+        "cardinality",
+        "casting",
+        "ci-cd",
+        "config",
+        "coverage",
+        "cte",
+        "discovery",
+        "fan-out",
+        "grain",
+        "intermediate",
+        "migration"
       ],
       "summary": "title: Canonical dbt Flow Audit \u2014 Skills, Agents, Commands status: open priority: 0 tags: [architecture, skills, audit, canonical-flow] created: 2026-02-08",
       "anchor": "caf-ref-dbt-pipelines-canonical-dbt-flow-vs-skills",
@@ -186,8 +220,15 @@
       "type": "reference_doc",
       "title": "Canonical Models Registry",
       "topics": [
+        "build",
         "canonical",
-        "knowledge-base"
+        "grain",
+        "knowledge-base",
+        "migration",
+        "model",
+        "pipeline",
+        "revenue",
+        "source"
       ],
       "summary": "<!-- source_of_truth: caf mirrored_from: dbt-agent/shared/knowledge-base/canonical-models-registry.md -->",
       "anchor": "caf-ref-dbt-pipelines-canonical-models-registry",
@@ -211,7 +252,14 @@
       "title": "Data Limitations Reference",
       "topics": [
         "data-limitation",
-        "model"
+        "discovery",
+        "ewallet",
+        "gbos",
+        "model",
+        "not-in",
+        "samsung",
+        "transaction",
+        "wallet"
       ],
       "summary": "Known data model limitations that prevent certain analytics. Use this to: 1. Quickly answer \"can we do X?\" questions 2. Provide stakeholders with accurate explanations 3. Suggest alternatives when the",
       "anchor": "caf-ref-dbt-pipelines-data-limitations",
@@ -234,7 +282,18 @@
       "type": "reference_doc",
       "title": "dbt-agent System Explainer",
       "topics": [
-        "agent"
+        "agent",
+        "approval",
+        "build",
+        "canonical",
+        "compile",
+        "context",
+        "explainer",
+        "handoff",
+        "knowledge-base",
+        "learning",
+        "mcp",
+        "memory"
       ],
       "summary": "**Purpose:** Plain-language documentation for technical but non-expert readers.",
       "anchor": "caf-ref-dbt-pipelines-dbt-agent-system-explainer",
@@ -257,7 +316,18 @@
       "type": "reference_doc",
       "title": "dbt Command Reference for Copilot Execution",
       "topics": [
-        "handoff"
+        "build",
+        "compile",
+        "defer",
+        "full-refresh",
+        "fusion",
+        "handoff",
+        "incremental",
+        "jinja",
+        "macro",
+        "model",
+        "parse",
+        "pipeline"
       ],
       "summary": "Quick reference for dbt commands used during handoff package execution.",
       "anchor": "caf-ref-dbt-pipelines-dbt-command-reference",
@@ -280,7 +350,18 @@
       "type": "reference_doc",
       "title": "Unified Skills Integration Plan",
       "topics": [
-        "plan"
+        "controlled-vocabulary",
+        "decision-trace",
+        "discovery",
+        "grain",
+        "join",
+        "learning",
+        "mcp",
+        "merge",
+        "migration",
+        "pipeline",
+        "plan",
+        "prevention"
       ],
       "summary": "title: \"Unified Skills Integration: dbt-labs Official + Ours\" status: open priority: 0 tags: [skills, architecture, integration, dbt-labs] created: 2026-02-07",
       "anchor": "caf-ref-dbt-pipelines-dbt-labs-skills-integration-plan",
@@ -303,10 +384,17 @@
       "type": "reference_doc",
       "title": "Declined Transaction Handling (All Products Except rapid! and Wave)",
       "topics": [
+        "approval",
         "baas",
+        "context",
         "declined",
         "declined-transaction",
-        "transaction"
+        "metricflow",
+        "not-in",
+        "pipeline",
+        "source",
+        "transaction",
+        "wallet"
       ],
       "summary": "**Scope**: Green Dot legacy products, BaaS, and Go2bank. **Excludes**: rapid! and Wave.",
       "anchor": "caf-ref-dbt-pipelines-declined-transaction-handling",
@@ -329,9 +417,16 @@
       "type": "reference_doc",
       "title": "EDW Data Dictionary - Quick Start",
       "topics": [
+        "coverage",
         "dictionary",
         "edw",
-        "staging"
+        "interchange",
+        "model",
+        "schema",
+        "staging",
+        "statistics",
+        "workflow",
+        "yaml"
       ],
       "summary": "You pasted **1,054 rows** of EDW field definitions from Confluence into `seeds/r1_edw_dictionary.csv`. This is now a **searchable reference** for business definitions that can be pulled into staging m",
       "anchor": "caf-ref-dbt-pipelines-edw-dictionary-readme",
@@ -354,8 +449,18 @@
       "type": "reference_doc",
       "title": "Field Mappings",
       "topics": [
+        "approval",
         "field-mapping",
-        "knowledge-base"
+        "grain",
+        "join",
+        "knowledge-base",
+        "migration",
+        "model",
+        "not-in",
+        "null",
+        "pipeline",
+        "processor",
+        "rule"
       ],
       "summary": "<!-- source_of_truth: caf mirrored_from: dbt-agent/shared/knowledge-base/field-mappings.md -->",
       "anchor": "caf-ref-dbt-pipelines-field-mappings",
@@ -377,7 +482,18 @@
       "store_path": "knowledge/domains/dbt-pipelines/reference/folder-structure-and-naming.md",
       "type": "reference_doc",
       "title": "\ud83d\udcc1 Folder Structure and Naming Conventions",
-      "topics": [],
+      "topics": [
+        "auth",
+        "gbos",
+        "intermediate",
+        "learning",
+        "mart",
+        "model",
+        "onboarding",
+        "posted",
+        "registration",
+        "transaction"
+      ],
       "summary": "**BEFORE creating any new models**, always verify:",
       "anchor": "caf-ref-dbt-pipelines-folder-structure-and-naming",
       "weight": 1.0,
@@ -399,10 +515,16 @@
       "type": "reference_doc",
       "title": "GBOS Wallet & Tokenization Patterns",
       "topics": [
+        "edw",
         "ewallet",
+        "fan-out",
+        "filter",
         "gbos",
+        "join",
         "source",
         "tokenization",
+        "transaction",
+        "validation",
         "wallet"
       ],
       "summary": "**Created:** December 17, 2025 **Source:** Phase 0 eWallet Deep Dive (merchant-spend-feature-expansion) **Validated:** 181K transactions tested, 100% match rate",
@@ -427,6 +549,7 @@
       "title": "Join Registry",
       "topics": [
         "join",
+        "query-log",
         "redshift",
         "source"
       ],
@@ -451,8 +574,17 @@
       "type": "reference_doc",
       "title": "Legacy KPI Gold Standard Metrics",
       "topics": [
+        "benchmark",
         "gold-standard",
-        "knowledge-base"
+        "knowledge-base",
+        "migration",
+        "pipeline",
+        "qa",
+        "source",
+        "test",
+        "transaction",
+        "validation",
+        "variance"
       ],
       "summary": "<!-- source_of_truth: analytics-workspace mirrored_from: dbt-agent/shared/knowledge-base/legacy-kpi-gold-standard-metrics.md -->",
       "anchor": "caf-ref-dbt-pipelines-legacy-kpi-gold-standard-metrics",
@@ -475,7 +607,18 @@
       "type": "reference_doc",
       "title": "Macros Registry",
       "topics": [
-        "knowledge-base"
+        "auth",
+        "canonical",
+        "join",
+        "knowledge-base",
+        "left-join",
+        "macro",
+        "migration",
+        "model",
+        "posted",
+        "revenue",
+        "source",
+        "transaction"
       ],
       "summary": "<!-- source_of_truth: caf mirrored_from: dbt-agent/shared/knowledge-base/macros-registry.md -->",
       "anchor": "caf-ref-dbt-pipelines-macros-registry",
@@ -498,9 +641,18 @@
       "type": "reference_doc",
       "title": "Using Manifest Parser for QA Lineage Analysis",
       "topics": [
+        "build",
+        "filter",
+        "full-refresh",
+        "intermediate",
         "lineage",
         "manifest",
-        "qa"
+        "mart",
+        "model",
+        "parser",
+        "qa",
+        "run",
+        "skill"
       ],
       "summary": "import json from pathlib import Path",
       "anchor": "caf-ref-dbt-pipelines-manifest-parser-qa-workflow",
@@ -523,8 +675,18 @@
       "type": "reference_doc",
       "title": "\ud83d\ude80 Migration Quick Reference",
       "topics": [
+        "build",
+        "canonical",
+        "compile",
+        "context",
+        "delete-insert",
+        "edw",
+        "grain",
+        "incremental",
+        "intermediate",
         "knowledge-base",
-        "migration"
+        "lineage",
+        "manifest"
       ],
       "summary": "<!-- source_of_truth: analytics-workspace mirrored_from: dbt-agent/shared/knowledge-base/migration-quick-reference.md -->",
       "anchor": "caf-ref-dbt-pipelines-migration-quick-reference",
@@ -548,8 +710,17 @@
       "title": "Making Of: Merchant Spend Feature Expansion Plan",
       "topics": [
         "agent",
-        "merchant-spend",
-        "plan"
+        "compile",
+        "cte",
+        "distkey",
+        "ewallet",
+        "grain",
+        "handoff",
+        "interchange",
+        "knowledge-base",
+        "knowledge-graph",
+        "mart",
+        "mcp"
       ],
       "summary": "**Date:** December 17, 2025 **Output:** `handoffs/interchange_revenue_migration/merchant-spend-feature-expansion-plan.md`",
       "anchor": "caf-ref-dbt-pipelines-multi-agent-plan-creation-pattern",
@@ -573,7 +744,17 @@
       "title": "Multi-Agent QA Workflow: A Deep Dive for dbt Developers",
       "topics": [
         "agent",
-        "qa"
+        "analyst",
+        "architect",
+        "build",
+        "duplicate",
+        "handoff",
+        "knowledge-base",
+        "mcp",
+        "multi-agent",
+        "orchestrator",
+        "pipeline",
+        "plan"
       ],
       "summary": "**Date:** December 12, 2025 **Audience:** dbt developers who don't use Claude Code or AI agents **Purpose:** Illustrate how AI agents collaborate to resolve data quality issues with 83% faster root ca",
       "anchor": "caf-ref-dbt-pipelines-multi-agent-qa-workflow",
@@ -596,10 +777,18 @@
       "type": "reference_doc",
       "title": "\ud83c\udfd7\ufe0f Pipeline Build Playbook: Legacy SQL to dbt Migration",
       "topics": [
+        "agent",
+        "analyze",
+        "approval",
         "build",
-        "migration",
-        "pipeline",
-        "playbook"
+        "canonical",
+        "compile",
+        "coverage",
+        "dictionary",
+        "duplicate",
+        "edw",
+        "full-refresh",
+        "fusion"
       ],
       "summary": "**Last Updated**: October 10, 2025 **Purpose**: End-to-end standardized process for migrating legacy Microstrategy SQL scripts into dbt architecture",
       "anchor": "caf-ref-dbt-pipelines-pipeline-build-playbook",
@@ -622,9 +811,18 @@
       "type": "reference_doc",
       "title": "Posted Transactions Pipeline \u2014 Analyst Guide",
       "topics": [
+        "analyst",
+        "baas",
+        "ewallet",
+        "grain",
+        "incremental",
+        "join",
+        "not-in",
         "pipeline",
         "posted",
-        "posted-transaction"
+        "posted-transaction",
+        "redshift",
+        "schema"
       ],
       "summary": "Last verified: 2026-03-12 via dbt Cloud API",
       "anchor": "caf-ref-dbt-pipelines-posted-transactions-guide",
@@ -647,9 +845,18 @@
       "type": "reference_doc",
       "title": "Prevention Tests Registry",
       "topics": [
+        "agent",
+        "coverage",
+        "filter",
+        "gbos",
+        "incremental",
+        "join",
+        "model",
         "prevention",
         "qa",
-        "suppression"
+        "registration",
+        "row-count",
+        "schema"
       ],
       "summary": "> **Purpose**: Catalog of dbt tests that prevent common failure modes identified through QA analysis. > These tests encode lessons learned from production issues like the 99% suppression incident (GBO",
       "anchor": "caf-ref-dbt-pipelines-prevention-tests-registry",
@@ -673,8 +880,17 @@
       "title": "Project Update: QA Methodology Breakthrough - Row-Level Trace + Human Gates",
       "topics": [
         "agent",
+        "approval",
+        "cte",
+        "duplicate",
+        "fan-out",
+        "gbos",
+        "interchange",
+        "join",
+        "mart",
+        "model",
         "qa",
-        "validation"
+        "source"
       ],
       "summary": "**Date:** December 11, 2025 **Session Type:** QA Process Improvement + Multi-Agent Validation **Duration:** ~45 minutes (methodology development) + ~20 minutes (agent execution)",
       "anchor": "caf-ref-dbt-pipelines-qa-row-trace-methodology",
@@ -697,8 +913,18 @@
       "type": "reference_doc",
       "title": "QA Validation Checklist",
       "topics": [
-        "qa",
-        "validation"
+        "aci",
+        "approval",
+        "config",
+        "discovery",
+        "field-mapping",
+        "filter",
+        "gbos",
+        "grain",
+        "join",
+        "lineage",
+        "manifest",
+        "migration"
       ],
       "summary": "<!-- source_of_truth: caf mirrored_from: dbt-agent/shared/reference/qa-validation-checklist.md -->",
       "anchor": "caf-ref-dbt-pipelines-qa-validation-checklist",
@@ -720,7 +946,20 @@
       "store_path": "knowledge/domains/dbt-pipelines/reference/quick-reference-snippets.md",
       "type": "reference_doc",
       "title": "\ud83d\ude80 Quick Reference Snippets",
-      "topics": [],
+      "topics": [
+        "config",
+        "delete-insert",
+        "filter",
+        "incremental",
+        "intermediate",
+        "jinja",
+        "macro",
+        "mart",
+        "materialized",
+        "merge",
+        "model",
+        "null"
+      ],
       "summary": "**Purpose**: Copy-paste ready code patterns for common dbt development tasks **When to Use**: Need to quickly implement standard patterns without searching multiple files **Last Updated**: October 19,",
       "anchor": "caf-ref-dbt-pipelines-quick-reference-snippets",
       "weight": 1.0,
@@ -742,8 +981,18 @@
       "type": "reference_doc",
       "title": "Spend Analytics Pipeline \u2014 Analyst Guide",
       "topics": [
-        "pipeline",
-        "semantic-layer"
+        "analyst",
+        "approval",
+        "auth",
+        "baas",
+        "benchmark",
+        "declined",
+        "declined-transaction",
+        "ewallet",
+        "grain",
+        "mcp",
+        "null",
+        "pipeline"
       ],
       "summary": "Last verified: 2026-03-11 via dbt Semantic Layer API",
       "anchor": "caf-ref-dbt-pipelines-spend-analytics-guide",
@@ -766,9 +1015,18 @@
       "type": "reference_doc",
       "title": "Temp Filter Management Quick Reference",
       "topics": [
+        "config",
+        "discovery",
         "filter",
+        "full-refresh",
+        "incremental",
+        "intermediate",
+        "model",
+        "pipeline",
+        "prevention",
         "qa",
-        "suppression"
+        "ref",
+        "run"
       ],
       "summary": "Temporary date filters added during development for \"fast iteration\" get forgotten, causing data suppression in production or QA.",
       "anchor": "caf-ref-dbt-pipelines-temp-filter-quick-reference",
@@ -791,7 +1049,18 @@
       "type": "reference_doc",
       "title": "Troubleshooting",
       "topics": [
-        "knowledge-base"
+        "aggregate",
+        "cardinality",
+        "config",
+        "fan-out",
+        "full-refresh",
+        "incremental",
+        "join",
+        "knowledge-base",
+        "macro",
+        "materialized",
+        "migration",
+        "pipeline"
       ],
       "summary": "<!-- source_of_truth: caf mirrored_from: dbt-agent/shared/knowledge-base/troubleshooting.md -->",
       "anchor": "caf-ref-dbt-pipelines-troubleshooting",
@@ -814,11 +1083,18 @@
       "type": "reference_doc",
       "title": "Using the EDW Data Dictionary for Staging Model Documentation",
       "topics": [
+        "context",
+        "coverage",
         "dictionary",
         "edw",
         "model",
+        "posted",
+        "redshift",
+        "schema",
         "seed",
-        "staging"
+        "staging",
+        "statistics",
+        "transaction"
       ],
       "summary": "The `r1_edw_dictionary.csv` seed file contains **1,084 field definitions** from our EDW (Enterprise Data Warehouse) sourced from Confluence documentation. This serves as the authoritative business glo",
       "anchor": "caf-ref-dbt-pipelines-using-edw-dictionary",
@@ -834,6 +1110,40 @@
       "promoted_to_caf": false,
       "evidence_log": []
     },
+    "caf-ref-platform-extended-thinking-guide": {
+      "id": "caf-ref-platform-extended-thinking-guide",
+      "store": "caf_reference",
+      "store_path": "knowledge/platform/extended-thinking-guide.md",
+      "type": "reference_doc",
+      "title": "Extended Thinking Guide",
+      "topics": [
+        "agent",
+        "architect",
+        "discovery",
+        "learning",
+        "migration",
+        "optimization",
+        "orchestrator",
+        "plan",
+        "qa",
+        "schema",
+        "validation",
+        "workflow"
+      ],
+      "summary": "**Created:** 2025-12-28",
+      "anchor": "caf-ref-platform-extended-thinking-guide",
+      "weight": 1.0,
+      "created": "",
+      "last_accessed": null,
+      "domain": "system",
+      "repo": "caf",
+      "detail_level": "L1",
+      "l0_summary": "caf-platform: Extended Thinking Guide",
+      "valid_from": null,
+      "valid_until": null,
+      "promoted_to_caf": false,
+      "evidence_log": []
+    },
     "caf-ref-redshift-anti-pattern-impact": {
       "id": "caf-ref-redshift-anti-pattern-impact",
       "store": "caf_reference",
@@ -841,6 +1151,16 @@
       "type": "reference_doc",
       "title": "source_of_truth: caf",
       "topics": [
+        "anti-pattern",
+        "join",
+        "left-join",
+        "merge",
+        "migration",
+        "nested-loop",
+        "not-exists",
+        "not-in",
+        "null",
+        "query-log",
         "redshift",
         "source"
       ],
@@ -865,16 +1185,24 @@
       "type": "reference_doc",
       "title": "Case Study: Optimizing Repeated EAV Joins (GBOS Identity Validation)",
       "topics": [
+        "agent",
+        "discovery",
+        "eav",
         "gbos",
+        "join",
+        "left-join",
+        "memory",
+        "mining",
         "optimization",
+        "pivot",
         "redshift",
-        "validation"
+        "run"
       ],
       "summary": "Using the granular mining script, we identified a high-impact query executing on the Redshift cluster.",
       "anchor": "caf-ref-redshift-case-study-eav-optimization",
       "weight": 1.0,
       "created": "",
-      "last_accessed": "2026-03-18T08:56:20.129513+00:00",
+      "last_accessed": null,
       "domain": "agent",
       "repo": "caf",
       "detail_level": "L1",
@@ -891,14 +1219,24 @@
       "type": "reference_doc",
       "title": "Self-Service Query Tuning with GitHub Copilot",
       "topics": [
+        "aggregate",
+        "analyze",
+        "context",
+        "cte",
+        "intermediate",
+        "join",
+        "knowledge-base",
+        "memory",
+        "mining",
         "optimization",
-        "redshift"
+        "redshift",
+        "scan"
       ],
       "summary": "This repository contains a **Redshift Anti-Pattern Directory** and specific optimization rules derived from our mining of the `redshift_granular_mining` table. You can use GitHub Copilot to evaluate y",
       "anchor": "caf-ref-redshift-copilot-self-service-tuning",
       "weight": 1.0,
       "created": "",
-      "last_accessed": "2026-03-18T08:56:20.129513+00:00",
+      "last_accessed": null,
       "domain": "agent",
       "repo": "caf",
       "detail_level": "L1",
@@ -915,13 +1253,24 @@
       "type": "reference_doc",
       "title": "Redshift Anti-Pattern Directory",
       "topics": [
-        "redshift"
+        "analyze",
+        "anti-pattern",
+        "broadcast",
+        "cardinality",
+        "distkey",
+        "fan-out",
+        "hash-join",
+        "intermediate",
+        "join",
+        "memory",
+        "redshift",
+        "run"
       ],
       "summary": "This directory defines the \"Performance Signatures\" used to automatically detect inefficient queries in the Redshift environment. These rules are applied to the granular metrics captured in `analytics",
       "anchor": "caf-ref-redshift-physical-anti-pattern-directory",
       "weight": 1.0,
       "created": "",
-      "last_accessed": "2026-03-18T08:56:20.129513+00:00",
+      "last_accessed": "2026-03-19T09:28:08.547151+00:00",
       "domain": "agent",
       "repo": "caf",
       "detail_level": "L1",
@@ -938,7 +1287,18 @@
       "type": "reference_doc",
       "title": "Mining Query Logs for Institutional Knowledge: Building AI-Ready Data Infrastructure",
       "topics": [
-        "redshift"
+        "agent",
+        "analyze",
+        "canonical",
+        "controlled-vocabulary",
+        "incremental",
+        "intermediate",
+        "join",
+        "mining",
+        "model",
+        "not-in",
+        "parse",
+        "parser"
       ],
       "summary": "**Keith Binkley | January 2026**",
       "anchor": "caf-ref-redshift-query-log-mining-methodology",
@@ -961,7 +1321,18 @@
       "type": "reference_doc",
       "title": "Query Log Mining: Phase 2 Extraction Spec",
       "topics": [
-        "redshift"
+        "analyze",
+        "build",
+        "canonical",
+        "cardinality",
+        "controlled-vocabulary",
+        "dictionary",
+        "filter",
+        "join",
+        "left-join",
+        "mining",
+        "model",
+        "parse"
       ],
       "summary": "**Created:** 2025-12-27 **Purpose:** Extract maximum value from Redshift query logs for agent-facing knowledge **Input:** `greendot_analytics_mtegysvc_compute_stats.xlsx` (474K queries, 30 days) **Out",
       "anchor": "caf-ref-redshift-query-log-mining-phase2-spec",
@@ -984,7 +1355,18 @@
       "type": "reference_doc",
       "title": "Enterprise SQL Mining: Executive Summary",
       "topics": [
-        "redshift"
+        "analyst",
+        "context",
+        "controlled-vocabulary",
+        "join",
+        "mining",
+        "not-exists",
+        "not-in",
+        "optimization",
+        "query-log",
+        "query-mining",
+        "redshift",
+        "source"
       ],
       "summary": "**Project:** Institutional Knowledge Extraction from Legacy SQL Corpus **Date:** January 2026 (Updated: Jan 23, 2026) **Owner:** Keith Binkley, Analytics & Insights **Version:** 4.0 - Unified Syntacti",
       "anchor": "caf-ref-redshift-query-mining-executive-summary",
@@ -1007,8 +1389,17 @@
       "type": "reference_doc",
       "title": "Redshift Intelligence Playbook",
       "topics": [
+        "discovery",
+        "distkey",
+        "join",
+        "model",
         "playbook",
-        "redshift"
+        "redshift",
+        "run",
+        "snapshot",
+        "sortkey",
+        "validation",
+        "wlm"
       ],
       "summary": "Empirical warehouse data that agents should query **before** making design decisions. Organized by decision point, not by system table.",
       "anchor": "caf-ref-redshift-redshift-intelligence-playbook",
@@ -1031,8 +1422,18 @@
       "type": "reference_doc",
       "title": "Semantic Expert Review: Enterprise SQL Corpus Mining Plan",
       "topics": [
+        "agent",
+        "build",
+        "context",
+        "coverage",
+        "discovery",
+        "handoff",
+        "knowledge-graph",
+        "lineage",
+        "memory",
+        "mining",
         "plan",
-        "redshift"
+        "query-log"
       ],
       "summary": "**Reviewer:** Claude Opus 4.5 (as Semantic/Knowledge Graph specialist) **Date:** 2026-01-14 **Status:** Complete",
       "anchor": "caf-ref-redshift-semantic-expert-review",
@@ -1057,9 +1458,16 @@
       "topics": [
         "casting",
         "cheatsheet",
+        "cte",
+        "model",
+        "null",
         "redshift",
+        "ref",
+        "run",
         "type-casting",
-        "union"
+        "union",
+        "window",
+        "workflow"
       ],
       "summary": "**Purpose**: Prevent type mismatch errors that cause runtime failures despite successful compilation",
       "anchor": "caf-ref-redshift-type-casting-cheatsheet",
@@ -1082,17 +1490,516 @@
       "type": "reference_doc",
       "title": "Unified Redshift Anti-Pattern Guide",
       "topics": [
-        "redshift"
+        "anti-pattern",
+        "ci-cd",
+        "join",
+        "memory",
+        "merge",
+        "nested-loop",
+        "not-exists",
+        "not-in",
+        "null",
+        "redshift",
+        "skewed",
+        "spiller"
       ],
       "summary": "**Version:** 1.0.0 **Last Updated:** 2026-01-23",
       "anchor": "caf-ref-redshift-unified-anti-pattern-guide",
       "weight": 1.0,
       "created": "",
-      "last_accessed": "2026-03-18T08:56:20.129513+00:00",
+      "last_accessed": "2026-03-19T09:28:08.547151+00:00",
       "domain": "agent",
       "repo": "caf",
       "detail_level": "L1",
       "l0_summary": "caf-doc: Unified Redshift Anti-Pattern Guide",
+      "valid_from": null,
+      "valid_until": null,
+      "promoted_to_caf": false,
+      "evidence_log": []
+    },
+    "caf-ref-research-approach-validation-industry-alignment": {
+      "id": "caf-ref-research-approach-validation-industry-alignment",
+      "store": "caf_reference",
+      "store_path": "knowledge/platform/research/approach-validation-industry-alignment.md",
+      "type": "reference_doc",
+      "title": "Approach Validation: How Our Architecture Aligns with Industry Best Practices",
+      "topics": [
+        "agent",
+        "confidence",
+        "discovery",
+        "mcp",
+        "migration",
+        "plan",
+        "skill",
+        "source",
+        "validation"
+      ],
+      "summary": "**Date:** 2025-12-19 **Type:** Architecture Validation Analysis **Confidence:** High (multiple independent sources)",
+      "anchor": "caf-ref-research-approach-validation-industry-alignment",
+      "weight": 1.0,
+      "created": "",
+      "last_accessed": null,
+      "domain": "system",
+      "repo": "caf",
+      "detail_level": "L1",
+      "l0_summary": "caf-research: Approach Validation: How Our Architectur",
+      "valid_from": null,
+      "valid_until": null,
+      "promoted_to_caf": false,
+      "evidence_log": []
+    },
+    "caf-ref-research-ccv3-architecture-analysis": {
+      "id": "caf-ref-research-ccv3-architecture-analysis",
+      "store": "caf_reference",
+      "store_path": "knowledge/platform/research/ccv3-architecture-analysis.md",
+      "type": "reference_doc",
+      "title": "Continuous Claude v3: Deep Architectural Analysis",
+      "topics": [
+        "context",
+        "learning",
+        "mcp",
+        "memory",
+        "mining",
+        "model",
+        "plan",
+        "run",
+        "skill"
+      ],
+      "summary": "**Date:** 2026-01-17 **Context:** Evaluating CC-v3 as potential infrastructure layer for dbt-agent system **Decision Required:** Install wholesale vs. selective adoption vs. coexistence",
+      "anchor": "caf-ref-research-ccv3-architecture-analysis",
+      "weight": 1.0,
+      "created": "",
+      "last_accessed": null,
+      "domain": "system",
+      "repo": "caf",
+      "detail_level": "L1",
+      "l0_summary": "caf-research: Continuous Claude v3: Deep Architectural",
+      "valid_from": null,
+      "valid_until": null,
+      "promoted_to_caf": false,
+      "evidence_log": []
+    },
+    "caf-ref-research-claude-code-tips-audit": {
+      "id": "caf-ref-research-claude-code-tips-audit",
+      "store": "caf_reference",
+      "store_path": "knowledge/platform/research/claude-code-tips-audit.md",
+      "type": "reference_doc",
+      "title": "Claude Code Tips from the Team \u2014 Expanded Edition",
+      "topics": [
+        "agent",
+        "learning",
+        "plan",
+        "rule",
+        "run",
+        "source"
+      ],
+      "summary": "**Boris Cherny** (@bcherny) \u2014 Jan 31, 2026 **Our Annotations** \u2014 Feb 2, 2026",
+      "anchor": "caf-ref-research-claude-code-tips-audit",
+      "weight": 1.0,
+      "created": "",
+      "last_accessed": null,
+      "domain": "system",
+      "repo": "caf",
+      "detail_level": "L1",
+      "l0_summary": "caf-research: Claude Code Tips from the Team \u2014 Expande",
+      "valid_from": null,
+      "valid_until": null,
+      "promoted_to_caf": false,
+      "evidence_log": []
+    },
+    "caf-ref-research-competitive-analysis-dbt-agent-vs-kepler": {
+      "id": "caf-ref-research-competitive-analysis-dbt-agent-vs-kepler",
+      "store": "caf_reference",
+      "store_path": "knowledge/platform/research/competitive-analysis-dbt-agent-vs-kepler.md",
+      "type": "reference_doc",
+      "title": "Competitive Analysis Dbt Agent Vs Kepler",
+      "topics": [
+        "agent",
+        "competitive",
+        "context",
+        "dash",
+        "kepler",
+        "learning",
+        "lineage",
+        "memory",
+        "metricflow",
+        "qa",
+        "rule",
+        "validation"
+      ],
+      "summary": "Strategic Competitive Analysis: dbt-agent vs OpenAI Kepler vs Dash",
+      "anchor": "caf-ref-research-competitive-analysis-dbt-agent-vs-kepler",
+      "weight": 1.0,
+      "created": "",
+      "last_accessed": null,
+      "domain": "system",
+      "repo": "caf",
+      "detail_level": "L1",
+      "l0_summary": "caf-research: Competitive Analysis Dbt Agent Vs Kepler",
+      "valid_from": null,
+      "valid_until": null,
+      "promoted_to_caf": false,
+      "evidence_log": []
+    },
+    "caf-ref-research-context-graphs-synthesis": {
+      "id": "caf-ref-research-context-graphs-synthesis",
+      "store": "caf_reference",
+      "store_path": "knowledge/platform/research/context-graphs-synthesis.md",
+      "type": "reference_doc",
+      "title": "Context Graphs & Knowledge Engineering: Synthesis for dbt-agent",
+      "topics": [
+        "agent",
+        "analyst",
+        "canonical",
+        "context",
+        "context-graph",
+        "decision-trace",
+        "handoff",
+        "memory",
+        "mining",
+        "model",
+        "pipeline",
+        "schema"
+      ],
+      "summary": "**Research Date**: January 8, 2026 **Sources**: 23 X articles + web research on TrustGraph, Anthropic, Cognizant, dbt Labs",
+      "anchor": "caf-ref-research-context-graphs-synthesis",
+      "weight": 1.0,
+      "created": "",
+      "last_accessed": null,
+      "domain": "system",
+      "repo": "caf",
+      "detail_level": "L1",
+      "l0_summary": "caf-research: Context Graphs & Knowledge Engineering: ",
+      "valid_from": null,
+      "valid_until": null,
+      "promoted_to_caf": false,
+      "evidence_log": []
+    },
+    "caf-ref-research-context-graphs-trustgraph-analysis": {
+      "id": "caf-ref-research-context-graphs-trustgraph-analysis",
+      "store": "caf_reference",
+      "store_path": "knowledge/platform/research/context-graphs-trustgraph-analysis.md",
+      "type": "reference_doc",
+      "title": "Context Graphs & TrustGraph Analysis",
+      "topics": [
+        "canonical",
+        "context",
+        "context-graph",
+        "decision-trace",
+        "mining",
+        "model",
+        "qa",
+        "reification",
+        "skill",
+        "trustgraph"
+      ],
+      "summary": "**Date:** 2026-01-11 **Type:** Research & Adoption Recommendation **Scope:** Thought leadership synthesis + TrustGraph evaluation",
+      "anchor": "caf-ref-research-context-graphs-trustgraph-analysis",
+      "weight": 1.0,
+      "created": "",
+      "last_accessed": null,
+      "domain": "system",
+      "repo": "caf",
+      "detail_level": "L1",
+      "l0_summary": "caf-research: Context Graphs & TrustGraph Analysis",
+      "valid_from": null,
+      "valid_until": null,
+      "promoted_to_caf": false,
+      "evidence_log": []
+    },
+    "caf-ref-research-dbt-labs-agent-skills-analysis": {
+      "id": "caf-ref-research-dbt-labs-agent-skills-analysis",
+      "store": "caf_reference",
+      "store_path": "knowledge/platform/research/dbt-labs-agent-skills-analysis.md",
+      "type": "reference_doc",
+      "title": "dbt Labs Official Agent Skills vs Ours",
+      "topics": [
+        "agent",
+        "append",
+        "context",
+        "fusion",
+        "mcp",
+        "migration",
+        "qa",
+        "run",
+        "semantic-layer",
+        "skill",
+        "test",
+        "unit-test"
+      ],
+      "summary": "*2026-01-31 | Private test group access*",
+      "anchor": "caf-ref-research-dbt-labs-agent-skills-analysis",
+      "weight": 1.0,
+      "created": "",
+      "last_accessed": null,
+      "domain": "system",
+      "repo": "caf",
+      "detail_level": "L1",
+      "l0_summary": "caf-research: dbt Labs Official Agent Skills vs Ours",
+      "valid_from": null,
+      "valid_until": null,
+      "promoted_to_caf": false,
+      "evidence_log": []
+    },
+    "caf-ref-research-deep-dive-resource-analysis": {
+      "id": "caf-ref-research-deep-dive-resource-analysis",
+      "store": "caf_reference",
+      "store_path": "knowledge/platform/research/deep-dive-resource-analysis.md",
+      "type": "reference_doc",
+      "title": "Deep Dive: Resource Analysis & Workflow Gap Mapping",
+      "topics": [
+        "agent",
+        "context",
+        "decision-trace",
+        "handoff",
+        "knowledge-graph",
+        "metricflow",
+        "mining",
+        "model",
+        "optimization",
+        "persistence",
+        "qa",
+        "run"
+      ],
+      "summary": "**Date:** 2026-01-11 **Type:** Comprehensive Research & Integration Strategy **Resources Analyzed:** 20+ tools, frameworks, and patterns **Focus:** SQL QA processes, Semantic Layer, Knowledge Graph, A",
+      "anchor": "caf-ref-research-deep-dive-resource-analysis",
+      "weight": 1.0,
+      "created": "",
+      "last_accessed": null,
+      "domain": "system",
+      "repo": "caf",
+      "detail_level": "L1",
+      "l0_summary": "caf-research: Deep Dive: Resource Analysis & Workflow ",
+      "valid_from": null,
+      "valid_until": null,
+      "promoted_to_caf": false,
+      "evidence_log": []
+    },
+    "caf-ref-research-frontier-gap-analysis": {
+      "id": "caf-ref-research-frontier-gap-analysis",
+      "store": "caf_reference",
+      "store_path": "knowledge/platform/research/frontier-gap-analysis.md",
+      "type": "reference_doc",
+      "title": "Frontier Gap Analysis: dbt-agent",
+      "topics": [
+        "agent",
+        "context",
+        "decision-trace",
+        "experience",
+        "handoff",
+        "knowledge-graph",
+        "learning",
+        "manifest",
+        "mining",
+        "not-in",
+        "pipeline",
+        "qa"
+      ],
+      "summary": "**Date**: January 8, 2026 **Status**: Comprehensive assessment based on deep research + infrastructure mining",
+      "anchor": "caf-ref-research-frontier-gap-analysis",
+      "weight": 1.0,
+      "created": "",
+      "last_accessed": null,
+      "domain": "system",
+      "repo": "caf",
+      "detail_level": "L1",
+      "l0_summary": "caf-research: Frontier Gap Analysis: dbt-agent",
+      "valid_from": null,
+      "valid_until": null,
+      "promoted_to_caf": false,
+      "evidence_log": []
+    },
+    "caf-ref-research-gbos-cohort-optimization-case-study": {
+      "id": "caf-ref-research-gbos-cohort-optimization-case-study",
+      "store": "caf_reference",
+      "store_path": "knowledge/platform/research/gbos-cohort-optimization-case-study.md",
+      "type": "reference_doc",
+      "title": "Project Update: GBOS Cohort Optimization Complete",
+      "topics": [
+        "cohort",
+        "full-refresh",
+        "gbos",
+        "incremental",
+        "intermediate",
+        "knowledge-base",
+        "learning",
+        "lineage",
+        "merge",
+        "model",
+        "optimization",
+        "pipeline"
+      ],
+      "summary": "**Date:** 2026-01-16 **Session Type:** Pipeline Optimization + Learning Cycle **Duration:** Multi-session (2026-01-14 to 2026-01-16)",
+      "anchor": "caf-ref-research-gbos-cohort-optimization-case-study",
+      "weight": 1.0,
+      "created": "",
+      "last_accessed": null,
+      "domain": "system",
+      "repo": "caf",
+      "detail_level": "L1",
+      "l0_summary": "caf-research: Project Update: GBOS Cohort Optimization",
+      "valid_from": null,
+      "valid_until": null,
+      "promoted_to_caf": false,
+      "evidence_log": []
+    },
+    "caf-ref-research-memory-architecture-research": {
+      "id": "caf-ref-research-memory-architecture-research",
+      "store": "caf_reference",
+      "store_path": "knowledge/platform/research/memory-architecture-research.md",
+      "type": "reference_doc",
+      "title": "Project Update: Memory Architecture Research & Capability Expansion",
+      "topics": [
+        "agent",
+        "agent-memory",
+        "context",
+        "learning",
+        "memory",
+        "unit-test",
+        "vector"
+      ],
+      "summary": "**Date:** December 3, 2025 **Session Type:** Deep Resource Analysis & Strategic Planning **Duration:** ~45 minutes",
+      "anchor": "caf-ref-research-memory-architecture-research",
+      "weight": 1.0,
+      "created": "",
+      "last_accessed": null,
+      "domain": "system",
+      "repo": "caf",
+      "detail_level": "L1",
+      "l0_summary": "caf-research: Project Update: Memory Architecture Rese",
+      "valid_from": null,
+      "valid_until": null,
+      "promoted_to_caf": false,
+      "evidence_log": []
+    },
+    "caf-ref-research-memory-research-synthesis": {
+      "id": "caf-ref-research-memory-research-synthesis",
+      "store": "caf_reference",
+      "store_path": "knowledge/platform/research/memory-research-synthesis.md",
+      "type": "reference_doc",
+      "title": "Agent Memory Research Synthesis",
+      "topics": [
+        "agent",
+        "agent-memory",
+        "context",
+        "defer",
+        "ensemble",
+        "knowledge-graph",
+        "memory",
+        "persistence",
+        "pipeline",
+        "plan"
+      ],
+      "summary": "**Date:** 2026-03-15 **Scope:** 7 user-provided resources + 6 deep-read papers from the paper list **Purpose:** Extract patterns, validate our unified knowledge graph approach, identify gaps",
+      "anchor": "caf-ref-research-memory-research-synthesis",
+      "weight": 1.0,
+      "created": "",
+      "last_accessed": null,
+      "domain": "system",
+      "repo": "caf",
+      "detail_level": "L1",
+      "l0_summary": "caf-research: Agent Memory Research Synthesis",
+      "valid_from": null,
+      "valid_until": null,
+      "promoted_to_caf": false,
+      "evidence_log": []
+    },
+    "caf-ref-research-process-knowledge-management": {
+      "id": "caf-ref-research-process-knowledge-management",
+      "store": "caf_reference",
+      "store_path": "knowledge/platform/research/process-knowledge-management.md",
+      "type": "reference_doc",
+      "title": "Process Knowledge Management: Deep Research Report",
+      "topics": [
+        "agent",
+        "build",
+        "context",
+        "context-graph",
+        "decision-trace",
+        "experience",
+        "knowledge-graph",
+        "memory",
+        "ontology",
+        "rule",
+        "skill"
+      ],
+      "summary": "**Date:** 2026-01-17 **Agent:** Librarian Mode (data-centered) **Sources:** Jessica Talisman's Process Knowledge Management Series (Parts I-IV) + Context Graphs Article **Cross-Reference:** dbt-agent ",
+      "anchor": "caf-ref-research-process-knowledge-management",
+      "weight": 1.0,
+      "created": "",
+      "last_accessed": null,
+      "domain": "system",
+      "repo": "caf",
+      "detail_level": "L1",
+      "l0_summary": "caf-research: Process Knowledge Management: Deep Resea",
+      "valid_from": null,
+      "valid_until": null,
+      "promoted_to_caf": false,
+      "evidence_log": []
+    },
+    "caf-ref-research-redshift-query-log-mining-report": {
+      "id": "caf-ref-research-redshift-query-log-mining-report",
+      "store": "caf_reference",
+      "store_path": "knowledge/platform/research/redshift-query-log-mining-report.md",
+      "type": "reference_doc",
+      "title": "Redshift Query Log Mining Report",
+      "topics": [
+        "canonical",
+        "distkey",
+        "edw",
+        "incremental",
+        "join",
+        "left-join",
+        "mining",
+        "model",
+        "optimization",
+        "query-log",
+        "redshift",
+        "semantic-layer"
+      ],
+      "summary": "**Date:** 2025-12-26 **Data Source:** 30 days of Redshift query logs (Nov 21 - Dec 25, 2025) **Total Queries Analyzed:** 474,260 **File:** `greendot_analytics_mtegysvc_compute_stats.xlsx` (122MB)",
+      "anchor": "caf-ref-research-redshift-query-log-mining-report",
+      "weight": 1.0,
+      "created": "",
+      "last_accessed": null,
+      "domain": "system",
+      "repo": "caf",
+      "detail_level": "L1",
+      "l0_summary": "caf-research: Redshift Query Log Mining Report",
+      "valid_from": null,
+      "valid_until": null,
+      "promoted_to_caf": false,
+      "evidence_log": []
+    },
+    "caf-ref-research-session-continuity-adoption": {
+      "id": "caf-ref-research-session-continuity-adoption",
+      "store": "caf_reference",
+      "store_path": "knowledge/platform/research/session-continuity-adoption.md",
+      "type": "reference_doc",
+      "title": "Session Continuity Infrastructure: The Build vs Adopt Journey",
+      "topics": [
+        "agent",
+        "agent-memory",
+        "build",
+        "context",
+        "defer",
+        "delete-insert",
+        "discovery",
+        "experience",
+        "join",
+        "memory",
+        "migration",
+        "mining"
+      ],
+      "summary": "**Date:** 2025-12-27 **Author:** Learner Agent **Status:** Implemented",
+      "anchor": "caf-ref-research-session-continuity-adoption",
+      "weight": 1.0,
+      "created": "",
+      "last_accessed": null,
+      "domain": "system",
+      "repo": "caf",
+      "detail_level": "L1",
+      "l0_summary": "caf-research: Session Continuity Infrastructure: The B",
       "valid_from": null,
       "valid_until": null,
       "promoted_to_caf": false,
@@ -1430,6 +2337,7 @@
       "title": "Merge job failures persisted after introducing optimized cohort models because d",
       "topics": [
         "cohort",
+        "eav",
         "mart",
         "merge",
         "model",
@@ -1608,6 +2516,7 @@
       "title": "Pivot consistency QA reported ~99% mismatches between cohort_progress and cohort",
       "topics": [
         "cohort",
+        "pivot",
         "qa"
       ],
       "summary": "Legacy QA query used direct equality where both sides were frequently NULL, producing false mismatches",
@@ -2212,6 +3121,7 @@
       "title": "Converted mrt_gbos_registration_cohort_progress to a backward-compatibility VIEW that pivots from mrt_gbos_registrati...",
       "topics": [
         "cohort",
+        "eav",
         "mart",
         "merge",
         "model",
@@ -2395,6 +3305,7 @@
       "title": "Disbursements Pipeline: Analyst & AI Agent Guide",
       "topics": [
         "agent",
+        "analyst",
         "disbursements",
         "intermediate",
         "pipeline",
@@ -2661,7 +3572,7 @@
       "anchor": "exp-cluster-api",
       "weight": 1.0,
       "created": "",
-      "last_accessed": null,
+      "last_accessed": "2026-03-19T09:28:12.930353+00:00",
       "domain": "agent",
       "repo": "dbt-agent",
       "detail_level": "L1",
@@ -2745,7 +3656,7 @@
       "anchor": "exp-cluster-beads",
       "weight": 1.0,
       "created": "",
-      "last_accessed": null,
+      "last_accessed": "2026-03-19T09:28:12.930353+00:00",
       "domain": "agent",
       "repo": "dbt-agent",
       "detail_level": "L1",
@@ -2773,7 +3684,7 @@
       "anchor": "exp-cluster-calendar",
       "weight": 1.0,
       "created": "",
-      "last_accessed": null,
+      "last_accessed": "2026-03-19T09:28:12.930353+00:00",
       "domain": "agent",
       "repo": "dbt-agent",
       "detail_level": "L1",
@@ -2829,7 +3740,7 @@
       "anchor": "exp-cluster-config",
       "weight": 1.0,
       "created": "",
-      "last_accessed": null,
+      "last_accessed": "2026-03-19T09:28:12.930353+00:00",
       "domain": "agent",
       "repo": "dbt-agent",
       "detail_level": "L1",
@@ -2913,7 +3824,7 @@
       "anchor": "exp-cluster-dbt",
       "weight": 1.0,
       "created": "",
-      "last_accessed": null,
+      "last_accessed": "2026-03-19T09:28:12.930353+00:00",
       "domain": "agent",
       "repo": "dbt-agent",
       "detail_level": "L1",
@@ -2941,7 +3852,7 @@
       "anchor": "exp-cluster-debugging",
       "weight": 1.0,
       "created": "",
-      "last_accessed": null,
+      "last_accessed": "2026-03-19T09:28:12.930353+00:00",
       "domain": "agent",
       "repo": "dbt-agent",
       "detail_level": "L1",
@@ -2969,7 +3880,7 @@
       "anchor": "exp-cluster-decision",
       "weight": 1.0,
       "created": "",
-      "last_accessed": null,
+      "last_accessed": "2026-03-19T09:28:12.930353+00:00",
       "domain": "agent",
       "repo": "dbt-agent",
       "detail_level": "L1",
@@ -3025,7 +3936,7 @@
       "anchor": "exp-cluster-git",
       "weight": 1.0,
       "created": "",
-      "last_accessed": null,
+      "last_accessed": "2026-03-19T09:28:12.930353+00:00",
       "domain": "agent",
       "repo": "dbt-agent",
       "detail_level": "L1",
@@ -3053,7 +3964,7 @@
       "anchor": "exp-cluster-installation",
       "weight": 1.0,
       "created": "",
-      "last_accessed": null,
+      "last_accessed": "2026-03-19T09:28:12.930353+00:00",
       "domain": "agent",
       "repo": "dbt-agent",
       "detail_level": "L1",
@@ -3360,7 +4271,7 @@
       "anchor": "exp-cluster-sql",
       "weight": 1.0,
       "created": "",
-      "last_accessed": null,
+      "last_accessed": "2026-03-19T09:28:12.930353+00:00",
       "domain": "agent",
       "repo": "dbt-agent",
       "detail_level": "L1",
@@ -3997,6 +4908,7 @@
       "type": "reference_doc",
       "title": "Text-to-SQL Prompt Engineering Patterns",
       "topics": [
+        "analyst",
         "discovery",
         "source"
       ],
@@ -4373,6 +5285,7 @@
       "title": "Merge job failures persisted after introducing optimized cohort models because d",
       "topics": [
         "cohort",
+        "eav",
         "mart",
         "merge",
         "model",
@@ -4551,6 +5464,7 @@
       "title": "Pivot consistency QA reported ~99% mismatches between cohort_progress and cohort",
       "topics": [
         "cohort",
+        "pivot",
         "qa"
       ],
       "summary": "Legacy QA query used direct equality where both sides were frequently NULL, producing false mismatches",
@@ -4775,6 +5689,8 @@
         "edw",
         "gbos",
         "join",
+        "mining",
+        "query-log",
         "redshift",
         "schema",
         "source"
@@ -4891,7 +5807,8 @@
       "title": "dbt MCP Tools Reference",
       "topics": [
         "agent",
-        "mcp"
+        "mcp",
+        "workflow"
       ],
       "summary": "> **Purpose**: Comprehensive reference for all dbt MCP server tools available to Claude Code. > **Critical**: These tools are the key enabler for the 4-agent workflow. USE THEM.",
       "anchor": "ref-dbt-mcp-tools-reference",
@@ -5040,7 +5957,9 @@
       "topics": [
         "lineage",
         "manifest",
-        "qa"
+        "parser",
+        "qa",
+        "workflow"
       ],
       "summary": "import json from pathlib import Path",
       "anchor": "ref-manifest-parser-qa-workflow",
@@ -5063,7 +5982,8 @@
       "type": "reference_doc",
       "title": "Metrics Capture Protocol",
       "topics": [
-        "learning"
+        "learning",
+        "mining"
       ],
       "summary": "**Purpose:** Capture session metrics for the Learning Loop via specstory/chatops mining.",
       "anchor": "ref-metrics-capture-protocol",
@@ -5133,6 +6053,7 @@
       "type": "reference_doc",
       "title": "Posted Transactions Pipeline \u2014 Analyst Guide",
       "topics": [
+        "analyst",
         "pipeline",
         "posted",
         "posted-transaction"
@@ -5159,7 +6080,8 @@
       "title": "QA Validation Checklist",
       "topics": [
         "qa",
-        "validation"
+        "validation",
+        "workflow"
       ],
       "summary": "**Purpose**: Systematic validation workflow to catch issues early and reduce QA iterations",
       "anchor": "ref-qa-validation-checklist",
@@ -5187,7 +6109,8 @@
         "qa",
         "registration",
         "skill",
-        "tableau"
+        "tableau",
+        "workflow"
       ],
       "summary": "**Date:** 2026-02-19 **Origin:** Registration funnel Tableau performance QA revealed sequential bottlenecks **Status:** Approved and applied to `dbt-qa/SKILL.md`",
       "anchor": "ref-qa-workflow-optimization-plan",
@@ -5210,6 +6133,8 @@
       "type": "reference_doc",
       "title": "Query Log Mining Artifacts Index",
       "topics": [
+        "mining",
+        "query-log",
         "redshift"
       ],
       "summary": "**Purpose:** Central index for all artifacts generated from Redshift query log analysis.",
@@ -5305,6 +6230,7 @@
       "type": "reference_doc",
       "title": "Spend Analytics Pipeline \u2014 Analyst Guide",
       "topics": [
+        "analyst",
         "pipeline",
         "semantic-layer"
       ],
@@ -5495,7 +6421,9 @@
       "title": "Canonical Model Scan",
       "topics": [
         "canonical",
-        "model"
+        "memory",
+        "model",
+        "scan"
       ],
       "summary": "Complete all three steps. All three are required \u2014 user memory is incomplete and the registry is not exhaustive.",
       "anchor": "rule-dbt-canonical-model-scan",
@@ -5975,6 +6903,9 @@
       "type": "skill",
       "title": "ai-analyst-ensemble",
       "topics": [
+        "analyst",
+        "analyze",
+        "ensemble",
         "mcp",
         "run",
         "semantic-layer"
@@ -6020,7 +6951,9 @@
       "store_path": ".claude/skills/ai-analyst-ensemble/resources/business-analyst.md",
       "type": "skill_resource",
       "title": "Business Analyst",
-      "topics": [],
+      "topics": [
+        "analyst"
+      ],
       "summary": "Resource for ai-analyst-ensemble: Business Analyst",
       "anchor": "skill-ai-analyst-ensemble-business-analyst",
       "weight": 1.0,
@@ -6085,7 +7018,9 @@
       "store_path": ".claude/skills/ai-analyst-ensemble/resources/exploratory-analyst.md",
       "type": "skill_resource",
       "title": "Exploratory Analyst",
-      "topics": [],
+      "topics": [
+        "analyst"
+      ],
       "summary": "Resource for ai-analyst-ensemble: Exploratory Analyst",
       "anchor": "skill-ai-analyst-ensemble-exploratory-analyst",
       "weight": 1.0,
@@ -6106,7 +7041,9 @@
       "store_path": ".claude/skills/ai-analyst-ensemble/resources/forensic-analyst.md",
       "type": "skill_resource",
       "title": "Forensic Analyst",
-      "topics": [],
+      "topics": [
+        "analyst"
+      ],
       "summary": "Resource for ai-analyst-ensemble: Forensic Analyst",
       "anchor": "skill-ai-analyst-ensemble-forensic-analyst",
       "weight": 1.0,
@@ -6127,7 +7064,10 @@
       "store_path": ".claude/skills/ai-analyst-ensemble/resources/research-provenance.md",
       "type": "skill_resource",
       "title": "Research Provenance: AI Analyst Ensemble",
-      "topics": [],
+      "topics": [
+        "analyst",
+        "ensemble"
+      ],
       "summary": "Resource for ai-analyst-ensemble: Research Provenance: AI Analyst Ensemble",
       "anchor": "skill-ai-analyst-ensemble-research-provenance",
       "weight": 1.0,
@@ -6213,7 +7153,9 @@
       "store_path": ".claude/skills/ai-analyst-ensemble/resources/statistical-analyst.md",
       "type": "skill_resource",
       "title": "Statistical Analyst",
-      "topics": [],
+      "topics": [
+        "analyst"
+      ],
       "summary": "Resource for ai-analyst-ensemble: Statistical Analyst",
       "anchor": "skill-ai-analyst-ensemble-statistical-analyst",
       "weight": 1.0,
@@ -6256,6 +7198,7 @@
       "type": "skill",
       "title": "ai-analyst-profile",
       "topics": [
+        "analyst",
         "mcp",
         "semantic-layer",
         "skill"
@@ -6324,7 +7267,9 @@
       "store_path": ".claude/skills/ai-analyst-profile/resources/guardrails.md",
       "type": "skill_resource",
       "title": "AI Analyst Guardrails",
-      "topics": [],
+      "topics": [
+        "analyst"
+      ],
       "summary": "Resource for ai-analyst-profile: AI Analyst Guardrails",
       "anchor": "skill-ai-analyst-profile-guardrails",
       "weight": 1.0,
@@ -6506,7 +7451,9 @@
       "title": "context-graph-expert",
       "topics": [
         "build",
-        "context"
+        "context",
+        "context-graph",
+        "knowledge-graph"
       ],
       "summary": "Builds and queries knowledge graphs from project context. Use when analyzing relationships between models, sources, and business entities, or when asked to \"map dependencies\", \"show connections\", or \"",
       "anchor": "skill-context-graph-expert",
@@ -6529,9 +7476,12 @@
       "type": "skill",
       "title": "data-storytelling",
       "topics": [
+        "analyst",
         "build",
+        "ensemble",
         "semantic-layer",
-        "skill"
+        "skill",
+        "workflow"
       ],
       "summary": "End-to-end workflow from business question to narrative data storytelling page. Chains\n  the analyst ensemble, visualization spec design, chart comparison, critic review, semantic\n  layer queries, and",
       "anchor": "skill-data-storytelling",
@@ -6596,6 +7546,7 @@
       "type": "skill",
       "title": "dbt-artifacts",
       "topics": [
+        "analyze",
         "model",
         "run",
         "skill",
@@ -7168,6 +8119,7 @@
         "agent",
         "knowledge-base",
         "source",
+        "stale",
         "unit-test"
       ],
       "summary": "Scans the dbt-agent knowledge base for redundancy, conflict, and staleness. Use when asked to \"check for stale docs\", \"find conflicting documentation\", \"knowledge base health check\", or \"are our docs ",
@@ -7373,7 +8325,8 @@
         "model",
         "orchestrator",
         "pipeline",
-        "skill"
+        "skill",
+        "workflow"
       ],
       "summary": "Central workflow coordinator for the analytics-workspace-root dbt pipeline model. Manages pipeline state,\n  enforces human review gates, routes workflow phases to the right skills, and keeps the\n  con",
       "anchor": "skill-dbt-orchestrator",
@@ -7486,7 +8439,9 @@
       "store_path": ".claude/skills/dbt-orchestrator/resources/workflow-state-machine.md",
       "type": "skill_resource",
       "title": "Workflow State Machine",
-      "topics": [],
+      "topics": [
+        "workflow"
+      ],
       "summary": "Resource for dbt-orchestrator: Workflow State Machine",
       "anchor": "skill-dbt-orchestrator-workflow-state-machine",
       "weight": 1.0,
@@ -7642,7 +8597,7 @@
       "anchor": "skill-dbt-redshift-optimization",
       "weight": 1.0,
       "created": "",
-      "last_accessed": "2026-03-18T08:56:20.129513+00:00",
+      "last_accessed": null,
       "domain": "agent",
       "repo": "dbt-agent",
       "detail_level": "L1",
@@ -8043,6 +8998,27 @@
       "promoted_to_caf": false,
       "evidence_log": []
     },
+    "skill-echarts-native-features-guide": {
+      "id": "skill-echarts-native-features-guide",
+      "store": "skills",
+      "store_path": ".claude/skills/echarts/resources/native-features-guide.md",
+      "type": "skill_resource",
+      "title": "ECharts Native Features \u2014 When to Use What",
+      "topics": [],
+      "summary": "Resource for echarts: ECharts Native Features \u2014 When to Use What",
+      "anchor": "skill-echarts-native-features-guide",
+      "weight": 1.0,
+      "created": "",
+      "last_accessed": null,
+      "domain": "agent",
+      "repo": "dbt-agent",
+      "detail_level": "L1",
+      "l0_summary": "resource: ECharts Native Features \u2014 When to Use Wh",
+      "valid_from": null,
+      "valid_until": null,
+      "promoted_to_caf": false,
+      "evidence_log": []
+    },
     "skill-explorer-ensemble": {
       "id": "skill-explorer-ensemble",
       "store": "skills",
@@ -8050,7 +9026,9 @@
       "type": "skill",
       "title": "explorer-ensemble",
       "topics": [
+        "analyze",
         "discovery",
+        "ensemble",
         "handoff",
         "semantic-layer"
       ],
@@ -8124,7 +9102,8 @@
       "type": "skill",
       "title": "interactive-dashboard-builder",
       "topics": [
-        "build"
+        "build",
+        "builder"
       ],
       "summary": "Build keyboard-navigable interactive HTML dashboards with deep-dive analytics. Use when asked to \"build a dashboard\", \"create an interactive report\", \"data story\", or \"deep dive visualization\". Build ",
       "anchor": "skill-interactive-dashboard-builder",
@@ -8179,7 +9158,9 @@
         "meta-context",
         "metricflow",
         "schema",
-        "semantic-layer"
+        "semantic-layer",
+        "skill",
+        "yaml"
       ],
       "summary": "Author, validate, evaluate, and maintain the Meta Context Schema for dbt\n  MetricFlow YAML. Use when the user mentions \"meta context\", \"meta:\",\n  \"business context for metrics\", \"context schema\", \"met",
       "anchor": "skill-meta-context",
@@ -8201,7 +9182,9 @@
       "store_path": ".claude/skills/pptx-powerpoint-generator/SKILL.md",
       "type": "skill",
       "title": "pptx-powerpoint-generator",
-      "topics": [],
+      "topics": [
+        "analyze"
+      ],
       "summary": "\"Presentation creation, editing, and analysis. When Claude needs to work with presentations (.pptx files) for: (1) Creating new presentations, (2) Modifying or editing content, (3) Working with layout",
       "anchor": "skill-pptx-powerpoint-generator",
       "weight": 1.0,
@@ -8222,7 +9205,9 @@
       "store_path": ".claude/skills/samwho-interactive-viz/SKILL.md",
       "type": "skill",
       "title": "samwho-interactive-viz",
-      "topics": [],
+      "topics": [
+        "explainer"
+      ],
       "summary": "Create samwho-style interactive web visualizations with scroll-driven animations. Use when asked for \"interactive explainer\", \"scroll visualization\", \"samwho style\", or \"animated tutorial\". Master the",
       "anchor": "skill-samwho-interactive-viz",
       "weight": 1.0,
@@ -8267,6 +9252,7 @@
       "type": "skill",
       "title": "skill-creator",
       "topics": [
+        "benchmark",
         "run",
         "skill",
         "test",
@@ -8316,7 +9302,10 @@
       "store_path": ".claude/skills/synq-data-product-architect/SKILL.md",
       "type": "skill",
       "title": "synq__data-product-architect",
-      "topics": [],
+      "topics": [
+        "architect",
+        "workflow"
+      ],
       "summary": "Guide users through identifying, defining, and prioritizing data products using SYNQ's Data Product \n  Reliability Workflow. Helps establish product-level governance with ownership, priority (P1-P4), ",
       "anchor": "skill-synq-data-product-architect",
       "weight": 1.0,
@@ -8494,7 +9483,10 @@
       "store_path": "shared/learnings/cross-cutting/agent-system.yaml",
       "type": "tool_insight",
       "title": "Treat analyst disagreements as signal, not noise. Genuine disagreements between statistical/forensic/business/explora...",
-      "topics": [],
+      "topics": [
+        "analyst",
+        "ensemble"
+      ],
       "summary": "4-analyst ensemble disagreements on diagnosis question",
       "anchor": "ti-002",
       "weight": 1.0,
@@ -8528,6 +9520,452 @@
       "detail_level": "L1",
       "l0_summary": "tool_insight: After any Copilot model revert, immediately check ",
       "valid_from": "2026-02-23",
+      "valid_until": null,
+      "promoted_to_caf": false,
+      "evidence_log": []
+    },
+    "tool-kg-agent_integration": {
+      "id": "tool-kg-agent_integration",
+      "store": "caf_tools",
+      "store_path": "tools/kg/agent_integration.py",
+      "type": "tool",
+      "title": "kg/agent_integration.py",
+      "topics": [
+        "agent",
+        "analyze",
+        "build",
+        "compile",
+        "context",
+        "experience",
+        "incremental",
+        "knowledge-graph",
+        "learning",
+        "manifest",
+        "model",
+        "parser"
+      ],
+      "summary": "Agent Integration for Knowledge Graph.  This module provides helper functions for agents to leverage the KG for faster, more accurate information retrieval.  Usage in agent code: from tools.kg.agent_i",
+      "anchor": "tool-kg-agent_integration",
+      "weight": 1.0,
+      "created": "",
+      "last_accessed": null,
+      "domain": "system",
+      "repo": "caf",
+      "detail_level": "L1",
+      "l0_summary": "tool: kg/agent_integration.py",
+      "valid_from": null,
+      "valid_until": null,
+      "promoted_to_caf": false,
+      "evidence_log": []
+    },
+    "tool-kg-experience_store": {
+      "id": "tool-kg-experience_store",
+      "store": "caf_tools",
+      "store_path": "tools/kg/experience_store.py",
+      "type": "tool",
+      "title": "kg/experience_store.py",
+      "topics": [
+        "agent",
+        "context",
+        "delete-insert",
+        "discovery",
+        "duplicate",
+        "experience",
+        "filter",
+        "incremental",
+        "knowledge-graph",
+        "learning",
+        "merge",
+        "migration"
+      ],
+      "summary": "Spark-inspired Experience Store for Agent Learning.  Enables agents to learn from each other by capturing successful patterns and sharing them across sessions.  Key concept: Migration agent solves pro",
+      "anchor": "tool-kg-experience_store",
+      "weight": 1.0,
+      "created": "",
+      "last_accessed": null,
+      "domain": "system",
+      "repo": "caf",
+      "detail_level": "L1",
+      "l0_summary": "tool: kg/experience_store.py",
+      "valid_from": null,
+      "valid_until": null,
+      "promoted_to_caf": false,
+      "evidence_log": []
+    },
+    "tool-lint-dbt_agent_lint": {
+      "id": "tool-lint-dbt_agent_lint",
+      "store": "caf_tools",
+      "store_path": "tools/lint/dbt_agent_lint.py",
+      "type": "tool",
+      "title": "lint/dbt_agent_lint.py",
+      "topics": [
+        "agent",
+        "append",
+        "config",
+        "filter",
+        "intermediate",
+        "jinja",
+        "join",
+        "lint",
+        "linter",
+        "macro",
+        "mart",
+        "model"
+      ],
+      "summary": "dbt-agent linter: Machine-enforceable rules for dbt model development.  Inspired by Factory.ai's \"Agents write the code; linters write the law\" pattern. Checks SQL source files at write-time for anti-",
+      "anchor": "tool-lint-dbt_agent_lint",
+      "weight": 1.0,
+      "created": "",
+      "last_accessed": "2026-03-19T09:28:08.547151+00:00",
+      "domain": "system",
+      "repo": "caf",
+      "detail_level": "L1",
+      "l0_summary": "tool: lint/dbt_agent_lint.py",
+      "valid_from": null,
+      "valid_until": null,
+      "promoted_to_caf": false,
+      "evidence_log": []
+    },
+    "tool-lint-metricflow_lint": {
+      "id": "tool-lint-metricflow_lint",
+      "store": "caf_tools",
+      "store_path": "tools/lint/metricflow_lint.py",
+      "type": "tool",
+      "title": "lint/metricflow_lint.py",
+      "topics": [
+        "duplicate",
+        "lint",
+        "linter",
+        "metricflow",
+        "model",
+        "parse",
+        "rule",
+        "validation",
+        "window",
+        "yaml"
+      ],
+      "summary": "MetricFlow YAML Linter: Catches finicky validation errors before dbt parse.  MetricFlow's validation errors are cryptic and only surface at parse/validate time. This linter catches the most common mis",
+      "anchor": "tool-lint-metricflow_lint",
+      "weight": 1.0,
+      "created": "",
+      "last_accessed": "2026-03-19T09:28:08.547151+00:00",
+      "domain": "system",
+      "repo": "caf",
+      "detail_level": "L1",
+      "l0_summary": "tool: lint/metricflow_lint.py",
+      "valid_from": null,
+      "valid_until": null,
+      "promoted_to_caf": false,
+      "evidence_log": []
+    },
+    "tool-query-log-mining-alias_miner": {
+      "id": "tool-query-log-mining-alias_miner",
+      "store": "caf_tools",
+      "store_path": "tools/query-log-mining/alias_miner.py",
+      "type": "tool",
+      "title": "query-log-mining/alias_miner.py",
+      "topics": [
+        "build",
+        "canonical",
+        "controlled-vocabulary",
+        "dictionary",
+        "parser",
+        "source",
+        "statistics",
+        "test",
+        "yaml"
+      ],
+      "summary": "Alias Miner Module  Extracts column aliases from parsed queries to build a controlled vocabulary. Identifies conflicts (same alias for different columns) for resolution.",
+      "anchor": "tool-query-log-mining-alias_miner",
+      "weight": 1.0,
+      "created": "",
+      "last_accessed": null,
+      "domain": "system",
+      "repo": "caf",
+      "detail_level": "L1",
+      "l0_summary": "tool: query-log-mining/alias_miner.py",
+      "valid_from": null,
+      "valid_until": null,
+      "promoted_to_caf": false,
+      "evidence_log": []
+    },
+    "tool-query-log-mining-anti_pattern_analyzer": {
+      "id": "tool-query-log-mining-anti_pattern_analyzer",
+      "store": "caf_tools",
+      "store_path": "tools/query-log-mining/anti_pattern_analyzer.py",
+      "type": "tool",
+      "title": "query-log-mining/anti_pattern_analyzer.py",
+      "topics": [
+        "anti-pattern",
+        "join",
+        "not-in",
+        "parser",
+        "statistics",
+        "test",
+        "yaml"
+      ],
+      "summary": "Anti-Pattern Impact Analyzer Module  Correlates anti-patterns with execution time to quantify actual performance impact. Enables data-driven prioritization of fixes.",
+      "anchor": "tool-query-log-mining-anti_pattern_analyzer",
+      "weight": 1.0,
+      "created": "",
+      "last_accessed": null,
+      "domain": "system",
+      "repo": "caf",
+      "detail_level": "L1",
+      "l0_summary": "tool: query-log-mining/anti_pattern_analyzer.py",
+      "valid_from": null,
+      "valid_until": null,
+      "promoted_to_caf": false,
+      "evidence_log": []
+    },
+    "tool-query-log-mining-join_extractor": {
+      "id": "tool-query-log-mining-join_extractor",
+      "store": "caf_tools",
+      "store_path": "tools/query-log-mining/join_extractor.py",
+      "type": "tool",
+      "title": "query-log-mining/join_extractor.py",
+      "topics": [
+        "build",
+        "canonical",
+        "dictionary",
+        "join",
+        "left-join",
+        "parser",
+        "source",
+        "statistics",
+        "test",
+        "yaml"
+      ],
+      "summary": "Join Extractor Module  Extracts join relationships from parsed queries and builds a normalized registry. Outputs dual-indexed YAML for fast bidirectional lookup.",
+      "anchor": "tool-query-log-mining-join_extractor",
+      "weight": 1.0,
+      "created": "",
+      "last_accessed": null,
+      "domain": "system",
+      "repo": "caf",
+      "detail_level": "L1",
+      "l0_summary": "tool: query-log-mining/join_extractor.py",
+      "valid_from": null,
+      "valid_until": null,
+      "promoted_to_caf": false,
+      "evidence_log": []
+    },
+    "tool-query-log-mining-main": {
+      "id": "tool-query-log-mining-main",
+      "store": "caf_tools",
+      "store_path": "tools/query-log-mining/main.py",
+      "type": "tool",
+      "title": "query-log-mining/main.py",
+      "topics": [
+        "analyze",
+        "append",
+        "build",
+        "filter",
+        "join",
+        "mining",
+        "null",
+        "parse",
+        "parser",
+        "pipeline",
+        "query-log",
+        "redshift"
+      ],
+      "summary": "Query Log Mining - Main Orchestration Script  Coordinates the extraction of structured knowledge from Redshift query logs.  Usage: python -m tools.query_log_mining.main <command> [options]  Commands: ",
+      "anchor": "tool-query-log-mining-main",
+      "weight": 1.0,
+      "created": "",
+      "last_accessed": null,
+      "domain": "system",
+      "repo": "caf",
+      "detail_level": "L1",
+      "l0_summary": "tool: query-log-mining/main.py",
+      "valid_from": null,
+      "valid_until": null,
+      "promoted_to_caf": false,
+      "evidence_log": []
+    },
+    "tool-query-log-mining-parser": {
+      "id": "tool-query-log-mining-parser",
+      "store": "caf_tools",
+      "store_path": "tools/query-log-mining/parser.py",
+      "type": "tool",
+      "title": "query-log-mining/parser.py",
+      "topics": [
+        "baas",
+        "build",
+        "edw",
+        "filter",
+        "gbos",
+        "join",
+        "not-in",
+        "parse",
+        "parser",
+        "redshift",
+        "run",
+        "schema"
+      ],
+      "summary": "SQL Parser Module  Parses SQL queries using sqlglot with Redshift dialect. Extracts structured information for downstream analysis.",
+      "anchor": "tool-query-log-mining-parser",
+      "weight": 1.0,
+      "created": "",
+      "last_accessed": null,
+      "domain": "system",
+      "repo": "caf",
+      "detail_level": "L1",
+      "l0_summary": "tool: query-log-mining/parser.py",
+      "valid_from": null,
+      "valid_until": null,
+      "promoted_to_caf": false,
+      "evidence_log": []
+    },
+    "tool-query-log-mining-semantic_inferrer": {
+      "id": "tool-query-log-mining-semantic_inferrer",
+      "store": "caf_tools",
+      "store_path": "tools/query-log-mining/semantic_inferrer.py",
+      "type": "tool",
+      "title": "query-log-mining/semantic_inferrer.py",
+      "topics": [
+        "cardinality",
+        "context",
+        "join",
+        "model",
+        "parse",
+        "parser",
+        "schema",
+        "source",
+        "test",
+        "yaml"
+      ],
+      "summary": "Semantic Inferrer Module  Infers semantic model elements (dimensions, measures, entities) from query patterns. Uses GROUP BY for dimensions, aggregations for measures, JOIN keys for entities.",
+      "anchor": "tool-query-log-mining-semantic_inferrer",
+      "weight": 1.0,
+      "created": "",
+      "last_accessed": null,
+      "domain": "system",
+      "repo": "caf",
+      "detail_level": "L1",
+      "l0_summary": "tool: query-log-mining/semantic_inferrer.py",
+      "valid_from": null,
+      "valid_until": null,
+      "promoted_to_caf": false,
+      "evidence_log": []
+    },
+    "tool-runtime-guards": {
+      "id": "tool-runtime-guards",
+      "store": "caf_tools",
+      "store_path": "tools/runtime/guards.py",
+      "type": "tool",
+      "title": "runtime/guards.py",
+      "topics": [
+        "compile",
+        "context",
+        "contract",
+        "migration",
+        "preflight",
+        "validation"
+      ],
+      "summary": "ToolGuard Decorators  Enforce prerequisite completion before tool execution. Converts \"should\" recommendations into \"must\" requirements.  Usage: @require_context def my_tool(): ...  # Will fail if con",
+      "anchor": "tool-runtime-guards",
+      "weight": 1.0,
+      "created": "",
+      "last_accessed": null,
+      "domain": "system",
+      "repo": "caf",
+      "detail_level": "L1",
+      "l0_summary": "tool: runtime/guards.py",
+      "valid_from": null,
+      "valid_until": null,
+      "promoted_to_caf": false,
+      "evidence_log": []
+    },
+    "tool-runtime-trace_logger": {
+      "id": "tool-runtime-trace_logger",
+      "store": "caf_tools",
+      "store_path": "tools/runtime/trace_logger.py",
+      "type": "tool",
+      "title": "runtime/trace_logger.py",
+      "topics": [
+        "context",
+        "decision-trace",
+        "discovery",
+        "knowledge-base",
+        "model"
+      ],
+      "summary": "Decision Trace Logger with PKO Integration  Logs decision traces and automatically: 1. Links traces to known failure modes 2. Discovers novel failure patterns 3. Updates the traces.json and index  Usa",
+      "anchor": "tool-runtime-trace_logger",
+      "weight": 1.0,
+      "created": "",
+      "last_accessed": null,
+      "domain": "system",
+      "repo": "caf",
+      "detail_level": "L1",
+      "l0_summary": "tool: runtime/trace_logger.py",
+      "valid_from": null,
+      "valid_until": null,
+      "promoted_to_caf": false,
+      "evidence_log": []
+    },
+    "tool-tools-generate_staging_yml_from_dictionary": {
+      "id": "tool-tools-generate_staging_yml_from_dictionary",
+      "store": "caf_tools",
+      "store_path": "tools/generate_staging_yml_from_dictionary.py",
+      "type": "tool",
+      "title": "tools/generate_staging_yml_from_dictionary.py",
+      "topics": [
+        "append",
+        "dictionary",
+        "edw",
+        "model",
+        "null",
+        "schema",
+        "staging",
+        "transaction",
+        "yaml"
+      ],
+      "summary": "Generate dbt staging model YAML documentation from EDW data dictionary.  Usage: python generate_staging_yml_from_dictionary.py FCT_POSTED_TRANSACTION  This script reads r1_edw_dictionary.csv and gener",
+      "anchor": "tool-tools-generate_staging_yml_from_dictionary",
+      "weight": 1.0,
+      "created": "",
+      "last_accessed": null,
+      "domain": "system",
+      "repo": "caf",
+      "detail_level": "L1",
+      "l0_summary": "tool: tools/generate_staging_yml_from_dictionary.py",
+      "valid_from": null,
+      "valid_until": null,
+      "promoted_to_caf": false,
+      "evidence_log": []
+    },
+    "tool-tools-validate_migration_compliance": {
+      "id": "tool-tools-validate_migration_compliance",
+      "store": "caf_tools",
+      "store_path": "tools/validate_migration_compliance.py",
+      "type": "tool",
+      "title": "tools/validate_migration_compliance.py",
+      "topics": [
+        "append",
+        "casting",
+        "config",
+        "handoff",
+        "intermediate",
+        "mart",
+        "migration",
+        "model",
+        "not-in",
+        "run",
+        "type-casting",
+        "validation"
+      ],
+      "summary": "Migration Compliance Validator Validates new models against project standards before handoff.  Usage: python tools/validate_migration_compliance.py --model-path path/to/model.sql",
+      "anchor": "tool-tools-validate_migration_compliance",
+      "weight": 1.0,
+      "created": "",
+      "last_accessed": null,
+      "domain": "system",
+      "repo": "caf",
+      "detail_level": "L1",
+      "l0_summary": "tool: tools/validate_migration_compliance.py",
+      "valid_from": null,
       "valid_until": null,
       "promoted_to_caf": false,
       "evidence_log": []
@@ -8626,6 +10064,7 @@
       "title": "Dashboard build order: (1) memory/dashboard-building.md, (2) domain chart playbook, (3) shared/reference/dashboard-de...",
       "topics": [
         "build",
+        "memory",
         "playbook"
       ],
       "summary": "Dashboard build requiring design fixes after completion",
@@ -8671,7 +10110,10 @@
       "store_path": "shared/learnings/cross-cutting/agent-system.yaml",
       "type": "workflow_pattern",
       "title": "Add auto-save checkpoint after Step 4 (all analysts complete), before critic step",
-      "topics": [],
+      "topics": [
+        "analyst",
+        "ensemble"
+      ],
       "summary": "Ensemble analysis cut off before synthesis \u2014 all analyst outputs lost",
       "anchor": "wf-001",
       "weight": 1.0,
@@ -9335,6 +10777,13 @@
       "evidence": "Resource file for skill dbt-qa"
     },
     {
+      "from_id": "skill-echarts-native-features-guide",
+      "to_id": "skill-echarts",
+      "type": "elaborated_in",
+      "strength": 1.0,
+      "evidence": "Resource file for skill echarts"
+    },
+    {
       "from_id": "caf-trace-qa_2026-03-12_001",
       "to_id": "qa_2026-03-12_001",
       "type": "same_as",
@@ -9503,6 +10952,48 @@
       "evidence": "CAF promoted copy of trace analysis_2026-03-14_001"
     },
     {
+      "from_id": "wf-001",
+      "to_id": "skill-ai-analyst-ensemble",
+      "type": "elaborated_in",
+      "strength": 0.333,
+      "evidence": "Shared topics: analyst, ensemble"
+    },
+    {
+      "from_id": "wf-001",
+      "to_id": "skill-ai-analyst-ensemble-research-provenance",
+      "type": "elaborated_in",
+      "strength": 1.0,
+      "evidence": "Shared topics: analyst, ensemble"
+    },
+    {
+      "from_id": "wf-001",
+      "to_id": "skill-data-storytelling",
+      "type": "elaborated_in",
+      "strength": 0.333,
+      "evidence": "Shared topics: analyst, ensemble"
+    },
+    {
+      "from_id": "ti-002",
+      "to_id": "skill-ai-analyst-ensemble",
+      "type": "elaborated_in",
+      "strength": 0.333,
+      "evidence": "Shared topics: analyst, ensemble"
+    },
+    {
+      "from_id": "ti-002",
+      "to_id": "skill-ai-analyst-ensemble-research-provenance",
+      "type": "elaborated_in",
+      "strength": 1.0,
+      "evidence": "Shared topics: analyst, ensemble"
+    },
+    {
+      "from_id": "ti-002",
+      "to_id": "skill-data-storytelling",
+      "type": "elaborated_in",
+      "strength": 0.333,
+      "evidence": "Shared topics: analyst, ensemble"
+    },
+    {
       "from_id": "dkn-001",
       "to_id": "skill-dbt-lineage",
       "type": "elaborated_in",
@@ -9534,7 +11025,7 @@
       "from_id": "efx-016",
       "to_id": "skill-dbt-artifacts",
       "type": "elaborated_in",
-      "strength": 0.4,
+      "strength": 0.333,
       "evidence": "Shared topics: model, run"
     },
     {
@@ -9693,6 +11184,13 @@
     },
     {
       "from_id": "efx-014",
+      "to_id": "caf-ref-dbt-pipelines-folder-structure-and-naming",
+      "type": "related",
+      "strength": 0.333,
+      "evidence": "Shared topics: auth, gbos, intermediate"
+    },
+    {
+      "from_id": "efx-014",
       "to_id": "caf-trace-qa_2025-12-22_001",
       "type": "related",
       "strength": 0.375,
@@ -9750,20 +11248,6 @@
     {
       "from_id": "efx-018",
       "to_id": "kb-troubleshooting",
-      "type": "related",
-      "strength": 0.333,
-      "evidence": "Shared topics: qa, validation"
-    },
-    {
-      "from_id": "efx-018",
-      "to_id": "ref-qa-validation-checklist",
-      "type": "related",
-      "strength": 0.333,
-      "evidence": "Shared topics: qa, validation"
-    },
-    {
-      "from_id": "efx-018",
-      "to_id": "caf-ref-dbt-pipelines-qa-validation-checklist",
       "type": "related",
       "strength": 0.333,
       "evidence": "Shared topics: qa, validation"
@@ -9830,6 +11314,13 @@
       "type": "reinforces",
       "strength": 0.4,
       "evidence": "Shared topics: join, model"
+    },
+    {
+      "from_id": "di-002",
+      "to_id": "tool-runtime-trace_logger",
+      "type": "related",
+      "strength": 0.4,
+      "evidence": "Shared topics: context, knowledge-base"
     },
     {
       "from_id": "efx-003",
@@ -9955,14 +11446,14 @@
       "to_id": "qa_2026-01-15_001",
       "type": "reinforces",
       "strength": 1.0,
-      "evidence": "Shared topics: cohort, mart, merge"
+      "evidence": "Shared topics: cohort, eav, mart"
     },
     {
       "from_id": "efx-017",
       "to_id": "caf-trace-qa_2026-01-15_001",
       "type": "related",
       "strength": 1.0,
-      "evidence": "Shared topics: cohort, mart, merge"
+      "evidence": "Shared topics: cohort, eav, mart"
     },
     {
       "from_id": "efx-002",
@@ -9996,14 +11487,7 @@
       "from_id": "vwf-001",
       "to_id": "ref-pipeline-build-playbook",
       "type": "related",
-      "strength": 0.5,
-      "evidence": "Shared topics: build, playbook"
-    },
-    {
-      "from_id": "vwf-001",
-      "to_id": "caf-ref-dbt-pipelines-pipeline-build-playbook",
-      "type": "related",
-      "strength": 0.5,
+      "strength": 0.4,
       "evidence": "Shared topics: build, playbook"
     },
     {
@@ -10039,7 +11523,7 @@
       "to_id": "caf-trace-qa_2026-02-19_001",
       "type": "related",
       "strength": 1.0,
-      "evidence": "Shared topics: cohort, qa"
+      "evidence": "Shared topics: cohort, pivot, qa"
     },
     {
       "from_id": "qa_2026-02-01_001",
@@ -10211,6 +11695,13 @@
     },
     {
       "from_id": "qa_2026-01-04_005",
+      "to_id": "caf-ref-dbt-pipelines-folder-structure-and-naming",
+      "type": "related",
+      "strength": 0.333,
+      "evidence": "Shared topics: auth, gbos, intermediate"
+    },
+    {
+      "from_id": "qa_2026-01-04_005",
       "to_id": "caf-trace-qa_2025-12-22_001",
       "type": "related",
       "strength": 0.375,
@@ -10241,7 +11732,7 @@
       "from_id": "qa_2025-01-03_001",
       "to_id": "skill-dbt-artifacts",
       "type": "elaborated_in",
-      "strength": 0.5,
+      "strength": 0.4,
       "evidence": "Shared topics: model, run"
     },
     {
@@ -10270,7 +11761,7 @@
       "to_id": "caf-trace-qa_2026-01-15_001",
       "type": "related",
       "strength": 1.0,
-      "evidence": "Shared topics: cohort, mart, merge"
+      "evidence": "Shared topics: cohort, eav, mart"
     },
     {
       "from_id": "qa_2026-01-21_002",
@@ -10282,20 +11773,6 @@
     {
       "from_id": "qa_2026-01-21_002",
       "to_id": "kb-troubleshooting",
-      "type": "related",
-      "strength": 0.333,
-      "evidence": "Shared topics: qa, validation"
-    },
-    {
-      "from_id": "qa_2026-01-21_002",
-      "to_id": "ref-qa-validation-checklist",
-      "type": "related",
-      "strength": 0.333,
-      "evidence": "Shared topics: qa, validation"
-    },
-    {
-      "from_id": "qa_2026-01-21_002",
-      "to_id": "caf-ref-dbt-pipelines-qa-validation-checklist",
       "type": "related",
       "strength": 0.333,
       "evidence": "Shared topics: qa, validation"
@@ -10374,15 +11851,8 @@
       "from_id": "rule-dbt-canonical-model-scan",
       "to_id": "skill-dbt-standards",
       "type": "reinforces",
-      "strength": 0.667,
+      "strength": 0.4,
       "evidence": "Shared topics: canonical, model"
-    },
-    {
-      "from_id": "rule-dbt-compile-before-run",
-      "to_id": "skill-dbt-artifacts",
-      "type": "reinforces",
-      "strength": 0.333,
-      "evidence": "Shared topics: run, test"
     },
     {
       "from_id": "rule-dbt-compile-before-run",
@@ -10402,15 +11872,8 @@
       "from_id": "rule-dbt-discovery-before-building",
       "to_id": "kb-text-to-sql-prompt-patterns",
       "type": "reinforces",
-      "strength": 0.667,
+      "strength": 0.5,
       "evidence": "Shared topics: discovery, source"
-    },
-    {
-      "from_id": "rule-dbt-discovery-before-building",
-      "to_id": "ent-doc-DISBURSEMENTS_PIPELINE_GUIDE",
-      "type": "reinforces",
-      "strength": 0.333,
-      "evidence": "Shared topics: pipeline, source"
     },
     {
       "from_id": "rule-dbt-incremental-merge-lessons",
@@ -10451,29 +11914,8 @@
       "from_id": "rule-dbt-qa-standards",
       "to_id": "ref-qa-validation-checklist",
       "type": "reinforces",
-      "strength": 0.4,
-      "evidence": "Shared topics: qa, validation"
-    },
-    {
-      "from_id": "rule-dbt-qa-standards",
-      "to_id": "caf-ref-dbt-pipelines-qa-row-trace-methodology",
-      "type": "reinforces",
       "strength": 0.333,
       "evidence": "Shared topics: qa, validation"
-    },
-    {
-      "from_id": "rule-dbt-qa-standards",
-      "to_id": "caf-ref-dbt-pipelines-qa-validation-checklist",
-      "type": "reinforces",
-      "strength": 0.4,
-      "evidence": "Shared topics: qa, validation"
-    },
-    {
-      "from_id": "rule-dbt-warehouse-vs-code",
-      "to_id": "skill-dbt-artifacts",
-      "type": "reinforces",
-      "strength": 0.333,
-      "evidence": "Shared topics: model, run"
     },
     {
       "from_id": "rule-dbt-warehouse-vs-code",
@@ -10490,10 +11932,24 @@
       "evidence": "Shared topics: model, run"
     },
     {
+      "from_id": "skill-ai-analyst-profile",
+      "to_id": "ref-spend-analytics-guide",
+      "type": "elaborated_in",
+      "strength": 0.4,
+      "evidence": "Shared topics: analyst, semantic-layer"
+    },
+    {
+      "from_id": "skill-context-graph-expert",
+      "to_id": "caf-ref-research-process-knowledge-management",
+      "type": "elaborated_in",
+      "strength": 0.364,
+      "evidence": "Shared topics: build, context, context-graph"
+    },
+    {
       "from_id": "skill-dbt-artifacts",
       "to_id": "caf-trace-qa_2025-01-03_001",
       "type": "elaborated_in",
-      "strength": 0.5,
+      "strength": 0.4,
       "evidence": "Shared topics: model, run"
     },
     {
@@ -10507,22 +11963,8 @@
       "from_id": "skill-dbt-data-discovery",
       "to_id": "kb-text-to-sql-prompt-patterns",
       "type": "elaborated_in",
-      "strength": 0.4,
+      "strength": 0.333,
       "evidence": "Shared topics: discovery, source"
-    },
-    {
-      "from_id": "skill-dbt-data-discovery",
-      "to_id": "caf-ref-dbt-pipelines-baas-join-registry",
-      "type": "elaborated_in",
-      "strength": 0.333,
-      "evidence": "Shared topics: join, pipeline"
-    },
-    {
-      "from_id": "skill-dbt-data-discovery",
-      "to_id": "caf-ref-dbt-pipelines-join-registry",
-      "type": "elaborated_in",
-      "strength": 0.333,
-      "evidence": "Shared topics: join, source"
     },
     {
       "from_id": "skill-dbt-decision-trace",
@@ -10535,14 +11977,14 @@
       "from_id": "skill-dbt-knowledge-integrity-check",
       "to_id": "kb-README",
       "type": "elaborated_in",
-      "strength": 0.5,
+      "strength": 0.4,
       "evidence": "Shared topics: knowledge-base, source"
     },
     {
       "from_id": "skill-dbt-knowledge-integrity-check",
       "to_id": "ref-anthropic-skills-guide",
       "type": "elaborated_in",
-      "strength": 0.5,
+      "strength": 0.4,
       "evidence": "Shared topics: agent, source"
     },
     {
@@ -10553,6 +11995,20 @@
       "evidence": "Shared topics: model, pipeline, source"
     },
     {
+      "from_id": "skill-dbt-lineage",
+      "to_id": "caf-ref-dbt-pipelines-canonical-models-registry",
+      "type": "elaborated_in",
+      "strength": 0.364,
+      "evidence": "Shared topics: migration, model, pipeline"
+    },
+    {
+      "from_id": "skill-dbt-mcp-setup",
+      "to_id": "caf-ref-research-approach-validation-industry-alignment",
+      "type": "elaborated_in",
+      "strength": 0.3,
+      "evidence": "Shared topics: discovery, mcp, skill"
+    },
+    {
       "from_id": "skill-dbt-migration",
       "to_id": "ref-pipeline-build-playbook",
       "type": "elaborated_in",
@@ -10560,11 +12016,11 @@
       "evidence": "Shared topics: build, migration"
     },
     {
-      "from_id": "skill-dbt-migration",
-      "to_id": "caf-ref-dbt-pipelines-pipeline-build-playbook",
+      "from_id": "skill-dbt-preflight",
+      "to_id": "caf-ref-research-ccv3-architecture-analysis",
       "type": "elaborated_in",
-      "strength": 0.4,
-      "evidence": "Shared topics: build, migration"
+      "strength": 0.3,
+      "evidence": "Shared topics: model, run, skill"
     },
     {
       "from_id": "skill-dbt-preflight",
@@ -10572,6 +12028,27 @@
       "type": "elaborated_in",
       "strength": 0.5,
       "evidence": "Shared topics: model, run"
+    },
+    {
+      "from_id": "skill-dbt-redshift-optimization",
+      "to_id": "caf-ref-research-redshift-query-log-mining-report",
+      "type": "elaborated_in",
+      "strength": 0.357,
+      "evidence": "Shared topics: distkey, incremental, model"
+    },
+    {
+      "from_id": "skill-dbt-semantic-layer-developer",
+      "to_id": "tool-lint-metricflow_lint",
+      "type": "elaborated_in",
+      "strength": 0.308,
+      "evidence": "Shared topics: metricflow, model, validation"
+    },
+    {
+      "from_id": "skill-dbt-standards",
+      "to_id": "caf-ref-research-context-graphs-trustgraph-analysis",
+      "type": "elaborated_in",
+      "strength": 0.3,
+      "evidence": "Shared topics: canonical, model, skill"
     },
     {
       "from_id": "skill-learner",
@@ -10602,25 +12079,25 @@
       "evidence": "Shared topics: pipeline, plan"
     },
     {
-      "from_id": "kb-data-limitations",
-      "to_id": "caf-ref-dbt-pipelines-data-limitations",
-      "type": "related",
-      "strength": 1.0,
-      "evidence": "Shared topics: data-limitation, model"
-    },
-    {
       "from_id": "kb-declined-transaction-handling",
       "to_id": "caf-ref-dbt-pipelines-declined-transaction-handling",
       "type": "related",
-      "strength": 1.0,
+      "strength": 0.364,
       "evidence": "Shared topics: baas, declined, declined-transaction"
     },
     {
       "from_id": "kb-gbos-wallet-tokenization-patterns",
       "to_id": "caf-ref-dbt-pipelines-gbos-wallet-tokenization-patterns",
       "type": "related",
-      "strength": 1.0,
+      "strength": 0.455,
       "evidence": "Shared topics: ewallet, gbos, source"
+    },
+    {
+      "from_id": "kb-legacy-kpi-gold-standard-metrics",
+      "to_id": "caf-ref-dbt-pipelines-legacy-kpi-gold-standard-metrics",
+      "type": "related",
+      "strength": 0.385,
+      "evidence": "Shared topics: gold-standard, pipeline, qa"
     },
     {
       "from_id": "kb-legacy-kpi-gold-standard-metrics",
@@ -10637,38 +12114,10 @@
       "evidence": "Shared topics: qa, suppression"
     },
     {
-      "from_id": "kb-prevention-tests-registry",
-      "to_id": "caf-ref-dbt-pipelines-prevention-tests-registry",
-      "type": "related",
-      "strength": 1.0,
-      "evidence": "Shared topics: prevention, qa, suppression"
-    },
-    {
-      "from_id": "kb-prevention-tests-registry",
-      "to_id": "caf-ref-dbt-pipelines-temp-filter-quick-reference",
-      "type": "related",
-      "strength": 0.5,
-      "evidence": "Shared topics: qa, suppression"
-    },
-    {
       "from_id": "kb-troubleshooting",
       "to_id": "ref-qa-validation-checklist",
       "type": "related",
-      "strength": 1.0,
-      "evidence": "Shared topics: qa, validation"
-    },
-    {
-      "from_id": "kb-troubleshooting",
-      "to_id": "caf-ref-dbt-pipelines-qa-row-trace-methodology",
-      "type": "related",
       "strength": 0.667,
-      "evidence": "Shared topics: qa, validation"
-    },
-    {
-      "from_id": "kb-troubleshooting",
-      "to_id": "caf-ref-dbt-pipelines-qa-validation-checklist",
-      "type": "related",
-      "strength": 1.0,
       "evidence": "Shared topics: qa, validation"
     },
     {
@@ -10689,14 +12138,21 @@
       "from_id": "kb-type-casting-cheatsheet",
       "to_id": "caf-ref-redshift-type-casting-cheatsheet",
       "type": "related",
-      "strength": 1.0,
+      "strength": 0.417,
       "evidence": "Shared topics: casting, cheatsheet, redshift"
+    },
+    {
+      "from_id": "ref-anthropic-skills-guide",
+      "to_id": "caf-ref-research-claude-code-tips-audit",
+      "type": "related",
+      "strength": 0.333,
+      "evidence": "Shared topics: agent, source"
     },
     {
       "from_id": "ref-anthropic-skills-guide",
       "to_id": "ent-doc-DISBURSEMENTS_PIPELINE_GUIDE",
       "type": "related",
-      "strength": 0.4,
+      "strength": 0.333,
       "evidence": "Shared topics: agent, source"
     },
     {
@@ -10704,49 +12160,63 @@
       "to_id": "caf-ref-dbt-pipelines-baas-controlled-vocabulary",
       "type": "related",
       "strength": 0.333,
-      "evidence": "Shared topics: baas, redshift, source"
+      "evidence": "Shared topics: baas, query-log, redshift"
+    },
+    {
+      "from_id": "ref-baas-schema-join-patterns",
+      "to_id": "caf-ref-dbt-pipelines-baas-join-registry",
+      "type": "related",
+      "strength": 0.333,
+      "evidence": "Shared topics: baas, edw, gbos"
     },
     {
       "from_id": "ref-baas-schema-join-patterns",
       "to_id": "caf-ref-dbt-pipelines-baas-schema-join-patterns",
       "type": "related",
-      "strength": 1.0,
+      "strength": 0.75,
       "evidence": "Shared topics: baas, edw, gbos"
     },
     {
       "from_id": "ref-baas-schema-join-patterns",
       "to_id": "caf-ref-dbt-pipelines-join-registry",
       "type": "related",
-      "strength": 0.429,
-      "evidence": "Shared topics: join, redshift, source"
+      "strength": 0.444,
+      "evidence": "Shared topics: join, query-log, redshift"
+    },
+    {
+      "from_id": "ref-baas-schema-join-patterns",
+      "to_id": "caf-ref-redshift-query-mining-executive-summary",
+      "type": "related",
+      "strength": 0.312,
+      "evidence": "Shared topics: join, mining, query-log"
+    },
+    {
+      "from_id": "ref-baas-schema-join-patterns",
+      "to_id": "caf-ref-research-redshift-query-log-mining-report",
+      "type": "related",
+      "strength": 0.312,
+      "evidence": "Shared topics: edw, join, mining"
+    },
+    {
+      "from_id": "ref-baas-schema-join-patterns",
+      "to_id": "tool-query-log-mining-parser",
+      "type": "related",
+      "strength": 0.4,
+      "evidence": "Shared topics: baas, edw, gbos"
     },
     {
       "from_id": "ref-edw-dictionary-readme",
       "to_id": "caf-ref-dbt-pipelines-edw-dictionary-readme",
       "type": "related",
-      "strength": 1.0,
+      "strength": 0.3,
       "evidence": "Shared topics: dictionary, edw, staging"
     },
     {
       "from_id": "ref-edw-dictionary-readme",
-      "to_id": "caf-ref-dbt-pipelines-using-edw-dictionary",
+      "to_id": "tool-tools-generate_staging_yml_from_dictionary",
       "type": "related",
-      "strength": 0.6,
+      "strength": 0.333,
       "evidence": "Shared topics: dictionary, edw, staging"
-    },
-    {
-      "from_id": "ref-gate-markers-quick-ref",
-      "to_id": "ent-doc-DISBURSEMENTS_PIPELINE_GUIDE",
-      "type": "related",
-      "strength": 0.333,
-      "evidence": "Shared topics: agent, pipeline"
-    },
-    {
-      "from_id": "ref-generate-staging-model-tools",
-      "to_id": "caf-ref-dbt-pipelines-using-edw-dictionary",
-      "type": "related",
-      "strength": 0.333,
-      "evidence": "Shared topics: model, staging"
     },
     {
       "from_id": "ref-generate-staging-model-tools",
@@ -10754,20 +12224,6 @@
       "type": "related",
       "strength": 0.333,
       "evidence": "Shared topics: model, staging"
-    },
-    {
-      "from_id": "ref-learning-codification-quick-reference",
-      "to_id": "caf-ref-dbt-pipelines-multi-agent-qa-workflow",
-      "type": "related",
-      "strength": 0.667,
-      "evidence": "Shared topics: agent, qa"
-    },
-    {
-      "from_id": "ref-learning-codification-quick-reference",
-      "to_id": "caf-ref-dbt-pipelines-qa-row-trace-methodology",
-      "type": "related",
-      "strength": 0.5,
-      "evidence": "Shared topics: agent, qa"
     },
     {
       "from_id": "ref-learning-codification-quick-reference",
@@ -10780,134 +12236,113 @@
       "from_id": "ref-manifest-parser-qa-workflow",
       "to_id": "caf-ref-dbt-pipelines-manifest-parser-qa-workflow",
       "type": "related",
-      "strength": 1.0,
-      "evidence": "Shared topics: lineage, manifest, qa"
+      "strength": 0.308,
+      "evidence": "Shared topics: lineage, manifest, parser"
     },
     {
       "from_id": "ref-pipeline-build-playbook",
-      "to_id": "caf-ref-dbt-pipelines-pipeline-build-playbook",
+      "to_id": "caf-ref-dbt-pipelines-canonical-models-registry",
       "type": "related",
-      "strength": 1.0,
+      "strength": 0.3,
       "evidence": "Shared topics: build, migration, pipeline"
     },
     {
       "from_id": "ref-posted-transactions-guide",
       "to_id": "caf-ref-dbt-pipelines-posted-transactions-guide",
       "type": "related",
-      "strength": 1.0,
-      "evidence": "Shared topics: pipeline, posted, posted-transaction"
-    },
-    {
-      "from_id": "ref-qa-validation-checklist",
-      "to_id": "caf-ref-dbt-pipelines-qa-row-trace-methodology",
-      "type": "related",
-      "strength": 0.667,
-      "evidence": "Shared topics: qa, validation"
-    },
-    {
-      "from_id": "ref-qa-validation-checklist",
-      "to_id": "caf-ref-dbt-pipelines-qa-validation-checklist",
-      "type": "related",
-      "strength": 1.0,
-      "evidence": "Shared topics: qa, validation"
-    },
-    {
-      "from_id": "ref-qa-validation-checklist",
-      "to_id": "caf-trace-qa_2026-01-21_002",
-      "type": "related",
       "strength": 0.333,
-      "evidence": "Shared topics: qa, validation"
+      "evidence": "Shared topics: analyst, pipeline, posted"
     },
     {
       "from_id": "ref-qa-validation-checklist",
       "to_id": "ent-doc-SAMSUNG_QA_VALIDATION_REPORT",
       "type": "related",
-      "strength": 0.5,
+      "strength": 0.4,
       "evidence": "Shared topics: qa, validation"
     },
     {
-      "from_id": "ref-redshift-intelligence-playbook",
-      "to_id": "caf-ref-redshift-redshift-intelligence-playbook",
+      "from_id": "ref-query-log-artifacts-index",
+      "to_id": "caf-ref-dbt-pipelines-join-registry",
       "type": "related",
-      "strength": 1.0,
-      "evidence": "Shared topics: playbook, redshift"
-    },
-    {
-      "from_id": "ref-spend-analytics-guide",
-      "to_id": "caf-ref-dbt-pipelines-spend-analytics-guide",
-      "type": "related",
-      "strength": 1.0,
-      "evidence": "Shared topics: pipeline, semantic-layer"
-    },
-    {
-      "from_id": "ref-temp-filter-quick-reference",
-      "to_id": "caf-ref-dbt-pipelines-prevention-tests-registry",
-      "type": "related",
-      "strength": 0.5,
-      "evidence": "Shared topics: qa, suppression"
-    },
-    {
-      "from_id": "ref-temp-filter-quick-reference",
-      "to_id": "caf-ref-dbt-pipelines-temp-filter-quick-reference",
-      "type": "related",
-      "strength": 1.0,
-      "evidence": "Shared topics: filter, qa, suppression"
+      "strength": 0.4,
+      "evidence": "Shared topics: query-log, redshift"
     },
     {
       "from_id": "ref-using-edw-dictionary",
       "to_id": "caf-ref-dbt-pipelines-edw-dictionary-readme",
       "type": "related",
-      "strength": 0.6,
-      "evidence": "Shared topics: dictionary, edw, staging"
+      "strength": 0.364,
+      "evidence": "Shared topics: dictionary, edw, model"
     },
     {
       "from_id": "ref-using-edw-dictionary",
       "to_id": "caf-ref-dbt-pipelines-using-edw-dictionary",
       "type": "related",
-      "strength": 1.0,
+      "strength": 0.417,
       "evidence": "Shared topics: dictionary, edw, model"
     },
     {
-      "from_id": "caf-ref-dbt-pipelines-multi-agent-plan-creation-pattern",
-      "to_id": "handoff-PIPELINE_REGISTRY",
+      "from_id": "ref-using-edw-dictionary",
+      "to_id": "tool-tools-generate_staging_yml_from_dictionary",
       "type": "related",
-      "strength": 0.5,
-      "evidence": "Shared topics: merchant-spend, plan"
+      "strength": 0.4,
+      "evidence": "Shared topics: dictionary, edw, model"
     },
     {
-      "from_id": "caf-ref-dbt-pipelines-multi-agent-qa-workflow",
-      "to_id": "ent-doc-SAMSUNG_QA_VALIDATION_REPORT",
-      "type": "related",
-      "strength": 0.5,
-      "evidence": "Shared topics: agent, qa"
-    },
-    {
-      "from_id": "caf-ref-dbt-pipelines-qa-row-trace-methodology",
-      "to_id": "ent-doc-SAMSUNG_QA_VALIDATION_REPORT",
-      "type": "related",
-      "strength": 0.75,
-      "evidence": "Shared topics: agent, qa, validation"
-    },
-    {
-      "from_id": "caf-ref-dbt-pipelines-qa-validation-checklist",
-      "to_id": "caf-trace-qa_2026-01-21_002",
+      "from_id": "caf-ref-dbt-pipelines-baas-schema-join-patterns",
+      "to_id": "tool-query-log-mining-parser",
       "type": "related",
       "strength": 0.333,
-      "evidence": "Shared topics: qa, validation"
+      "evidence": "Shared topics: baas, edw, gbos"
     },
     {
-      "from_id": "caf-ref-dbt-pipelines-qa-validation-checklist",
-      "to_id": "ent-doc-SAMSUNG_QA_VALIDATION_REPORT",
+      "from_id": "caf-ref-dbt-pipelines-edw-dictionary-readme",
+      "to_id": "tool-tools-generate_staging_yml_from_dictionary",
       "type": "related",
-      "strength": 0.5,
-      "evidence": "Shared topics: qa, validation"
+      "strength": 0.462,
+      "evidence": "Shared topics: dictionary, edw, model"
     },
     {
-      "from_id": "caf-ref-redshift-case-study-eav-optimization",
-      "to_id": "handoff-active-gbos-cohort-optimization-plan-2026-01-14",
+      "from_id": "caf-ref-dbt-pipelines-folder-structure-and-naming",
+      "to_id": "caf-trace-qa_2026-01-04_005",
       "type": "related",
       "strength": 0.333,
-      "evidence": "Shared topics: gbos, optimization"
+      "evidence": "Shared topics: auth, gbos, intermediate"
+    },
+    {
+      "from_id": "caf-ref-dbt-pipelines-quick-reference-snippets",
+      "to_id": "tool-lint-dbt_agent_lint",
+      "type": "related",
+      "strength": 0.412,
+      "evidence": "Shared topics: config, filter, intermediate"
+    },
+    {
+      "from_id": "caf-ref-dbt-pipelines-using-edw-dictionary",
+      "to_id": "tool-tools-generate_staging_yml_from_dictionary",
+      "type": "related",
+      "strength": 0.4,
+      "evidence": "Shared topics: dictionary, edw, model"
+    },
+    {
+      "from_id": "caf-ref-redshift-query-log-mining-phase2-spec",
+      "to_id": "tool-query-log-mining-main",
+      "type": "related",
+      "strength": 0.333,
+      "evidence": "Shared topics: analyze, build, filter"
+    },
+    {
+      "from_id": "caf-ref-research-frontier-gap-analysis",
+      "to_id": "tool-kg-agent_integration",
+      "type": "related",
+      "strength": 0.333,
+      "evidence": "Shared topics: agent, context, experience"
+    },
+    {
+      "from_id": "caf-ref-research-session-continuity-adoption",
+      "to_id": "tool-kg-experience_store",
+      "type": "related",
+      "strength": 0.333,
+      "evidence": "Shared topics: agent, context, delete-insert"
     },
     {
       "from_id": "caf-trace-qa_2026-02-27_001",
@@ -10915,13 +12350,6 @@
       "type": "related",
       "strength": 0.333,
       "evidence": "Shared topics: mart, qa"
-    },
-    {
-      "from_id": "ent-doc-DISBURSEMENTS_PIPELINE_GUIDE",
-      "to_id": "handoff-disbursements-PLAN",
-      "type": "related",
-      "strength": 0.333,
-      "evidence": "Shared topics: disbursements, pipeline"
     },
     {
       "from_id": "ent-doc-SAMSUNG_STAKEHOLDER_QA_2026_03_09",

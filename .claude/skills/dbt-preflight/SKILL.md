@@ -31,7 +31,7 @@ Estimate execution cost and risk before running dbt work from `dbt-enterprise`.
 
 If needed, fall back to:
 
-- `dbt-agent/shared/reference/MANDATORY_COMPILE_RULE.md`
+- `knowledge/reference/standards/mandatory-compile-rule.md`
 - `dbt-agent/.claude/skills/dbt-preflight/SKILL.md`
 
 ## Core Rule

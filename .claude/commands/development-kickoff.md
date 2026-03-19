@@ -37,7 +37,7 @@ knowledge/domains/dbt-pipelines/reference/canonical-models-registry.md
 knowledge/domains/dbt-pipelines/reference/folder-structure-and-naming.md
 knowledge/domains/dbt-pipelines/reference/qa-validation-checklist.md
 knowledge/domains/redshift/reference/anti-pattern-impact.yml
-dbt-agent/shared/reference/baas-join-registry.yml
+knowledge/domains/dbt-pipelines/reference/baas-join-registry.yml
 ```
 
 Confirm each loaded (do not paste contents — just confirm availability).

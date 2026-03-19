@@ -29,8 +29,8 @@ QA workflow guidance for validating dbt pipeline outputs.
 
 If needed, fall back to:
 
-- `dbt-agent/shared/decision-traces/rules.json`
-- `dbt-agent/shared/decision-traces/traces.json`
+- `knowledge/domains/dbt-pipelines/decision-traces/rules.json`
+- `knowledge/domains/dbt-pipelines/decision-traces/traces-full.json`
 - `dbt-agent/.claude/skills/dbt-qa/SKILL.md`
 
 ## Use This Skill To

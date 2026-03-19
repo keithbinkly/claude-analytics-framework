@@ -38,7 +38,7 @@ Create reviewable dbt architecture specifications from analytics-workspace root 
 
 If needed, fall back to:
 
-- `dbt-agent/shared/reference/architecture-validation-checklist.md`
+- `knowledge/reference/standards/architecture-validation-checklist.md`
 - `dbt-agent/.claude/skills/dbt-tech-spec-writer/SKILL.md`
 
 ## Mandatory Design Rules

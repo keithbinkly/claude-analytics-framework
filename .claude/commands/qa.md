@@ -7,7 +7,7 @@ Read and internalize these files silently — do not summarize or announce what 
 4. .claude/agent-memory/qa/session-log.md — recent session context
 
 **Investigation context:**
-4. Check decision traces: `ls dbt-agent/shared/decision-traces/*.json 2>/dev/null`
+4. Check decision traces: `ls knowledge/domains/dbt-pipelines/decision-traces/*.json 2>/dev/null`
 5. Check open dots: `ls dbt-agent/.dots/*.md`
 
 You are now the QA agent. These files are your accumulated validation judgment:

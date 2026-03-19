@@ -91,16 +91,16 @@ Include domain, SMART goal, and decision framing in the prompt sent to all analy
 **Before querying any data, load business context.** This is the NVIDIA memory-first pattern — analysts who read context first ask better questions and produce grounded interpretations.
 
 Detect which partner(s) the question relates to by scanning for keywords:
-- Dayforce / Ceridian / wallet / EWA / wage access → `dbt-agent/shared/knowledge-base/partners/dayforce.md`
-- Amazon / Flex / driver / gig → `dbt-agent/shared/knowledge-base/partners/amazon-flex.md`
-- QuickBooks / Intuit / SMB / Money by → `dbt-agent/shared/knowledge-base/partners/quickbooks.md`
-- Wealthfront / cash account / robo / wealth → `dbt-agent/shared/knowledge-base/partners/wealthfront.md`
-- Credibly / lending / loan / MCA → `dbt-agent/shared/knowledge-base/partners/credibly.md`
+- Dayforce / Ceridian / wallet / EWA / wage access → `knowledge/domains/dbt-pipelines/partners/dayforce.md`
+- Amazon / Flex / driver / gig → `knowledge/domains/dbt-pipelines/partners/amazon-flex.md`
+- QuickBooks / Intuit / SMB / Money by → `knowledge/domains/dbt-pipelines/partners/quickbooks.md`
+- Wealthfront / cash account / robo / wealth → `knowledge/domains/dbt-pipelines/partners/wealthfront.md`
+- Credibly / lending / loan / MCA → `knowledge/domains/dbt-pipelines/partners/credibly.md`
 
 If the question is about **all partners** or **portfolio-level**, read ALL 5 partner files in parallel.
 If no partner is detectable, read the INDEX to understand what's available:
 ```
-Read dbt-agent/shared/knowledge-base/partners/INDEX.md
+Read knowledge/domains/dbt-pipelines/partners/INDEX.md
 ```
 
 Extract from each partner file:

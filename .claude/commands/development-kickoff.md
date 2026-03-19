@@ -32,11 +32,11 @@ This command explicitly activates context for all dbt development skills:
 Read the mandatory pre-flight references:
 
 ```
-dbt-agent/shared/knowledge-base/migration-quick-reference.md
-dbt-agent/shared/knowledge-base/canonical-models-registry.md
-dbt-agent/shared/knowledge-base/folder-structure-and-naming.md
-dbt-agent/shared/reference/qa-validation-checklist.md
-dbt-agent/shared/reference/anti-pattern-impact.yml
+knowledge/domains/dbt-pipelines/reference/migration-quick-reference.md
+knowledge/domains/dbt-pipelines/reference/canonical-models-registry.md
+knowledge/domains/dbt-pipelines/reference/folder-structure-and-naming.md
+knowledge/domains/dbt-pipelines/reference/qa-validation-checklist.md
+knowledge/domains/redshift/reference/anti-pattern-impact.yml
 dbt-agent/shared/reference/baas-join-registry.yml
 ```
 
@@ -64,7 +64,7 @@ Filter for pipeline-related dots (tags containing "pipeline", "migration", "dbt"
 
 ### 4. Load Canonical Models Registry
 
-Read `dbt-agent/shared/knowledge-base/canonical-models-registry.md` and note:
+Read `knowledge/domains/dbt-pipelines/reference/canonical-models-registry.md` and note:
 - Total canonical models available
 - Recently added models (if timestamped)
 - Coverage gaps (domains without canonical models)

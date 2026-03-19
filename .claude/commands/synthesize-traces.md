@@ -20,9 +20,9 @@ Run this command when:
 Read the trace and rule files:
 
 ```
-dbt-agent/shared/decision-traces/traces.json   # Raw traces
-dbt-agent/shared/decision-traces/rules.json    # Existing rules
-dbt-agent/shared/decision-traces/index.json    # Lookup indexes
+knowledge/domains/dbt-pipelines/decision-traces/traces.json   # Raw traces
+knowledge/domains/dbt-pipelines/decision-traces/rules.json    # Existing rules
+knowledge/domains/dbt-pipelines/decision-traces/index.json    # Lookup indexes
 ```
 
 Report current state:
@@ -81,9 +81,9 @@ For singleton traces not matching any rule:
 ### Step 6: Update Files
 
 Write updated files:
-- `dbt-agent/shared/decision-traces/rules.json` - New/updated rules
-- `dbt-agent/shared/decision-traces/index.json` - Ensure fully indexed
-- `dbt-agent/shared/decision-traces/synthesis_log.json` - Append run record
+- `knowledge/domains/dbt-pipelines/decision-traces/rules.json` - New/updated rules
+- `knowledge/domains/dbt-pipelines/decision-traces/index.json` - Ensure fully indexed
+- `knowledge/domains/dbt-pipelines/decision-traces/synthesis_log.json` - Append run record
 
 ### Step 7: Report Results
 

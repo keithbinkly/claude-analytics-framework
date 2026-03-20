@@ -91,6 +91,8 @@ workspace/*
 # Allow platform documentation (not a submodule)
 !knowledge/platform/
 !knowledge/platform/**
+knowledge/platform/**/__pycache__/
+knowledge/platform/**/*.pyc
 
 # Allow applications documentation (not a submodule)
 !knowledge/applications/
@@ -119,3 +121,13 @@ dbt-enterprise/
 dbt-agent/
 data-centered/
 .dmux/
+
+# Local/session artifacts
+.dmux-hooks/
+.specstory/
+.tmp_dbt_query/
+.dots/
+personal_screenshots/
+test-results/
+thoughts/shared/workstreams/spend-analytics-verification.yaml
+knowledge/knowledge/

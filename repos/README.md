@@ -5,7 +5,6 @@
 These repos are not analytics-workspace-owned content. They are separate repositories that analytics-workspace needs to coordinate with:
 
 - `dbt-enterprise`
-- `dbt-agent`
 
 ## Purpose
 
@@ -37,13 +36,11 @@ Use these files for the authoritative routing model:
 The current intended linked repos are:
 
 - `../dbt-enterprise`
-- `../dbt-agent`
 
 Those paths may later be replaced by a more team-safe bootstrap mechanism, but the workflow model stays the same:
 
 - analytics-workspace is the shared control plane
 - `dbt-enterprise` is the dbt execution target
-- `dbt-agent` is the intact migration source and fallback reference
 
 ## Bootstrap
 

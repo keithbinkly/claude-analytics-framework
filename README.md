@@ -42,14 +42,10 @@ analytics-workspace coordinates work across these linked repos:
 2. `dbt-enterprise`
    Production dbt project. Run dbt CLI here, not from workspace root.
 
-3. `dbt-agent`
-   Current operational reference and migration source. It remains intact while useful assets are copied into analytics-workspace over time.
-
 ## Current Migration Model
 
 The migration is non-destructive:
 
-- `dbt-agent` stays fully usable
 - analytics-workspace grows by copy-promoting the highest-leverage shared assets
 - legacy analytics-workspace assets should only be archived after replacements exist
 - promoted assets should declare ownership metadata
@@ -94,13 +90,11 @@ After changing MCP configuration, restart Claude Code if you expect MCP server d
 
 - start in analytics-workspace for manifests, planning docs, and promoted shared assets
 - route into `dbt-enterprise` for dbt CLI execution
-- consult `dbt-agent` if the needed capability has not yet been promoted
 
 ### Run QA
 
 - use analytics-workspace workflow docs or promoted QA assets if available
 - inspect the model and project-local constraints in `dbt-enterprise`
-- fall back to `dbt-agent` reference material where needed
 
 ### Contribute shared knowledge
 
@@ -148,17 +142,11 @@ analytics-workspace/
 - seeds
 - project-local dbt docs
 
-### `dbt-agent`
-
-- intact migration-source/reference material
-- not-yet-promoted agent logic
-- historical shared workflow content
-
 ## Current Priorities
 
 1. Make analytics-workspace usable as the shared workspace root.
 2. Support non-Claude agents as first-class readers.
-3. Promote the first high-leverage slice from `dbt-agent`.
+3. Promote the next high-leverage shared asset into analytics-workspace.
 4. Archive outdated analytics-workspace content only after replacement exists.
 
 ## More Detail
